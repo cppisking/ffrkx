@@ -2,8 +2,14 @@ import csv
 from pkg_resources import resource_stream
 import heapq
 import mysql.connector
+import json
 
 import command_line
+
+def json_decode(string):
+    """Windows likely does not have utf8 as the system encoding and Python is
+    too stubborn to provide a sensible default."""
+    return json.loads(string.decode('utf-8'))
 
 class Equipment(dict):
     def __init__(self, sourcedict):
