@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "proxy", "proxy\proxy.pyproj", "{F6D24CF5-BE43-41FE-9129-705C1A42DEF3}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "dbwriter", "dbwriter\dbwriter.pyproj", "{06882118-2BAE-4954-A6D8-3F182559B2A1}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "proto", "proto\proto.pyproj", "{3131B234-DC70-472A-9DAB-A84DB8494A01}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "compile_proto", "proto\compile_proto.vcxproj", "{06016391-52CE-451C-8DC0-B23C400C7B29}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|Win32 = Debug|Win32
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F6D24CF5-BE43-41FE-9129-705C1A42DEF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6D24CF5-BE43-41FE-9129-705C1A42DEF3}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F6D24CF5-BE43-41FE-9129-705C1A42DEF3}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{F6D24CF5-BE43-41FE-9129-705C1A42DEF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6D24CF5-BE43-41FE-9129-705C1A42DEF3}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{F6D24CF5-BE43-41FE-9129-705C1A42DEF3}.Release|Win32.ActiveCfg = Release|Any CPU
+		{06882118-2BAE-4954-A6D8-3F182559B2A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06882118-2BAE-4954-A6D8-3F182559B2A1}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{06882118-2BAE-4954-A6D8-3F182559B2A1}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{06882118-2BAE-4954-A6D8-3F182559B2A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06882118-2BAE-4954-A6D8-3F182559B2A1}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{06882118-2BAE-4954-A6D8-3F182559B2A1}.Release|Win32.ActiveCfg = Release|Any CPU
+		{3131B234-DC70-472A-9DAB-A84DB8494A01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3131B234-DC70-472A-9DAB-A84DB8494A01}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3131B234-DC70-472A-9DAB-A84DB8494A01}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{3131B234-DC70-472A-9DAB-A84DB8494A01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3131B234-DC70-472A-9DAB-A84DB8494A01}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{3131B234-DC70-472A-9DAB-A84DB8494A01}.Release|Win32.ActiveCfg = Release|Any CPU
+		{06016391-52CE-451C-8DC0-B23C400C7B29}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{06016391-52CE-451C-8DC0-B23C400C7B29}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{06016391-52CE-451C-8DC0-B23C400C7B29}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{06016391-52CE-451C-8DC0-B23C400C7B29}.Debug|Win32.ActiveCfg = Debug|Win32
+		{06016391-52CE-451C-8DC0-B23C400C7B29}.Debug|Win32.Build.0 = Debug|Win32
+		{06016391-52CE-451C-8DC0-B23C400C7B29}.Release|Any CPU.ActiveCfg = Release|Win32
+		{06016391-52CE-451C-8DC0-B23C400C7B29}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{06016391-52CE-451C-8DC0-B23C400C7B29}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{06016391-52CE-451C-8DC0-B23C400C7B29}.Release|Win32.ActiveCfg = Release|Win32
+		{06016391-52CE-451C-8DC0-B23C400C7B29}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

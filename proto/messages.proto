@@ -1,0 +1,6 @@
+package ffrkx.proto;
+
+message FFRKResponse {
+  required string request_path = 1;
+  required string content = 2;
+};
