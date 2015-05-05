@@ -1,7 +1,10 @@
+import errno
 import socket
 import struct
+import sys
 
-import messages_pb2
+import ffrkx.db_server as db_server
+import ffrkx.proto.messages_pb2 as ffrkx_proto
 
 def recv_exactly(sock, length):
     chunks = []
@@ -18,19 +21,28 @@ def recv_exactly(sock, length):
             bytes_received += chunk_len
         return ''.join(chunks)
     except Exception as err:
-        print "An exception occurred while reading the socket. %s" % err.message
+        print "An exception occurred while reading %s bytes from the socket. %s" % (length, err.message)
+        raise
 
 def wait_for_connection():
     proxy_listener = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     proxy_listener.bind(('', 50007))
     proxy_listener.listen(5)
+    proxy_listener.settimeout(1)
     print "Waiting for connection from proxy server..."
-    conn, addr = proxy_listener.accept()
-    return conn
+    while True:
+        try:
+            conn, addr = proxy_listener.accept()
+            conn.setblocking(1)
+            return conn
+        except KeyboardInterrupt:
+            raise
+        except socket.error:
+            pass
 
 def message_loop(sock):
+    print "Connected to proxy server, entering message loop..."
     while True:
-        print "Connected to proxy server, waiting for message..."
         try:
             dataLen = struct.unpack("I", recv_exactly(sock, 4))[0]
             print "Received 4 byte length.  Expecting %s byte message" % dataLen
@@ -39,7 +51,7 @@ def message_loop(sock):
                 print "Data is None, what?"
             else:
                 print "received %s bytes of data" % len(data)
-            message = messages_pb2.FFRKResponse()
+            message = ffrkx_proto.FFRKResponse()
             message.ParseFromString(data)
             print message.request_path
             pass

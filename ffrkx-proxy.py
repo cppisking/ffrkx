@@ -3,17 +3,13 @@ import socket
 import sys
 import traceback
 
-import FFRKHandler
-import options
+import ffrkx.proxy.FFRKHandler as FFRKHandler
 
 from libmproxy import proxy
 from libmproxy.proxy.server import ProxyServer
 
 try:
-    # This is just here so that --help returns the arguments
-    options.parse_args(sys.argv)
-
-    config = proxy.ProxyConfig(port=options.opts.port)
+    config = proxy.ProxyConfig(port=8080)
     host = ProxyServer(config)
 
     print "Configure your phone's proxy to point to this computer, then visit mitm.it"
@@ -24,7 +20,5 @@ try:
     m = FFRKHandler.Handler(host)
     m.run()
 except:
-    print "Got an exception!"
     print traceback.format_exc()
-    print "Just printed the exception"
     sys.exit(0)

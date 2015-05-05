@@ -8,37 +8,50 @@ from threading import Event, Thread
 from libmproxy import controller
 from libmproxy.protocol.http import decoded, HTTPResponse
 
-import messages_pb2
+import ffrkx.proto.messages_pb2 as ffrkx_proto
 
 class Handler(controller.Master):
     def __init__(self, server):
         controller.Master.__init__(self, server)
 
-        self._db_socket = None
+        self._shutdown_event = Event()
         self._db_connected_event = Event()
 
-        self._listener_thread = Thread(target = self.connect_to_db_server)
-        self._listener_thread.start()
+        self.spawn_db_listener_thread()
 
     def join_listener_thread(self):
         if self._listener_thread:
             self._listener_thread.join()
         self._listener_thread = None
 
+    def shutdown(self):
+        self._shutdown_event.set()
+        self.join_listener_thread()
+        controller.Master.shutdown(self)
+
+    def spawn_db_listener_thread(self):
+        self._db_connected_event.clear()
+        self._db_socket = None
+        self._listener_thread = Thread(target = self.connect_to_db_server)
+        self._listener_thread.start()
+
     def connect_to_db_server(self):
         try:
-            print "Connecting to db server on 127.0.0.1:50007"
-            self._db_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            print "Connecting to db server on localhost:50007"
             while True:
+                if self._shutdown_event.is_set():
+                    return
+
                 try:
-                    self._db_socket.connect(('localhost', 50007))
-                except socket.error as err:
-                    if type(err.args) != tuple or err[0] != errno.ECONNREFUSED:
-                        raise
-                else:
+                    self._db_socket = socket.create_connection(('localhost', 50007))
                     print "Connected to db server, setting event..."
                     self._db_connected_event.set()
                     return
+                except socket.error as err:
+                   # ECONNREFUSED means nobody is listening, and ETIMEDOUT means it timed out.
+                   # In either case, keep trying until we get a connection or we try to shutdown.
+                    if (err.errno != errno.ECONNREFUSED) and (err.errno != errno.ETIMEDOUT):
+                        raise
         except Exception as err:
             print "An unknown error occurred connecting to localhost:50007.  %s" % err.message
 
@@ -51,7 +64,7 @@ class Handler(controller.Master):
         except:
             print "Exception received, shutting down..."
             self.shutdown()
-            join_listener_thread(self)
+            raise
 
     def handle_request(self, flow):
         flow.reply()
@@ -68,18 +81,16 @@ class Handler(controller.Master):
         print "Received FFRK event, processing..."
         try:
             with decoded(flow.response):
-                message = messages_pb2.FFRKResponse()
+                message = ffrkx_proto.FFRKResponse()
                 message.request_path = flow.request.path
                 message.content = unicode(flow.response.content, "utf-8")
                 data = message.SerializeToString()
                 print "About to send %s byte message" % len(data)
                 self._db_socket.sendall(struct.pack("I", len(data)))
                 self._db_socket.sendall(data)
-        except socket.error as err:
-            print "An error occurred sending information to the db socket (%s).  Closing db thread..." % err.message
-            self._db_connected_event.clear()
-            self._db_socket = None
-            listener_thread = Thread(target = self.listen_for_db_connection)
-            listener_thread.start()
-        print "Finished handling request, returning..."
+        except KeyboardInterrupt:
+            raise
+        except Exception as err:
+            print "An error occurred sending information to the db socket (%s).  Closing connection..." % err.message
+            self.spawn_db_listener_thread()
         flow.reply()
