@@ -9,7 +9,7 @@ import traceback
 from libmproxy import controller
 from libmproxy.protocol.http import decoded, HTTPResponse
 
-import ffrkx.proto.messages_pb2 as ffrkx_proto
+from ffrkx.proto import messages_pb2
 
 class FFRKXProxy(controller.Master):
     __default_handler = None
@@ -82,17 +82,20 @@ class FFRKXProxy(controller.Master):
         flow.reply()
 
     def send_to_db_server(self, message):
+        assert(isinstance(message, messages_pb2.FFRKProxyMessage))
         data = message.SerializeToString()
         if self._db_connected_event.is_set():
             print "About to send %s byte message" % len(data)
             self._db_socket.sendall(struct.pack("I", len(data)))
             self._db_socket.sendall(data)
 
+    def send_battle_encounter(self, message):
+        assert(isinstance(message, messages_pb2.BattleEncounterMsg))
+        proxy_msg = messages_pb2.FFRKProxyMessage()
+        proxy_msg.battle_encounter.CopyFrom(message)
+        self.send_to_db_server(proxy_msg)
+
     def handle_response(self, flow):
-        #if not self._db_connected_event.is_set():
-        #    print "The event is not set, returning..."
-        #    flow.reply()
-        #    return
         host = flow.request.pretty_host(hostheader=True)
         if not host.endswith('ffrk.denagames.com'):
             print "Received non-FFRK event (%s), returning..." % host

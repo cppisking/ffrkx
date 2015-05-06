@@ -52,15 +52,10 @@ def handle_default_response(path):
     print path
 
 def handle_win_battle(proxy, path, data):
-    if active_battle != None:
-        proxy.send_to_db_server(active_battle)
-        print "Sent drop information for battle #{0} ({1} item(s))".format(active_battle.battle_id, len(active_battle.drop_list))
-    pass
+    proxy.send_battle_encounter(active_battle)
 
 def handle_escape_battle(proxy, path, data):
-    if active_battle != None:
-        proxy.send_to_db_server(active_battle)
-    pass
+    proxy.send_battle_encounter(active_battle)
 
 def record_drop_for_active_battle(item_id):
     global active_battle
@@ -95,10 +90,10 @@ def handle_get_battle_init_data(proxy, path, data):
             enemyname = get_display_name(enemy)
             for drop in get_drops(enemy):
                 if "item_id" in drop:
-                    kind = "orb id#" if drop["type"] == 51 else "equipment id#"
                     item_id = int(drop["item_id"])
+                    kind = "orb id#" if drop["type"] == 51 else "equipment id#"
                     record_drop_for_active_battle(item_id)
-                    item = ITEMS.get(item_id, kind + item_id)
+                    item = ITEMS.get(item_id, kind + str(item_id))
                     itemname = "{0}* {1}".format(drop.get("rarity", "1"), item)
                 else:
                     itemname = "{0} gold".format(drop.get("amount", 0))

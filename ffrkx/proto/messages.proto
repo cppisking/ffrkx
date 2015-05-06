@@ -21,3 +21,8 @@ message DungeonEntryMsg {
   optional uint32 type = 4;
   optional uint32 difficulty = 5;
 };
+
+message FFRKProxyMessage {
+  optional BattleEncounterMsg battle_encounter = 1;
+  optional DungeonEntryMsg dungeon_entry = 2;
+};

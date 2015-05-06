@@ -18,7 +18,7 @@ _sym_db = _symbol_database.Default()
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='messages.proto',
   package='ffrkx.proto',
-  serialized_pb=_b('\n\x0emessages.proto\x12\x0b\x66\x66rkx.proto\"+\n\tDropEvent\x12\x0f\n\x07item_id\x18\x01 \x02(\r\x12\r\n\x05\x63ount\x18\x02 \x02(\r\"\x8c\x01\n\x12\x42\x61ttleEncounterMsg\x12\x11\n\tbattle_id\x18\x01 \x02(\r\x12\x12\n\ndungeon_id\x18\x02 \x01(\r\x12\x13\n\x0b\x62\x61ttle_name\x18\x03 \x01(\t\x12\x0f\n\x07stamina\x18\x04 \x01(\r\x12)\n\tdrop_list\x18\x05 \x03(\x0b\x32\x16.ffrkx.proto.DropEvent\"g\n\x0f\x44ungeonEntryMsg\x12\x12\n\ndungeon_id\x18\x01 \x02(\r\x12\x10\n\x08world_id\x18\x02 \x01(\r\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x0c\n\x04type\x18\x04 \x01(\r\x12\x12\n\ndifficulty\x18\x05 \x01(\r')
+  serialized_pb=_b('\n\x0emessages.proto\x12\x0b\x66\x66rkx.proto\"+\n\tDropEvent\x12\x0f\n\x07item_id\x18\x01 \x02(\r\x12\r\n\x05\x63ount\x18\x02 \x02(\r\"\x8c\x01\n\x12\x42\x61ttleEncounterMsg\x12\x11\n\tbattle_id\x18\x01 \x02(\r\x12\x12\n\ndungeon_id\x18\x02 \x01(\r\x12\x13\n\x0b\x62\x61ttle_name\x18\x03 \x01(\t\x12\x0f\n\x07stamina\x18\x04 \x01(\r\x12)\n\tdrop_list\x18\x05 \x03(\x0b\x32\x16.ffrkx.proto.DropEvent\"g\n\x0f\x44ungeonEntryMsg\x12\x12\n\ndungeon_id\x18\x01 \x02(\r\x12\x10\n\x08world_id\x18\x02 \x01(\r\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x0c\n\x04type\x18\x04 \x01(\r\x12\x12\n\ndifficulty\x18\x05 \x01(\r\"\x82\x01\n\x10\x46\x46RKProxyMessage\x12\x39\n\x10\x62\x61ttle_encounter\x18\x01 \x01(\x0b\x32\x1f.ffrkx.proto.BattleEncounterMsg\x12\x33\n\rdungeon_entry\x18\x02 \x01(\x0b\x32\x1c.ffrkx.proto.DungeonEntryMsg')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -177,10 +177,50 @@ _DUNGEONENTRYMSG = _descriptor.Descriptor(
   serialized_end=322,
 )
 
+
+_FFRKPROXYMESSAGE = _descriptor.Descriptor(
+  name='FFRKProxyMessage',
+  full_name='ffrkx.proto.FFRKProxyMessage',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='battle_encounter', full_name='ffrkx.proto.FFRKProxyMessage.battle_encounter', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='dungeon_entry', full_name='ffrkx.proto.FFRKProxyMessage.dungeon_entry', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=325,
+  serialized_end=455,
+)
+
 _BATTLEENCOUNTERMSG.fields_by_name['drop_list'].message_type = _DROPEVENT
+_FFRKPROXYMESSAGE.fields_by_name['battle_encounter'].message_type = _BATTLEENCOUNTERMSG
+_FFRKPROXYMESSAGE.fields_by_name['dungeon_entry'].message_type = _DUNGEONENTRYMSG
 DESCRIPTOR.message_types_by_name['DropEvent'] = _DROPEVENT
 DESCRIPTOR.message_types_by_name['BattleEncounterMsg'] = _BATTLEENCOUNTERMSG
 DESCRIPTOR.message_types_by_name['DungeonEntryMsg'] = _DUNGEONENTRYMSG
+DESCRIPTOR.message_types_by_name['FFRKProxyMessage'] = _FFRKPROXYMESSAGE
 
 DropEvent = _reflection.GeneratedProtocolMessageType('DropEvent', (_message.Message,), dict(
   DESCRIPTOR = _DROPEVENT,
@@ -202,6 +242,13 @@ DungeonEntryMsg = _reflection.GeneratedProtocolMessageType('DungeonEntryMsg', (_
   # @@protoc_insertion_point(class_scope:ffrkx.proto.DungeonEntryMsg)
   ))
 _sym_db.RegisterMessage(DungeonEntryMsg)
+
+FFRKProxyMessage = _reflection.GeneratedProtocolMessageType('FFRKProxyMessage', (_message.Message,), dict(
+  DESCRIPTOR = _FFRKPROXYMESSAGE,
+  __module__ = 'messages_pb2'
+  # @@protoc_insertion_point(class_scope:ffrkx.proto.FFRKProxyMessage)
+  ))
+_sym_db.RegisterMessage(FFRKProxyMessage)
 
 
 # @@protoc_insertion_point(module_scope)
