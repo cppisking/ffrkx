@@ -9,20 +9,20 @@ import ffrkx.proto.messages_pb2 as ffrkx_proto
 def recv_exactly(sock, length):
     chunks = []
     bytes_received = 0
-    try:
-        while bytes_received < length:
-            chunk = sock.recv(min(length - bytes_received, 2048))
-            chunk_len = len(chunk)
-            print "Received %s byte chunk" % chunk_len
-            if chunk == '':
-                print "Raising runtime error, socket is broken"
-                raise RuntimeError("socket connection broken")
-            chunks.append(chunk)
-            bytes_received += chunk_len
-        return ''.join(chunks)
-    except Exception as err:
-        print "An exception occurred while reading %s bytes from the socket. %s" % (length, err.message)
-        raise
+    while True:
+        try:
+            while bytes_received < length:
+                chunk = sock.recv(min(length - bytes_received, 2048))
+                chunk_len = len(chunk)
+                print "Received %s byte chunk" % chunk_len
+                if chunk == '':
+                    print "Raising runtime error, socket is broken"
+                    raise RuntimeError("socket connection broken")
+                chunks.append(chunk)
+                bytes_received += chunk_len
+            return ''.join(chunks)
+        except socket.error as err:
+            pass
 
 def wait_for_connection():
     proxy_listener = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -33,7 +33,6 @@ def wait_for_connection():
     while True:
         try:
             conn, addr = proxy_listener.accept()
-            conn.setblocking(1)
             return conn
         except KeyboardInterrupt:
             raise
@@ -42,6 +41,7 @@ def wait_for_connection():
 
 def message_loop(sock):
     print "Connected to proxy server, entering message loop..."
+    sock.settimeout(5)
     while True:
         try:
             dataLen = struct.unpack("I", recv_exactly(sock, 4))[0]

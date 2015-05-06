@@ -1,6 +1,23 @@
 package ffrkx.proto;
 
-message FFRKResponse {
-  required string request_path = 1;
-  required string content = 2;
+message DropEvent {
+  required uint32 item_id = 1;
+  required uint32 count = 2;
+};
+
+message BattleEncounterMsg {
+  required uint32 battle_id = 1;
+  optional uint32 dungeon_id = 2;
+  optional string battle_name = 3;
+  optional uint32 stamina = 4;
+
+  repeated DropEvent drop_list = 5;
+};
+
+message DungeonEntryMsg {
+  required uint32 dungeon_id = 1;
+  optional uint32 world_id = 2;
+  optional string name = 3;
+  optional uint32 type = 4;
+  optional uint32 difficulty = 5;
 };

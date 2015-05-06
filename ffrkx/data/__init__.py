@@ -22,12 +22,12 @@ def best_equipment(series, heap, stat, n=3):
 
 def load_dict(path):
     res = dict()
-    rfile = resource_stream("recordpeeker", path)
+    rfile = resource_stream(__name__, path)
     reader = csv.reader(rfile)
     for row in reader:
         res[row[0]] = row[1]
     return res
 
-ITEMS = load_dict("data/items.csv")
-BATTLES = load_dict("data/battles.csv")
-DUNGEONS = load_dict("data/dungeons.csv")
+ITEMS = load_dict("items.csv")
+BATTLES = load_dict("battles.csv")
+DUNGEONS = load_dict("dungeons.csv")

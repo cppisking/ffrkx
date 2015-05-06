@@ -5,14 +5,13 @@ import socket
 import heapq
 from collections import OrderedDict, defaultdict
 
+from ffrkx.proto import messages_pb2
 from libmproxy.protocol.http import decoded
 from tabulate import tabulate
 
-from csv_data import Equipment, ITEMS, BATTLES, DUNGEONS, slicedict, best_equipment
-from dispatcher import Dispatcher
-import options
+from ffrkx.data import Equipment, ITEMS, BATTLES, DUNGEONS, slicedict, best_equipment
 
-pending_drop_info = None
+active_battle = None
 
 def get_display_name(enemy):
     for child in enemy["children"]:
@@ -24,58 +23,69 @@ def get_drops(enemy):
         for drop in child["drop_item_list"]:
             yield drop
 
-def commit_pending_drop_info():
-    global pending_drop_info
-    if pending_drop_info == None:
-        print "There is no pending drop info, exiting..."
-        return
+#def commit_battle_info():
+#    global pending_drop_info
+#    if pending_drop_info == None:
+#        print "There is no pending drop info, exiting..."
+#        return
 
-    import database
-    battle = pending_drop_info.get('battle_id', None)
-    if battle is not None:
-        try:
-            database.trans_begin()
-            database.record_battle_encounter(battle)
+#    battle = pending_drop_info.get('battle_id', None)
+#    if battle is not None:
+#        try:
+#            database.trans_begin()
+#            database.record_battle_encounter(battle)
 
-            items = pending_drop_info['drops']
-            for item in items:
-                count = items[item]
-                database.record_drop_event(battle, item, count)
-            database.trans_commit()
-            print "Successfully committed drop information for %s items" % len(items)
-        except Exception as e:
-            print "An error occurred committing the drop information.  Rolling back"
-            database.trans_rollback()
+#            items = pending_drop_info['drops']
+#            for item in items:
+#                count = items[item]
+#                database.record_drop_event(battle, item, count)
+#            database.trans_commit()
+#            print "Successfully committed drop information for %s items" % len(items)
+#        except Exception as e:
+#            print "An error occurred committing the drop information.  Rolling back"
+#            database.trans_rollback()
 
-    print "The drop information was reset to None"
-    pending_drop_info = None
+#    print "The drop information was reset to None"
+#    pending_drop_info = None
 
-def handle_update_user_session(data):
-    json_dump(data)
+def handle_default_response(path):
+    print path
 
-def handle_battle_win(data):
-    commit_pending_drop_info()
-
-def handle_battle_escape(data):
-    commit_pending_drop_info()
-
-def add_pending_drop_data(item_id, enemy_id):
-    global pending_drop_info
-    drop_data = pending_drop_info['drops']
-    result = drop_data.get(item_id, 0)
-    drop_data[item_id] = result+1
+def handle_win_battle(proxy, path, data):
+    if active_battle != None:
+        proxy.send_to_db_server(active_battle)
+        print "Sent drop information for battle #{0} ({1} item(s))".format(active_battle.battle_id, len(active_battle.drop_list))
     pass
 
-def handle_get_battle_init_data(data):
-    global pending_drop_info
+def handle_escape_battle(proxy, path, data):
+    if active_battle != None:
+        proxy.send_to_db_server(active_battle)
+    pass
+
+def record_drop_for_active_battle(item_id):
+    global active_battle
+    if active_battle == None:
+        return
+    drop_event = next((x for x in active_battle.drop_list if x.item_id == item_id), None)
+    if drop_event == None:
+        drop_event = active_battle.drop_list.add()
+        drop_event.count = 1
+        drop_event.item_id = item_id
+    else:
+        ++drop_event.count
+    pass
+
+def handle_get_battle_init_data(proxy, path, data):
+    global active_battle
     battle_data = data["battle"]
     battle_id = battle_data["battle_id"]
 
-    battle_name = BATTLES.get(battle_id, "battle #" + battle_id)
-    print "Entering {0}".format(battle_name)
+    print "Entering Battle #{0}".format(battle_id)
     all_rounds_data = battle_data['rounds']
     tbl = [["rnd", "enemy", "drop"]]
-    pending_drop_info = {'battle_id': battle_id, 'drops': {}}
+    active_battle = messages_pb2.BattleEncounterMsg()
+    active_battle.battle_id = int(battle_id)
+
     for round_data in all_rounds_data:
         round = round_data.get("round", "???")
         for round_drop in round_data["drop_item_list"]:
@@ -86,8 +96,9 @@ def handle_get_battle_init_data(data):
             for drop in get_drops(enemy):
                 if "item_id" in drop:
                     kind = "orb id#" if drop["type"] == 51 else "equipment id#"
-                    add_pending_drop_data(drop["item_id"], enemy["id"])
-                    item = ITEMS.get(drop["item_id"], kind + drop["item_id"])
+                    item_id = int(drop["item_id"])
+                    record_drop_for_active_battle(item_id)
+                    item = ITEMS.get(item_id, kind + item_id)
                     itemname = "{0}* {1}".format(drop.get("rarity", "1"), item)
                 else:
                     itemname = "{0} gold".format(drop.get("amount", 0))
@@ -97,9 +108,9 @@ def handle_get_battle_init_data(data):
                 tbl.append([round, enemyname, "nothing"])
     print tabulate(tbl, headers="firstrow")
     print ""
-    print "Created drop information %s for battle id %s" % (pending_drop_info, battle_id)
+    print "Created drop information for battle id %s" % battle_id
 
-def handle_party_list(data):
+def handle_party_list(proxy, path, data):
     wanted = "name series_id acc atk def eva matk mdef mnd series_acc series_atk series_def series_eva series_matk series_mdef series_mnd"
     topn = OrderedDict()
     topn["atk"] = 5
@@ -130,7 +141,7 @@ def handle_party_list(data):
         print tabulate(tbl, headers="firstrow")
         print ""
 
-def handle_dungeon_list(data):
+def handle_dungeon_list(proxy, path, data):
     tbl = []
     world_data = data["world"]
     world_id = world_data["id"]
@@ -147,7 +158,7 @@ def handle_dungeon_list(data):
     tbl.insert(0, ["Name", "ID", "Difficulty", "Type"])
     print tabulate(tbl, headers="firstrow")
 
-def handle_battle_list(data):
+def handle_battle_list(proxy, path, data):
     tbl = [["Id", "Dungeon", "Name", "Stamina"]]
     dungeon_data = data["dungeon_session"]
     dungeon_id = dungeon_data["dungeon_id"]
@@ -160,38 +171,9 @@ def handle_battle_list(data):
         tbl.append([battle["id"], dungeon_id, battle["name"], battle["stamina"]])
     print tabulate(tbl, headers="firstrow")
 
-def handle_survival_event(data):
+def handle_enter_survival_event(proxy, path, data):
     # XXX: This maybe works for all survival events...
     enemy = data.get("enemy", dict(name="???", memory_factor="0"))
     name = enemy.get("name", "???")
     factor = float(enemy.get("memory_factor", "0"))
     print "Your next opponent is {0} (x{1:.1f})".format(name, factor)
-
-def start(context, argv):
-
-    global dp
-    dp = Dispatcher('ffrk.denagames.com')
-    [dp.register(path, function) for path, function in handlers]
-    [dp.ignore(path, regex) for path, regex in ignored_requests]
-
-handlers = [
-    ('/get_battle_init_data' , handle_get_battle_init_data),
-    ('/dff/party/list', handle_party_list),
-    ('/dff/world/dungeons', handle_dungeon_list),
-    ('/dff/world/battles', handle_battle_list),
-    ('/dff/event/coliseum/6/get_data', handle_survival_event),
-    ('/dff/battle/win', handle_battle_win),
-    ('/dff/battle/escape', handle_battle_escape),
-    ('/win_battle', handle_battle_win),         # Challenge event wins
-    ('/escape_battle', handle_battle_escape),   # Challenge event escapes
-]
-
-ignored_requests = [
-    ('/dff/', True),
-    ('/dff/splash', False),
-    ('/dff/?timestamp', False),
-]
-
-def response(context, flow):
-    global dp
-    dp.handle(flow)

@@ -18,31 +18,31 @@ _sym_db = _symbol_database.Default()
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='messages.proto',
   package='ffrkx.proto',
-  serialized_pb=_b('\n\x0emessages.proto\x12\x0b\x66\x66rkx.proto\"5\n\x0c\x46\x46RKResponse\x12\x14\n\x0crequest_path\x18\x01 \x02(\t\x12\x0f\n\x07\x63ontent\x18\x02 \x02(\t')
+  serialized_pb=_b('\n\x0emessages.proto\x12\x0b\x66\x66rkx.proto\"+\n\tDropEvent\x12\x0f\n\x07item_id\x18\x01 \x02(\r\x12\r\n\x05\x63ount\x18\x02 \x02(\r\"\x8c\x01\n\x12\x42\x61ttleEncounterMsg\x12\x11\n\tbattle_id\x18\x01 \x02(\r\x12\x12\n\ndungeon_id\x18\x02 \x01(\r\x12\x13\n\x0b\x62\x61ttle_name\x18\x03 \x01(\t\x12\x0f\n\x07stamina\x18\x04 \x01(\r\x12)\n\tdrop_list\x18\x05 \x03(\x0b\x32\x16.ffrkx.proto.DropEvent\"g\n\x0f\x44ungeonEntryMsg\x12\x12\n\ndungeon_id\x18\x01 \x02(\r\x12\x10\n\x08world_id\x18\x02 \x01(\r\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x0c\n\x04type\x18\x04 \x01(\r\x12\x12\n\ndifficulty\x18\x05 \x01(\r')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
 
-_FFRKRESPONSE = _descriptor.Descriptor(
-  name='FFRKResponse',
-  full_name='ffrkx.proto.FFRKResponse',
+_DROPEVENT = _descriptor.Descriptor(
+  name='DropEvent',
+  full_name='ffrkx.proto.DropEvent',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='request_path', full_name='ffrkx.proto.FFRKResponse.request_path', index=0,
-      number=1, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
+      name='item_id', full_name='ffrkx.proto.DropEvent.item_id', index=0,
+      number=1, type=13, cpp_type=3, label=2,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='content', full_name='ffrkx.proto.FFRKResponse.content', index=1,
-      number=2, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
+      name='count', full_name='ffrkx.proto.DropEvent.count', index=1,
+      number=2, type=13, cpp_type=3, label=2,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -58,17 +58,150 @@ _FFRKRESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=31,
-  serialized_end=84,
+  serialized_end=74,
 )
 
-DESCRIPTOR.message_types_by_name['FFRKResponse'] = _FFRKRESPONSE
 
-FFRKResponse = _reflection.GeneratedProtocolMessageType('FFRKResponse', (_message.Message,), dict(
-  DESCRIPTOR = _FFRKRESPONSE,
+_BATTLEENCOUNTERMSG = _descriptor.Descriptor(
+  name='BattleEncounterMsg',
+  full_name='ffrkx.proto.BattleEncounterMsg',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='battle_id', full_name='ffrkx.proto.BattleEncounterMsg.battle_id', index=0,
+      number=1, type=13, cpp_type=3, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='dungeon_id', full_name='ffrkx.proto.BattleEncounterMsg.dungeon_id', index=1,
+      number=2, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='battle_name', full_name='ffrkx.proto.BattleEncounterMsg.battle_name', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='stamina', full_name='ffrkx.proto.BattleEncounterMsg.stamina', index=3,
+      number=4, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='drop_list', full_name='ffrkx.proto.BattleEncounterMsg.drop_list', index=4,
+      number=5, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=77,
+  serialized_end=217,
+)
+
+
+_DUNGEONENTRYMSG = _descriptor.Descriptor(
+  name='DungeonEntryMsg',
+  full_name='ffrkx.proto.DungeonEntryMsg',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='dungeon_id', full_name='ffrkx.proto.DungeonEntryMsg.dungeon_id', index=0,
+      number=1, type=13, cpp_type=3, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='world_id', full_name='ffrkx.proto.DungeonEntryMsg.world_id', index=1,
+      number=2, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='ffrkx.proto.DungeonEntryMsg.name', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='type', full_name='ffrkx.proto.DungeonEntryMsg.type', index=3,
+      number=4, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='difficulty', full_name='ffrkx.proto.DungeonEntryMsg.difficulty', index=4,
+      number=5, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=219,
+  serialized_end=322,
+)
+
+_BATTLEENCOUNTERMSG.fields_by_name['drop_list'].message_type = _DROPEVENT
+DESCRIPTOR.message_types_by_name['DropEvent'] = _DROPEVENT
+DESCRIPTOR.message_types_by_name['BattleEncounterMsg'] = _BATTLEENCOUNTERMSG
+DESCRIPTOR.message_types_by_name['DungeonEntryMsg'] = _DUNGEONENTRYMSG
+
+DropEvent = _reflection.GeneratedProtocolMessageType('DropEvent', (_message.Message,), dict(
+  DESCRIPTOR = _DROPEVENT,
   __module__ = 'messages_pb2'
-  # @@protoc_insertion_point(class_scope:ffrkx.proto.FFRKResponse)
+  # @@protoc_insertion_point(class_scope:ffrkx.proto.DropEvent)
   ))
-_sym_db.RegisterMessage(FFRKResponse)
+_sym_db.RegisterMessage(DropEvent)
+
+BattleEncounterMsg = _reflection.GeneratedProtocolMessageType('BattleEncounterMsg', (_message.Message,), dict(
+  DESCRIPTOR = _BATTLEENCOUNTERMSG,
+  __module__ = 'messages_pb2'
+  # @@protoc_insertion_point(class_scope:ffrkx.proto.BattleEncounterMsg)
+  ))
+_sym_db.RegisterMessage(BattleEncounterMsg)
+
+DungeonEntryMsg = _reflection.GeneratedProtocolMessageType('DungeonEntryMsg', (_message.Message,), dict(
+  DESCRIPTOR = _DUNGEONENTRYMSG,
+  __module__ = 'messages_pb2'
+  # @@protoc_insertion_point(class_scope:ffrkx.proto.DungeonEntryMsg)
+  ))
+_sym_db.RegisterMessage(DungeonEntryMsg)
 
 
 # @@protoc_insertion_point(module_scope)

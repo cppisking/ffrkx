@@ -4,13 +4,25 @@ import re
 import socket
 import struct
 from threading import Event, Thread
+import traceback
 
 from libmproxy import controller
 from libmproxy.protocol.http import decoded, HTTPResponse
 
 import ffrkx.proto.messages_pb2 as ffrkx_proto
 
-class Handler(controller.Master):
+class FFRKXProxy(controller.Master):
+    __default_handler = None
+    __handlers = []
+
+    @staticmethod
+    def register_default_handler(handler):
+        FFRKXProxy.__default_handler = handler
+
+    @staticmethod
+    def register_handler(path, handler):
+        FFRKXProxy.__handlers.append((path, handler))
+
     def __init__(self, server):
         controller.Master.__init__(self, server)
 
@@ -69,28 +81,33 @@ class Handler(controller.Master):
     def handle_request(self, flow):
         flow.reply()
 
+    def send_to_db_server(self, message):
+        data = message.SerializeToString()
+        if self._db_connected_event.is_set():
+            print "About to send %s byte message" % len(data)
+            self._db_socket.sendall(struct.pack("I", len(data)))
+            self._db_socket.sendall(data)
+
     def handle_response(self, flow):
-        if not self._db_connected_event.is_set():
-            print "The event is not set, returning..."
-            flow.reply()
-            return
+        #if not self._db_connected_event.is_set():
+        #    print "The event is not set, returning..."
+        #    flow.reply()
+        #    return
         if not flow.request.pretty_host(hostheader=True).endswith('ffrk.denagames.com'):
             print "Received non-FFRK event, returning..."
             flow.reply()
             return
-        print "Received FFRK event, processing..."
         try:
-            with decoded(flow.response):
-                message = ffrkx_proto.FFRKResponse()
-                message.request_path = flow.request.path
-                message.content = unicode(flow.response.content, "utf-8")
-                data = message.SerializeToString()
-                print "About to send %s byte message" % len(data)
-                self._db_socket.sendall(struct.pack("I", len(data)))
-                self._db_socket.sendall(data)
+            print flow.request.path
+            handler = next((x[1] for x in FFRKXProxy.__handlers if x[0] in flow.request.path), None)
+            if handler != None:
+                with decoded(flow.response):
+                    data = json.loads(unicode(flow.response.content, "utf-8"))
+                    handler(self, flow.request.path, data)
         except KeyboardInterrupt:
             raise
         except Exception as err:
             print "An error occurred sending information to the db socket (%s).  Closing connection..." % err.message
+            traceback.print_exc()
             self.spawn_db_listener_thread()
         flow.reply()

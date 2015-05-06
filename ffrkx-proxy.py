@@ -3,7 +3,7 @@ import socket
 import sys
 import traceback
 
-import ffrkx.proxy.FFRKHandler as FFRKHandler
+from ffrkx.proxy.proxy import FFRKXProxy
 
 from libmproxy import proxy
 from libmproxy.proxy.server import ProxyServer
@@ -17,7 +17,7 @@ try:
     print "Record Peeker is listening on {0}:{1}, on these addresses:".format(host.address.host, host.address.port)
     print "Try entering the Party screen, or starting a battle."
 
-    m = FFRKHandler.Handler(host)
+    m = FFRKXProxy(host)
     m.run()
 except:
     print traceback.format_exc()
