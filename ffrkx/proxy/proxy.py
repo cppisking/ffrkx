@@ -93,8 +93,9 @@ class FFRKXProxy(controller.Master):
         #    print "The event is not set, returning..."
         #    flow.reply()
         #    return
-        if not flow.request.pretty_host(hostheader=True).endswith('ffrk.denagames.com'):
-            print "Received non-FFRK event, returning..."
+        host = flow.request.pretty_host(hostheader=True)
+        if not host.endswith('ffrk.denagames.com'):
+            print "Received non-FFRK event (%s), returning..." % host
             flow.reply()
             return
         try:
