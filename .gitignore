@@ -53,6 +53,9 @@ docs/_build/
 # PyBuilder
 target/
 
-# Python Tools for Visual Studio Project Files
+# Visual Studio folders and files
 *.pyproj
-
+*.opensdf
+*.sdf
+*.suo
+Debug/
