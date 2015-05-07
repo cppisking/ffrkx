@@ -9,6 +9,7 @@ class Database:
         try:
             self.DBCONN = mysql.connector.connect(user=user, password=password,
                                                   host=host, database=database)
+            log.log_message("Successfully connected to MySQL instance `{0}`".format(database))
         except err:
             log.log_exception("Unable to connect to MySQL")
             self.DBCONN = None

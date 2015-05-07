@@ -40,7 +40,7 @@ def record_drop_for_active_battle(item_id):
         drop_event.count = 1
         drop_event.item_id = item_id
     else:
-        ++drop_event.count
+        drop_event.count = drop_event.count + 1
     pass
 
 def handle_get_battle_init_data(proxy, path, data):

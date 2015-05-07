@@ -31,6 +31,6 @@ class DBTestServer:
             for i in xrange(0, distinct_item_count):
                 drop_event = battle_message.drop_list.add()
                 drop_event.item_id = random.choice(items)[0]
-                drop_event.count = random.randint(1, 3)
+                drop_event.count = random.randint(1,3)
 
             self.db.handle_message(message)

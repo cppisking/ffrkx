@@ -10,5 +10,5 @@ def log_message(str):
 def log_exception(message):
     exc_type = sys.exc_info()[0]
     exception = sys.exc_info()[1]
-    log_message("Exception '{1}' encountered: {2} (Args = {3})".format(exc_type.__name__, message, exception.args))
+    log_message("Exception '{0}' encountered: {1} (Args = {2})".format(exc_type.__name__, message, exception.args))
     pass
