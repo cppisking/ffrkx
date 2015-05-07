@@ -48,28 +48,32 @@ class Database:
     def record_list_dungeons(self, message):
         if not self.DBCONN:
             return
+        failures = 0
         with Transaction(self.DBCONN):
             for dungeon in message.dungeon_list:
                 try:
                     cursor = self.DBCONN.cursor();
                     with Cursor(cursor):
                         cursor.callproc("insert_dungeon_entry", (dungeon.id, message.world_id, dungeon.name, dungeon.type, dungeon.difficulty, message.synergy))
-                    log.log_message("Successfully committed entry for dungeon {0}".format(dungeon.id))
                 except:
                     log.log_exception("An error occurred inserting record for dungeon {0}".format(dungeon.id))
+                    failures = failures + 1
+        log.log_message("Committed {0} dungeon entries ({1} failed)".format(len(message.dunegon_list), failures))
 
     def record_list_battles(self, message):
         if not self.DBCONN:
             return
+        failures = 0
         with Transaction(self.DBCONN):
             for battle in message.battle_list:
                 try:
                     cursor = self.DBCONN.cursor();
                     with Cursor(cursor):
                         cursor.callproc("insert_battle_entry", (battle.id, message.dungeon_id, battle.name, battle.stamina))
-                    log.log_message("Successfully committed entry for battle {0}".format(battle.id))
                 except:
-                    log.log_exception("An error occurred inserting record for dungeon {0}".format(dungeon.id))
+                    failures = failures + 1
+                    log.log_exception("An error occurred inserting record for battle {0}".format(battle.id))
+        log.log_message("Committed {0} battle entries ({1} failed)".format(len(message.battle_list), failures))
 
     def handle_message(self, message):
         if message.HasField("battle_encounter"):
