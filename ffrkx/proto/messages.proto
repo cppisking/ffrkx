@@ -1,5 +1,18 @@
 package ffrkx.proto;
 
+message DungeonDetailsMsg {
+  required uint32 id = 1;
+  required string name = 2;
+  required uint32 type = 3;
+  required uint32 difficulty = 4;
+};
+
+message BattleDetailsMsg {
+  required uint32 id = 1;
+  required string name = 2;
+  required uint32 stamina = 3;
+};
+
 message DropEvent {
   required uint32 item_id = 1;
   required uint32 count = 2;
@@ -7,22 +20,23 @@ message DropEvent {
 
 message BattleEncounterMsg {
   required uint32 battle_id = 1;
-  optional uint32 dungeon_id = 2;
-  optional string battle_name = 3;
-  optional uint32 stamina = 4;
 
   repeated DropEvent drop_list = 5;
 };
 
-message DungeonEntryMsg {
+message ListDungeonsMsg {
+  optional uint32 world_id = 1;
+  optional uint32 synergy = 2;
+  repeated DungeonDetailsMsg dungeon_list = 3;
+};
+
+message ListBattlesMsg {
   required uint32 dungeon_id = 1;
-  optional uint32 world_id = 2;
-  optional string name = 3;
-  optional uint32 type = 4;
-  optional uint32 difficulty = 5;
+  repeated BattleDetailsMsg battle_list = 2;
 };
 
 message FFRKProxyMessage {
   optional BattleEncounterMsg battle_encounter = 1;
-  optional DungeonEntryMsg dungeon_entry = 2;
+  optional ListDungeonsMsg list_dungeons = 2;
+  optional ListBattlesMsg list_battles = 3;
 };

@@ -89,6 +89,18 @@ class FFRKXProxy(controller.Master):
         proxy_msg.battle_encounter.CopyFrom(message)
         self.send_to_db_server(proxy_msg)
 
+    def send_list_dungeons(self, message):
+        assert(isinstance(message, messages_pb2.ListDungeonsMsg))
+        proxy_msg = messages_pb2.FFRKProxyMessage()
+        proxy_msg.list_dungeons.CopyFrom(message)
+        self.send_to_db_server(proxy_msg)
+
+    def send_list_battles(self, message):
+        assert(isinstance(message, messages_pb2.ListBattlesMsg))
+        proxy_msg = messages_pb2.FFRKProxyMessage()
+        proxy_msg.list_battles.CopyFrom(message)
+        self.send_to_db_server(proxy_msg)
+
     def handle_response(self, flow):
         host = flow.request.pretty_host(hostheader=True)
         if not host.endswith('ffrk.denagames.com'):

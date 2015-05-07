@@ -114,29 +114,49 @@ def handle_dungeon_list(proxy, path, data):
     world_data = data["world"]
     world_id = world_data["id"]
     world_name = world_data["name"]
+    list_dungeons_msg = messages_pb2.ListDungeonsMsg()
+    list_dungeons_msg.world_id = int(world_id)
+
     "Dungeon List for {0} (id={1})".format(world_name, world_id)
     dungeons = data["dungeons"]
     for dungeon in dungeons:
         name = dungeon["name"]
         id = dungeon["id"]
         difficulty = dungeon["challenge_level"]
+
+        dungeon_details = list_dungeons_msg.dungeon_list.add()
+        dungeon_details.id = int(id)
+        dungeon_details.name = name
+        dungeon_details.difficulty = int(difficulty)
+        dungeon_details.type = int(dungeon["type"]) - 1
+
         type = "ELITE" if dungeon["type"] == 2 else "NORMAL"
         tbl.append([name, id, difficulty, type])
+    proxy.send_list_dungeons(list_dungeons_msg)
     tbl = sorted(tbl, key=lambda row : int(row[1]))
     tbl.insert(0, ["Name", "ID", "Difficulty", "Type"])
     print tabulate(tbl, headers="firstrow")
 
 def handle_battle_list(proxy, path, data):
-    tbl = [["Id", "Dungeon", "Name", "Stamina"]]
     dungeon_data = data["dungeon_session"]
     dungeon_id = dungeon_data["dungeon_id"]
     dungeon_name = dungeon_data["name"]
     dungeon_type = int(dungeon_data["type"])
+
+    list_battles_msg = messages_pb2.ListBattlesMsg()
+    list_battles_msg.dungeon_id = int(dungeon_id)
+
+    tbl = [["Id", "Dungeon", "Name", "Stamina"]]
     world_id = dungeon_data["world_id"]
     print "Entering dungeon {0} ({1})".format(dungeon_name, "Elite" if dungeon_type==2 else "Normal")
     battles = data["battles"]
     for battle in battles:
+        battle_details_msg = list_battles_msg.battle_list.add()
+        battle_details_msg.id = int(battle["id"])
+        battle_details_msg.name = battle["name"]
+        battle_details_msg.stamina = int(battle["stamina"])
         tbl.append([battle["id"], dungeon_id, battle["name"], battle["stamina"]])
+    proxy.send_list_battles(list_battles_msg)
     print tabulate(tbl, headers="firstrow")
 
 def handle_enter_survival_event(proxy, path, data):
