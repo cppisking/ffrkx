@@ -58,7 +58,7 @@ class Database:
                 except:
                     log.log_exception("An error occurred inserting record for dungeon {0}".format(dungeon.id))
                     failures = failures + 1
-        log.log_message("Committed {0} dungeon entries ({1} failed)".format(len(message.dunegon_list), failures))
+        log.log_message("Committed {0} dungeon entries ({1} failed)".format(len(message.dungeon_list), failures))
 
     def record_list_battles(self, message):
         if not self.DBCONN:
