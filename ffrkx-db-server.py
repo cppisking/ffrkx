@@ -2,6 +2,7 @@ import argparse
 import sys
 from ffrkx.db_server import database
 from ffrkx.db_server import requestserver, testserver
+from ffrkx.util import log
 
 try:
     parser = argparse.ArgumentParser("FFRKX Database Server")
@@ -21,4 +22,4 @@ try:
         server = requestserver.DBRequestServer(args.port, db)
         server.run()
 except KeyboardInterrupt:
-    print "Ctrl+C received, shutting down..."
+    log.log_message("Ctrl+C received, shutting down...")

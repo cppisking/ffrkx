@@ -2,7 +2,6 @@
 from ffrkx.proxy.proxy import FFRKXProxy
 import ffrkx.proxy.response
 
-FFRKXProxy.register_default_handler(response.handle_default_response)
 FFRKXProxy.register_handler("/get_battle_init_data", response.handle_get_battle_init_data)
 FFRKXProxy.register_handler("/dff/party/list", response.handle_party_list)
 FFRKXProxy.register_handler("/dff/world/dungeons", response.handle_dungeon_list)

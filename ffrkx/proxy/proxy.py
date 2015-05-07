@@ -10,14 +10,10 @@ from libmproxy import controller
 from libmproxy.protocol.http import decoded, HTTPResponse
 
 from ffrkx.proto import messages_pb2
+from ffrkx.util import log
 
 class FFRKXProxy(controller.Master):
-    __default_handler = None
     __handlers = []
-
-    @staticmethod
-    def register_default_handler(handler):
-        FFRKXProxy.__default_handler = handler
 
     @staticmethod
     def register_handler(path, handler):
@@ -49,14 +45,14 @@ class FFRKXProxy(controller.Master):
 
     def connect_to_db_server(self):
         try:
-            print "Connecting to db server on localhost:50007"
+            log.log_message("Connecting to db server on localhost:50007")
             while True:
                 if self._shutdown_event.is_set():
                     return
 
                 try:
                     self._db_socket = socket.create_connection(('localhost', 50007))
-                    print "Connected to db server, setting event..."
+                    log.log_message("Connected to db server, setting event...")
                     self._db_connected_event.set()
                     return
                 except socket.error as err:
@@ -65,16 +61,14 @@ class FFRKXProxy(controller.Master):
                     if (err.errno != errno.ECONNREFUSED) and (err.errno != errno.ETIMEDOUT):
                         raise
         except Exception as err:
-            print "An unknown error occurred connecting to localhost:50007.  %s" % err.message
+            log.log_exception("An unknown error occurred connecting to localhost:50007.")
 
     def run(self):
         try:
-            print "Running handler..."
             result = controller.Master.run(self)
-            print "Returning from handler..."
             return result
         except:
-            print "Exception received, shutting down..."
+            log.log_exception("Exception received while running proxy server, shutting down...")
             self.shutdown()
             raise
 
@@ -85,7 +79,7 @@ class FFRKXProxy(controller.Master):
         assert(isinstance(message, messages_pb2.FFRKProxyMessage))
         data = message.SerializeToString()
         if self._db_connected_event.is_set():
-            print "About to send %s byte message" % len(data)
+            log.log_message("Sending %s byte message to database server" % len(data))
             self._db_socket.sendall(struct.pack("I", len(data)))
             self._db_socket.sendall(data)
 
@@ -98,11 +92,10 @@ class FFRKXProxy(controller.Master):
     def handle_response(self, flow):
         host = flow.request.pretty_host(hostheader=True)
         if not host.endswith('ffrk.denagames.com'):
-            print "Received non-FFRK event (%s), returning..." % host
             flow.reply()
             return
         try:
-            print flow.request.path
+            log.log_message("FFRK Request: %s" % flow.request.path)
             handler = next((x[1] for x in FFRKXProxy.__handlers if x[0] in flow.request.path), None)
             if handler != None:
                 with decoded(flow.response):
@@ -111,7 +104,7 @@ class FFRKXProxy(controller.Master):
         except KeyboardInterrupt:
             raise
         except Exception as err:
-            print "An error occurred sending information to the db socket (%s).  Closing connection..." % err.message
+            log.log_exception("An error occurred sending information to the db socket, closing connection.")
             traceback.print_exc()
             self.spawn_db_listener_thread()
         flow.reply()

@@ -6,6 +6,7 @@ import heapq
 from collections import OrderedDict, defaultdict
 
 from ffrkx.proto import messages_pb2
+from ffrkx.util import log
 from libmproxy.protocol.http import decoded
 from tabulate import tabulate
 
@@ -22,34 +23,6 @@ def get_drops(enemy):
     for child in enemy["children"]:
         for drop in child["drop_item_list"]:
             yield drop
-
-#def commit_battle_info():
-#    global pending_drop_info
-#    if pending_drop_info == None:
-#        print "There is no pending drop info, exiting..."
-#        return
-
-#    battle = pending_drop_info.get('battle_id', None)
-#    if battle is not None:
-#        try:
-#            database.trans_begin()
-#            database.record_battle_encounter(battle)
-
-#            items = pending_drop_info['drops']
-#            for item in items:
-#                count = items[item]
-#                database.record_drop_event(battle, item, count)
-#            database.trans_commit()
-#            print "Successfully committed drop information for %s items" % len(items)
-#        except Exception as e:
-#            print "An error occurred committing the drop information.  Rolling back"
-#            database.trans_rollback()
-
-#    print "The drop information was reset to None"
-#    pending_drop_info = None
-
-def handle_default_response(path):
-    print path
 
 def handle_win_battle(proxy, path, data):
     proxy.send_battle_encounter(active_battle)
@@ -75,7 +48,7 @@ def handle_get_battle_init_data(proxy, path, data):
     battle_data = data["battle"]
     battle_id = battle_data["battle_id"]
 
-    print "Entering Battle #{0}".format(battle_id)
+    log.log_message("Entering Battle #{0}".format(battle_id))
     all_rounds_data = battle_data['rounds']
     tbl = [["rnd", "enemy", "drop"]]
     active_battle = messages_pb2.BattleEncounterMsg()
@@ -103,7 +76,7 @@ def handle_get_battle_init_data(proxy, path, data):
                 tbl.append([round, enemyname, "nothing"])
     print tabulate(tbl, headers="firstrow")
     print ""
-    print "Created drop information for battle id %s" % battle_id
+    log.log_message("Created drop information for battle id %s" % battle_id)
 
 def handle_party_list(proxy, path, data):
     wanted = "name series_id acc atk def eva matk mdef mnd series_acc series_atk series_def series_eva series_matk series_mdef series_mnd"
@@ -119,7 +92,7 @@ def handle_party_list(proxy, path, data):
         heapq.heappush(equips[kind], Equipment(slicedict(item, wanted)))
 
     for series in find_series:
-        print "Best equipment for FF{0}:".format((series - 100001) / 1000)
+        log.log_message("Best equipment for FF{0}:".format((series - 100001) / 1000))
 
         # Need to use lists for column ordering
         tbl = ["stat n weapon stat n armor stat n accessory".split()]
@@ -133,7 +106,7 @@ def handle_party_list(proxy, path, data):
         # Transpose data
         for idx in range(0, len(tbldata[1])):
             tbl.append(tbldata[1][idx] + tbldata[2][idx] + tbldata[3][idx])
-        print tabulate(tbl, headers="firstrow")
+        tabulate(tbl, headers="firstrow")
         print ""
 
 def handle_dungeon_list(proxy, path, data):
@@ -141,7 +114,7 @@ def handle_dungeon_list(proxy, path, data):
     world_data = data["world"]
     world_id = world_data["id"]
     world_name = world_data["name"]
-    print "Dungeon List for {0} (id={1})".format(world_name, world_id)
+    "Dungeon List for {0} (id={1})".format(world_name, world_id)
     dungeons = data["dungeons"]
     for dungeon in dungeons:
         name = dungeon["name"]
@@ -171,4 +144,4 @@ def handle_enter_survival_event(proxy, path, data):
     enemy = data.get("enemy", dict(name="???", memory_factor="0"))
     name = enemy.get("name", "???")
     factor = float(enemy.get("memory_factor", "0"))
-    print "Your next opponent is {0} (x{1:.1f})".format(name, factor)
+    log.log_message("Your next opponent is {0} (x{1:.1f})".format(name, factor))

@@ -6,6 +6,7 @@ import traceback
 
 import ffrkx.db_server as db_server
 import ffrkx.proto.messages_pb2 as ffrkx_proto
+from ffrkx.util import log
 
 class DBRequestServer:
     def __init__(self, port, db):
@@ -20,9 +21,8 @@ class DBRequestServer:
                 while bytes_received < length:
                     chunk = sock.recv(min(length - bytes_received, 2048))
                     chunk_len = len(chunk)
-                    print "Received %s byte chunk" % chunk_len
+                    log.log_message("Received %s byte chunk" % chunk_len)
                     if chunk == '':
-                        print "Raising runtime error, socket is broken"
                         raise RuntimeError("socket connection broken")
                     chunks.append(chunk)
                     bytes_received += chunk_len
@@ -35,7 +35,7 @@ class DBRequestServer:
         proxy_listener.bind(('', self.port))
         proxy_listener.listen(5)
         proxy_listener.settimeout(1)
-        print "Waiting for connection from proxy server..."
+        log.log_message("Waiting for connection from proxy server...")
         while True:
             try:
                 conn, addr = proxy_listener.accept()
@@ -46,17 +46,14 @@ class DBRequestServer:
                 pass
 
     def message_loop(self, sock):
-        print "Connected to proxy server, entering message loop..."
+        log.log_message("Connected to proxy server, entering message loop...")
         sock.settimeout(5)
         while True:
             try:
                 dataLen = struct.unpack("I", self.recv_exactly(sock, 4))[0]
-                print "Received 4 byte length.  Expecting %s byte message" % dataLen
+                log.log_message("Unpacked message length.  Expecting %s byte message" % dataLen)
                 data = self.recv_exactly(sock, dataLen)
-                if data == None:
-                    print "Data is None, what?"
-                else:
-                    print "received %s bytes of data" % len(data)
+                log.log_message("received %s bytes of data" % len(data))
                 message = ffrkx_proto.FFRKProxyMessage()
                 message.ParseFromString(data)
                 self.db.handle_message(message)
@@ -64,7 +61,7 @@ class DBRequestServer:
             except KeyboardInterrupt:
                 raise
             except:
-                print "An error occurred on the socket.  Attempting to reconnect..."
+                log.log_exception("An error occurred on the socket.  Attempting to reconnect...")
                 traceback.print_exc()
                 sock.close()
                 return
