@@ -14,12 +14,11 @@ try:
     parser.add_argument("--database", "-d", required=True)
     args = parser.parse_args()
 
-    db = database.Database(args.user, args.password, args.host, args.database)
     if args.mode == 'test':
-        server = testserver.DBTestServer(db)
+        server = testserver.DBTestServer(args)
         server.run()
     elif args.mode == 'server':
-        server = requestserver.DBRequestServer(args.port, db)
+        server = requestserver.DBRequestServer(args)
         server.run()
 except KeyboardInterrupt:
     log.log_message("Ctrl+C received, shutting down...")

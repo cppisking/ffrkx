@@ -4,14 +4,21 @@ import struct
 import sys
 import traceback
 
+import mysql.connector
+
 import ffrkx.db_server as db_server
 import ffrkx.proto.messages_pb2 as ffrkx_proto
 from ffrkx.util import log
 
 class DBRequestServer:
-    def __init__(self, port, db):
+    def __init__(self, args):
         self.db = db
+        self.args = args
         self.port = port
+
+    def connect_to_db():
+        log.log_message("Connecting to database...")
+        db = database.Database(self.args.user, self.args.password, self.args.host, self.args.database)
 
     def recv_exactly(self, sock, length):
         chunks = []
@@ -60,6 +67,12 @@ class DBRequestServer:
                 pass
             except KeyboardInterrupt:
                 raise
+            except mysql.connector.OperationalError:
+                log.log_exception("The connection to the database has been close.  Reconnecting...")
+                self.db.close()
+                self.connect_to_db()
+                sock.close()
+                return
             except:
                 log.log_exception("An error occurred on the socket.  Attempting to reconnect...")
                 traceback.print_exc()

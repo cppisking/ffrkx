@@ -4,8 +4,9 @@ from ffrkx.db_server.resources import Transaction
 from ffrkx.proto import messages_pb2
 
 class DBTestServer:
-    def __init__(self, db):
-        self.db = db
+    def __init__(self, args):
+        self.args = args
+        db = database.Database(args.user, args.password, args.host, args.database)
 
     def on_battle_encounter(self, battle_id, drop_list):
         for drop in drop_list:
@@ -15,6 +16,7 @@ class DBTestServer:
         self.db.handle_message(message)
 
     def run(self):
+
         # For some reason running a pure SELECT begins a transaction, so let's just begin
         # our own so that it ends after we finish fetching.
         with Transaction(self.db.DBCONN):
