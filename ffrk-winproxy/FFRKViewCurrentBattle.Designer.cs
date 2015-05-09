@@ -1,0 +1,258 @@
+﻿namespace ffrk_winproxy
+{
+    partial class FFRKViewCurrentBattle
+    {
+        /// <summary> 
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Component Designer generated code
+
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.groupBoxParty = new System.Windows.Forms.GroupBox();
+            this.groupBoxDungeon = new System.Windows.Forms.GroupBox();
+            this.listViewActiveDungeon = new System.Windows.Forms.ListView();
+            this.columnHeaderBattleBoss = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderBattleName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderBattleRounds = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderStamina = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.listViewAllDrops = new System.Windows.Forms.ListView();
+            this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderBattle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderEnemy = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderRate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderStam = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.labelItemsDropped = new System.Windows.Forms.Label();
+            this.labelCurrentDrops = new System.Windows.Forms.Label();
+            this.listViewActiveBattle = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.groupBoxDungeon.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // groupBoxParty
+            // 
+            this.groupBoxParty.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBoxParty.Location = new System.Drawing.Point(3, 177);
+            this.groupBoxParty.Name = "groupBoxParty";
+            this.groupBoxParty.Size = new System.Drawing.Size(386, 241);
+            this.groupBoxParty.TabIndex = 2;
+            this.groupBoxParty.TabStop = false;
+            this.groupBoxParty.Text = "Status";
+            // 
+            // groupBoxDungeon
+            // 
+            this.groupBoxDungeon.Controls.Add(this.listViewActiveDungeon);
+            this.groupBoxDungeon.Location = new System.Drawing.Point(3, 3);
+            this.groupBoxDungeon.Name = "groupBoxDungeon";
+            this.groupBoxDungeon.Size = new System.Drawing.Size(386, 171);
+            this.groupBoxDungeon.TabIndex = 1;
+            this.groupBoxDungeon.TabStop = false;
+            this.groupBoxDungeon.Text = "(No Active Dungeon)";
+            // 
+            // listViewActiveDungeon
+            // 
+            this.listViewActiveDungeon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewActiveDungeon.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeaderBattleBoss,
+            this.columnHeaderBattleName,
+            this.columnHeaderBattleRounds,
+            this.columnHeaderStamina});
+            this.listViewActiveDungeon.Location = new System.Drawing.Point(6, 19);
+            this.listViewActiveDungeon.Name = "listViewActiveDungeon";
+            this.listViewActiveDungeon.Size = new System.Drawing.Size(371, 146);
+            this.listViewActiveDungeon.TabIndex = 0;
+            this.listViewActiveDungeon.UseCompatibleStateImageBehavior = false;
+            this.listViewActiveDungeon.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeaderBattleBoss
+            // 
+            this.columnHeaderBattleBoss.Text = "BOSS";
+            this.columnHeaderBattleBoss.Width = 57;
+            // 
+            // columnHeaderBattleName
+            // 
+            this.columnHeaderBattleName.Text = "Name";
+            this.columnHeaderBattleName.Width = 190;
+            // 
+            // columnHeaderBattleRounds
+            // 
+            this.columnHeaderBattleRounds.Text = "Rounds";
+            // 
+            // columnHeaderStamina
+            // 
+            this.columnHeaderStamina.Text = "Stamina";
+            // 
+            // listViewAllDrops
+            // 
+            this.listViewAllDrops.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewAllDrops.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeaderName,
+            this.columnHeaderBattle,
+            this.columnHeaderEnemy,
+            this.columnHeaderRate,
+            this.columnHeaderStam});
+            this.listViewAllDrops.Location = new System.Drawing.Point(395, 198);
+            this.listViewAllDrops.Name = "listViewAllDrops";
+            this.listViewAllDrops.Size = new System.Drawing.Size(554, 220);
+            this.listViewAllDrops.TabIndex = 3;
+            this.listViewAllDrops.UseCompatibleStateImageBehavior = false;
+            this.listViewAllDrops.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeaderName
+            // 
+            this.columnHeaderName.Text = "Name";
+            // 
+            // columnHeaderBattle
+            // 
+            this.columnHeaderBattle.Text = "Battle";
+            this.columnHeaderBattle.Width = 134;
+            // 
+            // columnHeaderEnemy
+            // 
+            this.columnHeaderEnemy.Text = "Enemy";
+            // 
+            // columnHeaderRate
+            // 
+            this.columnHeaderRate.Text = "Drop Rate";
+            this.columnHeaderRate.Width = 74;
+            // 
+            // columnHeaderStam
+            // 
+            this.columnHeaderStam.Text = "Drops / Stamina";
+            this.columnHeaderStam.Width = 96;
+            // 
+            // labelItemsDropped
+            // 
+            this.labelItemsDropped.AutoSize = true;
+            this.labelItemsDropped.Location = new System.Drawing.Point(395, 177);
+            this.labelItemsDropped.Name = "labelItemsDropped";
+            this.labelItemsDropped.Size = new System.Drawing.Size(162, 13);
+            this.labelItemsDropped.TabIndex = 4;
+            this.labelItemsDropped.Text = "All items dropped in this dungeon";
+            // 
+            // labelCurrentDrops
+            // 
+            this.labelCurrentDrops.AutoSize = true;
+            this.labelCurrentDrops.Location = new System.Drawing.Point(395, 3);
+            this.labelCurrentDrops.Name = "labelCurrentDrops";
+            this.labelCurrentDrops.Size = new System.Drawing.Size(152, 13);
+            this.labelCurrentDrops.TabIndex = 6;
+            this.labelCurrentDrops.Text = "Current round drop anticipation";
+            // 
+            // listViewActiveBattle
+            // 
+            this.listViewActiveBattle.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4,
+            this.columnHeader5,
+            this.columnHeader6});
+            this.listViewActiveBattle.Location = new System.Drawing.Point(398, 22);
+            this.listViewActiveBattle.Name = "listViewActiveBattle";
+            this.listViewActiveBattle.Size = new System.Drawing.Size(550, 146);
+            this.listViewActiveBattle.TabIndex = 7;
+            this.listViewActiveBattle.UseCompatibleStateImageBehavior = false;
+            this.listViewActiveBattle.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Item";
+            this.columnHeader1.Width = 72;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Rarity";
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Round";
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Enemy";
+            this.columnHeader4.Width = 104;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Drop Rate";
+            this.columnHeader5.Width = 74;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "Stamina/Drop";
+            this.columnHeader6.Width = 126;
+            // 
+            // FFRKViewCurrentBattle
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.listViewActiveBattle);
+            this.Controls.Add(this.labelCurrentDrops);
+            this.Controls.Add(this.labelItemsDropped);
+            this.Controls.Add(this.listViewAllDrops);
+            this.Controls.Add(this.groupBoxParty);
+            this.Controls.Add(this.groupBoxDungeon);
+            this.Name = "FFRKViewCurrentBattle";
+            this.Size = new System.Drawing.Size(961, 441);
+            this.Load += new System.EventHandler(this.FFRKViewCurrentBattle_Load);
+            this.groupBoxDungeon.ResumeLayout(false);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.GroupBox groupBoxParty;
+        private System.Windows.Forms.GroupBox groupBoxDungeon;
+        private System.Windows.Forms.ListView listViewAllDrops;
+        private System.Windows.Forms.ColumnHeader columnHeaderName;
+        private System.Windows.Forms.ColumnHeader columnHeaderBattle;
+        private System.Windows.Forms.ColumnHeader columnHeaderEnemy;
+        private System.Windows.Forms.ColumnHeader columnHeaderRate;
+        private System.Windows.Forms.ColumnHeader columnHeaderStam;
+        private System.Windows.Forms.Label labelItemsDropped;
+        private System.Windows.Forms.Label labelCurrentDrops;
+        private System.Windows.Forms.ListView listViewActiveDungeon;
+        private System.Windows.Forms.ColumnHeader columnHeaderBattleName;
+        private System.Windows.Forms.ColumnHeader columnHeaderBattleRounds;
+        private System.Windows.Forms.ColumnHeader columnHeaderBattleBoss;
+        private System.Windows.Forms.ColumnHeader columnHeaderStamina;
+        private System.Windows.Forms.ListView listViewActiveBattle;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ColumnHeader columnHeader6;
+    }
+}

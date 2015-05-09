@@ -7,6 +7,8 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "ffrkx", "ffrkx.pyproj", "{A
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "compile_proto", "ffrkx\proto\compile_proto.vcxproj", "{06016391-52CE-451C-8DC0-B23C400C7B29}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ffrk-winproxy", "ffrk-winproxy\ffrk-winproxy.csproj", "{1900B765-1E16-441F-9C54-A5E9BC90F47F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,16 @@ Global
 		{06016391-52CE-451C-8DC0-B23C400C7B29}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{06016391-52CE-451C-8DC0-B23C400C7B29}.Release|Win32.ActiveCfg = Release|Win32
 		{06016391-52CE-451C-8DC0-B23C400C7B29}.Release|Win32.Build.0 = Release|Win32
+		{1900B765-1E16-441F-9C54-A5E9BC90F47F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1900B765-1E16-441F-9C54-A5E9BC90F47F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1900B765-1E16-441F-9C54-A5E9BC90F47F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{1900B765-1E16-441F-9C54-A5E9BC90F47F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{1900B765-1E16-441F-9C54-A5E9BC90F47F}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{1900B765-1E16-441F-9C54-A5E9BC90F47F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1900B765-1E16-441F-9C54-A5E9BC90F47F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1900B765-1E16-441F-9C54-A5E9BC90F47F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{1900B765-1E16-441F-9C54-A5E9BC90F47F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{1900B765-1E16-441F-9C54-A5E9BC90F47F}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
