@@ -7,18 +7,19 @@ import traceback
 import mysql.connector
 
 import ffrkx.db_server as db_server
+from ffrkx.db_server import database
 import ffrkx.proto.messages_pb2 as ffrkx_proto
 from ffrkx.util import log
 
 class DBRequestServer:
     def __init__(self, args):
-        self.db = db
         self.args = args
-        self.port = port
+        self.port = args.port
+        self.connect_to_db()
 
-    def connect_to_db():
+    def connect_to_db(self):
         log.log_message("Connecting to database...")
-        db = database.Database(self.args.user, self.args.password, self.args.host, self.args.database)
+        self.db = database.Database(self.args.user, self.args.password, self.args.host, self.args.database)
 
     def recv_exactly(self, sock, length):
         chunks = []
