@@ -49,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Database\FFRKCacheDungeonDrops.cs" />
+    <Compile Include="Database\FFRKCacheDungeons.cs" />
     <Compile Include="Database\FFRKMySQLInstance.cs" />
     <Compile Include="FFRKViewBrowse.cs">
       <SubType>UserControl</SubType>
@@ -56,11 +58,11 @@
     <Compile Include="FFRKViewBrowse.Designer.cs">
       <DependentUpon>FFRKViewBrowse.cs</DependentUpon>
     </Compile>
-    <Compile Include="FFRKViewCurrentBattle.cs">
+    <Compile Include="FFRKViewActiveDungeon.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="FFRKViewCurrentBattle.Designer.cs">
-      <DependentUpon>FFRKViewCurrentBattle.cs</DependentUpon>
+    <Compile Include="FFRKViewActiveDungeon.Designer.cs">
+      <DependentUpon>FFRKViewActiveDungeon.cs</DependentUpon>
     </Compile>
     <Compile Include="FFRKTabInspector.cs">
       <SubType>UserControl</SubType>
@@ -69,6 +71,12 @@
       <DependentUpon>FFRKTabInspector.cs</DependentUpon>
     </Compile>
     <Compile Include="FFRKProxy.cs" />
+    <Compile Include="FFRKViewDebugging.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FFRKViewDebugging.Designer.cs">
+      <DependentUpon>FFRKViewDebugging.cs</DependentUpon>
+    </Compile>
     <Compile Include="FFRKViewItemSearch.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -97,16 +105,20 @@
     <Compile Include="GameData\EventListBattles.cs" />
     <Compile Include="GameData\EventListDungeons.cs" />
     <Compile Include="GameData\DataUser.cs" />
+    <Compile Include="ResponseHistory.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="FFRKViewBrowse.resx">
       <DependentUpon>FFRKViewBrowse.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FFRKViewCurrentBattle.resx">
-      <DependentUpon>FFRKViewCurrentBattle.cs</DependentUpon>
+    <EmbeddedResource Include="FFRKViewActiveDungeon.resx">
+      <DependentUpon>FFRKViewActiveDungeon.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FFRKTabInspector.resx">
       <DependentUpon>FFRKTabInspector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FFRKViewDebugging.resx">
+      <DependentUpon>FFRKViewDebugging.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FFRKViewItemSearch.resx">
       <DependentUpon>FFRKViewItemSearch.cs</DependentUpon>

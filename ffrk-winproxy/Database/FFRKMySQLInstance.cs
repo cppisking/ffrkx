@@ -12,7 +12,7 @@ using Fiddler;
 
 using ffrk_winproxy.GameData;
 
-namespace ffrk_winproxy
+namespace ffrk_winproxy.Database
 {
     static class FFRKMySqlInstance
     {
@@ -56,10 +56,67 @@ namespace ffrk_winproxy
             }
         }
 
+        public static void RefreshDungeonCache()
+        {
+            if (!Connect())
+                return;
+
+            string Stmt = "SELECT * FROM dungeons";
+            using (MySqlCommand command = new MySqlCommand(Stmt, mConnection))
+            {
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    FFRKCacheDungeons.mDungeonCache.Clear();
+                    while (reader.Read())
+                    {
+                        Type t = reader.GetFieldType("difficulty");
+                        FFRKCacheDungeons.Key key = new FFRKCacheDungeons.Key();
+                        FFRKCacheDungeons.Data data = new FFRKCacheDungeons.Data();
+                        key.DungeonId = reader.GetFieldValue<uint>(reader.GetOrdinal("id"));
+                        data.Difficulty = reader.GetFieldValue<ushort>(reader.GetOrdinal("difficulty"));
+                        data.Name = reader.GetFieldValue<string>(reader.GetOrdinal("name"));
+                        data.Type = reader.GetFieldValue<byte>(reader.GetOrdinal("type"));
+                        data.WorldId = reader.GetFieldValue<uint>(reader.GetOrdinal("world"));
+                        FFRKCacheDungeons.mDungeonCache.Add(key, data);
+                    }
+                }
+            }
+        }
+
+        public static void RefreshDungeonDropsCache()
+        {
+            if (!Connect())
+                return;
+
+            string Stmt = "SELECT * FROM dungeon_drops";
+            using (MySqlCommand command = new MySqlCommand(Stmt, mConnection))
+            {
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    FFRKCacheDungeonDrops.mDropCache.Clear();
+                    while (reader.NextResult())
+                    {
+                        FFRKCacheDungeonDrops.Key key = new FFRKCacheDungeonDrops.Key();
+                        FFRKCacheDungeonDrops.Data data = new FFRKCacheDungeonDrops.Data();
+                        key.BattleId = reader.GetFieldValue<uint>(reader.GetOrdinal("battleid"));
+                        key.ItemId = reader.GetFieldValue<uint>(reader.GetOrdinal("itemid"));
+                        key.EnemyId = reader.GetFieldValue<uint>(reader.GetOrdinal("enemyid"));
+                        data.BattleName = reader.GetFieldValue<string>(reader.GetOrdinal("battle_name"));
+                        data.EnemyName = reader.GetFieldValue<string>(reader.GetOrdinal("enemy_name"));
+                        data.ItemName = reader.GetFieldValue<string>(reader.GetOrdinal("item_name"));
+                        data.NumDrops = reader.GetFieldValue<uint>(reader.GetOrdinal("drop_count"));
+                        FFRKCacheDungeonDrops.mDropCache.Add(key, data);
+                    }
+                }
+            }
+        }
+
         static public void RecordBattleEncounter(EventBattleInitiated encounter)
         {
-
             FiddlerApplication.Log.LogFormat("Received BattleEncounterMsg for battle #{0}", encounter.Battle.BattleId);
+
+            if (!Connect())
+                return;
 
             MySqlTransaction transaction = BeginTransaction();
             if (transaction == null)
@@ -115,6 +172,9 @@ namespace ffrk_winproxy
             FiddlerApplication.Log.LogFormat("Received ListDungeonsMsg for world #{0} ({1} dungeons)",
                 dungeons.World.Id, dungeons.Dungeons.Count);
 
+            if (!Connect())
+                return;
+
             MySqlTransaction transaction = BeginTransaction();
             if (transaction == null)
                 return;
@@ -139,6 +199,9 @@ namespace ffrk_winproxy
             FiddlerApplication.Log.LogFormat("Received ListBattlesMsg for dungeon #{0} ({1} battles)",
                 battles.DungeonSession.DungeonId, battles.Battles.Count);
 
+            if (!Connect())
+                return;
+
             MySqlTransaction transaction = BeginTransaction();
             if (transaction == null)
                 return;
@@ -160,12 +223,6 @@ namespace ffrk_winproxy
 
         static MySqlTransaction BeginTransaction()
         {
-            if (!Connect())
-            {
-                FiddlerApplication.Log.LogString("Unable to establish a connection to the database.  This message will not be recorded.");
-                return null;
-            }
-
             try
             {
                 return mConnection.BeginTransaction(System.Data.IsolationLevel.ReadUncommitted);

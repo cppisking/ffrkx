@@ -11,9 +11,9 @@ using ffrk_winproxy.GameData;
 
 namespace ffrk_winproxy
 {
-    internal partial class FFRKViewCurrentBattle : UserControl
+    internal partial class FFRKViewActiveDungeon : UserControl
     {
-        public FFRKViewCurrentBattle()
+        public FFRKViewActiveDungeon()
         {
             InitializeComponent();
         }
@@ -26,6 +26,13 @@ namespace ffrk_winproxy
                 FFRKProxy.Instance.OnListBattles += FFRKProxy_OnListBattles;
                 FFRKProxy.Instance.OnListDungeons += FFRKProxy_OnListDungeons;
             }
+
+            ClearActiveBattleListView();
+        }
+
+        void ClearActiveBattleListView()
+        {
+            labelActiveBattleNotice.Visible = true;
         }
 
         void FFRKProxy_OnListBattles(EventListBattles battles)
@@ -34,6 +41,7 @@ namespace ffrk_winproxy
                 {
                     listViewActiveDungeon.Items.Clear();
                     groupBoxDungeon.Text = battles.DungeonSession.Name;
+                    ClearActiveBattleListView();
 
                     foreach (DataBattle battle in battles.Battles)
                     {
@@ -52,6 +60,10 @@ namespace ffrk_winproxy
 
         void FFRKProxy_OnListDungeons(EventListDungeons dungeons)
         {
+            this.BeginInvoke((Action)(() =>
+                {
+                    ClearActiveBattleListView();
+                }));
         }
 
         void FFRKProxy_OnBattleEngaged(EventBattleInitiated battle)
@@ -59,6 +71,8 @@ namespace ffrk_winproxy
             this.BeginInvoke((Action)(() =>
                 {
                     listViewActiveBattle.Items.Clear();
+                    listViewActiveBattle.View = View.Details;
+                    labelActiveBattleNotice.Visible = false;
                     foreach (DropEvent drop in battle.Battle.Drops)
                     {
                         string Item;
@@ -78,6 +92,16 @@ namespace ffrk_winproxy
                         listViewActiveBattle.Items.Add(new ListViewItem(row));
                     }
                 }));
+        }
+
+        private void FFRKViewCurrentBattle_SizeChanged(object sender, EventArgs e)
+        {
+            int labelWidth = labelActiveBattleNotice.Width;
+            int labelHeight = labelActiveBattleNotice.Height;
+            int listViewWidth = listViewActiveBattle.Width;
+            int listViewHeight = listViewActiveBattle.Height;
+            labelActiveBattleNotice.Left = listViewActiveBattle.Location.X + (listViewWidth - labelWidth) / 2;
+            labelActiveBattleNotice.Top = listViewActiveBattle.Location.Y + (listViewHeight - labelHeight) / 2;
         }
     }
 }

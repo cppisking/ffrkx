@@ -1,6 +1,6 @@
 ﻿namespace ffrk_winproxy
 {
-    partial class FFRKViewCurrentBattle
+    partial class FFRKViewActiveDungeon
     {
         /// <summary> 
         /// Required designer variable.
@@ -50,6 +50,7 @@
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.labelActiveBattleNotice = new System.Windows.Forms.Label();
             this.groupBoxDungeon.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -169,6 +170,8 @@
             // 
             // listViewActiveBattle
             // 
+            this.listViewActiveBattle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewActiveBattle.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
@@ -211,10 +214,20 @@
             this.columnHeader6.Text = "Stamina/Drop";
             this.columnHeader6.Width = 126;
             // 
+            // labelActiveBattleNotice
+            // 
+            this.labelActiveBattleNotice.AutoSize = true;
+            this.labelActiveBattleNotice.Location = new System.Drawing.Point(518, 91);
+            this.labelActiveBattleNotice.Name = "labelActiveBattleNotice";
+            this.labelActiveBattleNotice.Size = new System.Drawing.Size(297, 13);
+            this.labelActiveBattleNotice.TabIndex = 8;
+            this.labelActiveBattleNotice.Text = "Enter a battle to populate this list with the drops for that battle.";
+            // 
             // FFRKViewCurrentBattle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.labelActiveBattleNotice);
             this.Controls.Add(this.listViewActiveBattle);
             this.Controls.Add(this.labelCurrentDrops);
             this.Controls.Add(this.labelItemsDropped);
@@ -224,6 +237,7 @@
             this.Name = "FFRKViewCurrentBattle";
             this.Size = new System.Drawing.Size(961, 441);
             this.Load += new System.EventHandler(this.FFRKViewCurrentBattle_Load);
+            this.SizeChanged += new System.EventHandler(this.FFRKViewCurrentBattle_SizeChanged);
             this.groupBoxDungeon.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -254,5 +268,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader6;
+        private System.Windows.Forms.Label labelActiveBattleNotice;
     }
 }

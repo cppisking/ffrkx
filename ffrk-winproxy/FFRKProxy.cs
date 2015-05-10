@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using Fiddler;
+using ffrk_winproxy.Database;
 using ffrk_winproxy.GameData;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -17,9 +18,11 @@ namespace ffrk_winproxy
 	{
         TabPage mTabPage;
         FFRKTabInspector mInspectorView;
+        ResponseHistory mHistory;
         static FFRKProxy mInstance;
 
         public static FFRKProxy Instance { get { return mInstance; } }
+        internal ResponseHistory ResponseHistory { get { return mHistory; } }
 
         public FFRKProxy()
         {
@@ -27,6 +30,8 @@ namespace ffrk_winproxy
 
         public void OnLoad()
         {
+            mHistory = new ResponseHistory();
+
             mTabPage = new TabPage("FFRK Inspector");
             mInspectorView = new FFRKTabInspector(this);
             mInspectorView.Dock = DockStyle.Fill;
@@ -54,48 +59,26 @@ namespace ffrk_winproxy
             if (!oSession.oResponse.MIMEType.Contains("json"))
                 return;
 
+            string ResponseJson = oSession.GetResponseBodyAsString();
+            mHistory.AddResponse(RequestPath, ResponseJson);
+
+            if (OnFFRKResponse != null)
+                OnFFRKResponse(RequestPath, ResponseJson);
             if (RequestPath.Equals("/dff/world/battles"))
-                HandleListBattlesEvent(oSession);
+                HandleListBattlesEvent(oSession, ResponseJson);
             else if (RequestPath.StartsWith("/dff/world/dungeons"))
-                HandleListDungeonsEvent(oSession);
+                HandleListDungeonsEvent(oSession, ResponseJson);
             else if (RequestPath.EndsWith("get_battle_init_data"))
-                HandleInitiateBattleEvent(oSession);
+                HandleInitiateBattleEvent(oSession, ResponseJson);
 
             return;
         }
 
-        string DecodeResponse(Session oSession)
-        {
-            byte[] responseBytes = (byte[])oSession.ResponseBody.Clone();
-
-            if (oSession.oResponse.headers == null)
-                return null;
-
-            HTTPResponseHeaders headers = oSession.oResponse.headers;
-            if (!headers.Exists("Transfer-Encoding") && !headers.Exists("Content-Encoding"))
-                return null;
-            string transfer_encoding = headers["Transfer-Encoding"];
-            string content_encoding = headers["Content-Encoding"];
-            if (Utilities.isUnsupportedEncoding(transfer_encoding, content_encoding))
-                return null;
-            try
-            {
-                Utilities.utilDecodeHTTPBody(headers, ref responseBytes, false);
-                string encoding = headers.Exists("charset") ? headers["charset"] : "utf-8";
-                return Encoding.GetEncoding(encoding).GetString(responseBytes);
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
-
-        void HandleInitiateBattleEvent(Session oSession)
+        void HandleInitiateBattleEvent(Session oSession, string ResponseJson)
         {
             try
             {
-                string ResponseText = oSession.GetResponseBodyAsString();
-                EventBattleInitiated result = JsonConvert.DeserializeObject<EventBattleInitiated>(ResponseText);
+                EventBattleInitiated result = JsonConvert.DeserializeObject<EventBattleInitiated>(ResponseJson);
 
                 if (OnBattleEngaged != null)
                     OnBattleEngaged(result);
@@ -106,12 +89,11 @@ namespace ffrk_winproxy
             }
         }
 
-        void HandleListBattlesEvent(Session oSession)
+        void HandleListBattlesEvent(Session oSession, string ResponseJson)
         {
             try
             {
-                string ResponseText = oSession.GetResponseBodyAsString();
-                EventListBattles result = JsonConvert.DeserializeObject<EventListBattles>(ResponseText);
+                EventListBattles result = JsonConvert.DeserializeObject<EventListBattles>(ResponseJson);
                 FFRKMySqlInstance.RecordBattleList(result);
                 if (OnListBattles != null)
                     OnListBattles(result);
@@ -122,12 +104,11 @@ namespace ffrk_winproxy
             }
         }
 
-        void HandleListDungeonsEvent(Session oSession)
+        void HandleListDungeonsEvent(Session oSession, string ResponseJson)
         {
             try
             {
-                string ResponseText = oSession.GetResponseBodyAsString();
-                EventListDungeons result = JsonConvert.DeserializeObject<EventListDungeons>(ResponseText);
+                EventListDungeons result = JsonConvert.DeserializeObject<EventListDungeons>(ResponseJson);
 
                 FFRKMySqlInstance.RecordDungeonList(result);
                 if (OnListDungeons != null)
@@ -149,9 +130,11 @@ namespace ffrk_winproxy
         internal delegate void BattleInitiatedDelegate(EventBattleInitiated battle);
         internal delegate void ListBattlesDelegate(EventListBattles battles);
         internal delegate void ListDungeonsDelegate(EventListDungeons dungeons);
+        internal delegate void FFRKResponseDelegate(string Path, string Json);
 
         internal event BattleInitiatedDelegate OnBattleEngaged;
         internal event ListBattlesDelegate OnListBattles;
         internal event ListDungeonsDelegate OnListDungeons;
+        internal event FFRKResponseDelegate OnFFRKResponse;
     }
 }

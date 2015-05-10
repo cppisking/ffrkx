@@ -34,11 +34,13 @@
             this.tabPageSearch = new System.Windows.Forms.TabPage();
             this.ffrkItemSearchView1 = new ffrk_winproxy.FFRKViewItemSearch();
             this.tabPageBattle = new System.Windows.Forms.TabPage();
-            this.ffrkCurrentBattleView1 = new ffrk_winproxy.FFRKViewCurrentBattle();
+            this.ffrkCurrentBattleView1 = new ffrk_winproxy.FFRKViewActiveDungeon();
             this.tabPageInventory = new System.Windows.Forms.TabPage();
             this.tabPageAbilities = new System.Windows.Forms.TabPage();
             this.tabPageParty = new System.Windows.Forms.TabPage();
             this.tabPageAbout = new System.Windows.Forms.TabPage();
+            this.tabPageDebug = new System.Windows.Forms.TabPage();
+            this.ffrkViewDebugging1 = new ffrk_winproxy.FFRKViewDebugging();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -50,6 +52,7 @@
             this.tabPageBrowse.SuspendLayout();
             this.tabPageSearch.SuspendLayout();
             this.tabPageBattle.SuspendLayout();
+            this.tabPageDebug.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -62,6 +65,7 @@
             this.tabControlFFRKInspector.Controls.Add(this.tabPageAbilities);
             this.tabControlFFRKInspector.Controls.Add(this.tabPageParty);
             this.tabControlFFRKInspector.Controls.Add(this.tabPageAbout);
+            this.tabControlFFRKInspector.Controls.Add(this.tabPageDebug);
             this.tabControlFFRKInspector.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlFFRKInspector.Location = new System.Drawing.Point(0, 0);
             this.tabControlFFRKInspector.Name = "tabControlFFRKInspector";
@@ -161,6 +165,24 @@
             this.tabPageAbout.Text = "About";
             this.tabPageAbout.UseVisualStyleBackColor = true;
             // 
+            // tabPageDebug
+            // 
+            this.tabPageDebug.Controls.Add(this.ffrkViewDebugging1);
+            this.tabPageDebug.Location = new System.Drawing.Point(4, 22);
+            this.tabPageDebug.Name = "tabPageDebug";
+            this.tabPageDebug.Size = new System.Drawing.Size(716, 357);
+            this.tabPageDebug.TabIndex = 7;
+            this.tabPageDebug.Text = "Debugging";
+            this.tabPageDebug.UseVisualStyleBackColor = true;
+            // 
+            // ffrkViewDebugging1
+            // 
+            this.ffrkViewDebugging1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ffrkViewDebugging1.Location = new System.Drawing.Point(0, 0);
+            this.ffrkViewDebugging1.Name = "ffrkViewDebugging1";
+            this.ffrkViewDebugging1.Size = new System.Drawing.Size(716, 357);
+            this.ffrkViewDebugging1.TabIndex = 0;
+            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -212,19 +234,20 @@
             this.toolStripStatusLabel6.Size = new System.Drawing.Size(49, 17);
             this.toolStripStatusLabel6.Text = "1234567";
             // 
-            // FFRKTabInspectorView
+            // FFRKTabInspector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tabControlFFRKInspector);
-            this.Name = "FFRKTabInspectorView";
+            this.Name = "FFRKTabInspector";
             this.Size = new System.Drawing.Size(724, 383);
             this.Load += new System.EventHandler(this.FFRKTabInspectorView_Load);
             this.tabControlFFRKInspector.ResumeLayout(false);
             this.tabPageBrowse.ResumeLayout(false);
             this.tabPageSearch.ResumeLayout(false);
             this.tabPageBattle.ResumeLayout(false);
+            this.tabPageDebug.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -244,7 +267,7 @@
         private System.Windows.Forms.TabPage tabPageBrowse;
         private FFRKViewBrowse ffrkBrowseView1;
         private FFRKViewItemSearch ffrkItemSearchView1;
-        private FFRKViewCurrentBattle ffrkCurrentBattleView1;
+        private FFRKViewActiveDungeon ffrkCurrentBattleView1;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
@@ -252,6 +275,8 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel5;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel6;
+        private System.Windows.Forms.TabPage tabPageDebug;
+        private FFRKViewDebugging ffrkViewDebugging1;
 
 
     }
