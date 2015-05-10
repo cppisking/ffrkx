@@ -16,14 +16,12 @@ namespace ffrk_winproxy
 {
     public partial class FFRKViewDebugging : UserControl
     {
-        private ListViewItem[] mCache;
-        private int mFirstCachedItem;
+        private List<ListViewItem> mCache;
 
         public FFRKViewDebugging()
         {
             InitializeComponent();
-            mCache = null;
-            mFirstCachedItem = 0;
+            mCache = new List<ListViewItem>();
         }
 
         private void FFRKViewDebugging_Load(object sender, EventArgs e)
@@ -44,7 +42,7 @@ namespace ffrk_winproxy
         {
             string[] rows = {
                                     data.Timestamp.ToString(),
-                                    data.RequestPath
+                                    data.Session.oRequest.headers.RequestPath
                                 };
             ListViewItem Item = new ListViewItem(rows);
             Item.Tag = data;
@@ -53,26 +51,30 @@ namespace ffrk_winproxy
 
         private void listViewHistory_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
         {
-            // Try to pull it from the cache, but if it's not there, just make a new one.
-            if (mCache != null && e.ItemIndex >= mFirstCachedItem && e.ItemIndex < mFirstCachedItem + mCache.Length)
-            {
-                e.Item = mCache[e.ItemIndex - mFirstCachedItem];
-            }
-            else
-                e.Item = CreateListViewItem(FFRKProxy.Instance.ResponseHistory[e.ItemIndex]);
+            CacheVirtualItems(e.ItemIndex, e.ItemIndex);
+            System.Diagnostics.Debug.Assert(mCache[e.ItemIndex] != null);
+            e.Item = mCache[e.ItemIndex];
         }
 
         private void listViewHistory_CacheVirtualItems(object sender, CacheVirtualItemsEventArgs e)
         {
-            if (mCache != null && e.StartIndex >= mFirstCachedItem && e.EndIndex <= mFirstCachedItem + mCache.Length)
-                return;
+            CacheVirtualItems(e.StartIndex, e.EndIndex);
+        }
 
-            mFirstCachedItem = e.StartIndex;
-            int length = e.EndIndex - e.StartIndex + 1;
-            mCache = new ListViewItem[length];
-            for (int i = 0; i <= e.EndIndex; ++i)
+        private void CacheVirtualItems(int StartIndex, int EndIndex)
+        {
+            // If there's not enough items in the cache, expand it filling with nulls
+            if (EndIndex >= mCache.Count)
             {
-                mCache[i] = CreateListViewItem(FFRKProxy.Instance.ResponseHistory[i + mFirstCachedItem]);
+                int new_size = EndIndex + 1;
+                int num_items_to_add = new_size - mCache.Count;
+                mCache.Capacity = new_size;
+                mCache.AddRange(Enumerable.Repeat<ListViewItem>(null, num_items_to_add));
+            }
+
+            for (int i = StartIndex; i <= EndIndex; ++i)
+            {
+                mCache[i] = CreateListViewItem(FFRKProxy.Instance.ResponseHistory[i]);
             }
         }
 
@@ -85,12 +87,16 @@ namespace ffrk_winproxy
 
             int index = listViewHistory.SelectedIndices[0];
             ResponseHistory.HistoryItem hi = FFRKProxy.Instance.ResponseHistory[index];
+            string JsonText = hi.Session.GetResponseBodyAsString();
+
             if (hi.JsonObject == null)
             {
-                hi.JsonObject = JsonConvert.DeserializeObject<JObject>(hi.JsonText);
-                hi.JsonText = JsonConvert.SerializeObject(hi.JsonObject, Formatting.Indented);
+                // This is expensive, so we do it only once
+                hi.JsonObject = JsonConvert.DeserializeObject<JObject>(JsonText);
             }
-            textBoxJson.Text = hi.JsonText;
+
+            JsonText = JsonConvert.SerializeObject(hi.JsonObject, Formatting.Indented);
+            textBoxJson.Text = JsonText;
 
             treeViewJson.Nodes.Clear();
             TreeNode root = new TreeNode("ROOT");

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Fiddler;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,7 @@ namespace ffrk_winproxy
         public class HistoryItem
         {
             public DateTime Timestamp;
-            public string RequestPath;
-            public string JsonText;
+            public Session Session;
             public JObject JsonObject;
         }
 
@@ -26,13 +26,12 @@ namespace ffrk_winproxy
             mResponseHistory = new List<HistoryItem>();
         }
 
-        public void AddResponse(string RequestPath, string ResponseJson)
+        public void AddResponse(Session session)
         {
             HistoryItem data = new HistoryItem();
             data.Timestamp = DateTime.Now;
-            data.RequestPath = RequestPath;
+            data.Session = session;
 
-            data.JsonText = ResponseJson;
             mResponseHistory.Add(data);
         }
 

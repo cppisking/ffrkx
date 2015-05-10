@@ -60,8 +60,8 @@ namespace ffrk_winproxy
                 return;
 
             string ResponseJson = oSession.GetResponseBodyAsString();
-            mHistory.AddResponse(RequestPath, ResponseJson);
-
+            mHistory.AddResponse(oSession);
+            
             if (OnFFRKResponse != null)
                 OnFFRKResponse(RequestPath, ResponseJson);
             if (RequestPath.Equals("/dff/world/battles"))

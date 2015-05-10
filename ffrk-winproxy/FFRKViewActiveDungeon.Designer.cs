@@ -58,9 +58,9 @@
             // 
             this.groupBoxParty.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBoxParty.Location = new System.Drawing.Point(3, 177);
+            this.groupBoxParty.Location = new System.Drawing.Point(3, 222);
             this.groupBoxParty.Name = "groupBoxParty";
-            this.groupBoxParty.Size = new System.Drawing.Size(386, 241);
+            this.groupBoxParty.Size = new System.Drawing.Size(427, 196);
             this.groupBoxParty.TabIndex = 2;
             this.groupBoxParty.TabStop = false;
             this.groupBoxParty.Text = "Status";
@@ -70,7 +70,7 @@
             this.groupBoxDungeon.Controls.Add(this.listViewActiveDungeon);
             this.groupBoxDungeon.Location = new System.Drawing.Point(3, 3);
             this.groupBoxDungeon.Name = "groupBoxDungeon";
-            this.groupBoxDungeon.Size = new System.Drawing.Size(386, 171);
+            this.groupBoxDungeon.Size = new System.Drawing.Size(427, 213);
             this.groupBoxDungeon.TabIndex = 1;
             this.groupBoxDungeon.TabStop = false;
             this.groupBoxDungeon.Text = "(No Active Dungeon)";
@@ -86,7 +86,7 @@
             this.columnHeaderStamina});
             this.listViewActiveDungeon.Location = new System.Drawing.Point(6, 19);
             this.listViewActiveDungeon.Name = "listViewActiveDungeon";
-            this.listViewActiveDungeon.Size = new System.Drawing.Size(371, 146);
+            this.listViewActiveDungeon.Size = new System.Drawing.Size(412, 188);
             this.listViewActiveDungeon.TabIndex = 0;
             this.listViewActiveDungeon.UseCompatibleStateImageBehavior = false;
             this.listViewActiveDungeon.View = System.Windows.Forms.View.Details;
@@ -120,9 +120,9 @@
             this.columnHeaderEnemy,
             this.columnHeaderRate,
             this.columnHeaderStam});
-            this.listViewAllDrops.Location = new System.Drawing.Point(395, 198);
+            this.listViewAllDrops.Location = new System.Drawing.Point(439, 198);
             this.listViewAllDrops.Name = "listViewAllDrops";
-            this.listViewAllDrops.Size = new System.Drawing.Size(554, 220);
+            this.listViewAllDrops.Size = new System.Drawing.Size(510, 220);
             this.listViewAllDrops.TabIndex = 3;
             this.listViewAllDrops.UseCompatibleStateImageBehavior = false;
             this.listViewAllDrops.View = System.Windows.Forms.View.Details;
@@ -153,7 +153,7 @@
             // labelItemsDropped
             // 
             this.labelItemsDropped.AutoSize = true;
-            this.labelItemsDropped.Location = new System.Drawing.Point(395, 177);
+            this.labelItemsDropped.Location = new System.Drawing.Point(436, 177);
             this.labelItemsDropped.Name = "labelItemsDropped";
             this.labelItemsDropped.Size = new System.Drawing.Size(162, 13);
             this.labelItemsDropped.TabIndex = 4;
@@ -162,7 +162,7 @@
             // labelCurrentDrops
             // 
             this.labelCurrentDrops.AutoSize = true;
-            this.labelCurrentDrops.Location = new System.Drawing.Point(395, 3);
+            this.labelCurrentDrops.Location = new System.Drawing.Point(436, 3);
             this.labelCurrentDrops.Name = "labelCurrentDrops";
             this.labelCurrentDrops.Size = new System.Drawing.Size(152, 13);
             this.labelCurrentDrops.TabIndex = 6;
@@ -179,9 +179,9 @@
             this.columnHeader4,
             this.columnHeader5,
             this.columnHeader6});
-            this.listViewActiveBattle.Location = new System.Drawing.Point(398, 22);
+            this.listViewActiveBattle.Location = new System.Drawing.Point(439, 22);
             this.listViewActiveBattle.Name = "listViewActiveBattle";
-            this.listViewActiveBattle.Size = new System.Drawing.Size(550, 146);
+            this.listViewActiveBattle.Size = new System.Drawing.Size(509, 146);
             this.listViewActiveBattle.TabIndex = 7;
             this.listViewActiveBattle.UseCompatibleStateImageBehavior = false;
             this.listViewActiveBattle.View = System.Windows.Forms.View.Details;
@@ -223,7 +223,7 @@
             this.labelActiveBattleNotice.TabIndex = 8;
             this.labelActiveBattleNotice.Text = "Enter a battle to populate this list with the drops for that battle.";
             // 
-            // FFRKViewCurrentBattle
+            // FFRKViewActiveDungeon
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -234,7 +234,7 @@
             this.Controls.Add(this.listViewAllDrops);
             this.Controls.Add(this.groupBoxParty);
             this.Controls.Add(this.groupBoxDungeon);
-            this.Name = "FFRKViewCurrentBattle";
+            this.Name = "FFRKViewActiveDungeon";
             this.Size = new System.Drawing.Size(961, 441);
             this.Load += new System.EventHandler(this.FFRKViewCurrentBattle_Load);
             this.SizeChanged += new System.EventHandler(this.FFRKViewCurrentBattle_SizeChanged);

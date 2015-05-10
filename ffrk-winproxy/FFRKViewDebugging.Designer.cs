@@ -78,12 +78,12 @@
             // columnHeaderTime
             // 
             this.columnHeaderTime.Text = "Time";
-            this.columnHeaderTime.Width = 88;
+            this.columnHeaderTime.Width = 150;
             // 
             // columnHeaderPath
             // 
             this.columnHeaderPath.Text = "Request Path";
-            this.columnHeaderPath.Width = 181;
+            this.columnHeaderPath.Width = 250;
             // 
             // textBoxJson
             // 
@@ -96,6 +96,7 @@
             this.textBoxJson.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBoxJson.Size = new System.Drawing.Size(312, 495);
             this.textBoxJson.TabIndex = 1;
+            this.textBoxJson.WordWrap = false;
             // 
             // treeViewJson
             // 
