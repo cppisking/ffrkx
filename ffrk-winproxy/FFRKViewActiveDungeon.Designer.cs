@@ -51,6 +51,7 @@
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.labelActiveBattleNotice = new System.Windows.Forms.Label();
+            this.labelNoDrops = new System.Windows.Forms.Label();
             this.groupBoxDungeon.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -223,10 +224,20 @@
             this.labelActiveBattleNotice.TabIndex = 8;
             this.labelActiveBattleNotice.Text = "Enter a battle to populate this list with the drops for that battle.";
             // 
+            // labelNoDrops
+            // 
+            this.labelNoDrops.AutoSize = true;
+            this.labelNoDrops.Location = new System.Drawing.Point(518, 114);
+            this.labelNoDrops.Name = "labelNoDrops";
+            this.labelNoDrops.Size = new System.Drawing.Size(100, 13);
+            this.labelNoDrops.TabIndex = 9;
+            this.labelNoDrops.Text = "There are no drops!";
+            // 
             // FFRKViewActiveDungeon
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.labelNoDrops);
             this.Controls.Add(this.labelActiveBattleNotice);
             this.Controls.Add(this.listViewActiveBattle);
             this.Controls.Add(this.labelCurrentDrops);
@@ -269,5 +280,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.Label labelActiveBattleNotice;
+        private System.Windows.Forms.Label labelNoDrops;
     }
 }

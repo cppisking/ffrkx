@@ -68,10 +68,18 @@ namespace ffrk_winproxy
                 HandleListBattlesEvent(oSession, ResponseJson);
             else if (RequestPath.StartsWith("/dff/world/dungeons"))
                 HandleListDungeonsEvent(oSession, ResponseJson);
+            else if (RequestPath.EndsWith("/leave_dungeon"))
+                HandleLeaveDungeonEvent(oSession, ResponseJson);
             else if (RequestPath.EndsWith("get_battle_init_data"))
                 HandleInitiateBattleEvent(oSession, ResponseJson);
 
             return;
+        }
+
+        void HandleLeaveDungeonEvent(Session oSession, string ResponseJson)
+        {
+            if (OnLeaveDungeon != null)
+                OnLeaveDungeon();
         }
 
         void HandleInitiateBattleEvent(Session oSession, string ResponseJson)
@@ -130,11 +138,13 @@ namespace ffrk_winproxy
         internal delegate void BattleInitiatedDelegate(EventBattleInitiated battle);
         internal delegate void ListBattlesDelegate(EventListBattles battles);
         internal delegate void ListDungeonsDelegate(EventListDungeons dungeons);
+        internal delegate void LeaveDungeonDelegate();
         internal delegate void FFRKResponseDelegate(string Path, string Json);
 
         internal event BattleInitiatedDelegate OnBattleEngaged;
         internal event ListBattlesDelegate OnListBattles;
         internal event ListDungeonsDelegate OnListDungeons;
+        internal event LeaveDungeonDelegate OnLeaveDungeon;
         internal event FFRKResponseDelegate OnFFRKResponse;
     }
 }

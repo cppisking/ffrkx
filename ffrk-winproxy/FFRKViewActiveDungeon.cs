@@ -25,14 +25,24 @@ namespace ffrk_winproxy
                 FFRKProxy.Instance.OnBattleEngaged += FFRKProxy_OnBattleEngaged;
                 FFRKProxy.Instance.OnListBattles += FFRKProxy_OnListBattles;
                 FFRKProxy.Instance.OnListDungeons += FFRKProxy_OnListDungeons;
+                FFRKProxy.Instance.OnLeaveDungeon += FFRKProxy_OnLeaveDungeon;
             }
 
+            CenterControl(listViewActiveBattle, labelActiveBattleNotice);
+            CenterControl(listViewActiveBattle, labelNoDrops);
             ClearActiveBattleListView();
         }
 
         void ClearActiveBattleListView()
         {
             labelActiveBattleNotice.Visible = true;
+            labelNoDrops.Visible = false;
+        }
+
+        void FFRKProxy_OnLeaveDungeon()
+        {
+            listViewActiveDungeon.Items.Clear();
+            groupBoxDungeon.Text = "(No Active Dungeon)";
         }
 
         void FFRKProxy_OnListBattles(EventListBattles battles)
@@ -72,15 +82,20 @@ namespace ffrk_winproxy
                 {
                     listViewActiveBattle.Items.Clear();
                     listViewActiveBattle.View = View.Details;
+                    List<DropEvent> drops = battle.Battle.Drops.ToList();
                     labelActiveBattleNotice.Visible = false;
-                    foreach (DropEvent drop in battle.Battle.Drops)
+                    if (drops.Count == 0)
+                        labelNoDrops.Visible = true;
+                    else
                     {
-                        string Item;
-                        if (drop.ItemType == DataEnemyDropItem.DropItemType.Gold)
-                            Item = String.Format("{0} gold", drop.GoldAmount);
-                        else
-                            Item = drop.ItemId.ToString();
-                        string[] row = 
+                        foreach (DropEvent drop in battle.Battle.Drops)
+                        {
+                            string Item;
+                            if (drop.ItemType == DataEnemyDropItem.DropItemType.Gold)
+                                Item = String.Format("{0} gold", drop.GoldAmount);
+                            else
+                                Item = drop.ItemId.ToString();
+                            string[] row = 
                         {
                             Item,
                             drop.Rarity.ToString(),
@@ -89,19 +104,26 @@ namespace ffrk_winproxy
                             "",
                             ""
                         };
-                        listViewActiveBattle.Items.Add(new ListViewItem(row));
+                            listViewActiveBattle.Items.Add(new ListViewItem(row));
+                        }
                     }
                 }));
         }
 
+        private void CenterControl(Control parent, Control child)
+        {
+            int innerw = child.Width;
+            int innerh = child.Height;
+            int outerw = parent.Width;
+            int outerh = parent.Height;
+            child.Left = parent.Location.X + (outerw - innerw) / 2;
+            child.Top = parent.Location.Y + (outerh - innerh) / 2;
+        }
+
         private void FFRKViewCurrentBattle_SizeChanged(object sender, EventArgs e)
         {
-            int labelWidth = labelActiveBattleNotice.Width;
-            int labelHeight = labelActiveBattleNotice.Height;
-            int listViewWidth = listViewActiveBattle.Width;
-            int listViewHeight = listViewActiveBattle.Height;
-            labelActiveBattleNotice.Left = listViewActiveBattle.Location.X + (listViewWidth - labelWidth) / 2;
-            labelActiveBattleNotice.Top = listViewActiveBattle.Location.Y + (listViewHeight - labelHeight) / 2;
+            CenterControl(listViewActiveBattle, labelActiveBattleNotice);
+            CenterControl(listViewActiveBattle, labelNoDrops);
         }
     }
 }
