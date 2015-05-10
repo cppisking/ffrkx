@@ -3,13 +3,13 @@ ADD COLUMN `enemyid` INT(10) UNSIGNED NOT NULL AFTER `itemid`,
 DROP PRIMARY KEY,
 ADD PRIMARY KEY (`battleid`, `itemid`, `enemyid`);
 
-ALTER TABLE `ffrk`.`dungeons` 
+ALTER TABLE `dungeons` 
 CHANGE COLUMN `difficulty` `difficulty` SMALLINT UNSIGNED NOT NULL ;
 
 CREATE TABLE `enemies` (
   `id` INT UNSIGNED NOT NULL,
   `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`enemyid`));
+  PRIMARY KEY (`id`));
 
 CREATE TABLE `schema_version` (
   `version` INT UNSIGNED NOT NULL,
