@@ -182,6 +182,8 @@ namespace ffrk_winproxy.Database
             {
                 try
                 {
+                    CallProcInsertWorldEntry(transaction, dungeons.World);
+
                     foreach (DataDungeon dungeon in dungeons.Dungeons)
                         CallProcInsertDungeonEntry(transaction, dungeons.World, dungeon);
                     transaction.Commit();
@@ -243,6 +245,19 @@ namespace ffrk_winproxy.Database
                 command.Parameters.AddWithValue("@did", battle.DungeonId);
                 command.Parameters.AddWithValue("@bname", battle.Name);
                 command.Parameters.AddWithValue("@bstam", battle.Stamina);
+                return command.ExecuteNonQuery();
+            }
+        }
+
+        static int CallProcInsertWorldEntry(MySqlTransaction transaction, DataWorld world)
+        {
+            using (MySqlCommand command = new MySqlCommand("insert_world_entry", mConnection, transaction))
+            {
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@wid", world.Id);
+                command.Parameters.AddWithValue("@series", world.SeriesId);
+                command.Parameters.AddWithValue("@type", world.Type);
+                command.Parameters.AddWithValue("@name", world.Name);
                 return command.ExecuteNonQuery();
             }
         }
