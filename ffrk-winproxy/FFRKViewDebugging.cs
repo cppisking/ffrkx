@@ -160,5 +160,10 @@ namespace ffrk_winproxy
                 parent.Nodes.Add(child);
             }
         }
+
+        private void buttonClear_Click(object sender, EventArgs e)
+        {
+            listViewHistory.Items.Clear();
+        }
     }
 }

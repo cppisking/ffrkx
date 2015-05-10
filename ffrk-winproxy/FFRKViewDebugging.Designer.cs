@@ -34,23 +34,27 @@
             this.columnHeaderPath = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.textBoxJson = new System.Windows.Forms.TextBox();
             this.treeViewJson = new System.Windows.Forms.TreeView();
+            this.buttonClear = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34.65347F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31.93069F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.41584F));
+            this.tableLayoutPanel1.ColumnCount = 4;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 17.3306F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 17.3206F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31.9318F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.417F));
             this.tableLayoutPanel1.Controls.Add(this.listViewHistory, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.textBoxJson, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.treeViewJson, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.textBoxJson, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.treeViewJson, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.buttonClear, 1, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(998, 523);
             this.tableLayoutPanel1.TabIndex = 0;
@@ -60,13 +64,14 @@
             this.listViewHistory.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeaderTime,
             this.columnHeaderPath});
+            this.tableLayoutPanel1.SetColumnSpan(this.listViewHistory, 2);
             this.listViewHistory.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewHistory.FullRowSelect = true;
             this.listViewHistory.HideSelection = false;
             this.listViewHistory.Location = new System.Drawing.Point(3, 3);
             this.listViewHistory.MultiSelect = false;
             this.listViewHistory.Name = "listViewHistory";
-            this.listViewHistory.Size = new System.Drawing.Size(339, 495);
+            this.listViewHistory.Size = new System.Drawing.Size(338, 455);
             this.listViewHistory.TabIndex = 0;
             this.listViewHistory.UseCompatibleStateImageBehavior = false;
             this.listViewHistory.View = System.Windows.Forms.View.Details;
@@ -88,11 +93,12 @@
             // textBoxJson
             // 
             this.textBoxJson.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxJson.Location = new System.Drawing.Point(348, 3);
+            this.textBoxJson.Location = new System.Drawing.Point(347, 3);
             this.textBoxJson.MaxLength = 131072;
             this.textBoxJson.Multiline = true;
             this.textBoxJson.Name = "textBoxJson";
             this.textBoxJson.ReadOnly = true;
+            this.tableLayoutPanel1.SetRowSpan(this.textBoxJson, 2);
             this.textBoxJson.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBoxJson.Size = new System.Drawing.Size(312, 495);
             this.textBoxJson.TabIndex = 1;
@@ -101,10 +107,22 @@
             // treeViewJson
             // 
             this.treeViewJson.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeViewJson.Location = new System.Drawing.Point(666, 3);
+            this.treeViewJson.Location = new System.Drawing.Point(665, 3);
             this.treeViewJson.Name = "treeViewJson";
-            this.treeViewJson.Size = new System.Drawing.Size(329, 495);
+            this.tableLayoutPanel1.SetRowSpan(this.treeViewJson, 2);
+            this.treeViewJson.Size = new System.Drawing.Size(330, 495);
             this.treeViewJson.TabIndex = 2;
+            // 
+            // buttonClear
+            // 
+            this.buttonClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonClear.Location = new System.Drawing.Point(230, 464);
+            this.buttonClear.Name = "buttonClear";
+            this.buttonClear.Size = new System.Drawing.Size(111, 34);
+            this.buttonClear.TabIndex = 3;
+            this.buttonClear.Text = "Clear";
+            this.buttonClear.UseVisualStyleBackColor = true;
+            this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
             // 
             // FFRKViewDebugging
             // 
@@ -128,6 +146,7 @@
         private System.Windows.Forms.ColumnHeader columnHeaderPath;
         private System.Windows.Forms.TextBox textBoxJson;
         private System.Windows.Forms.TreeView treeViewJson;
+        private System.Windows.Forms.Button buttonClear;
 
     }
 }
