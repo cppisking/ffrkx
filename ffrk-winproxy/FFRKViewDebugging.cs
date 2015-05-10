@@ -163,7 +163,9 @@ namespace ffrk_winproxy
 
         private void buttonClear_Click(object sender, EventArgs e)
         {
-            listViewHistory.Items.Clear();
+            mCache.Clear();
+            FFRKProxy.Instance.ResponseHistory.Clear();
+            listViewHistory.VirtualListSize = 0;
         }
     }
 }

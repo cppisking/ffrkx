@@ -35,6 +35,11 @@ namespace ffrk_winproxy
             mResponseHistory.Add(data);
         }
 
+        public void Clear()
+        {
+            mResponseHistory.Clear();
+        }
+
         public HistoryItem this[int Index]
         {
             get { return mResponseHistory[Index]; }
