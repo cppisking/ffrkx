@@ -52,6 +52,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.labelOneStarPct = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -112,6 +113,7 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.comboBoxGachaSeries);
             this.groupBox1.Controls.Add(this.labelGachaSeries);
             this.groupBox1.Controls.Add(this.labelRelics);
@@ -147,10 +149,10 @@
             this.labelRelics.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelRelics.Location = new System.Drawing.Point(15, 193);
             this.labelRelics.Name = "labelRelics";
-            this.labelRelics.Size = new System.Drawing.Size(666, 49);
+            this.labelRelics.Size = new System.Drawing.Size(622, 49);
             this.labelRelics.TabIndex = 1;
-            this.labelRelics.Text = "Tap \"Relics\" followed by a specific relic banner, and then the \"Relics\"  button u" +
-    "nder the text \"3★ or higher guaranteed\" to view information for that banner.";
+            this.labelRelics.Text = "Tap \"Relics\" followed by a specific relic banner, and then the \"Relics\"  button a" +
+    "bove the text \"About rarity\" to view information for that banner.";
             this.labelRelics.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel1
@@ -318,6 +320,17 @@
             this.labelOneStarPct.TabIndex = 5;
             this.labelOneStarPct.Text = "0.00%";
             // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.Location = new System.Drawing.Point(231, 16);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(406, 27);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "Note: I don\'t actually know what this is for, but it appears possible for a singl" +
+    "e banner to have multiple drop rates.  So far they all appear identical";
+            // 
             // FFRKViewGacha
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -362,5 +375,6 @@
         private System.Windows.Forms.Label labelRelics;
         private System.Windows.Forms.ComboBox comboBoxGachaSeries;
         private System.Windows.Forms.Label labelGachaSeries;
+        private System.Windows.Forms.Label label6;
     }
 }
