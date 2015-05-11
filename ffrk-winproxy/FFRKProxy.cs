@@ -78,8 +78,41 @@ namespace ffrk_winproxy
                 HandleLeaveDungeonEvent(oSession, ResponseJson);
             else if (RequestPath.EndsWith("get_battle_init_data"))
                 HandleInitiateBattleEvent(oSession, ResponseJson);
+            else if (RequestPath.StartsWith("/dff/gacha/probability"))
+                HandleGachaStats(oSession, ResponseJson);
 
             return;
+        }
+
+        void HandleGachaStats(Session oSession, string ResponseJson)
+        {
+            try
+            {
+                JObject parsed_object = JsonConvert.DeserializeObject<JObject>(ResponseJson);
+                EventViewGacha gacha = new EventViewGacha();
+                foreach (var child in parsed_object)
+                {
+                    try
+                    {
+                        uint series_id = uint.Parse(child.Key);
+                        if (child.Value.Type == JTokenType.Object)
+                        {
+                            string serialized = JsonConvert.SerializeObject(child.Value);
+                            DataGachaSeries this_series = JsonConvert.DeserializeObject<DataGachaSeries>(serialized);
+                            gacha.Gachas.Add(series_id, this_series);
+                        }
+                    }
+                    catch
+                    {
+                    }
+                }
+                if (OnGachaStats != null)
+                    OnGachaStats(gacha);
+            }
+            catch (Exception ex)
+            {
+                FiddlerApplication.Log.LogFormat("An error occurred processing the gacha stats event.  {0}", ex.Message);
+            }
         }
 
         void HandleLeaveDungeonEvent(Session oSession, string ResponseJson)
@@ -144,6 +177,7 @@ namespace ffrk_winproxy
         internal delegate void BattleInitiatedDelegate(EventBattleInitiated battle);
         internal delegate void ListBattlesDelegate(EventListBattles battles);
         internal delegate void ListDungeonsDelegate(EventListDungeons dungeons);
+        internal delegate void GachaStatsDelegate(EventViewGacha gacha);
         internal delegate void LeaveDungeonDelegate();
         internal delegate void FFRKResponseDelegate(string Path, string Json);
 
@@ -151,6 +185,7 @@ namespace ffrk_winproxy
         internal event ListBattlesDelegate OnListBattles;
         internal event ListDungeonsDelegate OnListDungeons;
         internal event LeaveDungeonDelegate OnLeaveDungeon;
+        internal event GachaStatsDelegate OnGachaStats;
         internal event FFRKResponseDelegate OnFFRKResponse;
     }
 }

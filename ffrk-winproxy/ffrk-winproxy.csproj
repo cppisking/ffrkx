@@ -82,6 +82,12 @@
     <Compile Include="FFRKViewDebugging.Designer.cs">
       <DependentUpon>FFRKViewDebugging.cs</DependentUpon>
     </Compile>
+    <Compile Include="FFRKViewGacha.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FFRKViewGacha.Designer.cs">
+      <DependentUpon>FFRKViewGacha.cs</DependentUpon>
+    </Compile>
     <Compile Include="FFRKViewItemSearch.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -97,9 +103,14 @@
     <Compile Include="GameData\DataEnemyChild.cs" />
     <Compile Include="GameData\DataEnemyDropItem.cs" />
     <Compile Include="GameData\DataEnemyParam.cs" />
+    <Compile Include="GameData\DataGachaItem.cs" />
+    <Compile Include="GameData\DataGachaProbabilitiesByRarity.cs" />
+    <Compile Include="GameData\DataGachaSeries.cs" />
     <Compile Include="GameData\DataWorld.cs" />
     <Compile Include="GameData\DropEvent.cs" />
     <Compile Include="GameData\EventBattleInitiated.cs" />
+    <Compile Include="GameData\EventViewGacha.cs" />
+    <Compile Include="ListViewColumnSorter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -111,6 +122,8 @@
     <Compile Include="GameData\EventListDungeons.cs" />
     <Compile Include="GameData\DataUser.cs" />
     <Compile Include="ResponseHistory.cs" />
+    <Compile Include="Utility\IConverter.cs" />
+    <Compile Include="Utility\Utility.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="FFRKViewBrowse.resx">
@@ -124,6 +137,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FFRKViewDebugging.resx">
       <DependentUpon>FFRKViewDebugging.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FFRKViewGacha.resx">
+      <DependentUpon>FFRKViewGacha.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FFRKViewItemSearch.resx">
       <DependentUpon>FFRKViewItemSearch.cs</DependentUpon>

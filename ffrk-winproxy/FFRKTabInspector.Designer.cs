@@ -30,17 +30,13 @@
         {
             this.tabControlFFRKInspector = new System.Windows.Forms.TabControl();
             this.tabPageBrowse = new System.Windows.Forms.TabPage();
-            this.ffrkBrowseView1 = new ffrk_winproxy.FFRKViewBrowse();
             this.tabPageSearch = new System.Windows.Forms.TabPage();
-            this.ffrkItemSearchView1 = new ffrk_winproxy.FFRKViewItemSearch();
             this.tabPageBattle = new System.Windows.Forms.TabPage();
-            this.ffrkCurrentBattleView1 = new ffrk_winproxy.FFRKViewActiveDungeon();
             this.tabPageInventory = new System.Windows.Forms.TabPage();
             this.tabPageAbilities = new System.Windows.Forms.TabPage();
             this.tabPageParty = new System.Windows.Forms.TabPage();
             this.tabPageAbout = new System.Windows.Forms.TabPage();
             this.tabPageDebug = new System.Windows.Forms.TabPage();
-            this.ffrkViewDebugging1 = new ffrk_winproxy.FFRKViewDebugging();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -48,12 +44,19 @@
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel6 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tabPageGacha = new System.Windows.Forms.TabPage();
+            this.ffrkBrowseView1 = new ffrk_winproxy.FFRKViewBrowse();
+            this.ffrkItemSearchView1 = new ffrk_winproxy.FFRKViewItemSearch();
+            this.ffrkCurrentBattleView1 = new ffrk_winproxy.FFRKViewActiveDungeon();
+            this.ffrkViewDebugging1 = new ffrk_winproxy.FFRKViewDebugging();
+            this.ffrkViewGacha1 = new ffrk_winproxy.FFRKViewGacha();
             this.tabControlFFRKInspector.SuspendLayout();
             this.tabPageBrowse.SuspendLayout();
             this.tabPageSearch.SuspendLayout();
             this.tabPageBattle.SuspendLayout();
             this.tabPageDebug.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.tabPageGacha.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControlFFRKInspector
@@ -64,6 +67,7 @@
             this.tabControlFFRKInspector.Controls.Add(this.tabPageInventory);
             this.tabControlFFRKInspector.Controls.Add(this.tabPageAbilities);
             this.tabControlFFRKInspector.Controls.Add(this.tabPageParty);
+            this.tabControlFFRKInspector.Controls.Add(this.tabPageGacha);
             this.tabControlFFRKInspector.Controls.Add(this.tabPageAbout);
             this.tabControlFFRKInspector.Controls.Add(this.tabPageDebug);
             this.tabControlFFRKInspector.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -83,14 +87,6 @@
             this.tabPageBrowse.Text = "Browse";
             this.tabPageBrowse.UseVisualStyleBackColor = true;
             // 
-            // ffrkBrowseView1
-            // 
-            this.ffrkBrowseView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ffrkBrowseView1.Location = new System.Drawing.Point(0, 0);
-            this.ffrkBrowseView1.Name = "ffrkBrowseView1";
-            this.ffrkBrowseView1.Size = new System.Drawing.Size(716, 357);
-            this.ffrkBrowseView1.TabIndex = 0;
-            // 
             // tabPageSearch
             // 
             this.tabPageSearch.Controls.Add(this.ffrkItemSearchView1);
@@ -102,14 +98,6 @@
             this.tabPageSearch.Text = "Item Search";
             this.tabPageSearch.UseVisualStyleBackColor = true;
             // 
-            // ffrkItemSearchView1
-            // 
-            this.ffrkItemSearchView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ffrkItemSearchView1.Location = new System.Drawing.Point(3, 3);
-            this.ffrkItemSearchView1.Name = "ffrkItemSearchView1";
-            this.ffrkItemSearchView1.Size = new System.Drawing.Size(710, 351);
-            this.ffrkItemSearchView1.TabIndex = 0;
-            // 
             // tabPageBattle
             // 
             this.tabPageBattle.Controls.Add(this.ffrkCurrentBattleView1);
@@ -120,14 +108,6 @@
             this.tabPageBattle.TabIndex = 1;
             this.tabPageBattle.Text = "Current Battle";
             this.tabPageBattle.UseVisualStyleBackColor = true;
-            // 
-            // ffrkCurrentBattleView1
-            // 
-            this.ffrkCurrentBattleView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ffrkCurrentBattleView1.Location = new System.Drawing.Point(3, 3);
-            this.ffrkCurrentBattleView1.Name = "ffrkCurrentBattleView1";
-            this.ffrkCurrentBattleView1.Size = new System.Drawing.Size(710, 351);
-            this.ffrkCurrentBattleView1.TabIndex = 0;
             // 
             // tabPageInventory
             // 
@@ -174,14 +154,6 @@
             this.tabPageDebug.TabIndex = 7;
             this.tabPageDebug.Text = "Debugging";
             this.tabPageDebug.UseVisualStyleBackColor = true;
-            // 
-            // ffrkViewDebugging1
-            // 
-            this.ffrkViewDebugging1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ffrkViewDebugging1.Location = new System.Drawing.Point(0, 0);
-            this.ffrkViewDebugging1.Name = "ffrkViewDebugging1";
-            this.ffrkViewDebugging1.Size = new System.Drawing.Size(716, 357);
-            this.ffrkViewDebugging1.TabIndex = 0;
             // 
             // statusStrip1
             // 
@@ -234,6 +206,56 @@
             this.toolStripStatusLabel6.Size = new System.Drawing.Size(49, 17);
             this.toolStripStatusLabel6.Text = "1234567";
             // 
+            // tabPageGacha
+            // 
+            this.tabPageGacha.Controls.Add(this.ffrkViewGacha1);
+            this.tabPageGacha.Location = new System.Drawing.Point(4, 22);
+            this.tabPageGacha.Name = "tabPageGacha";
+            this.tabPageGacha.Size = new System.Drawing.Size(716, 357);
+            this.tabPageGacha.TabIndex = 8;
+            this.tabPageGacha.Text = "Gacha";
+            this.tabPageGacha.UseVisualStyleBackColor = true;
+            // 
+            // ffrkBrowseView1
+            // 
+            this.ffrkBrowseView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ffrkBrowseView1.Location = new System.Drawing.Point(0, 0);
+            this.ffrkBrowseView1.Name = "ffrkBrowseView1";
+            this.ffrkBrowseView1.Size = new System.Drawing.Size(716, 357);
+            this.ffrkBrowseView1.TabIndex = 0;
+            // 
+            // ffrkItemSearchView1
+            // 
+            this.ffrkItemSearchView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ffrkItemSearchView1.Location = new System.Drawing.Point(3, 3);
+            this.ffrkItemSearchView1.Name = "ffrkItemSearchView1";
+            this.ffrkItemSearchView1.Size = new System.Drawing.Size(710, 351);
+            this.ffrkItemSearchView1.TabIndex = 0;
+            // 
+            // ffrkCurrentBattleView1
+            // 
+            this.ffrkCurrentBattleView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ffrkCurrentBattleView1.Location = new System.Drawing.Point(3, 3);
+            this.ffrkCurrentBattleView1.Name = "ffrkCurrentBattleView1";
+            this.ffrkCurrentBattleView1.Size = new System.Drawing.Size(710, 351);
+            this.ffrkCurrentBattleView1.TabIndex = 0;
+            // 
+            // ffrkViewDebugging1
+            // 
+            this.ffrkViewDebugging1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ffrkViewDebugging1.Location = new System.Drawing.Point(0, 0);
+            this.ffrkViewDebugging1.Name = "ffrkViewDebugging1";
+            this.ffrkViewDebugging1.Size = new System.Drawing.Size(716, 357);
+            this.ffrkViewDebugging1.TabIndex = 0;
+            // 
+            // ffrkViewGacha1
+            // 
+            this.ffrkViewGacha1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ffrkViewGacha1.Location = new System.Drawing.Point(0, 0);
+            this.ffrkViewGacha1.Name = "ffrkViewGacha1";
+            this.ffrkViewGacha1.Size = new System.Drawing.Size(716, 357);
+            this.ffrkViewGacha1.TabIndex = 0;
+            // 
             // FFRKTabInspector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -250,6 +272,7 @@
             this.tabPageDebug.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.tabPageGacha.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -277,6 +300,8 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel6;
         private System.Windows.Forms.TabPage tabPageDebug;
         private FFRKViewDebugging ffrkViewDebugging1;
+        private System.Windows.Forms.TabPage tabPageGacha;
+        private FFRKViewGacha ffrkViewGacha1;
 
 
     }
