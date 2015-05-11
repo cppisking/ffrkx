@@ -49,8 +49,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Database\FFRKCacheDungeonDrops.cs" />
-    <Compile Include="Database\FFRKCacheDungeons.cs" />
+    <Compile Include="DataCache\Battles.cs" />
+    <Compile Include="DataCache\DungeonDrops.cs" />
+    <Compile Include="DataCache\Dungeons.cs" />
+    <Compile Include="DataCache\Items.cs" />
+    <Compile Include="DataCache\Worlds.cs" />
+    <Compile Include="DataCache\FFRKDataCache.cs" />
+    <Compile Include="DataCache\FFRKDataCacheTable.cs" />
     <Compile Include="Database\FFRKMySQLInstance.cs" />
     <Compile Include="FFRKViewBrowse.cs">
       <SubType>UserControl</SubType>

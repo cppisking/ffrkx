@@ -21,7 +21,7 @@ namespace ffrk_winproxy.GameData
         public uint Id;
 
         [JsonProperty("type")]
-        public uint Type;
+        public ushort Type;
 
         [JsonExtensionData]
         public Dictionary<string, JToken> UnknownValues;

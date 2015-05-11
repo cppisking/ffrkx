@@ -96,14 +96,14 @@ namespace ffrk_winproxy
                             else
                                 Item = drop.ItemId.ToString();
                             string[] row = 
-                        {
-                            Item,
-                            drop.Rarity.ToString(),
-                            drop.Round.ToString(),
-                            drop.EnemyName,
-                            "",
-                            ""
-                        };
+                            {
+                                Item,
+                                drop.Rarity.ToString(),
+                                drop.Round.ToString(),
+                                drop.EnemyName,
+                                "",
+                                ""
+                            };
                             listViewActiveBattle.Items.Add(new ListViewItem(row));
                         }
                     }

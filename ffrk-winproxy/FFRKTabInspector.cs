@@ -23,8 +23,6 @@ namespace ffrk_winproxy
 
         private void FFRKTabInspectorView_Load(object sender, EventArgs e)
         {
-            FFRKMySqlInstance.RefreshDungeonCache();
-            FFRKMySqlInstance.RefreshDungeonDropsCache();
         }
 
         internal FFRKProxy Proxy { get { return mProxy; } }

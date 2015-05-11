@@ -11,6 +11,7 @@ using ffrk_winproxy.Database;
 using ffrk_winproxy.GameData;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using ffrk_winproxy.DataCache;
 
 namespace ffrk_winproxy
 {
@@ -19,6 +20,8 @@ namespace ffrk_winproxy
         TabPage mTabPage;
         FFRKTabInspector mInspectorView;
         ResponseHistory mHistory;
+        FFRKMySqlInstance mDatabaseInstance;
+        FFRKDataCache mDataCache;
         static FFRKProxy mInstance;
 
         public static FFRKProxy Instance { get { return mInstance; } }
@@ -31,6 +34,9 @@ namespace ffrk_winproxy
         public void OnLoad()
         {
             mHistory = new ResponseHistory();
+            mDataCache = new FFRKDataCache();
+            mDatabaseInstance = new FFRKMySqlInstance(mDataCache);
+            mDatabaseInstance.BeginRefreshItemsCache();
 
             mTabPage = new TabPage("FFRK Inspector");
             mInspectorView = new FFRKTabInspector(this);
@@ -102,7 +108,7 @@ namespace ffrk_winproxy
             try
             {
                 EventListBattles result = JsonConvert.DeserializeObject<EventListBattles>(ResponseJson);
-                FFRKMySqlInstance.RecordBattleList(result);
+                mDatabaseInstance.BeginRecordBattleList(result);
                 if (OnListBattles != null)
                     OnListBattles(result);
             }
@@ -118,7 +124,7 @@ namespace ffrk_winproxy
             {
                 EventListDungeons result = JsonConvert.DeserializeObject<EventListDungeons>(ResponseJson);
 
-                FFRKMySqlInstance.RecordDungeonList(result);
+                mDatabaseInstance.BeginRecordDungeonList(result);
                 if (OnListDungeons != null)
                     OnListDungeons(result);
             }

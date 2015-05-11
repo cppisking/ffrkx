@@ -22,7 +22,7 @@ namespace ffrk_winproxy.GameData
         public bool HasBoss;
 
         [JsonProperty("stamina")]
-        public uint Stamina;
+        public ushort Stamina;
 
         [JsonProperty("is_unlocked")]
         public bool IsUnlocked;

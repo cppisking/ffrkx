@@ -12,7 +12,7 @@ namespace ffrk_winproxy.GameData
     class DataDungeon
     {
         [JsonProperty("challenge_level")]
-        public uint Difficulty;
+        public ushort Difficulty;
 
         [JsonProperty("Id")]
         public uint Id;
@@ -27,7 +27,7 @@ namespace ffrk_winproxy.GameData
         public uint SeriesId;
 
         [JsonProperty("type")]
-        public uint Type;
+        public byte Type;
 
         [JsonProperty("rank")]
         public uint Rank;
