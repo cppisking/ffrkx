@@ -22,10 +22,12 @@ namespace ffrk_winproxy
         ResponseHistory mHistory;
         FFRKMySqlInstance mDatabaseInstance;
         FFRKDataCache mDataCache;
+        GameState mGameState;
         static FFRKProxy mInstance;
 
         public static FFRKProxy Instance { get { return mInstance; } }
         internal ResponseHistory ResponseHistory { get { return mHistory; } }
+        internal GameState GameState { get { return mGameState; } }
 
         public FFRKProxy()
         {
@@ -35,6 +37,7 @@ namespace ffrk_winproxy
         {
             mHistory = new ResponseHistory();
             mDataCache = new FFRKDataCache();
+            mGameState = new GameState();
             mDatabaseInstance = new FFRKMySqlInstance(mDataCache);
             mDatabaseInstance.BeginRefreshItemsCache();
 
@@ -80,8 +83,37 @@ namespace ffrk_winproxy
                 HandleInitiateBattleEvent(oSession, ResponseJson);
             else if (RequestPath.StartsWith("/dff/gacha/probability"))
                 HandleGachaStats(oSession, ResponseJson);
-
+            else if (RequestPath.Equals("/dff/battle/lose") || RequestPath.Equals("/dff/battle/escape") || RequestPath.StartsWith("/dff/world/fail"))
+                HandleBattleFailed(oSession, ResponseJson);
+            else if (RequestPath.Equals("/dff/battle/win") || RequestPath.EndsWith("/win_battle"))
+                HandleBattleWon(oSession, ResponseJson);
             return;
+        }
+
+        void HandleBattleFailed(Session oSession, string ResponseJson)
+        {
+            // Win or lose, finishing a battle means it's safe to record that encounter and its drops
+            // since it won't be possible for the user to have the same drop set if they continue.
+            if (mGameState.ActiveBattle != null)
+            {
+                mDatabaseInstance.BeginRecordBattleEncounter(mGameState.ActiveBattle);
+                if (OnFailBattle != null)
+                    OnFailBattle(mGameState.ActiveBattle);
+            }
+            mGameState.ActiveBattle = null;
+        }
+
+        void HandleBattleWon(Session oSession, string ResponseJson)
+        {
+            // Win or lose, finishing a battle means it's safe to record that encounter and its drops
+            // since it won't be possible for the user to have the same drop set if they continue.
+            if (mGameState.ActiveBattle != null)
+            {
+                mDatabaseInstance.BeginRecordBattleEncounter(mGameState.ActiveBattle);
+                if (OnWinBattle != null)
+                    OnWinBattle(mGameState.ActiveBattle);
+            }
+            mGameState.ActiveBattle = null;
         }
 
         void HandleGachaStats(Session oSession, string ResponseJson)
@@ -126,7 +158,7 @@ namespace ffrk_winproxy
             try
             {
                 EventBattleInitiated result = JsonConvert.DeserializeObject<EventBattleInitiated>(ResponseJson);
-
+                mGameState.ActiveBattle = result;
                 if (OnBattleEngaged != null)
                     OnBattleEngaged(result);
             }
@@ -141,6 +173,7 @@ namespace ffrk_winproxy
             try
             {
                 EventListBattles result = JsonConvert.DeserializeObject<EventListBattles>(ResponseJson);
+                mGameState.ActiveDungeon = result;
                 mDatabaseInstance.BeginRecordBattleList(result);
                 if (OnListBattles != null)
                     OnListBattles(result);
@@ -175,16 +208,19 @@ namespace ffrk_winproxy
         }
 
         internal delegate void BattleInitiatedDelegate(EventBattleInitiated battle);
+        internal delegate void BattleResultDelegate(EventBattleInitiated battle);
         internal delegate void ListBattlesDelegate(EventListBattles battles);
         internal delegate void ListDungeonsDelegate(EventListDungeons dungeons);
         internal delegate void GachaStatsDelegate(EventViewGacha gacha);
-        internal delegate void LeaveDungeonDelegate();
+        internal delegate void FFRKDefaultDelegate();
         internal delegate void FFRKResponseDelegate(string Path, string Json);
 
         internal event BattleInitiatedDelegate OnBattleEngaged;
         internal event ListBattlesDelegate OnListBattles;
         internal event ListDungeonsDelegate OnListDungeons;
-        internal event LeaveDungeonDelegate OnLeaveDungeon;
+        internal event FFRKDefaultDelegate OnLeaveDungeon;
+        internal event BattleResultDelegate OnWinBattle;
+        internal event BattleResultDelegate OnFailBattle;
         internal event GachaStatsDelegate OnGachaStats;
         internal event FFRKResponseDelegate OnFFRKResponse;
     }

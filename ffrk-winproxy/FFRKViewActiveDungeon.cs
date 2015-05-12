@@ -20,42 +20,75 @@ namespace ffrk_winproxy
 
         private void FFRKViewCurrentBattle_Load(object sender, EventArgs e)
         {
+            CenterControl(listViewActiveBattle, labelActiveBattleNotice);
+            CenterControl(listViewActiveBattle, labelNoDrops);
+
             if (FFRKProxy.Instance != null)
             {
                 FFRKProxy.Instance.OnBattleEngaged += FFRKProxy_OnBattleEngaged;
                 FFRKProxy.Instance.OnListBattles += FFRKProxy_OnListBattles;
                 FFRKProxy.Instance.OnListDungeons += FFRKProxy_OnListDungeons;
                 FFRKProxy.Instance.OnLeaveDungeon += FFRKProxy_OnLeaveDungeon;
-            }
+                FFRKProxy.Instance.OnWinBattle += FFRKProxy_OnWinBattle;
+                FFRKProxy.Instance.OnFailBattle += FFRKProxy_OnFailBattle;
 
-            CenterControl(listViewActiveBattle, labelActiveBattleNotice);
-            CenterControl(listViewActiveBattle, labelNoDrops);
-            ClearActiveBattleListView();
+                PopulateActiveDungeonListView(FFRKProxy.Instance.GameState.ActiveDungeon);
+                PopulateActiveBattleListView(FFRKProxy.Instance.GameState.ActiveBattle);
+            }
+            else
+            {
+                PopulateActiveBattleListView(null);
+                PopulateActiveDungeonListView(null);
+            }
         }
 
         void ClearActiveBattleListView()
         {
-            labelActiveBattleNotice.Visible = true;
-            labelNoDrops.Visible = false;
+        }
+
+        void FFRKProxy_OnWinBattle(EventBattleInitiated battle)
+        {
+            this.BeginInvoke((Action)(() => { PopulateActiveBattleListView(null); }));
+        }
+
+        void FFRKProxy_OnFailBattle(EventBattleInitiated battle)
+        {
+            this.BeginInvoke((Action)(() => { PopulateActiveBattleListView(null); }));
         }
 
         void FFRKProxy_OnLeaveDungeon()
         {
-            listViewActiveDungeon.Items.Clear();
-            groupBoxDungeon.Text = "(No Active Dungeon)";
+            this.BeginInvoke((Action)(() => { PopulateActiveDungeonListView(null); }));
         }
 
         void FFRKProxy_OnListBattles(EventListBattles battles)
         {
-            this.BeginInvoke((Action)(() =>
-                {
-                    listViewActiveDungeon.Items.Clear();
-                    groupBoxDungeon.Text = battles.DungeonSession.Name;
-                    ClearActiveBattleListView();
+            this.BeginInvoke((Action)(() => { PopulateActiveDungeonListView(battles); }));
+        }
 
-                    foreach (DataBattle battle in battles.Battles)
-                    {
-                        string[] row =
+        void FFRKProxy_OnListDungeons(EventListDungeons dungeons)
+        {
+            this.BeginInvoke((Action)(() => { PopulateActiveBattleListView(null); }));
+        }
+
+        void FFRKProxy_OnBattleEngaged(EventBattleInitiated battle)
+        {
+            this.BeginInvoke((Action)(() => { PopulateActiveBattleListView(battle); }));
+        }
+
+        private void PopulateActiveDungeonListView(EventListBattles dungeon)
+        {
+            listViewActiveDungeon.Items.Clear();
+            ClearActiveBattleListView();
+            if (dungeon == null)
+                groupBoxDungeon.Text = "(No Active Dungeon)";
+            else
+            {
+                groupBoxDungeon.Text = dungeon.DungeonSession.Name;
+
+                foreach (DataBattle battle in dungeon.Battles)
+                {
+                    string[] row =
                         {
                             (battle.HasBoss) ? "BOSS" : "",
                             battle.Name,
@@ -63,39 +96,36 @@ namespace ffrk_winproxy
                             battle.Stamina.ToString()
                         };
 
-                        listViewActiveDungeon.Items.Add(new ListViewItem(row));
-                    }
-                }));
+                    listViewActiveDungeon.Items.Add(new ListViewItem(row));
+                }
+            }
         }
 
-        void FFRKProxy_OnListDungeons(EventListDungeons dungeons)
+        private void PopulateActiveBattleListView(EventBattleInitiated battle)
         {
-            this.BeginInvoke((Action)(() =>
+            listViewActiveBattle.Items.Clear();
+            if (battle == null)
+            {
+                labelActiveBattleNotice.Visible = true;
+                labelNoDrops.Visible = false;
+            }
+            else
+            {
+                listViewActiveBattle.View = View.Details;
+                List<DropEvent> drops = battle.Battle.Drops.ToList();
+                labelActiveBattleNotice.Visible = false;
+                if (drops.Count == 0)
+                    labelNoDrops.Visible = true;
+                else
                 {
-                    ClearActiveBattleListView();
-                }));
-        }
-
-        void FFRKProxy_OnBattleEngaged(EventBattleInitiated battle)
-        {
-            this.BeginInvoke((Action)(() =>
-                {
-                    listViewActiveBattle.Items.Clear();
-                    listViewActiveBattle.View = View.Details;
-                    List<DropEvent> drops = battle.Battle.Drops.ToList();
-                    labelActiveBattleNotice.Visible = false;
-                    if (drops.Count == 0)
-                        labelNoDrops.Visible = true;
-                    else
+                    foreach (DropEvent drop in battle.Battle.Drops)
                     {
-                        foreach (DropEvent drop in battle.Battle.Drops)
-                        {
-                            string Item;
-                            if (drop.ItemType == DataEnemyDropItem.DropItemType.Gold)
-                                Item = String.Format("{0} gold", drop.GoldAmount);
-                            else
-                                Item = drop.ItemId.ToString();
-                            string[] row = 
+                        string Item;
+                        if (drop.ItemType == DataEnemyDropItem.DropItemType.Gold)
+                            Item = String.Format("{0} gold", drop.GoldAmount);
+                        else
+                            Item = drop.ItemId.ToString();
+                        string[] row = 
                             {
                                 Item,
                                 drop.Rarity.ToString(),
@@ -104,10 +134,10 @@ namespace ffrk_winproxy
                                 "",
                                 ""
                             };
-                            listViewActiveBattle.Items.Add(new ListViewItem(row));
-                        }
+                        listViewActiveBattle.Items.Add(new ListViewItem(row));
                     }
-                }));
+                }
+            }
         }
 
         private void CenterControl(Control parent, Control child)
