@@ -57,6 +57,14 @@
     <Compile Include="DataCache\FFRKDataCache.cs" />
     <Compile Include="DataCache\FFRKDataCacheTable.cs" />
     <Compile Include="Database\FFRKMySQLInstance.cs" />
+    <Compile Include="Proxy\HandleGacha.cs" />
+    <Compile Include="Proxy\HandleListBattles.cs" />
+    <Compile Include="Proxy\HandleListDungeons.cs" />
+    <Compile Include="Proxy\HandleInitiateBattle.cs" />
+    <Compile Include="Proxy\IResponseHandler.cs" />
+    <Compile Include="Proxy\HandleLeaveDungeon.cs" />
+    <Compile Include="Proxy\HandleLoseBattle.cs" />
+    <Compile Include="Proxy\HandleWinBattle.cs" />
     <Compile Include="UI\FFRKViewBrowse.cs">
       <SubType>UserControl</SubType>
     </Compile>

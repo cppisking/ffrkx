@@ -34,7 +34,7 @@ namespace FFRKInspector.UI
             }
         }
 
-        void FFRKProxy_OnFFRKResponse(string Path, string Json)
+        void FFRKProxy_OnFFRKResponse(string Path)
         {
             ++listViewHistory.VirtualListSize;
         }
