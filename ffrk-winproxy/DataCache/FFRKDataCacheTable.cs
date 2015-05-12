@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ffrk_winproxy.DataCache
+namespace FFRKInspector.DataCache
 {
     class FFRKDataCacheTable<Key,Value>
     {

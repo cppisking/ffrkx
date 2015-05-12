@@ -7,9 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ffrk_winproxy.GameData;
+using FFRKInspector.GameData;
+using FFRKInspector.Proxy;
 
-namespace ffrk_winproxy
+namespace FFRKInspector.UI
 {
     internal partial class FFRKViewActiveDungeon : UserControl
     {

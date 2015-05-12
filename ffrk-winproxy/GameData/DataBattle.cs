@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Newtonsoft.Json;
-using ffrk_winproxy.GameData.Converters;
+using FFRKInspector.GameData.Converters;
 using Newtonsoft.Json.Linq;
 
-namespace ffrk_winproxy.GameData
+namespace FFRKInspector.GameData
 {
     class DataBattle
     {

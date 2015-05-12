@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ffrk_winproxy.GameData.Converters
+namespace FFRKInspector.GameData.Converters
 {
     class IntToBool : JsonConverter
     {

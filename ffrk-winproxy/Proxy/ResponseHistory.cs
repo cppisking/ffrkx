@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ffrk_winproxy
+namespace FFRKInspector.Proxy
 {
     internal class ResponseHistory
     {

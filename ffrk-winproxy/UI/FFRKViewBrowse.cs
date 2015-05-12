@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Reflection;
 
-namespace ffrk_winproxy
+namespace FFRKInspector.UI
 {
     internal partial class FFRKViewBrowse : UserControl
     {

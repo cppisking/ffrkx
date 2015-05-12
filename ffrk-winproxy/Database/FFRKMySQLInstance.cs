@@ -10,11 +10,11 @@ using MySql.Data.MySqlClient;
 
 using Fiddler;
 
-using ffrk_winproxy.GameData;
+using FFRKInspector.GameData;
 using System.ComponentModel;
-using ffrk_winproxy.DataCache;
+using FFRKInspector.DataCache;
 
-namespace ffrk_winproxy.Database
+namespace FFRKInspector.Database
 {
     class FFRKMySqlInstance
     {

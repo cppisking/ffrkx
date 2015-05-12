@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ffrk_winproxy.GameData;
+using FFRKInspector.GameData;
 using System.Text.RegularExpressions;
+using FFRKInspector.Proxy;
 
-namespace ffrk_winproxy
+namespace FFRKInspector.UI
 {
     public partial class FFRKViewGacha : UserControl
     {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace ffrk_winproxy.GameData
+namespace FFRKInspector.GameData
 {
     class DataWorld
     {

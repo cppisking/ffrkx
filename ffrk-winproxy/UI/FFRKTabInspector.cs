@@ -7,24 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ffrk_winproxy.Database;
+using FFRKInspector.Database;
+using FFRKInspector.Proxy;
 
-namespace ffrk_winproxy
+namespace FFRKInspector.UI
 {
     internal partial class FFRKTabInspector : UserControl
     {
-        FFRKProxy mProxy;
-
-        public FFRKTabInspector(FFRKProxy proxy)
+        public FFRKTabInspector()
         {
             InitializeComponent();
-            mProxy = proxy;
         }
 
         private void FFRKTabInspectorView_Load(object sender, EventArgs e)
         {
         }
-
-        internal FFRKProxy Proxy { get { return mProxy; } }
     }
 }

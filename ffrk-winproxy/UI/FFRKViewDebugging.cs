@@ -11,8 +11,9 @@ using Newtonsoft.Json;
 using System.IO;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
+using FFRKInspector.Proxy;
 
-namespace ffrk_winproxy
+namespace FFRKInspector.UI
 {
     public partial class FFRKViewDebugging : UserControl
     {

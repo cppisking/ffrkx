@@ -8,12 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ffrk_winproxy
+namespace FFRKInspector.UI
 {
     internal partial class FFRKViewItemSearch : UserControl
     {
-        FFRKProxy mProxy;
-
         public FFRKViewItemSearch()
         {
             InitializeComponent();

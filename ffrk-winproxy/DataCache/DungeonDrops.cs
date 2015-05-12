@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ffrk_winproxy.DataCache.DungeonDrops
+namespace FFRKInspector.DataCache.DungeonDrops
 {
     public class Key
     {

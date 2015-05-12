@@ -1,4 +1,4 @@
-﻿namespace ffrk_winproxy
+﻿namespace FFRKInspector.UI
 {
     partial class FFRKTabInspector
     {
@@ -45,11 +45,11 @@
             this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel6 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabPageGacha = new System.Windows.Forms.TabPage();
-            this.ffrkBrowseView1 = new ffrk_winproxy.FFRKViewBrowse();
-            this.ffrkItemSearchView1 = new ffrk_winproxy.FFRKViewItemSearch();
-            this.ffrkCurrentBattleView1 = new ffrk_winproxy.FFRKViewActiveDungeon();
-            this.ffrkViewDebugging1 = new ffrk_winproxy.FFRKViewDebugging();
-            this.ffrkViewGacha1 = new ffrk_winproxy.FFRKViewGacha();
+            this.ffrkBrowseView1 = new FFRKViewBrowse();
+            this.ffrkItemSearchView1 = new FFRKViewItemSearch();
+            this.ffrkCurrentBattleView1 = new FFRKViewActiveDungeon();
+            this.ffrkViewDebugging1 = new FFRKViewDebugging();
+            this.ffrkViewGacha1 = new FFRKViewGacha();
             this.tabControlFFRKInspector.SuspendLayout();
             this.tabPageBrowse.SuspendLayout();
             this.tabPageSearch.SuspendLayout();

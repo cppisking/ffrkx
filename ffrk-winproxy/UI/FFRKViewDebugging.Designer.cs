@@ -1,4 +1,4 @@
-﻿namespace ffrk_winproxy
+﻿namespace FFRKInspector.UI
 {
     partial class FFRKViewDebugging
     {

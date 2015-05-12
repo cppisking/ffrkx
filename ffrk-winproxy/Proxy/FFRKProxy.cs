@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using Fiddler;
-using ffrk_winproxy.Database;
-using ffrk_winproxy.GameData;
+using FFRKInspector.Database;
+using FFRKInspector.GameData;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using ffrk_winproxy.DataCache;
+using FFRKInspector.DataCache;
+using FFRKInspector.UI;
 
-namespace ffrk_winproxy
+namespace FFRKInspector.Proxy
 {
 	public class FFRKProxy : IAutoTamper, IHandleExecAction
 	{
@@ -42,7 +43,7 @@ namespace ffrk_winproxy
             mDatabaseInstance.BeginRefreshItemsCache();
 
             mTabPage = new TabPage("FFRK Inspector");
-            mInspectorView = new FFRKTabInspector(this);
+            mInspectorView = new FFRKTabInspector();
             mInspectorView.Dock = DockStyle.Fill;
             mTabPage.Controls.Add(mInspectorView);
             FiddlerApplication.UI.tabsViews.TabPages.Add(mTabPage);
