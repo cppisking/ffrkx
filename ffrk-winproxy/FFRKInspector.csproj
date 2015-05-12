@@ -49,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Database\DbOpLoadAllBattles.cs" />
+    <Compile Include="Database\DbOpLoadAllItems.cs" />
     <Compile Include="Database\DbOpRecordBattleEncounter.cs" />
     <Compile Include="Database\DbOpRecordBattleList.cs" />
     <Compile Include="Database\DbOpRecordDungeonList.cs" />

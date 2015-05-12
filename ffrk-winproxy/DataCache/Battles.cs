@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FFRKInspector.DataCache.Battles
 {
-    public class Key
+    public struct Key
     {
         public uint BattleId;
     }

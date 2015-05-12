@@ -26,6 +26,14 @@ namespace FFRKInspector.Proxy
                 EventBattleInitiated original_battle = state.ActiveBattle;
                 state.ActiveBattle = null;
 
+                lock (FFRKProxy.Instance.Cache.SyncRoot)
+                {
+                    DataCache.Battles.Key key = new DataCache.Battles.Key { BattleId = original_battle.Battle.BattleId };
+                    DataCache.Battles.Data data = null;
+                    if (FFRKProxy.Instance.Cache.Battles.TryGetValue(key, out data))
+                        data.TimesRun++;
+                }
+
                 Database.DbOpRecordBattleEncounter op = new Database.DbOpRecordBattleEncounter(original_battle);
                 FFRKProxy.Instance.Database.BeginExecuteRequest(op);
                 FFRKProxy.Instance.RaiseBattleLost(original_battle);

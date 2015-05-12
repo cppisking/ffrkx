@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FFRKInspector.DataCache.Items
 {
-    public class Key
+    public struct Key
     {
         public uint ItemId;
     }

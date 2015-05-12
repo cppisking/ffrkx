@@ -12,6 +12,7 @@ using FFRKInspector.GameData;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using FFRKInspector.UI;
+using FFRKInspector.DataCache;
 
 namespace FFRKInspector.Proxy
 {
@@ -23,6 +24,7 @@ namespace FFRKInspector.Proxy
         FFRKMySqlInstance mDatabaseInstance;
         GameState mGameState;
         List<IResponseHandler> mResponseHandlers;
+        FFRKDataCache mCache;
 
         static FFRKProxy mInstance;
 
@@ -30,6 +32,7 @@ namespace FFRKInspector.Proxy
         internal ResponseHistory ResponseHistory { get { return mHistory; } }
         internal GameState GameState { get { return mGameState; } }
         internal FFRKMySqlInstance Database { get { return mDatabaseInstance; } }
+        internal FFRKDataCache Cache { get { return mCache; } }
 
         public FFRKProxy()
         {
@@ -50,12 +53,41 @@ namespace FFRKInspector.Proxy
             mGameState = new GameState();
             mDatabaseInstance = new FFRKMySqlInstance();
 
+            InitializeDataCache();
+
             mTabPage = new TabPage("FFRK Inspector");
             mInspectorView = new FFRKTabInspector();
             mInspectorView.Dock = DockStyle.Fill;
             mTabPage.Controls.Add(mInspectorView);
             FiddlerApplication.UI.tabsViews.TabPages.Add(mTabPage);
             mInstance = this;
+        }
+
+        private void InitializeDataCache()
+        {
+            mCache = new FFRKDataCache();
+            DbOpLoadAllItems items_request = new DbOpLoadAllItems();
+            items_request.OnRequestComplete += DbOpLoadAllItems_OnRequestComplete;
+            mDatabaseInstance.BeginExecuteRequest(items_request);
+
+            DbOpLoadAllBattles battles_request = new DbOpLoadAllBattles();
+            battles_request.OnRequestComplete += DbOpLoadAllBattles_OnRequestComplete;
+        }
+
+        void DbOpLoadAllBattles_OnRequestComplete(FFRKDataCacheTable<DataCache.Battles.Key, DataCache.Battles.Data> battles)
+        {
+            lock (mCache.SyncRoot)
+                mCache.Battles = battles;
+            if (OnItemCacheRefreshed != null)
+                OnItemCacheRefreshed();
+        }
+
+        void DbOpLoadAllItems_OnRequestComplete(FFRKDataCacheTable<DataCache.Items.Key, DataCache.Items.Data> items)
+        {
+            lock(mCache.SyncRoot)
+                mCache.Items = items;
+            if (OnItemCacheRefreshed != null)
+                OnItemCacheRefreshed();
         }
 
         public void OnBeforeUnload()
@@ -131,5 +163,6 @@ namespace FFRKInspector.Proxy
         internal event BattleResultDelegate OnFailBattle;
         internal event GachaStatsDelegate OnGachaStats;
         internal event FFRKResponseDelegate OnFFRKResponse;
+        internal event FFRKDefaultDelegate OnItemCacheRefreshed;
     }
 }

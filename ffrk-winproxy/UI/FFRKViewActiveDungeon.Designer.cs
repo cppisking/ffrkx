@@ -39,6 +39,7 @@
             this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderBattle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderEnemy = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderTimes = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderRate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderStam = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.labelItemsDropped = new System.Windows.Forms.Label();
@@ -52,6 +53,7 @@
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.labelActiveBattleNotice = new System.Windows.Forms.Label();
             this.labelNoDrops = new System.Windows.Forms.Label();
+            this.columnHeaderTotalDrops = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBoxDungeon.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -119,11 +121,13 @@
             this.columnHeaderName,
             this.columnHeaderBattle,
             this.columnHeaderEnemy,
+            this.columnHeaderTimes,
+            this.columnHeaderTotalDrops,
             this.columnHeaderRate,
             this.columnHeaderStam});
             this.listViewAllDrops.Location = new System.Drawing.Point(439, 198);
             this.listViewAllDrops.Name = "listViewAllDrops";
-            this.listViewAllDrops.Size = new System.Drawing.Size(510, 220);
+            this.listViewAllDrops.Size = new System.Drawing.Size(587, 220);
             this.listViewAllDrops.TabIndex = 3;
             this.listViewAllDrops.UseCompatibleStateImageBehavior = false;
             this.listViewAllDrops.View = System.Windows.Forms.View.Details;
@@ -133,7 +137,7 @@
             // columnHeaderName
             // 
             this.columnHeaderName.Text = "Name";
-            this.columnHeaderName.Width = 137;
+            this.columnHeaderName.Width = 126;
             // 
             // columnHeaderBattle
             // 
@@ -144,6 +148,11 @@
             // 
             this.columnHeaderEnemy.Text = "Enemy";
             // 
+            // columnHeaderTimes
+            // 
+            this.columnHeaderTimes.Text = "Times Run";
+            this.columnHeaderTimes.Width = 71;
+            // 
             // columnHeaderRate
             // 
             this.columnHeaderRate.Text = "Drop Rate";
@@ -152,7 +161,7 @@
             // columnHeaderStam
             // 
             this.columnHeaderStam.Text = "Stamina / Drop";
-            this.columnHeaderStam.Width = 96;
+            this.columnHeaderStam.Width = 105;
             // 
             // labelItemsDropped
             // 
@@ -185,7 +194,7 @@
             this.columnHeader6});
             this.listViewActiveBattle.Location = new System.Drawing.Point(439, 22);
             this.listViewActiveBattle.Name = "listViewActiveBattle";
-            this.listViewActiveBattle.Size = new System.Drawing.Size(509, 146);
+            this.listViewActiveBattle.Size = new System.Drawing.Size(586, 146);
             this.listViewActiveBattle.TabIndex = 7;
             this.listViewActiveBattle.UseCompatibleStateImageBehavior = false;
             this.listViewActiveBattle.View = System.Windows.Forms.View.Details;
@@ -236,6 +245,11 @@
             this.labelNoDrops.TabIndex = 9;
             this.labelNoDrops.Text = "There are no drops!";
             // 
+            // columnHeaderTotalDrops
+            // 
+            this.columnHeaderTotalDrops.Text = "Total Drops";
+            this.columnHeaderTotalDrops.Width = 80;
+            // 
             // FFRKViewActiveDungeon
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -249,7 +263,7 @@
             this.Controls.Add(this.groupBoxParty);
             this.Controls.Add(this.groupBoxDungeon);
             this.Name = "FFRKViewActiveDungeon";
-            this.Size = new System.Drawing.Size(961, 441);
+            this.Size = new System.Drawing.Size(1038, 441);
             this.Load += new System.EventHandler(this.FFRKViewCurrentBattle_Load);
             this.SizeChanged += new System.EventHandler(this.FFRKViewCurrentBattle_SizeChanged);
             this.groupBoxDungeon.ResumeLayout(false);
@@ -284,5 +298,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.Label labelActiveBattleNotice;
         private System.Windows.Forms.Label labelNoDrops;
+        private System.Windows.Forms.ColumnHeader columnHeaderTimes;
+        private System.Windows.Forms.ColumnHeader columnHeaderTotalDrops;
     }
 }

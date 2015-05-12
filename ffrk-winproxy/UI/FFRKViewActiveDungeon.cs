@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using FFRKInspector.GameData;
 using FFRKInspector.Proxy;
 using FFRKInspector.Database;
+using FFRKInspector.DataCache;
 
 namespace FFRKInspector.UI
 {
@@ -36,6 +37,7 @@ namespace FFRKInspector.UI
                 FFRKProxy.Instance.OnLeaveDungeon += FFRKProxy_OnLeaveDungeon;
                 FFRKProxy.Instance.OnWinBattle += FFRKProxy_OnWinBattle;
                 FFRKProxy.Instance.OnFailBattle += FFRKProxy_OnFailBattle;
+                FFRKProxy.Instance.OnItemCacheRefreshed += FFRKProxy_OnItemCacheRefreshed;
 
                 PopulateActiveDungeonListView(FFRKProxy.Instance.GameState.ActiveDungeon);
                 PopulateActiveBattleListView(FFRKProxy.Instance.GameState.ActiveBattle);
@@ -49,6 +51,13 @@ namespace FFRKInspector.UI
                 PopulateActiveDungeonListView(null);
                 listViewAllDrops.VirtualListSize = 0;
             }
+        }
+
+        void FFRKProxy_OnItemCacheRefreshed()
+        {
+            // We don't need to do a full refresh here, just make sure the list invalidates so that it asks
+            // again for all of the virtual items.
+            listViewAllDrops.Invalidate();
         }
 
         void BeginPopulateAllDropsListView(EventListBattles dungeon)
@@ -80,39 +89,61 @@ namespace FFRKInspector.UI
             }
             else
             {
-                foreach (DropEvent drop in battle.Battle.Drops)
+                lock(FFRKProxy.Instance.Cache.SyncRoot)
                 {
-                    BasicItemDropStats match = mCachedItemStats.Find(x => (x.BattleId == battle.Battle.BattleId)
-                                                                       && (x.EnemyId == drop.EnemyId) 
-                                                                       && (x.ItemId == drop.ItemId));
-                    EventListBattles this_battle_list = FFRKProxy.Instance.GameState.ActiveDungeon;
-                    if (match == null)
+                    foreach (BasicItemDropStats stats in mCachedItemStats)
                     {
-                        if (this_battle_list != null)
+                        // Update the times_run field of every item that matches the last battle.  If we don't do
+                        // this here in a separate loop, it will only happy for items that actually dropped in
+                        // the following loop.
+                        if (stats.BattleId == battle.Battle.BattleId)
+                            stats.TimesRun++;
+                    }
+
+                    foreach (DropEvent drop in battle.Battle.Drops)
+                    {
+                        if (drop.ItemType == DataEnemyDropItem.DropItemType.Gold)
+                            continue;
+
+                        BasicItemDropStats match = mCachedItemStats.Find(x => (x.BattleId == battle.Battle.BattleId)
+                                                                           && (x.EnemyId == drop.EnemyId) 
+                                                                           && (x.ItemId == drop.ItemId));
+                        EventListBattles this_battle_list = FFRKProxy.Instance.GameState.ActiveDungeon;
+                        if (match == null)
                         {
-                            DataBattle this_battle = this_battle_list.Battles.Find(x => x.Id == battle.Battle.BattleId);
-                            mCachedItemStats.Add(
-                                new BasicItemDropStats
-                                {
-                                    // TODO(cpp): TimesRun and ItemName are wrong, need to load from DB.
-                                    BattleId = battle.Battle.BattleId,
-                                    BattleName = this_battle.Name,
-                                    BattleStamina = this_battle.Stamina,
-                                    EnemyId = drop.EnemyId,
-                                    EnemyName = drop.EnemyName,
-                                    ItemId = drop.ItemId,
-                                    ItemName = drop.ItemId.ToString(),
-                                    TimesRun = 1,
-                                    TotalDrops = 1
-                                });
-                            listViewAllDrops.VirtualListSize = mCachedItemStats.Count;
+                            if (this_battle_list != null)
+                            {
+                                DataBattle this_battle = this_battle_list.Battles.Find(x => x.Id == battle.Battle.BattleId);
+                                uint times_run = 1;
+                                string item_name = drop.ItemId.ToString();
+                                DataCache.Items.Data item_data;
+                                DataCache.Battles.Data battle_data;
+                                if (FFRKProxy.Instance.Cache.Items.TryGetValue(new DataCache.Items.Key { ItemId = drop.ItemId }, out item_data))
+                                    item_name = item_data.Name;
+                                if (FFRKProxy.Instance.Cache.Battles.TryGetValue(new DataCache.Battles.Key { BattleId = battle.Battle.BattleId }, out battle_data))
+                                    times_run = battle_data.TimesRun;
+
+                                mCachedItemStats.Add(
+                                    new BasicItemDropStats
+                                    {
+                                        // TODO(cpp): TimesRun and ItemName are wrong, need to load from DB.
+                                        BattleId = battle.Battle.BattleId,
+                                        BattleName = this_battle.Name,
+                                        BattleStamina = this_battle.Stamina,
+                                        EnemyId = drop.EnemyId,
+                                        EnemyName = drop.EnemyName,
+                                        ItemId = drop.ItemId,
+                                        ItemName = item_name,
+                                        TimesRun = times_run,
+                                        TotalDrops = 1
+                                    });
+                                listViewAllDrops.VirtualListSize = mCachedItemStats.Count;
+                            }
                         }
+                        else
+                            ++match.TotalDrops;
                     }
-                    else
-                    {
-                        ++match.TotalDrops;
-                        listViewAllDrops.Invalidate();
-                    }
+                    listViewAllDrops.Invalidate();
                 }
             }
         }
@@ -205,14 +236,20 @@ namespace FFRKInspector.UI
                     labelNoDrops.Visible = true;
                 else
                 {
-                    foreach (DropEvent drop in battle.Battle.Drops)
+                    lock(FFRKProxy.Instance.Cache.SyncRoot)
                     {
-                        string Item;
-                        if (drop.ItemType == DataEnemyDropItem.DropItemType.Gold)
-                            Item = String.Format("{0} gold", drop.GoldAmount);
-                        else
-                            Item = drop.ItemId.ToString();
-                        string[] row = 
+                        foreach (DropEvent drop in battle.Battle.Drops)
+                        {
+                            string Item;
+                            DataCache.Items.Key ItemKey = new DataCache.Items.Key { ItemId = drop.ItemId };
+                            DataCache.Items.Data ItemData = null;
+                            if (drop.ItemType == DataEnemyDropItem.DropItemType.Gold)
+                                Item = String.Format("{0} gold", drop.GoldAmount);
+                            else if (FFRKProxy.Instance.Cache.Items.TryGetValue(ItemKey, out ItemData))
+                                Item = ItemData.Name;
+                            else
+                                Item = drop.ItemId.ToString();
+                            string[] row = 
                             {
                                 Item,
                                 drop.Rarity.ToString(),
@@ -221,7 +258,8 @@ namespace FFRKInspector.UI
                                 "",
                                 ""
                             };
-                        listViewActiveBattle.Items.Add(new ListViewItem(row));
+                            listViewActiveBattle.Items.Add(new ListViewItem(row));
+                        }
                     }
                 }
             }
@@ -259,6 +297,8 @@ namespace FFRKInspector.UI
                 item.ItemName,
                 item.BattleName,
                 item.EnemyName,
+                item.TimesRun.ToString(),
+                item.TotalDrops.ToString(),
                 drop_rate.ToString("F") + "%",
                 stam_per_drop.ToString("F")
             };
