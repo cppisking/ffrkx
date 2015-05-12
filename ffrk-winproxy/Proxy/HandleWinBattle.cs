@@ -24,7 +24,8 @@ namespace FFRKInspector.Proxy
                 EventBattleInitiated original_battle = state.ActiveBattle;
                 state.ActiveBattle = null;
 
-                FFRKProxy.Instance.Database.BeginRecordBattleEncounter(original_battle);
+                Database.DbOpRecordBattleEncounter op = new Database.DbOpRecordBattleEncounter(original_battle);
+                FFRKProxy.Instance.Database.BeginExecuteRequest(op);
                 FFRKProxy.Instance.RaiseBattleWon(original_battle);
             }
         }

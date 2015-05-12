@@ -127,10 +127,13 @@
             this.listViewAllDrops.TabIndex = 3;
             this.listViewAllDrops.UseCompatibleStateImageBehavior = false;
             this.listViewAllDrops.View = System.Windows.Forms.View.Details;
+            this.listViewAllDrops.VirtualMode = true;
+            this.listViewAllDrops.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.listViewAllDrops_RetrieveVirtualItem);
             // 
             // columnHeaderName
             // 
             this.columnHeaderName.Text = "Name";
+            this.columnHeaderName.Width = 137;
             // 
             // columnHeaderBattle
             // 
@@ -148,7 +151,7 @@
             // 
             // columnHeaderStam
             // 
-            this.columnHeaderStam.Text = "Drops / Stamina";
+            this.columnHeaderStam.Text = "Stamina / Drop";
             this.columnHeaderStam.Width = 96;
             // 
             // labelItemsDropped

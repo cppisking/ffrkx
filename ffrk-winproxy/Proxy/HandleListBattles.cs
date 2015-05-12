@@ -1,4 +1,5 @@
-﻿using FFRKInspector.GameData;
+﻿using FFRKInspector.Database;
+using FFRKInspector.GameData;
 using Fiddler;
 using Newtonsoft.Json;
 using System;
@@ -20,7 +21,8 @@ namespace FFRKInspector.Proxy
         {
             EventListBattles result = JsonConvert.DeserializeObject<EventListBattles>(ResponseJson);
             FFRKProxy.Instance.GameState.ActiveDungeon = result;
-            FFRKProxy.Instance.Database.BeginRecordBattleList(result);
+
+            FFRKProxy.Instance.Database.BeginExecuteRequest(new DbOpRecordBattleList(result));
             FFRKProxy.Instance.RaiseListBattles(result);
         }
     }

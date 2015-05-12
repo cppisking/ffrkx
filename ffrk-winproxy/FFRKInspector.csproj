@@ -49,14 +49,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Database\DbOpRecordBattleEncounter.cs" />
+    <Compile Include="Database\DbOpRecordBattleList.cs" />
+    <Compile Include="Database\DbOpRecordDungeonList.cs" />
+    <Compile Include="Database\DbOpRequestDropsForDungeon.cs" />
+    <Compile Include="Database\FFRKMySQLInstance.cs" />
+    <Compile Include="Database\IDbRequest.cs" />
     <Compile Include="DataCache\Battles.cs" />
-    <Compile Include="DataCache\DungeonDrops.cs" />
     <Compile Include="DataCache\Dungeons.cs" />
-    <Compile Include="DataCache\Items.cs" />
-    <Compile Include="DataCache\Worlds.cs" />
     <Compile Include="DataCache\FFRKDataCache.cs" />
     <Compile Include="DataCache\FFRKDataCacheTable.cs" />
-    <Compile Include="Database\FFRKMySQLInstance.cs" />
+    <Compile Include="DataCache\Items.cs" />
+    <Compile Include="DataCache\Worlds.cs" />
+    <Compile Include="GameData\BasicEnemyInfo.cs" />
+    <Compile Include="GameData\BasicItemDropStats.cs" />
     <Compile Include="Proxy\HandleGacha.cs" />
     <Compile Include="Proxy\HandleListBattles.cs" />
     <Compile Include="Proxy\HandleListDungeons.cs" />

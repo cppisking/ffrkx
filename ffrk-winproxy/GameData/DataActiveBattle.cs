@@ -28,5 +28,31 @@ namespace FFRKInspector.GameData
                         yield return drop;
             }
         }
+
+
+        public IEnumerable<BasicEnemyInfo> Enemies
+        {
+            get
+            {
+                HashSet<BasicEnemyInfo> infos = new HashSet<BasicEnemyInfo>();
+                foreach (DataBattleRound Round in Rounds)
+                {
+                    foreach (DataEnemy enemy in Round.Enemies)
+                    {
+                        foreach (DataEnemyChild child in enemy.Children)
+                        {
+                            // Not sure what the deal is with child and params, or why an enemy can theoretically
+                            // have more than one name.  I assume it has something to do with enemies that have
+                            // different body parts, but haven't figured it out yet.
+                            if (child.Params.Count == 0)
+                                continue;
+                            infos.Add(new BasicEnemyInfo { EnemyId = child.EnemyId, EnemyName = child.Params[0].Name });
+                            break;
+                        }
+                    }
+                }
+                return infos;
+            }
+        }
     }
 }

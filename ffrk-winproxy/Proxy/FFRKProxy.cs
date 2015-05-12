@@ -11,7 +11,6 @@ using FFRKInspector.Database;
 using FFRKInspector.GameData;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using FFRKInspector.DataCache;
 using FFRKInspector.UI;
 
 namespace FFRKInspector.Proxy
@@ -22,7 +21,6 @@ namespace FFRKInspector.Proxy
         FFRKTabInspector mInspectorView;
         ResponseHistory mHistory;
         FFRKMySqlInstance mDatabaseInstance;
-        FFRKDataCache mDataCache;
         GameState mGameState;
         List<IResponseHandler> mResponseHandlers;
 
@@ -49,10 +47,8 @@ namespace FFRKInspector.Proxy
             mResponseHandlers.Add(new HandleWinBattle());
 
             mHistory = new ResponseHistory();
-            mDataCache = new FFRKDataCache();
             mGameState = new GameState();
-            mDatabaseInstance = new FFRKMySqlInstance(mDataCache);
-            mDatabaseInstance.BeginRefreshItemsCache();
+            mDatabaseInstance = new FFRKMySqlInstance();
 
             mTabPage = new TabPage("FFRK Inspector");
             mInspectorView = new FFRKTabInspector();

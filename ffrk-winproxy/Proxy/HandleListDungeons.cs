@@ -1,4 +1,5 @@
-﻿using FFRKInspector.GameData;
+﻿using FFRKInspector.Database;
+using FFRKInspector.GameData;
 using Fiddler;
 using Newtonsoft.Json;
 using System;
@@ -19,7 +20,7 @@ namespace FFRKInspector.Proxy
         public void Handle(string RequestPath, string ResponseJson)
         {
             EventListDungeons result = JsonConvert.DeserializeObject<EventListDungeons>(ResponseJson);
-            FFRKProxy.Instance.Database.BeginRecordDungeonList(result);
+            FFRKProxy.Instance.Database.BeginExecuteRequest(new DbOpRecordDungeonList(result));
             FFRKProxy.Instance.RaiseListDungeons(result);
         }
     }
