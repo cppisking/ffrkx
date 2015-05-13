@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FFRKInspector.Database
 {
-    class DbOpRecordBattleList : ITransactedDbRequest
+    class DbOpRecordBattleList : IDbRequest
     {
         EventListBattles mBattles;
 
@@ -16,6 +16,8 @@ namespace FFRKInspector.Database
         {
             mBattles = battles;
         }
+
+        public bool RequiresTransaction { get { return true; } }
 
         public void Execute(MySqlConnection connection, MySqlTransaction transaction)
         {

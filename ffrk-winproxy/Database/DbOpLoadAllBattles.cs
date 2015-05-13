@@ -15,15 +15,17 @@ namespace FFRKInspector.Database
         public delegate void DataReadyCallback(FFRKDataCacheTable<DataCache.Battles.Key, DataCache.Battles.Data> battles);
         public event DataReadyCallback OnRequestComplete;
 
+        public bool RequiresTransaction { get { return false; } }
+
         public DbOpLoadAllBattles()
         {
             mBattles = new FFRKDataCacheTable<DataCache.Battles.Key, DataCache.Battles.Data>();
         }
 
-        public void Execute(MySqlConnection connection)
+        public void Execute(MySqlConnection connection, MySqlTransaction transaction)
         {
             string stmt = "SELECT * FROM battles";
-            using (MySqlCommand command = new MySqlCommand(stmt, connection))
+            using (MySqlCommand command = new MySqlCommand(stmt, connection, transaction))
             {
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {

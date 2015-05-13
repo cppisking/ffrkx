@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FFRKInspector.Database
 {
-    class DbOpRecordBattleEncounter : ITransactedDbRequest
+    class DbOpRecordBattleEncounter : IDbRequest
     {
         private EventBattleInitiated mEncounter;
 
@@ -18,7 +18,7 @@ namespace FFRKInspector.Database
             mEncounter = encounter;
         }
 
-        public bool RunInTransaction { get { return true; } }
+        public bool RequiresTransaction { get { return true; } }
 
         public void Execute(MySqlConnection connection, MySqlTransaction transaction)
         {

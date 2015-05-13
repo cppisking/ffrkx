@@ -24,13 +24,13 @@ namespace FFRKInspector.Database
             mDropList = new List<BasicItemDropStats>();
         }
 
-        public bool RunInTransaction { get { return false; } }
+        public bool RequiresTransaction { get { return false; } }
 
-        public void Execute(MySqlConnection connection)
+        public void Execute(MySqlConnection connection, MySqlTransaction transaction)
         {
             mDropList.Clear();
             string stmt = "SELECT * FROM dungeon_drops WHERE dungeon_id = @id";
-            using (MySqlCommand command = new MySqlCommand(stmt, connection))
+            using (MySqlCommand command = new MySqlCommand(stmt, connection, transaction))
             {
                 command.Parameters.AddWithValue("@id", mDungeonId);
                 using (MySqlDataReader reader = command.ExecuteReader())

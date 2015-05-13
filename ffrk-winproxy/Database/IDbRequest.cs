@@ -9,12 +9,7 @@ namespace FFRKInspector.Database
 {
     interface IDbRequest
     {
-        void Execute(MySqlConnection connection);
-        void Respond();
-    }
-
-    interface ITransactedDbRequest
-    {
+        bool RequiresTransaction { get; }
         void Execute(MySqlConnection connection, MySqlTransaction transaction);
         void Respond();
     }

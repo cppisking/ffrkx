@@ -19,29 +19,9 @@ namespace FFRKInspector.Database
 {
     class FFRKMySqlInstance
     {
-        class InternalDbRequest
-        {
-            private IDbRequest mNonTransactedRequest;
-            private ITransactedDbRequest mTransactedRequest;
-
-            public InternalDbRequest(IDbRequest Request)
-            {
-                mNonTransactedRequest = Request;
-            }
-
-            public InternalDbRequest(ITransactedDbRequest Request)
-            {
-                mTransactedRequest = Request;
-            }
-
-            public IDbRequest Request { get { return mNonTransactedRequest; } }
-            public ITransactedDbRequest TransactedRequest { get { return mTransactedRequest; } }
-            public bool IsTransacted { get { return mTransactedRequest != null; } }
-        }
-
         BackgroundWorker mDatabaseThread = null;
         CancellationToken mCancellationToken = CancellationToken.None;
-        BlockingCollection<InternalDbRequest> mDatabaseQueue = null;
+        BlockingCollection<IDbRequest> mDatabaseQueue = null;
         static string mConnStr = null;
         static MySqlConnection mConnection = null;
 
@@ -58,7 +38,7 @@ namespace FFRKInspector.Database
             mDatabaseThread = new BackgroundWorker();
             mDatabaseThread.DoWork += mDatabaseThread_DoWork;
             mDatabaseThread.RunWorkerAsync();
-            mDatabaseQueue = new BlockingCollection<InternalDbRequest>();
+            mDatabaseQueue = new BlockingCollection<IDbRequest>();
             mCancellationToken = new CancellationToken();
         }
 
@@ -69,19 +49,19 @@ namespace FFRKInspector.Database
                 try
                 {
                     FiddlerApplication.Log.LogString("Database thread waiting for request");
-                    InternalDbRequest request = mDatabaseQueue.Take(mCancellationToken);
+                    IDbRequest request = mDatabaseQueue.Take(mCancellationToken);
                     FiddlerApplication.Log.LogFormat("Database dequeued operation of type {0}", request.GetType().Name);
                     if (!Connect())
                         throw new InvalidProgramException("Cannot connect to the database");
-                    if (request.IsTransacted)
+                    if (request.RequiresTransaction)
                     {
                         using (MySqlTransaction transaction = mConnection.BeginTransaction())
                         {
                             try
                             {
-                                request.TransactedRequest.Execute(mConnection, transaction);
+                                request.Execute(mConnection, transaction);
                                 transaction.Commit();
-                                request.TransactedRequest.Respond();
+                                request.Respond();
                             }
                             catch (Exception ex)
                             {
@@ -92,8 +72,8 @@ namespace FFRKInspector.Database
                     }
                     else
                     {
-                        request.Request.Execute(mConnection);
-                        request.Request.Respond();
+                        request.Execute(mConnection, null);
+                        request.Respond();
                     }
                 }
                 catch (Exception ex)
@@ -107,22 +87,9 @@ namespace FFRKInspector.Database
         {
             try
             {
-                InternalDbRequest InternalRequest = new InternalDbRequest(Request);
-                mDatabaseQueue.Add(InternalRequest, mCancellationToken);
+                mDatabaseQueue.Add(Request, mCancellationToken);
             }
             catch (Exception ex)
-            {
-                System.Diagnostics.Debugger.Break();
-            }
-        }
-
-        public void BeginExecuteRequest(ITransactedDbRequest Request)
-        {
-            try
-            {
-                InternalDbRequest InternalRequest = new InternalDbRequest(Request);
-                mDatabaseQueue.Add(InternalRequest, mCancellationToken);
-            } catch (Exception ex)
             {
                 System.Diagnostics.Debugger.Break();
             }
