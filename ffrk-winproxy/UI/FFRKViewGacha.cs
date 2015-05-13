@@ -29,12 +29,14 @@ namespace FFRKInspector.UI
 
         private class GachaComboBoxEntry
         {
-            public uint SeriesId;
-            public DataGachaSeries SeriesData;
+            public DataGachaSeriesEntryPoint EntryPoint;
+            public DataGachaSeriesItemDetails SeriesData;
 
             public override string ToString()
             {
-                return SeriesId.ToString();
+                if (EntryPoint.PayCost == 0)
+                    return "Free";
+                return String.Format("{0} {1} (EntryPointId = {2})", EntryPoint.PayCost, EntryPoint.CurrencyType.ToString(), EntryPoint.EntryPointId);
             }
         }
 
@@ -51,29 +53,31 @@ namespace FFRKInspector.UI
 
         private void FFRKViewGacha_Load(object sender, EventArgs e)
         {
-            if (FFRKProxy.Instance != null)
-                FFRKProxy.Instance.OnGachaStats += FFRKProxy_OnGachaStats;
-
             mSorter = new ListViewColumnSorter();
             mSorter.AddSorter<int>(1);
             mSorter.AddSorter<int>(3);
             mSorter.AddSorter<float>(4, new PercentRemover());
             listViewGachaItems.ListViewItemSorter = mSorter;
+
+            if (FFRKProxy.Instance != null)
+                FFRKProxy.Instance.OnGachaStats += FFRKProxy_OnGachaStats;
         }
 
-        void FFRKProxy_OnGachaStats(EventViewGacha gacha)
+        void FFRKProxy_OnGachaStats(DataGachaSeriesItemDetailsList gacha)
         {
-            BeginInvoke((Action)(() => 
-                { 
-                    comboBoxGachaSeries.Items.Clear();
-                    listViewGachaItems.Items.Clear();
-                    foreach (var entry in gacha.Gachas)
-                    {
-                        comboBoxGachaSeries.Items.Add(new GachaComboBoxEntry { SeriesId = entry.Key, SeriesData = entry.Value });
-                    }
-                    if (comboBoxGachaSeries.Items.Count > 0)
-                        comboBoxGachaSeries.SelectedIndex = 0;
-                }));
+            BeginInvoke((Action)(() => { DoUpdateGachaInformation(gacha); }));
+        }
+
+        void DoUpdateGachaInformation(DataGachaSeriesItemDetailsList gacha)
+        {
+            comboBoxGachaSeries.Items.Clear();
+            listViewGachaItems.Items.Clear();
+            foreach (var entry in gacha.Gachas)
+            {
+                comboBoxGachaSeries.Items.Add(new GachaComboBoxEntry { EntryPoint = entry.Key, SeriesData = entry.Value });
+            }
+            if (comboBoxGachaSeries.Items.Count > 0)
+                comboBoxGachaSeries.SelectedIndex = 0;
         }
 
         private void comboBoxGachaSeries_SelectedIndexChanged(object sender, EventArgs e)

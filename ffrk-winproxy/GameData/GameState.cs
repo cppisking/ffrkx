@@ -10,11 +10,13 @@ namespace FFRKInspector.GameData
     {
         private EventBattleInitiated mActiveBattle;
         private EventListBattles mActiveDungeon;
+        private DataGachaSeriesList mGachas;
 
         public GameState()
         {
             mActiveBattle = null;
             mActiveDungeon = null;
+            mGachas = null;
         }
 
         public EventBattleInitiated ActiveBattle
@@ -27,6 +29,12 @@ namespace FFRKInspector.GameData
         {
             get { return mActiveDungeon; }
             set { mActiveDungeon = value; }
+        }
+
+        public DataGachaSeriesList GachaSeries
+        {
+            get { return mGachas; }
+            set { mGachas = value; }
         }
     }
 }

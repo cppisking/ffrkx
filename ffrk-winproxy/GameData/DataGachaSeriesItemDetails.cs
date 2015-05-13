@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace FFRKInspector.GameData
 {
-    class DataGachaSeries
+    class DataGachaSeriesItemDetails
     {
         [JsonProperty("prob_by_rarity")]
-        public DataGachaProbabilitiesByRarity ProbabilityByRarity;
+        public DataGachaSeriesProbabilitiesByRarity ProbabilityByRarity;
 
         // The JSON for this property is in both the 'equipments' array as well as
         // the 'prob_by_item' array.  They each contain one different field, but otherwise

@@ -52,7 +52,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.labelOneStarPct = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -113,7 +112,6 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.comboBoxGachaSeries);
             this.groupBox1.Controls.Add(this.labelGachaSeries);
             this.groupBox1.Controls.Add(this.labelRelics);
@@ -129,9 +127,9 @@
             // 
             this.comboBoxGachaSeries.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxGachaSeries.FormattingEnabled = true;
-            this.comboBoxGachaSeries.Location = new System.Drawing.Point(78, 19);
+            this.comboBoxGachaSeries.Location = new System.Drawing.Point(88, 19);
             this.comboBoxGachaSeries.Name = "comboBoxGachaSeries";
-            this.comboBoxGachaSeries.Size = new System.Drawing.Size(147, 21);
+            this.comboBoxGachaSeries.Size = new System.Drawing.Size(218, 21);
             this.comboBoxGachaSeries.TabIndex = 3;
             this.comboBoxGachaSeries.SelectedIndexChanged += new System.EventHandler(this.comboBoxGachaSeries_SelectedIndexChanged);
             // 
@@ -140,9 +138,9 @@
             this.labelGachaSeries.AutoSize = true;
             this.labelGachaSeries.Location = new System.Drawing.Point(21, 24);
             this.labelGachaSeries.Name = "labelGachaSeries";
-            this.labelGachaSeries.Size = new System.Drawing.Size(51, 13);
+            this.labelGachaSeries.Size = new System.Drawing.Size(61, 13);
             this.labelGachaSeries.TabIndex = 2;
-            this.labelGachaSeries.Text = "Series Id:";
+            this.labelGachaSeries.Text = "Entry Point:";
             // 
             // labelRelics
             // 
@@ -320,17 +318,6 @@
             this.labelOneStarPct.TabIndex = 5;
             this.labelOneStarPct.Text = "0.00%";
             // 
-            // label6
-            // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label6.Location = new System.Drawing.Point(231, 16);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(406, 27);
-            this.label6.TabIndex = 4;
-            this.label6.Text = "Note: I don\'t actually know what this is for, but it appears possible for a singl" +
-    "e banner to have multiple drop rates.  So far they all appear identical";
-            // 
             // FFRKViewGacha
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -375,6 +362,5 @@
         private System.Windows.Forms.Label labelRelics;
         private System.Windows.Forms.ComboBox comboBoxGachaSeries;
         private System.Windows.Forms.Label labelGachaSeries;
-        private System.Windows.Forms.Label label6;
     }
 }

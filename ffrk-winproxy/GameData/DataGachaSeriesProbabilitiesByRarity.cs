@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FFRKInspector.GameData
 {
-    class DataGachaProbabilitiesByRarity
+    class DataGachaSeriesProbabilitiesByRarity
     {
         [JsonProperty("1")]
         public float OneStar;

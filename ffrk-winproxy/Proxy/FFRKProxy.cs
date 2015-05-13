@@ -45,7 +45,8 @@ namespace FFRKInspector.Proxy
             mResponseHandlers.Add(new HandleListDungeons());
             mResponseHandlers.Add(new HandleLeaveDungeon());
             mResponseHandlers.Add(new HandleInitiateBattle());
-            mResponseHandlers.Add(new HandleGacha());
+            mResponseHandlers.Add(new HandleGachaSeriesList());
+            mResponseHandlers.Add(new HandleGachaSeriesDetails());
             mResponseHandlers.Add(new HandleLoseBattle());
             mResponseHandlers.Add(new HandleWinBattle());
 
@@ -132,7 +133,7 @@ namespace FFRKInspector.Proxy
             return;
         }
 
-        internal void RaiseGachaStats(EventViewGacha gacha) { if (OnGachaStats != null) OnGachaStats(gacha); }
+        internal void RaiseGachaStats(DataGachaSeriesItemDetailsList gacha) { if (OnGachaStats != null) OnGachaStats(gacha); }
         internal void RaiseListBattles(EventListBattles battles) { if (OnListBattles != null) OnListBattles(battles); }
         internal void RaiseListDungeons(EventListDungeons dungeons) { if (OnListDungeons != null) OnListDungeons(dungeons); }
         internal void RaiseBattleInitiated(EventBattleInitiated battle) { if (OnBattleEngaged != null) OnBattleEngaged(battle); }
@@ -151,7 +152,7 @@ namespace FFRKInspector.Proxy
         internal delegate void BattleResultDelegate(EventBattleInitiated battle);
         internal delegate void ListBattlesDelegate(EventListBattles battles);
         internal delegate void ListDungeonsDelegate(EventListDungeons dungeons);
-        internal delegate void GachaStatsDelegate(EventViewGacha gacha);
+        internal delegate void GachaStatsDelegate(DataGachaSeriesItemDetailsList gacha);
         internal delegate void FFRKDefaultDelegate();
         internal delegate void FFRKResponseDelegate(string Path);
 
