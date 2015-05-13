@@ -51,6 +51,7 @@ namespace FFRKInspector.Database
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@did", dungeon.Id);
                 command.Parameters.AddWithValue("@world_id", world.Id);
+                command.Parameters.AddWithValue("@series_id", dungeon.SeriesId);
                 command.Parameters.AddWithValue("@dname", dungeon.Name);
                 command.Parameters.AddWithValue("@dtype", dungeon.Type);
                 command.Parameters.AddWithValue("@ddiff", dungeon.Difficulty);

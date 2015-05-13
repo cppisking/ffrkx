@@ -14,9 +14,9 @@ namespace FFRKInspector.DataCache.Dungeons
     public class Data
     {
         public uint WorldId;
+        public uint Series;
         public string Name;
         public byte Type;
         public ushort Difficulty;
-        public uint Synergy;
     }
 }

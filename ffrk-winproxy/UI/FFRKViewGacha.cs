@@ -100,12 +100,12 @@ namespace FFRKInspector.UI
             foreach (DataGachaItem item in entry.SeriesData.Items)
             {
                 Match match = Regex.Match(item.Name, "\\((.*)\\)");
-                uint realm = Utility.Utility.RomanNumeralToNumber(match.Groups[1].Value);
+                uint series = Utility.Utility.RomanNumeralToNumber(match.Groups[1].Value);
                 string[] rows = { 
                                     item.Name,
                                     item.Rarity.ToString(),
                                     item.Category,
-                                    realm.ToString(),
+                                    series.ToString(),
                                     item.Probability.ToString("R") + "%",
                                     item.HasSoulStrike ? "YES" : String.Empty
                                 };

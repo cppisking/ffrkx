@@ -17,6 +17,6 @@ namespace FFRKInspector.DataCache.Items
         public byte Rarity;
         public byte Type;
         public byte Subtype;
-        public byte? Realm;
+        public uint? Series;
     }
 }

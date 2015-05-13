@@ -33,14 +33,14 @@ namespace FFRKInspector.Database
                     {
                         DataCache.Items.Key key = new DataCache.Items.Key();
                         DataCache.Items.Data data = new DataCache.Items.Data();
-                        int realm_ordinal = reader.GetOrdinal("realm");
+                        int series_ordinal = reader.GetOrdinal("series");
                         key.ItemId = (uint)reader["id"];
                         data.Name = (string)reader["name"];
                         data.Rarity = (byte)reader["rarity"];
-                        if (reader.IsDBNull(realm_ordinal))
-                            data.Realm = null;
+                        if (reader.IsDBNull(series_ordinal))
+                            data.Series = null;
                         else
-                            data.Realm = (byte)reader[realm_ordinal];
+                            data.Series = (uint)reader[series_ordinal];
                         data.Type = (byte)reader["type"];
                         data.Subtype = (byte)reader["subtype"];
                         mItems.Update(key, data);
