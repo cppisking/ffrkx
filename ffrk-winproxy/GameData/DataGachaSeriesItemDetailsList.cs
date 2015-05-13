@@ -6,13 +6,19 @@ using System.Threading.Tasks;
 
 namespace FFRKInspector.GameData
 {
-    class DataGachaSeriesItemDetailsList
+    class DataGachaSeriesItemsForEntryPoints
     {
-        public List<KeyValuePair<DataGachaSeriesEntryPoint, DataGachaSeriesItemDetails>> Gachas;
-
-        public DataGachaSeriesItemDetailsList()
+        public class ItemsForEntryPoint
         {
-            Gachas = new List<KeyValuePair<DataGachaSeriesEntryPoint, DataGachaSeriesItemDetails>>();
+            public DataGachaSeriesEntryPoint EntryPoint;
+            public DataGachaSeriesItemDetails ItemDetails;
+        }
+
+        public Dictionary<uint, ItemsForEntryPoint> Gachas;
+
+        public DataGachaSeriesItemsForEntryPoints()
+        {
+            Gachas = new Dictionary<uint, ItemsForEntryPoint>();
         }
     }
 }

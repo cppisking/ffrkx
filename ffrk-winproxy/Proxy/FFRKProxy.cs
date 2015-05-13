@@ -133,7 +133,7 @@ namespace FFRKInspector.Proxy
             return;
         }
 
-        internal void RaiseGachaStats(DataGachaSeriesItemDetailsList gacha) { if (OnGachaStats != null) OnGachaStats(gacha); }
+        internal void RaiseGachaStats(DataGachaSeriesItemsForEntryPoints gacha) { if (OnGachaStats != null) OnGachaStats(gacha); }
         internal void RaiseListBattles(EventListBattles battles) { if (OnListBattles != null) OnListBattles(battles); }
         internal void RaiseListDungeons(EventListDungeons dungeons) { if (OnListDungeons != null) OnListDungeons(dungeons); }
         internal void RaiseBattleInitiated(EventBattleInitiated battle) { if (OnBattleEngaged != null) OnBattleEngaged(battle); }
@@ -152,7 +152,7 @@ namespace FFRKInspector.Proxy
         internal delegate void BattleResultDelegate(EventBattleInitiated battle);
         internal delegate void ListBattlesDelegate(EventListBattles battles);
         internal delegate void ListDungeonsDelegate(EventListDungeons dungeons);
-        internal delegate void GachaStatsDelegate(DataGachaSeriesItemDetailsList gacha);
+        internal delegate void GachaStatsDelegate(DataGachaSeriesItemsForEntryPoints gacha);
         internal delegate void FFRKDefaultDelegate();
         internal delegate void FFRKResponseDelegate(string Path);
 

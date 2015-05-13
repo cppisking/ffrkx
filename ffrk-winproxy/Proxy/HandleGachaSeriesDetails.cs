@@ -21,7 +21,6 @@ namespace FFRKInspector.Proxy
         public void Handle(string RequestPath, string ResponseJson)
         {
             JObject parsed_object = JsonConvert.DeserializeObject<JObject>(ResponseJson);
-            DataGachaSeriesItemDetailsList gacha = new DataGachaSeriesItemDetailsList();
             int parameter_start_index = RequestPath.IndexOf('?');
             if (parameter_start_index == -1)
             {
@@ -43,6 +42,7 @@ namespace FFRKInspector.Proxy
                 return;
             }
 
+            DataGachaSeriesItemsForEntryPoints gacha = new DataGachaSeriesItemsForEntryPoints();
             foreach (var child in parsed_object)
             {
                 try
@@ -52,7 +52,14 @@ namespace FFRKInspector.Proxy
                         continue;
 
                     string serialized = JsonConvert.SerializeObject(child.Value);
-                    DataGachaSeriesItemDetails this_series = JsonConvert.DeserializeObject<DataGachaSeriesItemDetails>(serialized);
+
+                    var entry = new DataGachaSeriesItemsForEntryPoints.ItemsForEntryPoint();
+                    entry.ItemDetails = JsonConvert.DeserializeObject<DataGachaSeriesItemDetails>(serialized);
+                    // Add the entry immediately.  We may not end up finding DataGachaSeriesEntryPoint for this
+                    // entry point (for example if the user was already viewing the gacha banners when he loaded
+                    // FFRK Inspector.  But we still save the entry point ID in the UI, and it's mostly just for
+                    // show, so the UI can fallback in that case.
+                    gacha.Gachas.Add(entry_point_id, entry);
 
                     // Find the entry point details for this entry point.
                     List<DataGachaSeriesInfo> SeriesList = FFRKProxy.Instance.GameState.GachaSeries.SeriesList;
@@ -63,8 +70,7 @@ namespace FFRKInspector.Proxy
                     if (series == null)
                         continue;
 
-                    DataGachaSeriesEntryPoint entry_point = FindEntryPointForSeries(series, entry_point_id);
-                    gacha.Gachas.Add(new KeyValuePair<DataGachaSeriesEntryPoint, DataGachaSeriesItemDetails>(entry_point, this_series));
+                    entry.EntryPoint = FindEntryPointForSeries(series, entry_point_id);
                 }
                 catch
                 {

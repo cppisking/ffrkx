@@ -30,13 +30,19 @@ namespace FFRKInspector.UI
         private class GachaComboBoxEntry
         {
             public DataGachaSeriesEntryPoint EntryPoint;
+            public uint EntryPointId;
             public DataGachaSeriesItemDetails SeriesData;
 
             public override string ToString()
             {
-                if (EntryPoint.PayCost == 0)
-                    return "Free";
-                return String.Format("{0} {1} (EntryPointId = {2})", EntryPoint.PayCost, EntryPoint.CurrencyType.ToString(), EntryPoint.EntryPointId);
+                if (EntryPoint == null)
+                    return EntryPointId.ToString();
+                else
+                {
+                    if (EntryPoint.PayCost == 0)
+                        return "Free";
+                    return String.Format("{0} {1} (EntryPointId = {2})", EntryPoint.PayCost, EntryPoint.CurrencyType.ToString(), EntryPoint.EntryPointId);
+                }
             }
         }
 
@@ -63,18 +69,18 @@ namespace FFRKInspector.UI
                 FFRKProxy.Instance.OnGachaStats += FFRKProxy_OnGachaStats;
         }
 
-        void FFRKProxy_OnGachaStats(DataGachaSeriesItemDetailsList gacha)
+        void FFRKProxy_OnGachaStats(DataGachaSeriesItemsForEntryPoints gacha)
         {
             BeginInvoke((Action)(() => { DoUpdateGachaInformation(gacha); }));
         }
 
-        void DoUpdateGachaInformation(DataGachaSeriesItemDetailsList gacha)
+        void DoUpdateGachaInformation(DataGachaSeriesItemsForEntryPoints gacha)
         {
             comboBoxGachaSeries.Items.Clear();
             listViewGachaItems.Items.Clear();
             foreach (var entry in gacha.Gachas)
             {
-                comboBoxGachaSeries.Items.Add(new GachaComboBoxEntry { EntryPoint = entry.Key, SeriesData = entry.Value });
+                comboBoxGachaSeries.Items.Add(new GachaComboBoxEntry { EntryPointId=entry.Key, EntryPoint = entry.Value.EntryPoint, SeriesData = entry.Value.ItemDetails });
             }
             if (comboBoxGachaSeries.Items.Count > 0)
                 comboBoxGachaSeries.SelectedIndex = 0;
