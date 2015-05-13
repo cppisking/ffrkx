@@ -40,6 +40,8 @@ namespace FFRKInspector.Proxy
 
         public void OnLoad()
         {
+            mInstance = this;
+
             mResponseHandlers = new List<IResponseHandler>();
             mResponseHandlers.Add(new HandleListBattles());
             mResponseHandlers.Add(new HandleListDungeons());
@@ -54,14 +56,14 @@ namespace FFRKInspector.Proxy
             mGameState = new GameState();
             mDatabaseInstance = new FFRKMySqlInstance();
 
-            InitializeDataCache();
-
             mTabPage = new TabPage("FFRK Inspector");
             mInspectorView = new FFRKTabInspector();
             mInspectorView.Dock = DockStyle.Fill;
             mTabPage.Controls.Add(mInspectorView);
             FiddlerApplication.UI.tabsViews.TabPages.Add(mTabPage);
-            mInstance = this;
+
+            // Do this last, so that all controls have had a chance to initialize.
+            InitializeDataCache();
         }
 
         private void InitializeDataCache()

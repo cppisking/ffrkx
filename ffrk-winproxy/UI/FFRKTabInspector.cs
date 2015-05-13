@@ -21,6 +21,20 @@ namespace FFRKInspector.UI
 
         private void FFRKTabInspectorView_Load(object sender, EventArgs e)
         {
+            if (FFRKProxy.Instance != null)
+            {
+                FFRKProxy.Instance.Database.OnConnectionStateChanged += Database_OnConnectionStateChanged;
+            }
+        }
+
+        void FFRKTabInspector_HandleDestroyed(object sender, EventArgs e)
+        {
+        }
+
+        void Database_OnConnectionStateChanged(FFRKMySqlInstance.ConnectionState NewState)
+        {
+            if (IsHandleCreated)
+                BeginInvoke((Action)(() => { toolStripStatusLabelConnection.Text = NewState.ToString(); }));
         }
     }
 }

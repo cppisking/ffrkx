@@ -69,6 +69,11 @@
     <Compile Include="GameData\DataGachaSeriesEntryPoint.cs" />
     <Compile Include="GameData\DataGachaSeriesInfo.cs" />
     <Compile Include="GameData\DataGachaSeriesList.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Proxy\HandleGachaSeriesDetails.cs" />
     <Compile Include="Proxy\HandleGachaSeriesList.cs" />
     <Compile Include="Proxy\HandleListBattles.cs" />
@@ -78,6 +83,12 @@
     <Compile Include="Proxy\HandleLeaveDungeon.cs" />
     <Compile Include="Proxy\HandleLoseBattle.cs" />
     <Compile Include="Proxy\HandleWinBattle.cs" />
+    <Compile Include="UI\FFRKViewAbout.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\FFRKViewAbout.Designer.cs">
+      <DependentUpon>FFRKViewAbout.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\FFRKViewBrowse.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -148,6 +159,9 @@
     <Compile Include="Utility\Utility.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="UI\FFRKViewAbout.resx">
+      <DependentUpon>FFRKViewAbout.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\FFRKViewBrowse.resx">
       <DependentUpon>FFRKViewBrowse.cs</DependentUpon>
     </EmbeddedResource>
@@ -170,6 +184,11 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Resources\opened_folder.ico" />
   </ItemGroup>
   <ItemGroup />
