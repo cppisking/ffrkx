@@ -51,8 +51,8 @@
             this.label8 = new System.Windows.Forms.Label();
             this.buttonTestSettings = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label9 = new System.Windows.Forms.Label();
             this.labelConnectionResult = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -135,6 +135,7 @@
             // checkBox4
             // 
             this.checkBox4.AutoSize = true;
+            this.checkBox4.Enabled = false;
             this.checkBox4.Location = new System.Drawing.Point(23, 97);
             this.checkBox4.Name = "checkBox4";
             this.checkBox4.Size = new System.Drawing.Size(129, 17);
@@ -145,6 +146,7 @@
             // checkBox3
             // 
             this.checkBox3.AutoSize = true;
+            this.checkBox3.Enabled = false;
             this.checkBox3.Location = new System.Drawing.Point(23, 74);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(137, 17);
@@ -155,6 +157,7 @@
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
+            this.checkBox2.Enabled = false;
             this.checkBox2.Location = new System.Drawing.Point(23, 51);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(136, 17);
@@ -165,6 +168,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
+            this.checkBox1.Enabled = false;
             this.checkBox1.Location = new System.Drawing.Point(23, 28);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(153, 17);
@@ -277,6 +281,14 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Connection";
             // 
+            // labelConnectionResult
+            // 
+            this.labelConnectionResult.Location = new System.Drawing.Point(6, 192);
+            this.labelConnectionResult.Name = "labelConnectionResult";
+            this.labelConnectionResult.Size = new System.Drawing.Size(407, 22);
+            this.labelConnectionResult.TabIndex = 15;
+            this.labelConnectionResult.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -285,14 +297,6 @@
             this.label9.Size = new System.Drawing.Size(348, 13);
             this.label9.TabIndex = 14;
             this.label9.Text = "These settings will take effect the next time you close and restart Fiddler.";
-            // 
-            // labelConnectionResult
-            // 
-            this.labelConnectionResult.Location = new System.Drawing.Point(6, 192);
-            this.labelConnectionResult.Name = "labelConnectionResult";
-            this.labelConnectionResult.Size = new System.Drawing.Size(407, 22);
-            this.labelConnectionResult.TabIndex = 15;
-            this.labelConnectionResult.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // FFRKViewAbout
             // 

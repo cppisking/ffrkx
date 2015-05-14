@@ -41,11 +41,9 @@ namespace FFRKInspector.Database
                         {
                             BattleId = (uint)reader["battleid"],
                             ItemId = (uint)reader["itemid"],
-                            EnemyId = (uint)reader["enemyid"],
                             BattleName = (string)reader["battle_name"],
                             BattleStamina = (ushort)reader["battle_stamina"],
-                            EnemyName = (string)reader["enemy_name"],
-                            TotalDrops = (uint)reader["drop_count"],
+                            TotalDrops = Convert.ToUInt32(reader["drop_count"]),
                             ItemName = (string)reader["item_name"],
                             TimesRun = (uint)reader["times_run"]
                         };

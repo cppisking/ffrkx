@@ -17,17 +17,26 @@ namespace FFRKInspector.UI
     internal partial class FFRKViewActiveDungeon : UserControl
     {
         private List<BasicItemDropStats> mCachedItemStats;
+        private VirtualListViewColumnSorter<BasicItemDropStats> mSorter;
 
         public FFRKViewActiveDungeon()
         {
             InitializeComponent();
             mCachedItemStats = new List<BasicItemDropStats>();
+            mSorter = new VirtualListViewColumnSorter<BasicItemDropStats>();
         }
 
         private void FFRKViewCurrentBattle_Load(object sender, EventArgs e)
         {
             CenterControl(listViewActiveBattle, labelActiveBattleNotice);
             CenterControl(listViewActiveBattle, labelNoDrops);
+
+            mSorter.AddSorter(0, (x, y) => x.ItemName.CompareTo(y.ItemName));
+            mSorter.AddSorter(1, (x, y) => x.BattleName.CompareTo(y.BattleName));
+            mSorter.AddSorter(2, (x, y) => x.TimesRun.CompareTo(y.TimesRun));
+            mSorter.AddSorter(3, (x, y) => x.TotalDrops.CompareTo(y.TotalDrops));
+            mSorter.AddSorter(4, (x, y) => x.DropRate.CompareTo(y.DropRate));
+            mSorter.AddSorter(5, (x, y) => x.StaminaPerDrop.CompareTo(y.StaminaPerDrop));
 
             if (FFRKProxy.Instance != null)
             {
@@ -106,7 +115,6 @@ namespace FFRKInspector.UI
                             continue;
 
                         BasicItemDropStats match = mCachedItemStats.Find(x => (x.BattleId == battle.Battle.BattleId)
-                                                                           && (x.EnemyId == drop.EnemyId) 
                                                                            && (x.ItemId == drop.ItemId));
                         EventListBattles this_battle_list = FFRKProxy.Instance.GameState.ActiveDungeon;
                         if (match == null)
@@ -126,12 +134,9 @@ namespace FFRKInspector.UI
                                 mCachedItemStats.Add(
                                     new BasicItemDropStats
                                     {
-                                        // TODO(cpp): TimesRun and ItemName are wrong, need to load from DB.
                                         BattleId = battle.Battle.BattleId,
                                         BattleName = this_battle.Name,
                                         BattleStamina = this_battle.Stamina,
-                                        EnemyId = drop.EnemyId,
-                                        EnemyName = drop.EnemyName,
                                         ItemId = drop.ItemId,
                                         ItemName = item_name,
                                         TimesRun = times_run,
@@ -296,13 +301,30 @@ namespace FFRKInspector.UI
             {
                 item.ItemName,
                 item.BattleName,
-                item.EnemyName,
                 item.TimesRun.ToString(),
                 item.TotalDrops.ToString(),
                 drop_rate.ToString("F") + "%",
                 stam_per_drop.ToString("F")
             };
             e.Item = new ListViewItem(rows);
+        }
+
+        private void listViewAllDrops_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            if (e.Column == mSorter.SortColumn)
+            {
+                if (mSorter.Order == SortOrder.Ascending)
+                    mSorter.Order = SortOrder.Descending;
+                else if (mSorter.Order == SortOrder.Descending)
+                    mSorter.Order = SortOrder.Ascending;
+            }
+            else
+            {
+                mSorter.SortColumn = e.Column;
+                mSorter.Order = SortOrder.Ascending;
+            }
+            mCachedItemStats.Sort(mSorter.ComparisonFunction);
+            listViewAllDrops.Invalidate();
         }
     }
 }

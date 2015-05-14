@@ -15,12 +15,13 @@ namespace FFRKInspector.GameData
 
         public uint ItemId;
         public uint BattleId;
-        public uint EnemyId;
         public string ItemName;
         public string BattleName;
-        public string EnemyName;
         public uint TotalDrops;
         public uint TimesRun;
         public ushort BattleStamina;
+
+        public float DropRate { get { return (float)TotalDrops / (float)TimesRun; } }
+        public float StaminaPerDrop { get { return ((float)BattleStamina * (float)TimesRun) / (float)TotalDrops; } }
     }
 }
