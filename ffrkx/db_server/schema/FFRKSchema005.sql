@@ -9,7 +9,6 @@ ADD CONSTRAINT `FK_drop_enemy` FOREIGN KEY (`enemyid`) REFERENCES `enemies` (`id
 	ON DELETE NO ACTION
 	ON UPDATE NO ACTION;
 
-USE `ffrk`;
 DROP procedure IF EXISTS `insert_enemy_entry`;
 
 DELIMITER $$

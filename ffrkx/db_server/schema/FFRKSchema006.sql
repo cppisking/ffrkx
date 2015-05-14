@@ -74,6 +74,23 @@ ADD CONSTRAINT `FK_dungeon_world`
 ALTER TABLE `items` 
 CHANGE COLUMN `realm` `series` INT UNSIGNED NULL DEFAULT NULL ;
 
+# Update existing series from the previous realm value to the new series value
+# so that we can apply the foreign key constraint.
+UPDATE `items` SET `series`= '101001' WHERE `series`=1;
+UPDATE `items` SET `series`= '102001' WHERE `series`=2;
+UPDATE `items` SET `series`= '103001' WHERE `series`=3;
+UPDATE `items` SET `series`= '104001' WHERE `series`=4;
+UPDATE `items` SET `series`= '105001' WHERE `series`=5;
+UPDATE `items` SET `series`= '106001' WHERE `series`=6;
+UPDATE `items` SET `series`= '107001' WHERE `series`=7;
+UPDATE `items` SET `series`= '108001' WHERE `series`=8;
+UPDATE `items` SET `series`= '109001' WHERE `series`=9;
+UPDATE `items` SET `series`= '110001' WHERE `series`=10;
+UPDATE `items` SET `series`= '111001' WHERE `series`=11;
+UPDATE `items` SET `series`= '112001' WHERE `series`=12;
+UPDATE `items` SET `series`= '113001' WHERE `series`=13;
+UPDATE `items` SET `series`= '200001' WHERE `series`=0;
+
 ALTER TABLE `items` 
 ADD CONSTRAINT `FK_item_series`
   FOREIGN KEY (`series`)
