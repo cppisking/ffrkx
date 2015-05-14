@@ -76,6 +76,7 @@
             this.groupBoxParameters.Controls.Add(this.listBoxRarity);
             this.groupBoxParameters.Controls.Add(this.labelItemType);
             this.groupBoxParameters.Controls.Add(this.listBoxItemType);
+            this.groupBoxParameters.Enabled = false;
             this.groupBoxParameters.Location = new System.Drawing.Point(16, 8);
             this.groupBoxParameters.Name = "groupBoxParameters";
             this.groupBoxParameters.Size = new System.Drawing.Size(665, 202);
@@ -270,6 +271,7 @@
             this.columnHeaderStamDrop,
             this.columnHeaderDungeon,
             this.columnHeaderBattle});
+            this.listView1.Enabled = false;
             this.listView1.Location = new System.Drawing.Point(16, 216);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(665, 178);
@@ -315,6 +317,7 @@
             // 
             // buttonSearch
             // 
+            this.buttonSearch.Enabled = false;
             this.buttonSearch.Location = new System.Drawing.Point(589, 400);
             this.buttonSearch.Name = "buttonSearch";
             this.buttonSearch.Size = new System.Drawing.Size(92, 27);

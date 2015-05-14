@@ -63,13 +63,13 @@
             // 
             // tabControlFFRKInspector
             // 
+            this.tabControlFFRKInspector.Controls.Add(this.tabPageBattle);
+            this.tabControlFFRKInspector.Controls.Add(this.tabPageGacha);
             this.tabControlFFRKInspector.Controls.Add(this.tabPageBrowse);
             this.tabControlFFRKInspector.Controls.Add(this.tabPageSearch);
-            this.tabControlFFRKInspector.Controls.Add(this.tabPageBattle);
             this.tabControlFFRKInspector.Controls.Add(this.tabPageInventory);
             this.tabControlFFRKInspector.Controls.Add(this.tabPageAbilities);
             this.tabControlFFRKInspector.Controls.Add(this.tabPageParty);
-            this.tabControlFFRKInspector.Controls.Add(this.tabPageGacha);
             this.tabControlFFRKInspector.Controls.Add(this.tabPageAbout);
             this.tabControlFFRKInspector.Controls.Add(this.tabPageDebug);
             this.tabControlFFRKInspector.Dock = System.Windows.Forms.DockStyle.Fill;

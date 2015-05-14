@@ -43,6 +43,7 @@
             this.browseDungeonDetails = new System.Windows.Forms.Panel();
             this.browseEventDetails = new System.Windows.Forms.Panel();
             this.browseBattleDetails = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerBrowser)).BeginInit();
             this.splitContainerBrowser.Panel1.SuspendLayout();
             this.splitContainerBrowser.Panel2.SuspendLayout();
@@ -50,6 +51,7 @@
             this.browseItemDetails.SuspendLayout();
             this.browseDungeonDetails.SuspendLayout();
             this.browseEventDetails.SuspendLayout();
+            this.browseBattleDetails.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainerBrowser
@@ -137,11 +139,21 @@
             // 
             // browseBattleDetails
             // 
+            this.browseBattleDetails.Controls.Add(this.label1);
             this.browseBattleDetails.Dock = System.Windows.Forms.DockStyle.Fill;
             this.browseBattleDetails.Location = new System.Drawing.Point(0, 0);
             this.browseBattleDetails.Name = "browseBattleDetails";
             this.browseBattleDetails.Size = new System.Drawing.Size(488, 375);
             this.browseBattleDetails.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(143, 151);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(229, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "This page doesn\'t work yet!  It\'s coming though";
             // 
             // FFRKViewBrowse
             // 
@@ -158,6 +170,8 @@
             this.browseItemDetails.ResumeLayout(false);
             this.browseDungeonDetails.ResumeLayout(false);
             this.browseEventDetails.ResumeLayout(false);
+            this.browseBattleDetails.ResumeLayout(false);
+            this.browseBattleDetails.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -171,5 +185,6 @@
         private System.Windows.Forms.Panel browseEventDetails;
         private System.Windows.Forms.Panel browseBattleDetails;
         private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.Label label1;
     }
 }
