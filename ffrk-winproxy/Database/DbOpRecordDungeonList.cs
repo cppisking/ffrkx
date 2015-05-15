@@ -55,7 +55,6 @@ namespace FFRKInspector.Database
                 command.Parameters.AddWithValue("@dname", dungeon.Name);
                 command.Parameters.AddWithValue("@dtype", dungeon.Type);
                 command.Parameters.AddWithValue("@ddiff", dungeon.Difficulty);
-                command.Parameters.AddWithValue("@dsyn", 0);
                 return command.ExecuteNonQuery();
             }
         }
