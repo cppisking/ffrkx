@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Database\DbOpFilterDrops.cs" />
     <Compile Include="Database\DbOpLoadAllBattles.cs" />
     <Compile Include="Database\DbOpLoadAllDungeons.cs" />
     <Compile Include="Database\DbOpLoadAllItems.cs" />

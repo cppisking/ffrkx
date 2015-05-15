@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using FFRKInspector.GameData;
 using FFRKInspector.Proxy;
+using FFRKInspector.Database;
 
 namespace FFRKInspector.UI
 {
@@ -71,6 +72,8 @@ namespace FFRKInspector.UI
             public uint BattleId { get { return mKey.BattleId; } }
         }
 
+        private List<BasicItemDropStats> mResultSet;
+
         public FFRKViewItemSearch()
         {
             InitializeComponent();
@@ -80,6 +83,8 @@ namespace FFRKInspector.UI
         {
             if (DesignMode)
                 return;
+
+            mResultSet = new List<BasicItemDropStats>();
 
             listBoxItemType.Items.Clear();
             listBoxRealmSynergy.Items.Clear();
@@ -157,6 +162,53 @@ namespace FFRKInspector.UI
             listBoxBattle.Items.Clear();
             listBoxBattle.Items.Add("(Choose a dungeon to populate this list)");
             listBoxBattle.Enabled = false;
+        }
+
+        private void buttonSearch_Click(object sender, EventArgs e)
+        {
+            DbOpFilterDrops request = new DbOpFilterDrops(FFRKProxy.Instance.Database, SearchParams);
+            request.OnRequestComplete += DbOpFilterDrops_OnRequestComplete;
+            FFRKProxy.Instance.Database.BeginExecuteRequest(request);
+        }
+
+        void DbOpFilterDrops_OnRequestComplete(List<BasicItemDropStats> items)
+        {
+            BeginInvoke((Action)(() =>
+            {
+                mResultSet = items;
+                listViewResults.VirtualListSize = mResultSet.Count;
+                listViewResults.Invalidate();
+            }));
+        }
+
+        private DbOpFilterDrops.SearchParameters SearchParams
+        {
+            get
+            {
+                return new DbOpFilterDrops.SearchParameters { Name = textBoxNameFilter.Text };
+            }
+        }
+
+        private void listViewResults_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
+        {
+            if (e.ItemIndex >= mResultSet.Count)
+                throw new IndexOutOfRangeException();
+
+            BasicItemDropStats item = mResultSet[e.ItemIndex];
+            float drop_rate = 100.0f * (float)item.TotalDrops / (float)item.TimesRun;
+            float stam_per_drop = (float)(item.TimesRun * item.BattleStamina) / (float)item.TotalDrops;
+            string[] rows = new string[]
+            {
+                item.ItemName,
+                String.Empty,
+                item.BattleName,
+                String.Empty,
+                String.Empty,
+                String.Empty,
+                drop_rate.ToString("F") + "%",
+                stam_per_drop.ToString("F")
+            };
+            e.Item = new ListViewItem(rows);
         }
     }
 }

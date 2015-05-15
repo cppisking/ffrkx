@@ -32,32 +32,32 @@
             this.groupBoxParameters = new System.Windows.Forms.GroupBox();
             this.buttonResetAll = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.listBoxWorld = new FFRKInspector.UI.DeselectableListBox();
             this.labelHelp = new System.Windows.Forms.Label();
             this.Battle = new System.Windows.Forms.Label();
+            this.listBoxBattle = new FFRKInspector.UI.DeselectableListBox();
             this.labelDungeon = new System.Windows.Forms.Label();
+            this.listBoxDungeon = new FFRKInspector.UI.DeselectableListBox();
             this.textBoxNameFilter = new System.Windows.Forms.TextBox();
             this.labelName = new System.Windows.Forms.Label();
             this.labelEquippableBy = new System.Windows.Forms.Label();
+            this.listBoxEquippable = new FFRKInspector.UI.DeselectableListBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.listBoxRealmSynergy = new FFRKInspector.UI.DeselectableListBox();
             this.labelRarity = new System.Windows.Forms.Label();
+            this.listBoxRarity = new FFRKInspector.UI.DeselectableListBox();
             this.labelItemType = new System.Windows.Forms.Label();
+            this.listBoxItemType = new FFRKInspector.UI.DeselectableListBox();
             this.listViewResults = new System.Windows.Forms.ListView();
             this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderDungeon = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderBattle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderRarity = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderSynergy = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderDropRate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderStamDrop = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderDungeon = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderBattle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.buttonSearch = new System.Windows.Forms.Button();
-            this.listBoxWorld = new FFRKInspector.UI.DeselectableListBox();
-            this.listBoxBattle = new FFRKInspector.UI.DeselectableListBox();
-            this.listBoxDungeon = new FFRKInspector.UI.DeselectableListBox();
-            this.listBoxEquippable = new FFRKInspector.UI.DeselectableListBox();
-            this.listBoxRealmSynergy = new FFRKInspector.UI.DeselectableListBox();
-            this.listBoxRarity = new FFRKInspector.UI.DeselectableListBox();
-            this.listBoxItemType = new FFRKInspector.UI.DeselectableListBox();
             this.groupBoxParameters.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -109,6 +109,20 @@
             this.label2.TabIndex = 16;
             this.label2.Text = "World";
             // 
+            // listBoxWorld
+            // 
+            this.listBoxWorld.FormattingEnabled = true;
+            this.listBoxWorld.Items.AddRange(new object[] {
+            "FF1",
+            "FF2",
+            "FF3"});
+            this.listBoxWorld.Location = new System.Drawing.Point(371, 63);
+            this.listBoxWorld.Name = "listBoxWorld";
+            this.listBoxWorld.Size = new System.Drawing.Size(186, 121);
+            this.listBoxWorld.TabIndex = 15;
+            this.listBoxWorld.SelectionCleared += new System.EventHandler(this.listBoxWorld_SelectionCleared);
+            this.listBoxWorld.SelectedIndexChanged += new System.EventHandler(this.listBoxWorld_SelectedIndexChanged);
+            // 
             // labelHelp
             // 
             this.labelHelp.AutoSize = true;
@@ -128,6 +142,18 @@
             this.Battle.TabIndex = 13;
             this.Battle.Text = "Battle";
             // 
+            // listBoxBattle
+            // 
+            this.listBoxBattle.FormattingEnabled = true;
+            this.listBoxBattle.Items.AddRange(new object[] {
+            "Zozo (Elite) - Whatever"});
+            this.listBoxBattle.Location = new System.Drawing.Point(800, 63);
+            this.listBoxBattle.Name = "listBoxBattle";
+            this.listBoxBattle.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.listBoxBattle.Size = new System.Drawing.Size(225, 121);
+            this.listBoxBattle.TabIndex = 12;
+            this.listBoxBattle.SelectedIndexChanged += new System.EventHandler(this.listBoxBattle_SelectedIndexChanged);
+            // 
             // labelDungeon
             // 
             this.labelDungeon.AutoSize = true;
@@ -136,6 +162,20 @@
             this.labelDungeon.Size = new System.Drawing.Size(51, 13);
             this.labelDungeon.TabIndex = 11;
             this.labelDungeon.Text = "Dungeon";
+            // 
+            // listBoxDungeon
+            // 
+            this.listBoxDungeon.FormattingEnabled = true;
+            this.listBoxDungeon.Items.AddRange(new object[] {
+            "Zozo",
+            "Phantom Train",
+            "Darill\'s Tomb"});
+            this.listBoxDungeon.Location = new System.Drawing.Point(563, 63);
+            this.listBoxDungeon.Name = "listBoxDungeon";
+            this.listBoxDungeon.Size = new System.Drawing.Size(231, 121);
+            this.listBoxDungeon.TabIndex = 10;
+            this.listBoxDungeon.SelectionCleared += new System.EventHandler(this.listBoxDungeon_SelectionCleared);
+            this.listBoxDungeon.SelectedIndexChanged += new System.EventHandler(this.listBoxDungeon_SelectedIndexChanged);
             // 
             // textBoxNameFilter
             // 
@@ -164,140 +204,6 @@
             this.labelEquippableBy.TabIndex = 7;
             this.labelEquippableBy.Text = "Equippable By";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(179, 45);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(78, 13);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Realm Synergy";
-            // 
-            // labelRarity
-            // 
-            this.labelRarity.AutoSize = true;
-            this.labelRarity.Location = new System.Drawing.Point(91, 45);
-            this.labelRarity.Name = "labelRarity";
-            this.labelRarity.Size = new System.Drawing.Size(34, 13);
-            this.labelRarity.TabIndex = 3;
-            this.labelRarity.Text = "Rarity";
-            // 
-            // labelItemType
-            // 
-            this.labelItemType.AutoSize = true;
-            this.labelItemType.Location = new System.Drawing.Point(6, 45);
-            this.labelItemType.Name = "labelItemType";
-            this.labelItemType.Size = new System.Drawing.Size(54, 13);
-            this.labelItemType.TabIndex = 1;
-            this.labelItemType.Text = "Item Type";
-            // 
-            // listViewResults
-            // 
-            this.listViewResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listViewResults.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeaderName,
-            this.columnHeaderType,
-            this.columnHeaderRarity,
-            this.columnHeaderSynergy,
-            this.columnHeaderDropRate,
-            this.columnHeaderStamDrop,
-            this.columnHeaderDungeon,
-            this.columnHeaderBattle});
-            this.listViewResults.Location = new System.Drawing.Point(16, 247);
-            this.listViewResults.Name = "listViewResults";
-            this.listViewResults.Size = new System.Drawing.Size(1028, 166);
-            this.listViewResults.TabIndex = 1;
-            this.listViewResults.UseCompatibleStateImageBehavior = false;
-            this.listViewResults.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeaderName
-            // 
-            this.columnHeaderName.Text = "Name";
-            // 
-            // columnHeaderType
-            // 
-            this.columnHeaderType.Text = "Type";
-            // 
-            // columnHeaderRarity
-            // 
-            this.columnHeaderRarity.Text = "Rarity";
-            // 
-            // columnHeaderSynergy
-            // 
-            this.columnHeaderSynergy.Text = "Synergy";
-            // 
-            // columnHeaderDropRate
-            // 
-            this.columnHeaderDropRate.Text = "Drop Rate";
-            this.columnHeaderDropRate.Width = 69;
-            // 
-            // columnHeaderStamDrop
-            // 
-            this.columnHeaderStamDrop.Text = "Stamina / Drop";
-            this.columnHeaderStamDrop.Width = 93;
-            // 
-            // columnHeaderDungeon
-            // 
-            this.columnHeaderDungeon.Text = "Dungeon";
-            this.columnHeaderDungeon.Width = 96;
-            // 
-            // columnHeaderBattle
-            // 
-            this.columnHeaderBattle.Text = "Battle";
-            this.columnHeaderBattle.Width = 163;
-            // 
-            // buttonSearch
-            // 
-            this.buttonSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSearch.Location = new System.Drawing.Point(952, 419);
-            this.buttonSearch.Name = "buttonSearch";
-            this.buttonSearch.Size = new System.Drawing.Size(92, 27);
-            this.buttonSearch.TabIndex = 2;
-            this.buttonSearch.Text = "Search";
-            this.buttonSearch.UseVisualStyleBackColor = true;
-            // 
-            // listBoxWorld
-            // 
-            this.listBoxWorld.FormattingEnabled = true;
-            this.listBoxWorld.Items.AddRange(new object[] {
-            "FF1",
-            "FF2",
-            "FF3"});
-            this.listBoxWorld.Location = new System.Drawing.Point(371, 63);
-            this.listBoxWorld.Name = "listBoxWorld";
-            this.listBoxWorld.Size = new System.Drawing.Size(186, 121);
-            this.listBoxWorld.TabIndex = 15;
-            this.listBoxWorld.SelectionCleared += new System.EventHandler(this.listBoxWorld_SelectionCleared);
-            this.listBoxWorld.SelectedIndexChanged += new System.EventHandler(this.listBoxWorld_SelectedIndexChanged);
-            // 
-            // listBoxBattle
-            // 
-            this.listBoxBattle.FormattingEnabled = true;
-            this.listBoxBattle.Items.AddRange(new object[] {
-            "Zozo (Elite) - Whatever"});
-            this.listBoxBattle.Location = new System.Drawing.Point(800, 63);
-            this.listBoxBattle.Name = "listBoxBattle";
-            this.listBoxBattle.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.listBoxBattle.Size = new System.Drawing.Size(225, 121);
-            this.listBoxBattle.TabIndex = 12;
-            this.listBoxBattle.SelectedIndexChanged += new System.EventHandler(this.listBoxBattle_SelectedIndexChanged);
-            // 
-            // listBoxDungeon
-            // 
-            this.listBoxDungeon.FormattingEnabled = true;
-            this.listBoxDungeon.Items.AddRange(new object[] {
-            "Zozo",
-            "Phantom Train",
-            "Darill\'s Tomb"});
-            this.listBoxDungeon.Location = new System.Drawing.Point(563, 63);
-            this.listBoxDungeon.Name = "listBoxDungeon";
-            this.listBoxDungeon.Size = new System.Drawing.Size(231, 121);
-            this.listBoxDungeon.TabIndex = 10;
-            this.listBoxDungeon.SelectionCleared += new System.EventHandler(this.listBoxDungeon_SelectionCleared);
-            this.listBoxDungeon.SelectedIndexChanged += new System.EventHandler(this.listBoxDungeon_SelectedIndexChanged);
-            // 
             // listBoxEquippable
             // 
             this.listBoxEquippable.FormattingEnabled = true;
@@ -313,6 +219,15 @@
             this.listBoxEquippable.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.listBoxEquippable.Size = new System.Drawing.Size(95, 121);
             this.listBoxEquippable.TabIndex = 6;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(179, 45);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(78, 13);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Realm Synergy";
             // 
             // listBoxRealmSynergy
             // 
@@ -338,6 +253,15 @@
             this.listBoxRealmSynergy.Size = new System.Drawing.Size(82, 121);
             this.listBoxRealmSynergy.TabIndex = 4;
             // 
+            // labelRarity
+            // 
+            this.labelRarity.AutoSize = true;
+            this.labelRarity.Location = new System.Drawing.Point(91, 45);
+            this.labelRarity.Name = "labelRarity";
+            this.labelRarity.Size = new System.Drawing.Size(34, 13);
+            this.labelRarity.TabIndex = 3;
+            this.labelRarity.Text = "Rarity";
+            // 
             // listBoxRarity
             // 
             this.listBoxRarity.FormattingEnabled = true;
@@ -353,6 +277,15 @@
             this.listBoxRarity.Size = new System.Drawing.Size(82, 121);
             this.listBoxRarity.TabIndex = 2;
             // 
+            // labelItemType
+            // 
+            this.labelItemType.AutoSize = true;
+            this.labelItemType.Location = new System.Drawing.Point(6, 45);
+            this.labelItemType.Name = "labelItemType";
+            this.labelItemType.Size = new System.Drawing.Size(54, 13);
+            this.labelItemType.TabIndex = 1;
+            this.labelItemType.Text = "Item Type";
+            // 
             // listBoxItemType
             // 
             this.listBoxItemType.FormattingEnabled = true;
@@ -366,6 +299,78 @@
             this.listBoxItemType.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.listBoxItemType.Size = new System.Drawing.Size(82, 121);
             this.listBoxItemType.TabIndex = 0;
+            // 
+            // listViewResults
+            // 
+            this.listViewResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewResults.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeaderName,
+            this.columnHeaderDungeon,
+            this.columnHeaderBattle,
+            this.columnHeaderType,
+            this.columnHeaderRarity,
+            this.columnHeaderSynergy,
+            this.columnHeaderDropRate,
+            this.columnHeaderStamDrop});
+            this.listViewResults.FullRowSelect = true;
+            this.listViewResults.Location = new System.Drawing.Point(16, 247);
+            this.listViewResults.Name = "listViewResults";
+            this.listViewResults.Size = new System.Drawing.Size(1028, 159);
+            this.listViewResults.TabIndex = 1;
+            this.listViewResults.UseCompatibleStateImageBehavior = false;
+            this.listViewResults.View = System.Windows.Forms.View.Details;
+            this.listViewResults.VirtualMode = true;
+            this.listViewResults.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.listViewResults_RetrieveVirtualItem);
+            // 
+            // columnHeaderName
+            // 
+            this.columnHeaderName.Text = "Name";
+            this.columnHeaderName.Width = 159;
+            // 
+            // columnHeaderDungeon
+            // 
+            this.columnHeaderDungeon.Text = "Dungeon";
+            this.columnHeaderDungeon.Width = 96;
+            // 
+            // columnHeaderBattle
+            // 
+            this.columnHeaderBattle.Text = "Battle";
+            this.columnHeaderBattle.Width = 163;
+            // 
+            // columnHeaderType
+            // 
+            this.columnHeaderType.Text = "Type";
+            // 
+            // columnHeaderRarity
+            // 
+            this.columnHeaderRarity.Text = "Rarity";
+            // 
+            // columnHeaderSynergy
+            // 
+            this.columnHeaderSynergy.Text = "Synergy";
+            // 
+            // columnHeaderDropRate
+            // 
+            this.columnHeaderDropRate.Text = "Drop Rate";
+            this.columnHeaderDropRate.Width = 69;
+            // 
+            // columnHeaderStamDrop
+            // 
+            this.columnHeaderStamDrop.Text = "Stamina / Drop";
+            this.columnHeaderStamDrop.Width = 93;
+            // 
+            // buttonSearch
+            // 
+            this.buttonSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSearch.Location = new System.Drawing.Point(952, 412);
+            this.buttonSearch.Name = "buttonSearch";
+            this.buttonSearch.Size = new System.Drawing.Size(92, 27);
+            this.buttonSearch.TabIndex = 2;
+            this.buttonSearch.Text = "Search";
+            this.buttonSearch.UseVisualStyleBackColor = true;
+            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
             // 
             // FFRKViewItemSearch
             // 

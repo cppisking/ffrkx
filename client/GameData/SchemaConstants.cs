@@ -46,6 +46,15 @@ namespace FFRKInspector.GameData
             Orb = 3
         }
 
+        public enum Rarity
+        {
+            One = 1,
+            Two = 2,
+            Three = 3,
+            Four = 4,
+            Five = 5
+        }
+
         // Similar to ItemType, the values here are application-defined, but should
         // remain consistent.
         public enum OrbType
