@@ -1,5 +1,5 @@
 
-# Remove the `dungeons`.`synergy` column and associated procedure.alter
+# Remove the `dungeons`.`synergy` column and associated procedure.
 ALTER TABLE `dungeons` DROP COLUMN `synergy`;
 
 DROP procedure IF EXISTS `insert_dungeon_entry`;
