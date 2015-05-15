@@ -3,11 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "ffrkx", "ffrkx.pyproj", "{AAB245A1-A48E-4442-88BF-3D5DC1408FD0}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "compile_proto", "ffrkx\proto\compile_proto.vcxproj", "{06016391-52CE-451C-8DC0-B23C400C7B29}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFRKInspector", "ffrk-winproxy\FFRKInspector.csproj", "{1900B765-1E16-441F-9C54-A5E9BC90F47F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFRKInspector", "client\FFRKInspector.csproj", "{1900B765-1E16-441F-9C54-A5E9BC90F47F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,22 +15,6 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{AAB245A1-A48E-4442-88BF-3D5DC1408FD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AAB245A1-A48E-4442-88BF-3D5DC1408FD0}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{AAB245A1-A48E-4442-88BF-3D5DC1408FD0}.Debug|Win32.ActiveCfg = Debug|Any CPU
-		{AAB245A1-A48E-4442-88BF-3D5DC1408FD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AAB245A1-A48E-4442-88BF-3D5DC1408FD0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{AAB245A1-A48E-4442-88BF-3D5DC1408FD0}.Release|Win32.ActiveCfg = Release|Any CPU
-		{06016391-52CE-451C-8DC0-B23C400C7B29}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{06016391-52CE-451C-8DC0-B23C400C7B29}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{06016391-52CE-451C-8DC0-B23C400C7B29}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{06016391-52CE-451C-8DC0-B23C400C7B29}.Debug|Win32.ActiveCfg = Debug|Win32
-		{06016391-52CE-451C-8DC0-B23C400C7B29}.Debug|Win32.Build.0 = Debug|Win32
-		{06016391-52CE-451C-8DC0-B23C400C7B29}.Release|Any CPU.ActiveCfg = Release|Win32
-		{06016391-52CE-451C-8DC0-B23C400C7B29}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{06016391-52CE-451C-8DC0-B23C400C7B29}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{06016391-52CE-451C-8DC0-B23C400C7B29}.Release|Win32.ActiveCfg = Release|Win32
-		{06016391-52CE-451C-8DC0-B23C400C7B29}.Release|Win32.Build.0 = Release|Win32
 		{1900B765-1E16-441F-9C54-A5E9BC90F47F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1900B765-1E16-441F-9C54-A5E9BC90F47F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1900B765-1E16-441F-9C54-A5E9BC90F47F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
