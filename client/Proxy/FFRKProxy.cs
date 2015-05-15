@@ -107,7 +107,7 @@ namespace FFRKInspector.Proxy
                 return;
 
             string RequestPath = oSession.oRequest.headers.RequestPath;
-            FiddlerApplication.Log.LogFormat(RequestPath);
+            Utility.Log.LogFormat(RequestPath);
             if (!oSession.oResponse.MIMEType.Contains("json"))
                 return;
 
@@ -127,7 +127,7 @@ namespace FFRKInspector.Proxy
                 }
                 catch (Exception ex)
                 {
-                    FiddlerApplication.Log.LogFormat("An error occurred processing the response from {0}.  {1}", RequestPath, ex.Message);
+                    Utility.Log.LogFormat("An error occurred processing the response from {0}.  {1}", RequestPath, ex.Message);
                 }
             }
 

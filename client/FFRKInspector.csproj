@@ -157,6 +157,7 @@
     <Compile Include="Proxy\ResponseHistory.cs" />
     <Compile Include="UI\VirtualListViewColumnSorter.cs" />
     <Compile Include="Utility\IConverter.cs" />
+    <Compile Include="Utility\Log.cs" />
     <Compile Include="Utility\Utility.cs" />
   </ItemGroup>
   <ItemGroup>

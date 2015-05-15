@@ -142,7 +142,7 @@ namespace FFRKInspector.Database
         {
             try
             {
-                FiddlerApplication.Log.LogFormat("Database exceuting operation {0}", Request.GetType().Name);
+                Utility.Log.LogFormat("Database exceuting operation {0}", Request.GetType().Name);
                 EnsureConnected();
 
                 if (Request.RequiresTransaction)
@@ -157,8 +157,8 @@ namespace FFRKInspector.Database
                         }
                         catch (Exception ex)
                         {
-                            FiddlerApplication.Log.LogFormat("An error occurred executing the operation in a transaction.  Rolling back.  {0}", ex.Message);
-                            FiddlerApplication.Log.LogFormat(ex.StackTrace);
+                            Utility.Log.LogFormat("An error occurred executing the operation in a transaction.  Rolling back.  {0}", ex.Message);
+                            Utility.Log.LogFormat(ex.StackTrace);
                             transaction.Rollback();
                         }
                     }
@@ -171,7 +171,7 @@ namespace FFRKInspector.Database
             }
             catch (Exception ex)
             {
-                FiddlerApplication.Log.LogFormat("An error occurred executing request {0}.  Message = {1}.\n{2}", Request.GetType().Name, ex.Message, ex.StackTrace);
+                Utility.Log.LogFormat("An error occurred executing request {0}.  Message = {1}.\n{2}", Request.GetType().Name, ex.Message, ex.StackTrace);
             }
         }
 
@@ -182,7 +182,7 @@ namespace FFRKInspector.Database
                 IDbRequest request = null;
                 try
                 {
-                    FiddlerApplication.Log.LogString("Database thread waiting for request");
+                    Utility.Log.LogString("Database thread waiting for request");
                     request = mDatabaseQueue.Take(mCancellationToken);
 
                     ProcessDbRequestOnThisThread(request);
@@ -202,7 +202,7 @@ namespace FFRKInspector.Database
             switch (mConnection.State)
             {
                 case System.Data.ConnectionState.Broken:
-                    FiddlerApplication.Log.LogString("Database connection broken.  Attempting to re-open.");
+                    Utility.Log.LogString("Database connection broken.  Attempting to re-open.");
                     // Need to close the connection and re-open it.
                     mConnection.Close();
                     break;
@@ -225,7 +225,7 @@ namespace FFRKInspector.Database
             }
             catch (Exception ex)
             {
-                FiddlerApplication.Log.LogFormat("An error occurred initiating request {0}.  Message = {1}.\n{2}", Request.GetType().Name, ex.Message, ex.StackTrace);
+                Utility.Log.LogFormat("An error occurred initiating request {0}.  Message = {1}.\n{2}", Request.GetType().Name, ex.Message, ex.StackTrace);
                 System.Diagnostics.Debugger.Break();
             }
         }

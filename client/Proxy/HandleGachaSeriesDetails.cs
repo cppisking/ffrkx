@@ -24,21 +24,21 @@ namespace FFRKInspector.Proxy
             int parameter_start_index = RequestPath.IndexOf('?');
             if (parameter_start_index == -1)
             {
-                FiddlerApplication.Log.LogFormat("Unrecognized gacha series details request path {0}.  Expected ?series_id=<n>", RequestPath);
+                Utility.Log.LogFormat("Unrecognized gacha series details request path {0}.  Expected ?series_id=<n>", RequestPath);
                 return;
             }
             string param_string = RequestPath.Substring(parameter_start_index+1);
             Match series_match = Regex.Match(param_string, "series_id=([0-9]+)");
             if (!series_match.Success)
             {
-                FiddlerApplication.Log.LogFormat("Unrecognized gacha series details request path {0}.  Expected ?series_id=<n>", RequestPath);
+                Utility.Log.LogFormat("Unrecognized gacha series details request path {0}.  Expected ?series_id=<n>", RequestPath);
                 return;
             }
 
             uint series_id;
             if (!uint.TryParse(series_match.Groups[1].Value, out series_id))
             {
-                FiddlerApplication.Log.LogFormat("Unrecognized gacha series details request path {0}.  series_id does not appear to be an integer.", RequestPath);
+                Utility.Log.LogFormat("Unrecognized gacha series details request path {0}.  series_id does not appear to be an integer.", RequestPath);
                 return;
             }
 

@@ -50,11 +50,11 @@ namespace FFRKInspector.Database
 
             if (failedDropCount == 0)
             {
-                FiddlerApplication.Log.LogFormat("Committed drop information for battle #{0}.  0/{1} items failed.",
+                Utility.Log.LogFormat("Committed drop information for battle #{0}.  0/{1} items failed.",
                     mEncounter.Battle.BattleId, drops.Count);
             } else
             {
-                FiddlerApplication.Log.LogFormat("WARNING: Committed drop information for battle #{0}.  {1}/{2} items failed.",
+                Utility.Log.LogFormat("WARNING: Committed drop information for battle #{0}.  {1}/{2} items failed.",
                     mEncounter.Battle.BattleId, failedDropCount, drops.Count, failedDropList.ToString());
             }
         }
