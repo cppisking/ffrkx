@@ -27,11 +27,11 @@ namespace FFRKInspector.UI
 
         private void FFRKViewDebugging_Load(object sender, EventArgs e)
         {
-            if (FFRKProxy.Instance != null)
-            {
-                listViewHistory.VirtualListSize = FFRKProxy.Instance.ResponseHistory.Size;
-                FFRKProxy.Instance.OnFFRKResponse += FFRKProxy_OnFFRKResponse;
-            }
+            if (DesignMode)
+                return;
+
+            listViewHistory.VirtualListSize = FFRKProxy.Instance.ResponseHistory.Size;
+            FFRKProxy.Instance.OnFFRKResponse += FFRKProxy_OnFFRKResponse;
         }
 
         void FFRKProxy_OnFFRKResponse(string Path)

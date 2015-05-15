@@ -28,6 +28,9 @@ namespace FFRKInspector.UI
 
         private void FFRKViewCurrentBattle_Load(object sender, EventArgs e)
         {
+            if (DesignMode)
+                return;
+
             CenterControl(listViewActiveBattle, labelActiveBattleNotice);
             CenterControl(listViewActiveBattle, labelNoDrops);
 

@@ -74,6 +74,31 @@ namespace FFRKInspector.Proxy
 
             DbOpLoadAllBattles battles_request = new DbOpLoadAllBattles();
             battles_request.OnRequestComplete += DbOpLoadAllBattles_OnRequestComplete;
+            mDatabaseInstance.BeginExecuteRequest(battles_request);
+
+            DbOpLoadAllDungeons dungeons_request = new DbOpLoadAllDungeons();
+            dungeons_request.OnRequestComplete += DbOpLoadAllDungeons_OnRequestComplete;
+            mDatabaseInstance.BeginExecuteRequest(dungeons_request);
+
+            DbOpLoadAllWorlds worlds_request = new DbOpLoadAllWorlds();
+            worlds_request.OnRequestComplete += DbOpLoadAllWorlds_OnRequestComplete;
+            mDatabaseInstance.BeginExecuteRequest(worlds_request);
+        }
+
+        void DbOpLoadAllWorlds_OnRequestComplete(FFRKDataCacheTable<DataCache.Worlds.Key, DataCache.Worlds.Data> worlds)
+        {
+            lock (mCache.SyncRoot)
+                mCache.Worlds = worlds;
+            if (OnItemCacheRefreshed != null)
+                OnItemCacheRefreshed();
+        }
+
+        void DbOpLoadAllDungeons_OnRequestComplete(FFRKDataCacheTable<DataCache.Dungeons.Key, DataCache.Dungeons.Data> dungeons)
+        {
+            lock (mCache.SyncRoot)
+                mCache.Dungeons = dungeons;
+            if (OnItemCacheRefreshed != null)
+                OnItemCacheRefreshed();
         }
 
         void DbOpLoadAllBattles_OnRequestComplete(FFRKDataCacheTable<DataCache.Battles.Key, DataCache.Battles.Data> battles)

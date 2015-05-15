@@ -59,14 +59,16 @@ namespace FFRKInspector.UI
 
         private void FFRKViewGacha_Load(object sender, EventArgs e)
         {
+            if (DesignMode)
+                return;
+
             mSorter = new ListViewColumnSorter();
             mSorter.AddSorter<int>(1);
             mSorter.AddSorter<int>(3);
             mSorter.AddSorter<float>(4, new PercentRemover());
             listViewGachaItems.ListViewItemSorter = mSorter;
 
-            if (FFRKProxy.Instance != null)
-                FFRKProxy.Instance.OnGachaStats += FFRKProxy_OnGachaStats;
+            FFRKProxy.Instance.OnGachaStats += FFRKProxy_OnGachaStats;
         }
 
         void FFRKProxy_OnGachaStats(DataGachaSeriesItemsForEntryPoints gacha)

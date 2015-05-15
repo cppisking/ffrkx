@@ -1,4 +1,5 @@
 ﻿using FFRKInspector.DataCache;
+using FFRKInspector.GameData;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -8,37 +9,36 @@ using System.Threading.Tasks;
 
 namespace FFRKInspector.Database
 {
-    class DbOpLoadAllBattles : IDbRequest
+    class DbOpLoadAllWorlds : IDbRequest
     {
-        private FFRKDataCacheTable<DataCache.Battles.Key, DataCache.Battles.Data> mBattles;
+        private FFRKDataCacheTable<DataCache.Worlds.Key, DataCache.Worlds.Data> mWorlds;
 
-        public delegate void DataReadyCallback(FFRKDataCacheTable<DataCache.Battles.Key, DataCache.Battles.Data> battles);
+        public delegate void DataReadyCallback(FFRKDataCacheTable<DataCache.Worlds.Key, DataCache.Worlds.Data> battles);
         public event DataReadyCallback OnRequestComplete;
 
         public bool RequiresTransaction { get { return false; } }
 
-        public DbOpLoadAllBattles()
+        public DbOpLoadAllWorlds()
         {
-            mBattles = new FFRKDataCacheTable<DataCache.Battles.Key, DataCache.Battles.Data>();
+            mWorlds = new FFRKDataCacheTable<DataCache.Worlds.Key, DataCache.Worlds.Data>();
         }
 
         public void Execute(MySqlConnection connection, MySqlTransaction transaction)
         {
-            string stmt = "SELECT * FROM battles";
+            string stmt = "SELECT * FROM worlds";
             using (MySqlCommand command = new MySqlCommand(stmt, connection, transaction))
             {
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        DataCache.Battles.Key key = new DataCache.Battles.Key();
-                        DataCache.Battles.Data data = new DataCache.Battles.Data();
-                        key.BattleId = (uint)reader["id"];
-                        data.DungeonId = (uint)reader["dungeon"];
+                        DataCache.Worlds.Key key = new DataCache.Worlds.Key();
+                        DataCache.Worlds.Data data = new DataCache.Worlds.Data();
+                        key.WorldId = (uint)reader["id"];
                         data.Name = (string)reader["name"];
-                        data.Stamina = (ushort)reader["stamina"];
-                        data.TimesRun = (uint)reader["times_run"];
-                        mBattles.Update(key, data);
+                        data.Series = (uint)reader["series"];
+                        data.Type = (SchemaConstants.WorldType)reader["type"];
+                        mWorlds.Update(key, data);
                     }
                 }
             }
@@ -47,7 +47,7 @@ namespace FFRKInspector.Database
         public void Respond()
         {
             if (OnRequestComplete != null)
-                OnRequestComplete(mBattles);
+                OnRequestComplete(mWorlds);
         }
     }
 }

@@ -18,5 +18,10 @@ namespace FFRKInspector.DataCache.Items
         public byte Type;
         public byte Subtype;
         public uint? Series;
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

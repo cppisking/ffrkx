@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FFRKInspector.GameData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,12 @@ namespace FFRKInspector.DataCache.Worlds
     public class Data
     {
         public uint Series;
-        public ushort Type;
+        public SchemaConstants.WorldType Type;
         public string Name;
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

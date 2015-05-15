@@ -50,7 +50,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Database\DbOpLoadAllBattles.cs" />
+    <Compile Include="Database\DbOpLoadAllDungeons.cs" />
     <Compile Include="Database\DbOpLoadAllItems.cs" />
+    <Compile Include="Database\DbOpLoadAllWorlds.cs" />
     <Compile Include="Database\DbOpRecordBattleEncounter.cs" />
     <Compile Include="Database\DbOpRecordBattleList.cs" />
     <Compile Include="Database\DbOpRecordDungeonList.cs" />
@@ -69,6 +71,8 @@
     <Compile Include="GameData\DataGachaSeriesEntryPoint.cs" />
     <Compile Include="GameData\DataGachaSeriesInfo.cs" />
     <Compile Include="GameData\DataGachaSeriesList.cs" />
+    <Compile Include="GameData\RealmSynergy.cs" />
+    <Compile Include="GameData\SchemaConstants.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -83,6 +87,9 @@
     <Compile Include="Proxy\HandleLeaveDungeon.cs" />
     <Compile Include="Proxy\HandleLoseBattle.cs" />
     <Compile Include="Proxy\HandleWinBattle.cs" />
+    <Compile Include="UI\DeselectableListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\FFRKViewAbout.cs">
       <SubType>UserControl</SubType>
     </Compile>

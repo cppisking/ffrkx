@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FFRKInspector.GameData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,12 @@ namespace FFRKInspector.DataCache.Dungeons
         public uint WorldId;
         public uint Series;
         public string Name;
-        public byte Type;
+        public SchemaConstants.DungeonType Type;
         public ushort Difficulty;
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

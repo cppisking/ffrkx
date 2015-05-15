@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FFRKInspector.DataCache
 {
-    class FFRKDataCacheTable<Key,Value>
+    class FFRKDataCacheTable<Key,Value> : IEnumerable<KeyValuePair<Key,Value>>
     {
         private Dictionary<Key, Value> mCache = null;
 
@@ -29,6 +29,26 @@ namespace FFRKInspector.DataCache
         public bool TryGetValue(Key key, out Value value)
         {
             return mCache.TryGetValue(key, out value);
+        }
+
+        public IEnumerable<Key> Keys
+        {
+            get { return mCache.Keys; }
+        }
+
+        public IEnumerable<Value> Values
+        {
+            get { return mCache.Values; }
+        }
+
+        public IEnumerator<KeyValuePair<Key, Value>> GetEnumerator()
+        {
+            return mCache.GetEnumerator();
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return mCache.GetEnumerator();
         }
     }
 }

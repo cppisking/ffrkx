@@ -17,5 +17,10 @@ namespace FFRKInspector.DataCache.Battles
         public string Name;
         public ushort Stamina;
         public uint TimesRun;
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }
