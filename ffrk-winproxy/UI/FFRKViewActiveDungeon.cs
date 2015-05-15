@@ -98,17 +98,17 @@ namespace FFRKInspector.UI
             }
             else
             {
+                foreach (BasicItemDropStats stats in mCachedItemStats)
+                {
+                    // Update the times_run field of every item that matches the last battle.  If we don't do
+                    // this here in a separate loop, it will only happen for items that actually dropped in
+                    // the following loop.
+                    if (stats.BattleId == battle.Battle.BattleId)
+                        stats.TimesRun++;
+                }
+
                 lock(FFRKProxy.Instance.Cache.SyncRoot)
                 {
-                    foreach (BasicItemDropStats stats in mCachedItemStats)
-                    {
-                        // Update the times_run field of every item that matches the last battle.  If we don't do
-                        // this here in a separate loop, it will only happy for items that actually dropped in
-                        // the following loop.
-                        if (stats.BattleId == battle.Battle.BattleId)
-                            stats.TimesRun++;
-                    }
-
                     foreach (DropEvent drop in battle.Battle.Drops)
                     {
                         if (drop.ItemType == DataEnemyDropItem.DropItemType.Gold)
@@ -129,7 +129,11 @@ namespace FFRKInspector.UI
                                 if (FFRKProxy.Instance.Cache.Items.TryGetValue(new DataCache.Items.Key { ItemId = drop.ItemId }, out item_data))
                                     item_name = item_data.Name;
                                 if (FFRKProxy.Instance.Cache.Battles.TryGetValue(new DataCache.Battles.Key { BattleId = battle.Battle.BattleId }, out battle_data))
-                                    times_run = battle_data.TimesRun;
+                                {
+                                    // Get the times_run from the cache, and add 1 to it.  But make sure to update the value in the cache as well,
+                                    // so that subsequent runs will get the correct value back.
+                                    times_run = ++battle_data.TimesRun;
+                                }
 
                                 mCachedItemStats.Add(
                                     new BasicItemDropStats
