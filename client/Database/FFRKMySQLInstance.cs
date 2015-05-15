@@ -158,6 +158,7 @@ namespace FFRKInspector.Database
                         catch (Exception ex)
                         {
                             FiddlerApplication.Log.LogFormat("An error occurred executing the operation in a transaction.  Rolling back.  {0}", ex.Message);
+                            FiddlerApplication.Log.LogFormat(ex.StackTrace);
                             transaction.Rollback();
                         }
                     }
