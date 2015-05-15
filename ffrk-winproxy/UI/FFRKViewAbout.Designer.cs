@@ -190,14 +190,14 @@
             this.textBoxUser.Location = new System.Drawing.Point(120, 79);
             this.textBoxUser.Name = "textBoxUser";
             this.textBoxUser.Size = new System.Drawing.Size(293, 20);
-            this.textBoxUser.TabIndex = 5;
+            this.textBoxUser.TabIndex = 2;
             // 
             // textBoxHost
             // 
             this.textBoxHost.Location = new System.Drawing.Point(120, 53);
             this.textBoxHost.Name = "textBoxHost";
             this.textBoxHost.Size = new System.Drawing.Size(293, 20);
-            this.textBoxHost.TabIndex = 7;
+            this.textBoxHost.TabIndex = 1;
             // 
             // label6
             // 
@@ -222,14 +222,14 @@
             this.textBoxPassword.Location = new System.Drawing.Point(120, 105);
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.Size = new System.Drawing.Size(293, 20);
-            this.textBoxPassword.TabIndex = 9;
+            this.textBoxPassword.TabIndex = 3;
             // 
             // buttonSaveSettings
             // 
             this.buttonSaveSettings.Location = new System.Drawing.Point(293, 157);
             this.buttonSaveSettings.Name = "buttonSaveSettings";
             this.buttonSaveSettings.Size = new System.Drawing.Size(120, 32);
-            this.buttonSaveSettings.TabIndex = 10;
+            this.buttonSaveSettings.TabIndex = 6;
             this.buttonSaveSettings.Text = "Save";
             this.buttonSaveSettings.UseVisualStyleBackColor = true;
             this.buttonSaveSettings.Click += new System.EventHandler(this.buttonSaveSettings_Click);
@@ -239,7 +239,7 @@
             this.textBoxSchema.Location = new System.Drawing.Point(120, 131);
             this.textBoxSchema.Name = "textBoxSchema";
             this.textBoxSchema.Size = new System.Drawing.Size(293, 20);
-            this.textBoxSchema.TabIndex = 12;
+            this.textBoxSchema.TabIndex = 4;
             // 
             // label8
             // 
@@ -255,7 +255,7 @@
             this.buttonTestSettings.Location = new System.Drawing.Point(168, 157);
             this.buttonTestSettings.Name = "buttonTestSettings";
             this.buttonTestSettings.Size = new System.Drawing.Size(119, 32);
-            this.buttonTestSettings.TabIndex = 13;
+            this.buttonTestSettings.TabIndex = 5;
             this.buttonTestSettings.Text = "Test";
             this.buttonTestSettings.UseVisualStyleBackColor = true;
             this.buttonTestSettings.Click += new System.EventHandler(this.buttonTestSettings_Click);
