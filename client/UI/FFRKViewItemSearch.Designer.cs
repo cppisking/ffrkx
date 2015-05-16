@@ -58,6 +58,8 @@
             this.columnHeaderDropRate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderStamDrop = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.buttonSearch = new System.Windows.Forms.Button();
+            this.columnHeaderNumDrops = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderTimesRun = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBoxParameters.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -313,7 +315,9 @@
             this.columnHeaderRarity,
             this.columnHeaderSynergy,
             this.columnHeaderDropRate,
-            this.columnHeaderStamDrop});
+            this.columnHeaderStamDrop,
+            this.columnHeaderNumDrops,
+            this.columnHeaderTimesRun});
             this.listViewResults.FullRowSelect = true;
             this.listViewResults.Location = new System.Drawing.Point(16, 247);
             this.listViewResults.Name = "listViewResults";
@@ -332,12 +336,12 @@
             // columnHeaderDungeon
             // 
             this.columnHeaderDungeon.Text = "Dungeon";
-            this.columnHeaderDungeon.Width = 96;
+            this.columnHeaderDungeon.Width = 177;
             // 
             // columnHeaderBattle
             // 
             this.columnHeaderBattle.Text = "Battle";
-            this.columnHeaderBattle.Width = 163;
+            this.columnHeaderBattle.Width = 183;
             // 
             // columnHeaderType
             // 
@@ -371,6 +375,16 @@
             this.buttonSearch.Text = "Search";
             this.buttonSearch.UseVisualStyleBackColor = true;
             this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
+            // 
+            // columnHeaderNumDrops
+            // 
+            this.columnHeaderNumDrops.Text = "NumDrops";
+            this.columnHeaderNumDrops.Width = 78;
+            // 
+            // columnHeaderTimesRun
+            // 
+            this.columnHeaderTimesRun.Text = "Times Run";
+            this.columnHeaderTimesRun.Width = 80;
             // 
             // FFRKViewItemSearch
             // 
@@ -419,5 +433,7 @@
         private System.Windows.Forms.Label label2;
         private DeselectableListBox listBoxWorld;
         private System.Windows.Forms.Button buttonResetAll;
+        private System.Windows.Forms.ColumnHeader columnHeaderNumDrops;
+        private System.Windows.Forms.ColumnHeader columnHeaderTimesRun;
     }
 }

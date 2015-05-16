@@ -50,10 +50,23 @@ namespace FFRKInspector.Database
                 {
                     while (reader.Read())
                     {
+                        RealmSynergy.SynergyValue synergy = null;
+                        int series_ordinal = reader.GetOrdinal("item_series");
+                        if (!reader.IsDBNull(series_ordinal))
+                        {
+                            uint series = (uint)reader["item_series"];
+                            synergy = RealmSynergy.FromSeries(series);
+                        }
                         BasicItemDropStats stats = new BasicItemDropStats
                         {
                             BattleId = (uint)reader["battleid"],
                             ItemId = (uint)reader["itemid"],
+                            DungeonId = (uint)reader["dungeon_id"],
+                            DungeonName = (string)reader["dungeon_name"],
+                            DungeonType = (SchemaConstants.DungeonType)reader["dungeon_type"],
+                            Rarity = (SchemaConstants.Rarity)reader["item_rarity"],
+                            Type = (SchemaConstants.ItemType)reader["item_type"],
+                            Synergy = synergy,
                             BattleName = (string)reader["battle_name"],
                             BattleStamina = (ushort)reader["battle_stamina"],
                             TotalDrops = Convert.ToUInt32(reader["drop_count"]),

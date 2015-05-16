@@ -200,13 +200,15 @@ namespace FFRKInspector.UI
             string[] rows = new string[]
             {
                 item.ItemName,
-                String.Empty,
+                item.EffectiveDungeonName,
                 item.BattleName,
-                String.Empty,
-                String.Empty,
-                String.Empty,
+                item.Type.ToString(),
+                ((byte)item.Rarity).ToString(),
+                (item.Synergy == null) ? String.Empty : item.Synergy.Text,
                 drop_rate.ToString("F") + "%",
-                stam_per_drop.ToString("F")
+                stam_per_drop.ToString("F"),
+                item.TotalDrops.ToString(),
+                item.TimesRun.ToString()
             };
             e.Item = new ListViewItem(rows);
         }
