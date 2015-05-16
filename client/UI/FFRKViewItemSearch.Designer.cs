@@ -57,9 +57,9 @@
             this.columnHeaderSynergy = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderDropRate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderStamDrop = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.buttonSearch = new System.Windows.Forms.Button();
             this.columnHeaderNumDrops = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderTimesRun = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.buttonSearch = new System.Windows.Forms.Button();
             this.groupBoxParameters.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -326,6 +326,7 @@
             this.listViewResults.UseCompatibleStateImageBehavior = false;
             this.listViewResults.View = System.Windows.Forms.View.Details;
             this.listViewResults.VirtualMode = true;
+            this.listViewResults.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewResults_ColumnClick);
             this.listViewResults.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.listViewResults_RetrieveVirtualItem);
             // 
             // columnHeaderName
@@ -365,6 +366,16 @@
             this.columnHeaderStamDrop.Text = "Stamina / Drop";
             this.columnHeaderStamDrop.Width = 93;
             // 
+            // columnHeaderNumDrops
+            // 
+            this.columnHeaderNumDrops.Text = "NumDrops";
+            this.columnHeaderNumDrops.Width = 78;
+            // 
+            // columnHeaderTimesRun
+            // 
+            this.columnHeaderTimesRun.Text = "Times Run";
+            this.columnHeaderTimesRun.Width = 80;
+            // 
             // buttonSearch
             // 
             this.buttonSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -375,16 +386,6 @@
             this.buttonSearch.Text = "Search";
             this.buttonSearch.UseVisualStyleBackColor = true;
             this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
-            // 
-            // columnHeaderNumDrops
-            // 
-            this.columnHeaderNumDrops.Text = "NumDrops";
-            this.columnHeaderNumDrops.Width = 78;
-            // 
-            // columnHeaderTimesRun
-            // 
-            this.columnHeaderTimesRun.Text = "Times Run";
-            this.columnHeaderTimesRun.Width = 80;
             // 
             // FFRKViewItemSearch
             // 

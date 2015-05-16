@@ -49,7 +49,9 @@ namespace FFRKInspector.UI
                 Comparison<T> comparer;
                 if (!mComparers.TryGetValue(mColumn, out comparer))
                     return ((x, y) => 0);
-                return comparer;
+                if (mOrder == SortOrder.Ascending)
+                    return comparer;
+                return ((x, y) => -comparer(x, y));
             }
         }
     }

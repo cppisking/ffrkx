@@ -73,6 +73,7 @@ namespace FFRKInspector.UI
         }
 
         private List<BasicItemDropStats> mResultSet;
+        private VirtualListViewColumnSorter<BasicItemDropStats> mSorter;
 
         public FFRKViewItemSearch()
         {
@@ -85,6 +86,18 @@ namespace FFRKInspector.UI
                 return;
 
             mResultSet = new List<BasicItemDropStats>();
+            mSorter = new VirtualListViewColumnSorter<BasicItemDropStats>();
+
+            mSorter.AddSorter(0, (x, y) => x.ItemName.CompareTo(y.ItemName));
+            mSorter.AddSorter(1, (x, y) => x.DungeonName.CompareTo(y.DungeonName));
+            mSorter.AddSorter(2, (x, y) => x.BattleName.CompareTo(y.BattleName));
+            mSorter.AddSorter(3, (x, y) => x.Type.ToString().CompareTo(y.Type.ToString()));
+            mSorter.AddSorter(4, (x, y) => x.Rarity.CompareTo(y.Rarity));
+            mSorter.AddSorter(5, (x, y) => x.Synergy.Realm.CompareTo(y.Synergy.Realm));
+            mSorter.AddSorter(6, (x, y) => x.DropRate.CompareTo(y.DropRate));
+            mSorter.AddSorter(7, (x, y) => x.StaminaPerDrop.CompareTo(y.StaminaPerDrop));
+            mSorter.AddSorter(8, (x, y) => x.TotalDrops.CompareTo(y.TotalDrops));
+            mSorter.AddSorter(9, (x, y) => x.TimesRun.CompareTo(y.TimesRun));
 
             listBoxItemType.Items.Clear();
             listBoxRealmSynergy.Items.Clear();
@@ -211,6 +224,24 @@ namespace FFRKInspector.UI
                 item.TimesRun.ToString()
             };
             e.Item = new ListViewItem(rows);
+        }
+
+        private void listViewResults_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            if (e.Column == mSorter.SortColumn)
+            {
+                if (mSorter.Order == SortOrder.Ascending)
+                    mSorter.Order = SortOrder.Descending;
+                else if (mSorter.Order == SortOrder.Descending)
+                    mSorter.Order = SortOrder.Ascending;
+            }
+            else
+            {
+                mSorter.SortColumn = e.Column;
+                mSorter.Order = SortOrder.Ascending;
+            }
+            mResultSet.Sort(mSorter.ComparisonFunction);
+            listViewResults.Invalidate();
         }
     }
 }
