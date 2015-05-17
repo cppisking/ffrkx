@@ -42,6 +42,7 @@ namespace FFRKInspector.Proxy
         {
             mInstance = this;
             mResponseHandlers = new List<IResponseHandler>();
+            mResponseHandlers.Add(new HandlePartyList());
             mResponseHandlers.Add(new HandleListBattles());
             mResponseHandlers.Add(new HandleListDungeons());
             mResponseHandlers.Add(new HandleLeaveDungeon());

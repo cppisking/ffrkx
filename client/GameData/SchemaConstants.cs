@@ -37,6 +37,12 @@ namespace FFRKInspector.GameData
             Bracer = 56,
         }
 
+        public enum PartyFormation : byte
+        {
+            Front = 1,
+            Back = 2
+        }
+
         // The game doesn't categorize items this way, so this is strictly an enum
         // defined for us.
         public enum ItemType : byte

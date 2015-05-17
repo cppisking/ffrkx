@@ -15,6 +15,11 @@ namespace FFRKInspector.DataCache
             mCache = new Dictionary<Key,Value>();
         }
 
+        public bool Contains(Key k)
+        {
+            return mCache.ContainsKey(k);
+        }
+
         public void Update(Key k, Value v)
         {
             if (!mCache.ContainsKey(k))

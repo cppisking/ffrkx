@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Database\DbOpFilterDrops.cs" />
+    <Compile Include="Database\DbOpInsertItems.cs" />
     <Compile Include="Database\DbOpLoadAllBattles.cs" />
     <Compile Include="Database\DbOpLoadAllDungeons.cs" />
     <Compile Include="Database\DbOpLoadAllItems.cs" />
@@ -72,10 +73,17 @@
     <Compile Include="DataCache\Worlds.cs" />
     <Compile Include="GameData\BasicEnemyInfo.cs" />
     <Compile Include="GameData\BasicItemDropStats.cs" />
+    <Compile Include="GameData\Converters\JsonCreationConverter.cs" />
+    <Compile Include="GameData\Converters\PartySlotListConverter.cs" />
+    <Compile Include="GameData\DataBuddyInformation.cs" />
+    <Compile Include="GameData\Party\DataEquipmentInformation.cs" />
     <Compile Include="GameData\DataGachaSeriesBox.cs" />
     <Compile Include="GameData\DataGachaSeriesEntryPoint.cs" />
     <Compile Include="GameData\DataGachaSeriesInfo.cs" />
     <Compile Include="GameData\DataGachaSeriesList.cs" />
+    <Compile Include="GameData\Party\DataPartyDetails.cs" />
+    <Compile Include="GameData\Party\DataPartySlotToBuddyId.cs" />
+    <Compile Include="GameData\Party\DataPartySlotToBuddyIdRoot.cs" />
     <Compile Include="GameData\RealmSynergy.cs" />
     <Compile Include="GameData\SchemaConstants.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -88,6 +96,7 @@
     <Compile Include="Proxy\HandleListBattles.cs" />
     <Compile Include="Proxy\HandleListDungeons.cs" />
     <Compile Include="Proxy\HandleInitiateBattle.cs" />
+    <Compile Include="Proxy\HandlePartyList.cs" />
     <Compile Include="Proxy\IResponseHandler.cs" />
     <Compile Include="Proxy\HandleLeaveDungeon.cs" />
     <Compile Include="Proxy\HandleLoseBattle.cs" />

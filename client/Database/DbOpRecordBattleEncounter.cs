@@ -22,8 +22,6 @@ namespace FFRKInspector.Database
 
         public void Execute(MySqlConnection connection, MySqlTransaction transaction)
         {
-            int failedDropCount = 0;
-            StringBuilder failedDropList = new StringBuilder();
             CallProcRecordBattleEncounter(connection, transaction, mEncounter.Battle);
             List<DropEvent> drops = mEncounter.Battle.Drops.ToList();
 
@@ -37,26 +35,11 @@ namespace FFRKInspector.Database
                 if (drop.ItemType == DataEnemyDropItem.DropItemType.Gold)
                     continue;
 
-                try
-                {
-                    CallProcRecordDropEvent(connection, transaction, mEncounter.Battle, drop);
-                } catch (MySqlException)
-                {
-                    if (failedDropCount++ > 0)
-                        failedDropList.Append(", ");
-                    failedDropList.AppendFormat("[item: {0}, round: {1}, enemy: {2}]", drop.ItemId, drop.Round, drop.EnemyName);
-                }
+                CallProcRecordDropEvent(connection, transaction, mEncounter.Battle, drop);
             }
 
-            if (failedDropCount == 0)
-            {
-                Utility.Log.LogFormat("Committed drop information for battle #{0}.  0/{1} items failed.",
-                    mEncounter.Battle.BattleId, drops.Count);
-            } else
-            {
-                Utility.Log.LogFormat("WARNING: Committed drop information for battle #{0}.  {1}/{2} items failed.",
-                    mEncounter.Battle.BattleId, failedDropCount, drops.Count, failedDropList.ToString());
-            }
+            Utility.Log.LogFormat("Committing drop information for battle #{0}.  {1} items.",
+                mEncounter.Battle.BattleId, drops.Count);
         }
 
         public void Respond()
