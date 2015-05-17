@@ -120,4 +120,7 @@
   <data name="label3.Text" xml:space="preserve">
     <value>Disclaimer: This is an unofficial app and has no connections to DeNA or Square Enix.  Use of this application is at your own risk.  I assume no responsibility for, and offer no warranties or representations regarding the accuracy or reliability of the content.</value>
   </data>
+  <data name="label10.Text" xml:space="preserve">
+    <value>If you like this program consider donating.  Not only for my time (I've put over 200 hours and counting of development time into this application), but also for my expenses associated with database hosting costs and maintenance.  With enough support, I am hoping to eventually bring this to iOS and Android, and (possibly) other desktop platforms such as Mac.</value>
+  </data>
 </root>
