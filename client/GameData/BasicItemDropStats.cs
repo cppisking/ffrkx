@@ -41,7 +41,7 @@ namespace FFRKInspector.GameData
             }
         }
 
-        public float DropRate { get { return (float)TotalDrops / (float)TimesRun; } }
+        public float DropsPerRun { get { return (float)TotalDrops / (float)TimesRun; } }
         public float StaminaPerDrop { get { return ((float)BattleStamina * (float)TimesRun) / (float)TotalDrops; } }
     }
 }

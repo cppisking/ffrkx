@@ -48,14 +48,13 @@
             this.listBoxRarity = new FFRKInspector.UI.DeselectableListBox();
             this.labelItemType = new System.Windows.Forms.Label();
             this.listBoxItemType = new FFRKInspector.UI.DeselectableListBox();
-            this.listViewResults = new System.Windows.Forms.ListView();
+            this.listViewResults = new ListViewEx();
             this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderDungeon = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderBattle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderRarity = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderSynergy = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderDropRate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderDropsPerRun = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderStamDrop = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderNumDrops = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderTimesRun = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -311,10 +310,9 @@
             this.columnHeaderName,
             this.columnHeaderDungeon,
             this.columnHeaderBattle,
-            this.columnHeaderType,
             this.columnHeaderRarity,
             this.columnHeaderSynergy,
-            this.columnHeaderDropRate,
+            this.columnHeaderDropsPerRun,
             this.columnHeaderStamDrop,
             this.columnHeaderNumDrops,
             this.columnHeaderTimesRun});
@@ -344,10 +342,6 @@
             this.columnHeaderBattle.Text = "Battle";
             this.columnHeaderBattle.Width = 183;
             // 
-            // columnHeaderType
-            // 
-            this.columnHeaderType.Text = "Type";
-            // 
             // columnHeaderRarity
             // 
             this.columnHeaderRarity.Text = "Rarity";
@@ -358,12 +352,12 @@
             // 
             // columnHeaderDropRate
             // 
-            this.columnHeaderDropRate.Text = "Drop Rate";
-            this.columnHeaderDropRate.Width = 69;
+            this.columnHeaderDropsPerRun.Text = "Drops/Run";
+            this.columnHeaderDropsPerRun.Width = 93;
             // 
             // columnHeaderStamDrop
             // 
-            this.columnHeaderStamDrop.Text = "Stamina / Drop";
+            this.columnHeaderStamDrop.Text = "Stamina/Drop";
             this.columnHeaderStamDrop.Width = 93;
             // 
             // columnHeaderNumDrops
@@ -416,14 +410,13 @@
         private DeselectableListBox listBoxRealmSynergy;
         private System.Windows.Forms.TextBox textBoxNameFilter;
         private System.Windows.Forms.Label labelName;
-        private System.Windows.Forms.ListView listViewResults;
+        private ListViewEx listViewResults;
         private System.Windows.Forms.ColumnHeader columnHeaderName;
-        private System.Windows.Forms.ColumnHeader columnHeaderType;
         private System.Windows.Forms.ColumnHeader columnHeaderRarity;
         private System.Windows.Forms.ColumnHeader columnHeaderSynergy;
         private System.Windows.Forms.ColumnHeader columnHeaderDungeon;
         private System.Windows.Forms.ColumnHeader columnHeaderBattle;
-        private System.Windows.Forms.ColumnHeader columnHeaderDropRate;
+        private System.Windows.Forms.ColumnHeader columnHeaderDropsPerRun;
         private System.Windows.Forms.ColumnHeader columnHeaderStamDrop;
         private System.Windows.Forms.Label Battle;
         private DeselectableListBox listBoxBattle;

@@ -163,7 +163,11 @@
     <Compile Include="GameData\EventListDungeons.cs" />
     <Compile Include="GameData\DataUser.cs" />
     <Compile Include="Proxy\ResponseHistory.cs" />
+    <Compile Include="UI\ListViewEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\VirtualListViewColumnSorter.cs" />
+    <Compile Include="UI\VirtualListViewFieldManager.cs" />
     <Compile Include="Utility\IConverter.cs" />
     <Compile Include="Utility\Log.cs" />
     <Compile Include="Utility\Utility.cs" />

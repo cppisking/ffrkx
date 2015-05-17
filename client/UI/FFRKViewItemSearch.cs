@@ -72,8 +72,10 @@ namespace FFRKInspector.UI
             public uint BattleId { get { return mKey.BattleId; } }
         }
 
+        private delegate string GetListViewField(BasicItemDropStats item);
+
         private List<BasicItemDropStats> mResultSet;
-        private VirtualListViewColumnSorter<BasicItemDropStats> mSorter;
+        private VirtualListViewFieldManager<BasicItemDropStats> mFieldManager;
 
         public FFRKViewItemSearch()
         {
@@ -86,18 +88,40 @@ namespace FFRKInspector.UI
                 return;
 
             mResultSet = new List<BasicItemDropStats>();
-            mSorter = new VirtualListViewColumnSorter<BasicItemDropStats>();
+            mFieldManager = new VirtualListViewFieldManager<BasicItemDropStats>();
 
-            mSorter.AddSorter(0, (x, y) => x.ItemName.CompareTo(y.ItemName));
-            mSorter.AddSorter(1, (x, y) => x.DungeonName.CompareTo(y.DungeonName));
-            mSorter.AddSorter(2, (x, y) => x.BattleName.CompareTo(y.BattleName));
-            mSorter.AddSorter(3, (x, y) => x.Type.ToString().CompareTo(y.Type.ToString()));
-            mSorter.AddSorter(4, (x, y) => x.Rarity.CompareTo(y.Rarity));
-            mSorter.AddSorter(5, (x, y) => x.Synergy.Realm.CompareTo(y.Synergy.Realm));
-            mSorter.AddSorter(6, (x, y) => x.DropRate.CompareTo(y.DropRate));
-            mSorter.AddSorter(7, (x, y) => x.StaminaPerDrop.CompareTo(y.StaminaPerDrop));
-            mSorter.AddSorter(8, (x, y) => x.TotalDrops.CompareTo(y.TotalDrops));
-            mSorter.AddSorter(9, (x, y) => x.TimesRun.CompareTo(y.TimesRun));
+            mFieldManager.AddColumn(columnHeaderName,
+                                    (x, y) => x.ItemName.CompareTo(y.ItemName), 
+                                    x => x.ItemName);
+            mFieldManager.AddColumn(columnHeaderDungeon,
+                                    (x, y) => x.DungeonName.CompareTo(y.DungeonName),
+                                    x => x.EffectiveDungeonName);
+            mFieldManager.AddColumn(columnHeaderBattle,
+                                    (x, y) => x.BattleName.CompareTo(y.BattleName), 
+                                    x => x.BattleName);
+            mFieldManager.AddColumn(columnHeaderRarity, 
+                                    (x, y) => x.Rarity.CompareTo(y.Rarity), 
+                                    x => ((byte)x.Rarity).ToString());
+            mFieldManager.AddColumn(columnHeaderSynergy, 
+                                    (x, y) => {
+                                        if (x.Synergy == y.Synergy) return 0;
+                                        if (x.Synergy == null) return -1;
+                                        if (y.Synergy == null) return 1;
+                                        return x.Synergy.Realm.CompareTo(y.Synergy.Realm);
+                                    }, 
+                                    x => (x.Synergy == null) ? String.Empty : x.Synergy.Text);
+            mFieldManager.AddColumn(columnHeaderDropsPerRun, 
+                                    (x, y) => x.DropsPerRun.CompareTo(y.DropsPerRun), 
+                                    x => x.DropsPerRun.ToString("F"));
+            mFieldManager.AddColumn(columnHeaderStamDrop,
+                                    (x, y) => x.StaminaPerDrop.CompareTo(y.StaminaPerDrop),
+                                    x => x.StaminaPerDrop.ToString("F"));
+            mFieldManager.AddColumn(columnHeaderNumDrops, 
+                                    (x, y) => x.TotalDrops.CompareTo(y.TotalDrops),
+                                    x => x.TotalDrops.ToString());
+            mFieldManager.AddColumn(columnHeaderTimesRun, 
+                                    (x, y) => x.TimesRun.CompareTo(y.TimesRun),
+                                    x => x.TimesRun.ToString());
 
             listBoxItemType.Items.Clear();
             listBoxRealmSynergy.Items.Clear();
@@ -208,39 +232,30 @@ namespace FFRKInspector.UI
                 throw new IndexOutOfRangeException();
 
             BasicItemDropStats item = mResultSet[e.ItemIndex];
-            float drop_rate = 100.0f * (float)item.TotalDrops / (float)item.TimesRun;
-            float stam_per_drop = (float)(item.TimesRun * item.BattleStamina) / (float)item.TotalDrops;
-            string[] rows = new string[]
+            List<string> fields = new List<string>();
+            foreach (ColumnHeader column in listViewResults.Columns)
             {
-                item.ItemName,
-                item.EffectiveDungeonName,
-                item.BattleName,
-                item.Type.ToString(),
-                ((byte)item.Rarity).ToString(),
-                (item.Synergy == null) ? String.Empty : item.Synergy.Text,
-                drop_rate.ToString("F") + "%",
-                stam_per_drop.ToString("F"),
-                item.TotalDrops.ToString(),
-                item.TimesRun.ToString()
-            };
-            e.Item = new ListViewItem(rows);
+                string value = mFieldManager.GetFieldValue(column, item);
+                fields.Add(value);
+            }
+            e.Item = new ListViewItem(fields.ToArray());
         }
 
         private void listViewResults_ColumnClick(object sender, ColumnClickEventArgs e)
         {
-            if (e.Column == mSorter.SortColumn)
+            if (listViewResults.Columns[e.Column] == mFieldManager.SortColumn)
             {
-                if (mSorter.Order == SortOrder.Ascending)
-                    mSorter.Order = SortOrder.Descending;
-                else if (mSorter.Order == SortOrder.Descending)
-                    mSorter.Order = SortOrder.Ascending;
+                if (mFieldManager.Order == SortOrder.Ascending)
+                    mFieldManager.Order = SortOrder.Descending;
+                else if (mFieldManager.Order == SortOrder.Descending)
+                    mFieldManager.Order = SortOrder.Ascending;
             }
             else
             {
-                mSorter.SortColumn = e.Column;
-                mSorter.Order = SortOrder.Ascending;
+                mFieldManager.SortColumn = listViewResults.Columns[e.Column];
+                mFieldManager.Order = SortOrder.Ascending;
             }
-            mResultSet.Sort(mSorter.ComparisonFunction);
+            mResultSet.Sort(mFieldManager.ComparisonFunction);
             listViewResults.Invalidate();
         }
     }

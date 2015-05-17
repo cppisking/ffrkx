@@ -38,7 +38,7 @@ namespace FFRKInspector.UI
             mSorter.AddSorter(1, (x, y) => x.BattleName.CompareTo(y.BattleName));
             mSorter.AddSorter(2, (x, y) => x.TimesRun.CompareTo(y.TimesRun));
             mSorter.AddSorter(3, (x, y) => x.TotalDrops.CompareTo(y.TotalDrops));
-            mSorter.AddSorter(4, (x, y) => x.DropRate.CompareTo(y.DropRate));
+            mSorter.AddSorter(4, (x, y) => x.DropsPerRun.CompareTo(y.DropsPerRun));
             mSorter.AddSorter(5, (x, y) => x.StaminaPerDrop.CompareTo(y.StaminaPerDrop));
 
             if (FFRKProxy.Instance != null)
