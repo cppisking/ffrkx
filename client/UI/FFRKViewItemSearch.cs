@@ -129,9 +129,15 @@ namespace FFRKInspector.UI
             listBoxWorld.Items.Clear();
             listBoxDungeon.Items.Clear();
             listBoxBattle.Items.Clear();
+            listBoxRarity.Items.Clear();
 
             listBoxItemType.Items.AddRange(
                 Enum.GetValues(typeof(SchemaConstants.EquipmentCategory))
+                    .Cast<object>()
+                    .ToArray());
+
+            listBoxRarity.Items.AddRange(
+                Enum.GetValues(typeof(SchemaConstants.Rarity))
                     .Cast<object>()
                     .ToArray());
 
@@ -203,7 +209,23 @@ namespace FFRKInspector.UI
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
-            DbOpFilterDrops request = new DbOpFilterDrops(FFRKProxy.Instance.Database, SearchParams);
+            DbOpFilterDrops request = new DbOpFilterDrops(FFRKProxy.Instance.Database);
+            request.Name.Value = textBoxNameFilter.Text;
+            foreach (RealmSynergy.SynergyValue value in listBoxRealmSynergy.SelectedItems)
+                request.Synergies.AddValue(value);
+            if (listBoxBattle.Enabled)
+            {
+                foreach (BattleListItem battle in listBoxBattle.SelectedItems)
+                    request.Battles.AddValue(battle.BattleId);
+            }
+            if (listBoxDungeon.Enabled)
+            {
+                foreach (DungeonListItem dungeon in listBoxDungeon.SelectedItems)
+                    request.Dungeons.AddValue(dungeon.DungeonId);
+            }
+            foreach (SchemaConstants.Rarity rarity in listBoxRarity.SelectedItems)
+                request.Rarities.AddValue(rarity);
+
             request.OnRequestComplete += DbOpFilterDrops_OnRequestComplete;
             FFRKProxy.Instance.Database.BeginExecuteRequest(request);
         }
@@ -216,14 +238,6 @@ namespace FFRKInspector.UI
                 listViewResults.VirtualListSize = mResultSet.Count;
                 listViewResults.Invalidate();
             }));
-        }
-
-        private DbOpFilterDrops.SearchParameters SearchParams
-        {
-            get
-            {
-                return new DbOpFilterDrops.SearchParameters { Name = textBoxNameFilter.Text };
-            }
         }
 
         private void listViewResults_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
@@ -257,6 +271,20 @@ namespace FFRKInspector.UI
             }
             mResultSet.Sort(mFieldManager.ComparisonFunction);
             listViewResults.Invalidate();
+        }
+
+        private void buttonResetAll_Click(object sender, EventArgs e)
+        {
+            listBoxItemType.SelectedItems.Clear();
+            listBoxRealmSynergy.SelectedItems.Clear();
+            listBoxEquippable.SelectedItems.Clear();
+            listBoxWorld.SelectedItems.Clear();
+            listBoxDungeon.SelectedItems.Clear();
+            listBoxBattle.SelectedItems.Clear();
+            listBoxRarity.SelectedItems.Clear();
+
+            mResultSet.Clear();
+            listViewResults.VirtualListSize = 0;
         }
     }
 }

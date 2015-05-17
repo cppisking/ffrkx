@@ -32,23 +32,17 @@
             this.groupBoxParameters = new System.Windows.Forms.GroupBox();
             this.buttonResetAll = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.listBoxWorld = new FFRKInspector.UI.DeselectableListBox();
             this.labelHelp = new System.Windows.Forms.Label();
             this.Battle = new System.Windows.Forms.Label();
-            this.listBoxBattle = new FFRKInspector.UI.DeselectableListBox();
             this.labelDungeon = new System.Windows.Forms.Label();
-            this.listBoxDungeon = new FFRKInspector.UI.DeselectableListBox();
             this.textBoxNameFilter = new System.Windows.Forms.TextBox();
             this.labelName = new System.Windows.Forms.Label();
             this.labelEquippableBy = new System.Windows.Forms.Label();
-            this.listBoxEquippable = new FFRKInspector.UI.DeselectableListBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.listBoxRealmSynergy = new FFRKInspector.UI.DeselectableListBox();
             this.labelRarity = new System.Windows.Forms.Label();
-            this.listBoxRarity = new FFRKInspector.UI.DeselectableListBox();
             this.labelItemType = new System.Windows.Forms.Label();
-            this.listBoxItemType = new FFRKInspector.UI.DeselectableListBox();
-            this.listViewResults = new ListViewEx();
+            this.buttonSearch = new System.Windows.Forms.Button();
+            this.listViewResults = new FFRKInspector.UI.ListViewEx();
             this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderDungeon = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderBattle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -58,7 +52,13 @@
             this.columnHeaderStamDrop = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderNumDrops = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderTimesRun = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.buttonSearch = new System.Windows.Forms.Button();
+            this.listBoxWorld = new FFRKInspector.UI.DeselectableListBox();
+            this.listBoxBattle = new FFRKInspector.UI.DeselectableListBox();
+            this.listBoxDungeon = new FFRKInspector.UI.DeselectableListBox();
+            this.listBoxEquippable = new FFRKInspector.UI.DeselectableListBox();
+            this.listBoxRealmSynergy = new FFRKInspector.UI.DeselectableListBox();
+            this.listBoxRarity = new FFRKInspector.UI.DeselectableListBox();
+            this.listBoxItemType = new FFRKInspector.UI.DeselectableListBox();
             this.groupBoxParameters.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -100,6 +100,7 @@
             this.buttonResetAll.TabIndex = 17;
             this.buttonResetAll.Text = "Reset all selections";
             this.buttonResetAll.UseVisualStyleBackColor = true;
+            this.buttonResetAll.Click += new System.EventHandler(this.buttonResetAll_Click);
             // 
             // label2
             // 
@@ -109,20 +110,6 @@
             this.label2.Size = new System.Drawing.Size(35, 13);
             this.label2.TabIndex = 16;
             this.label2.Text = "World";
-            // 
-            // listBoxWorld
-            // 
-            this.listBoxWorld.FormattingEnabled = true;
-            this.listBoxWorld.Items.AddRange(new object[] {
-            "FF1",
-            "FF2",
-            "FF3"});
-            this.listBoxWorld.Location = new System.Drawing.Point(371, 63);
-            this.listBoxWorld.Name = "listBoxWorld";
-            this.listBoxWorld.Size = new System.Drawing.Size(186, 121);
-            this.listBoxWorld.TabIndex = 15;
-            this.listBoxWorld.SelectionCleared += new System.EventHandler(this.listBoxWorld_SelectionCleared);
-            this.listBoxWorld.SelectedIndexChanged += new System.EventHandler(this.listBoxWorld_SelectedIndexChanged);
             // 
             // labelHelp
             // 
@@ -143,18 +130,6 @@
             this.Battle.TabIndex = 13;
             this.Battle.Text = "Battle";
             // 
-            // listBoxBattle
-            // 
-            this.listBoxBattle.FormattingEnabled = true;
-            this.listBoxBattle.Items.AddRange(new object[] {
-            "Zozo (Elite) - Whatever"});
-            this.listBoxBattle.Location = new System.Drawing.Point(800, 63);
-            this.listBoxBattle.Name = "listBoxBattle";
-            this.listBoxBattle.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.listBoxBattle.Size = new System.Drawing.Size(225, 121);
-            this.listBoxBattle.TabIndex = 12;
-            this.listBoxBattle.SelectedIndexChanged += new System.EventHandler(this.listBoxBattle_SelectedIndexChanged);
-            // 
             // labelDungeon
             // 
             this.labelDungeon.AutoSize = true;
@@ -163,20 +138,6 @@
             this.labelDungeon.Size = new System.Drawing.Size(51, 13);
             this.labelDungeon.TabIndex = 11;
             this.labelDungeon.Text = "Dungeon";
-            // 
-            // listBoxDungeon
-            // 
-            this.listBoxDungeon.FormattingEnabled = true;
-            this.listBoxDungeon.Items.AddRange(new object[] {
-            "Zozo",
-            "Phantom Train",
-            "Darill\'s Tomb"});
-            this.listBoxDungeon.Location = new System.Drawing.Point(563, 63);
-            this.listBoxDungeon.Name = "listBoxDungeon";
-            this.listBoxDungeon.Size = new System.Drawing.Size(231, 121);
-            this.listBoxDungeon.TabIndex = 10;
-            this.listBoxDungeon.SelectionCleared += new System.EventHandler(this.listBoxDungeon_SelectionCleared);
-            this.listBoxDungeon.SelectedIndexChanged += new System.EventHandler(this.listBoxDungeon_SelectedIndexChanged);
             // 
             // textBoxNameFilter
             // 
@@ -205,22 +166,6 @@
             this.labelEquippableBy.TabIndex = 7;
             this.labelEquippableBy.Text = "Equippable By";
             // 
-            // listBoxEquippable
-            // 
-            this.listBoxEquippable.FormattingEnabled = true;
-            this.listBoxEquippable.Items.AddRange(new object[] {
-            "Cyan",
-            "Josef",
-            "Terra",
-            "Kain",
-            "Tidus",
-            "Cloud"});
-            this.listBoxEquippable.Location = new System.Drawing.Point(270, 63);
-            this.listBoxEquippable.Name = "listBoxEquippable";
-            this.listBoxEquippable.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.listBoxEquippable.Size = new System.Drawing.Size(95, 121);
-            this.listBoxEquippable.TabIndex = 6;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -229,30 +174,6 @@
             this.label1.Size = new System.Drawing.Size(78, 13);
             this.label1.TabIndex = 5;
             this.label1.Text = "Realm Synergy";
-            // 
-            // listBoxRealmSynergy
-            // 
-            this.listBoxRealmSynergy.FormattingEnabled = true;
-            this.listBoxRealmSynergy.Items.AddRange(new object[] {
-            "Core",
-            "I",
-            "II",
-            "III",
-            "IV",
-            "V",
-            "VI",
-            "VII",
-            "VIII",
-            "IX",
-            "X",
-            "XI",
-            "XII",
-            "XIII"});
-            this.listBoxRealmSynergy.Location = new System.Drawing.Point(182, 63);
-            this.listBoxRealmSynergy.Name = "listBoxRealmSynergy";
-            this.listBoxRealmSynergy.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.listBoxRealmSynergy.Size = new System.Drawing.Size(82, 121);
-            this.listBoxRealmSynergy.TabIndex = 4;
             // 
             // labelRarity
             // 
@@ -263,21 +184,6 @@
             this.labelRarity.TabIndex = 3;
             this.labelRarity.Text = "Rarity";
             // 
-            // listBoxRarity
-            // 
-            this.listBoxRarity.FormattingEnabled = true;
-            this.listBoxRarity.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5"});
-            this.listBoxRarity.Location = new System.Drawing.Point(94, 63);
-            this.listBoxRarity.Name = "listBoxRarity";
-            this.listBoxRarity.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.listBoxRarity.Size = new System.Drawing.Size(82, 121);
-            this.listBoxRarity.TabIndex = 2;
-            // 
             // labelItemType
             // 
             this.labelItemType.AutoSize = true;
@@ -287,19 +193,16 @@
             this.labelItemType.TabIndex = 1;
             this.labelItemType.Text = "Item Type";
             // 
-            // listBoxItemType
+            // buttonSearch
             // 
-            this.listBoxItemType.FormattingEnabled = true;
-            this.listBoxItemType.Items.AddRange(new object[] {
-            "Weapon",
-            "Armor",
-            "Orb",
-            "Other"});
-            this.listBoxItemType.Location = new System.Drawing.Point(6, 63);
-            this.listBoxItemType.Name = "listBoxItemType";
-            this.listBoxItemType.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.listBoxItemType.Size = new System.Drawing.Size(82, 121);
-            this.listBoxItemType.TabIndex = 0;
+            this.buttonSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSearch.Location = new System.Drawing.Point(952, 412);
+            this.buttonSearch.Name = "buttonSearch";
+            this.buttonSearch.Size = new System.Drawing.Size(92, 27);
+            this.buttonSearch.TabIndex = 2;
+            this.buttonSearch.Text = "Search";
+            this.buttonSearch.UseVisualStyleBackColor = true;
+            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
             // 
             // listViewResults
             // 
@@ -350,7 +253,7 @@
             // 
             this.columnHeaderSynergy.Text = "Synergy";
             // 
-            // columnHeaderDropRate
+            // columnHeaderDropsPerRun
             // 
             this.columnHeaderDropsPerRun.Text = "Drops/Run";
             this.columnHeaderDropsPerRun.Width = 93;
@@ -370,16 +273,116 @@
             this.columnHeaderTimesRun.Text = "Times Run";
             this.columnHeaderTimesRun.Width = 80;
             // 
-            // buttonSearch
+            // listBoxWorld
             // 
-            this.buttonSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSearch.Location = new System.Drawing.Point(952, 412);
-            this.buttonSearch.Name = "buttonSearch";
-            this.buttonSearch.Size = new System.Drawing.Size(92, 27);
-            this.buttonSearch.TabIndex = 2;
-            this.buttonSearch.Text = "Search";
-            this.buttonSearch.UseVisualStyleBackColor = true;
-            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
+            this.listBoxWorld.FormattingEnabled = true;
+            this.listBoxWorld.Items.AddRange(new object[] {
+            "FF1",
+            "FF2",
+            "FF3"});
+            this.listBoxWorld.Location = new System.Drawing.Point(371, 63);
+            this.listBoxWorld.Name = "listBoxWorld";
+            this.listBoxWorld.Size = new System.Drawing.Size(186, 121);
+            this.listBoxWorld.TabIndex = 15;
+            this.listBoxWorld.SelectionCleared += new System.EventHandler(this.listBoxWorld_SelectionCleared);
+            this.listBoxWorld.SelectedIndexChanged += new System.EventHandler(this.listBoxWorld_SelectedIndexChanged);
+            // 
+            // listBoxBattle
+            // 
+            this.listBoxBattle.FormattingEnabled = true;
+            this.listBoxBattle.Items.AddRange(new object[] {
+            "Zozo (Elite) - Whatever"});
+            this.listBoxBattle.Location = new System.Drawing.Point(800, 63);
+            this.listBoxBattle.Name = "listBoxBattle";
+            this.listBoxBattle.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.listBoxBattle.Size = new System.Drawing.Size(225, 121);
+            this.listBoxBattle.TabIndex = 12;
+            this.listBoxBattle.SelectedIndexChanged += new System.EventHandler(this.listBoxBattle_SelectedIndexChanged);
+            // 
+            // listBoxDungeon
+            // 
+            this.listBoxDungeon.FormattingEnabled = true;
+            this.listBoxDungeon.Items.AddRange(new object[] {
+            "Zozo",
+            "Phantom Train",
+            "Darill\'s Tomb"});
+            this.listBoxDungeon.Location = new System.Drawing.Point(563, 63);
+            this.listBoxDungeon.Name = "listBoxDungeon";
+            this.listBoxDungeon.Size = new System.Drawing.Size(231, 121);
+            this.listBoxDungeon.TabIndex = 10;
+            this.listBoxDungeon.SelectionCleared += new System.EventHandler(this.listBoxDungeon_SelectionCleared);
+            this.listBoxDungeon.SelectedIndexChanged += new System.EventHandler(this.listBoxDungeon_SelectedIndexChanged);
+            // 
+            // listBoxEquippable
+            // 
+            this.listBoxEquippable.Enabled = false;
+            this.listBoxEquippable.FormattingEnabled = true;
+            this.listBoxEquippable.Items.AddRange(new object[] {
+            "Cyan",
+            "Josef",
+            "Terra",
+            "Kain",
+            "Tidus",
+            "Cloud"});
+            this.listBoxEquippable.Location = new System.Drawing.Point(270, 63);
+            this.listBoxEquippable.Name = "listBoxEquippable";
+            this.listBoxEquippable.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.listBoxEquippable.Size = new System.Drawing.Size(95, 121);
+            this.listBoxEquippable.TabIndex = 6;
+            // 
+            // listBoxRealmSynergy
+            // 
+            this.listBoxRealmSynergy.FormattingEnabled = true;
+            this.listBoxRealmSynergy.Items.AddRange(new object[] {
+            "Core",
+            "I",
+            "II",
+            "III",
+            "IV",
+            "V",
+            "VI",
+            "VII",
+            "VIII",
+            "IX",
+            "X",
+            "XI",
+            "XII",
+            "XIII"});
+            this.listBoxRealmSynergy.Location = new System.Drawing.Point(182, 63);
+            this.listBoxRealmSynergy.Name = "listBoxRealmSynergy";
+            this.listBoxRealmSynergy.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.listBoxRealmSynergy.Size = new System.Drawing.Size(82, 121);
+            this.listBoxRealmSynergy.TabIndex = 4;
+            // 
+            // listBoxRarity
+            // 
+            this.listBoxRarity.FormattingEnabled = true;
+            this.listBoxRarity.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"});
+            this.listBoxRarity.Location = new System.Drawing.Point(94, 63);
+            this.listBoxRarity.Name = "listBoxRarity";
+            this.listBoxRarity.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.listBoxRarity.Size = new System.Drawing.Size(82, 121);
+            this.listBoxRarity.TabIndex = 2;
+            // 
+            // listBoxItemType
+            // 
+            this.listBoxItemType.Enabled = false;
+            this.listBoxItemType.FormattingEnabled = true;
+            this.listBoxItemType.Items.AddRange(new object[] {
+            "Weapon",
+            "Armor",
+            "Orb",
+            "Other"});
+            this.listBoxItemType.Location = new System.Drawing.Point(6, 63);
+            this.listBoxItemType.Name = "listBoxItemType";
+            this.listBoxItemType.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.listBoxItemType.Size = new System.Drawing.Size(82, 121);
+            this.listBoxItemType.TabIndex = 0;
             // 
             // FFRKViewItemSearch
             // 

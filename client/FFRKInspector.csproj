@@ -60,6 +60,10 @@
     <Compile Include="Database\DbOpRequestDropsForDungeon.cs" />
     <Compile Include="Database\FFRKMySQLInstance.cs" />
     <Compile Include="Database\IDbRequest.cs" />
+    <Compile Include="Database\ISelectParam.cs" />
+    <Compile Include="Database\SelectBuilder.cs" />
+    <Compile Include="Database\SelectSingleParam.cs" />
+    <Compile Include="Database\SelectMultiParam.cs" />
     <Compile Include="DataCache\Battles.cs" />
     <Compile Include="DataCache\Dungeons.cs" />
     <Compile Include="DataCache\FFRKDataCache.cs" />
