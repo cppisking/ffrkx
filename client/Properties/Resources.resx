@@ -121,4 +121,7 @@
   <data name="opened_folder" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\opened_folder.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="paypal_donate_button" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\paypal-donate-button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

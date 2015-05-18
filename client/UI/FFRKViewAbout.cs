@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using FFRKInspector.Proxy;
 using FFRKInspector.Database;
 using Fiddler;
+using System.Web;
+using System.Net;
 
 namespace FFRKInspector.UI
 {
@@ -74,6 +76,22 @@ namespace FFRKInspector.UI
             textBoxPassword.Text = Properties.Settings.Default.DatabasePassword;
             textBoxSchema.Text = Properties.Settings.Default.DatabaseSchema;
             textBoxUser.Text = Properties.Settings.Default.DatabaseUser;
+        }
+
+        private void buttonDonate_Click(object sender, EventArgs e)
+        {
+            string business = "cppisking@gmail.com";
+            string description = WebUtility.HtmlEncode("Donation for FFRK Inspector");
+            string country = "US";
+            string currency = "USD";
+            string url = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations" +
+                         "&business=" + business +
+                         "&lc=" + country +
+                         "&item_name=" + description +
+                         "&currency_code=" + currency +
+                         "&bn=PP%2dDonationsBF";
+
+            System.Diagnostics.Process.Start(url);
         }
     }
 }

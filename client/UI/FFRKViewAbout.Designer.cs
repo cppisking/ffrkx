@@ -55,6 +55,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.buttonDonate = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -303,10 +304,11 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.buttonDonate);
             this.groupBox4.Controls.Add(this.label10);
             this.groupBox4.Location = new System.Drawing.Point(729, 58);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(254, 348);
+            this.groupBox4.Size = new System.Drawing.Size(254, 345);
             this.groupBox4.TabIndex = 8;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Donate";
@@ -315,9 +317,27 @@
             // 
             this.label10.Location = new System.Drawing.Point(6, 30);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(242, 113);
+            this.label10.Size = new System.Drawing.Size(242, 222);
             this.label10.TabIndex = 0;
             this.label10.Text = resources.GetString("label10.Text");
+            this.label10.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // buttonDonate
+            // 
+            this.buttonDonate.AutoSize = true;
+            this.buttonDonate.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonDonate.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.buttonDonate.FlatAppearance.BorderSize = 0;
+            this.buttonDonate.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
+            this.buttonDonate.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
+            this.buttonDonate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonDonate.Image = global::FFRKInspector.Properties.Resources.paypal_donate_button;
+            this.buttonDonate.Location = new System.Drawing.Point(46, 286);
+            this.buttonDonate.Name = "buttonDonate";
+            this.buttonDonate.Size = new System.Drawing.Size(168, 34);
+            this.buttonDonate.TabIndex = 1;
+            this.buttonDonate.UseVisualStyleBackColor = true;
+            this.buttonDonate.Click += new System.EventHandler(this.buttonDonate_Click);
             // 
             // FFRKViewAbout
             // 
@@ -339,6 +359,7 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -372,5 +393,6 @@
         private System.Windows.Forms.Label labelConnectionResult;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button buttonDonate;
     }
 }
