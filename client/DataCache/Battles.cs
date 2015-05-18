@@ -18,6 +18,9 @@ namespace FFRKInspector.DataCache.Battles
         public ushort Stamina;
         public uint TimesRun;
 
+        public bool Repeatable;
+        public ushort StaminaToReach;
+
         public override string ToString()
         {
             return Name;

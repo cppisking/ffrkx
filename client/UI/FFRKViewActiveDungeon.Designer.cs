@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupBoxParty = new System.Windows.Forms.GroupBox();
             this.groupBoxDungeon = new System.Windows.Forms.GroupBox();
             this.listViewActiveDungeon = new System.Windows.Forms.ListView();
@@ -35,13 +36,15 @@
             this.columnHeaderBattleName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderBattleRounds = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderStamina = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.listViewAllDrops = new System.Windows.Forms.ListView();
-            this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderBattle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderTimes = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderTotalDrops = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderRate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderStam = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.listViewAllDrops = new FFRKInspector.UI.ListViewEx();
+            this.columnHeaderAllName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderAllBattle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderAllTimes = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderAllTotalDrops = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderAllDropsPerRun = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderAllStam = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderAllReachStamina = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderAllRepeatable = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.labelItemsDropped = new System.Windows.Forms.Label();
             this.labelCurrentDrops = new System.Windows.Forms.Label();
             this.listViewActiveBattle = new System.Windows.Forms.ListView();
@@ -118,16 +121,18 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewAllDrops.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeaderName,
-            this.columnHeaderBattle,
-            this.columnHeaderTimes,
-            this.columnHeaderTotalDrops,
-            this.columnHeaderRate,
-            this.columnHeaderStam});
+            this.columnHeaderAllName,
+            this.columnHeaderAllBattle,
+            this.columnHeaderAllTimes,
+            this.columnHeaderAllTotalDrops,
+            this.columnHeaderAllDropsPerRun,
+            this.columnHeaderAllStam,
+            this.columnHeaderAllReachStamina,
+            this.columnHeaderAllRepeatable});
             this.listViewAllDrops.FullRowSelect = true;
             this.listViewAllDrops.Location = new System.Drawing.Point(439, 198);
             this.listViewAllDrops.Name = "listViewAllDrops";
-            this.listViewAllDrops.Size = new System.Drawing.Size(587, 220);
+            this.listViewAllDrops.Size = new System.Drawing.Size(586, 220);
             this.listViewAllDrops.TabIndex = 3;
             this.listViewAllDrops.UseCompatibleStateImageBehavior = false;
             this.listViewAllDrops.View = System.Windows.Forms.View.Details;
@@ -135,35 +140,45 @@
             this.listViewAllDrops.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewAllDrops_ColumnClick);
             this.listViewAllDrops.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.listViewAllDrops_RetrieveVirtualItem);
             // 
-            // columnHeaderName
+            // columnHeaderAllName
             // 
-            this.columnHeaderName.Text = "Name";
-            this.columnHeaderName.Width = 126;
+            this.columnHeaderAllName.Text = "Name";
+            this.columnHeaderAllName.Width = 126;
             // 
-            // columnHeaderBattle
+            // columnHeaderAllBattle
             // 
-            this.columnHeaderBattle.Text = "Battle";
-            this.columnHeaderBattle.Width = 134;
+            this.columnHeaderAllBattle.Text = "Battle";
+            this.columnHeaderAllBattle.Width = 134;
             // 
-            // columnHeaderTimes
+            // columnHeaderAllTimes
             // 
-            this.columnHeaderTimes.Text = "Times Run";
-            this.columnHeaderTimes.Width = 71;
+            this.columnHeaderAllTimes.Text = "Times Run";
+            this.columnHeaderAllTimes.Width = 71;
             // 
-            // columnHeaderTotalDrops
+            // columnHeaderAllTotalDrops
             // 
-            this.columnHeaderTotalDrops.Text = "Total Drops";
-            this.columnHeaderTotalDrops.Width = 80;
+            this.columnHeaderAllTotalDrops.Text = "Total Drops";
+            this.columnHeaderAllTotalDrops.Width = 80;
             // 
-            // columnHeaderRate
+            // columnHeaderAllDropsPerRun
             // 
-            this.columnHeaderRate.Text = "Drop Rate";
-            this.columnHeaderRate.Width = 74;
+            this.columnHeaderAllDropsPerRun.Text = "Drops/Run";
+            this.columnHeaderAllDropsPerRun.Width = 74;
             // 
-            // columnHeaderStam
+            // columnHeaderAllStam
             // 
-            this.columnHeaderStam.Text = "Stamina / Drop";
-            this.columnHeaderStam.Width = 105;
+            this.columnHeaderAllStam.Text = "Stamina / Drop";
+            this.columnHeaderAllStam.Width = 105;
+            // 
+            // columnHeaderAllReachStamina
+            // 
+            this.columnHeaderAllReachStamina.Text = "Stam. to Reach";
+            this.columnHeaderAllReachStamina.Width = 86;
+            // 
+            // columnHeaderAllRepeatable
+            // 
+            this.columnHeaderAllRepeatable.Text = "Repeatable";
+            this.columnHeaderAllRepeatable.Width = 67;
             // 
             // labelItemsDropped
             // 
@@ -274,11 +289,11 @@
 
         private System.Windows.Forms.GroupBox groupBoxParty;
         private System.Windows.Forms.GroupBox groupBoxDungeon;
-        private System.Windows.Forms.ListView listViewAllDrops;
-        private System.Windows.Forms.ColumnHeader columnHeaderName;
-        private System.Windows.Forms.ColumnHeader columnHeaderBattle;
-        private System.Windows.Forms.ColumnHeader columnHeaderRate;
-        private System.Windows.Forms.ColumnHeader columnHeaderStam;
+        private ListViewEx listViewAllDrops;
+        private System.Windows.Forms.ColumnHeader columnHeaderAllName;
+        private System.Windows.Forms.ColumnHeader columnHeaderAllBattle;
+        private System.Windows.Forms.ColumnHeader columnHeaderAllDropsPerRun;
+        private System.Windows.Forms.ColumnHeader columnHeaderAllStam;
         private System.Windows.Forms.Label labelItemsDropped;
         private System.Windows.Forms.Label labelCurrentDrops;
         private System.Windows.Forms.ListView listViewActiveDungeon;
@@ -295,7 +310,9 @@
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.Label labelActiveBattleNotice;
         private System.Windows.Forms.Label labelNoDrops;
-        private System.Windows.Forms.ColumnHeader columnHeaderTimes;
-        private System.Windows.Forms.ColumnHeader columnHeaderTotalDrops;
+        private System.Windows.Forms.ColumnHeader columnHeaderAllTimes;
+        private System.Windows.Forms.ColumnHeader columnHeaderAllTotalDrops;
+        private System.Windows.Forms.ColumnHeader columnHeaderAllRepeatable;
+        private System.Windows.Forms.ColumnHeader columnHeaderAllReachStamina;
     }
 }

@@ -88,6 +88,7 @@ namespace FFRKInspector.Database
                             uint series = (uint)reader["item_series"];
                             synergy = RealmSynergy.FromSeries(series);
                         }
+
                         BasicItemDropStats stats = new BasicItemDropStats
                         {
                             BattleId = (uint)reader["battleid"],

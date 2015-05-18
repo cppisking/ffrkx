@@ -17,13 +17,13 @@ namespace FFRKInspector.UI
     internal partial class FFRKViewActiveDungeon : UserControl
     {
         private List<BasicItemDropStats> mCachedItemStats;
-        private VirtualListViewColumnSorter<BasicItemDropStats> mSorter;
+        private VirtualListViewFieldManager<BasicItemDropStats> mFieldManager;
 
         public FFRKViewActiveDungeon()
         {
             InitializeComponent();
             mCachedItemStats = new List<BasicItemDropStats>();
-            mSorter = new VirtualListViewColumnSorter<BasicItemDropStats>();
+            mFieldManager = new VirtualListViewFieldManager<BasicItemDropStats>();
         }
 
         private void FFRKViewCurrentBattle_Load(object sender, EventArgs e)
@@ -34,12 +34,30 @@ namespace FFRKInspector.UI
             CenterControl(listViewActiveBattle, labelActiveBattleNotice);
             CenterControl(listViewActiveBattle, labelNoDrops);
 
-            mSorter.AddSorter(0, (x, y) => x.ItemName.CompareTo(y.ItemName));
-            mSorter.AddSorter(1, (x, y) => x.BattleName.CompareTo(y.BattleName));
-            mSorter.AddSorter(2, (x, y) => x.TimesRun.CompareTo(y.TimesRun));
-            mSorter.AddSorter(3, (x, y) => x.TotalDrops.CompareTo(y.TotalDrops));
-            mSorter.AddSorter(4, (x, y) => x.DropsPerRun.CompareTo(y.DropsPerRun));
-            mSorter.AddSorter(5, (x, y) => x.StaminaPerDrop.CompareTo(y.StaminaPerDrop));
+            mFieldManager.AddColumn(columnHeaderAllName,
+                                    (x, y) => x.ItemName.CompareTo(y.ItemName),
+                                    x => x.ItemName);
+            mFieldManager.AddColumn(columnHeaderAllBattle,
+                                    (x,y) => x.BattleName.CompareTo(y.BattleName),
+                                    x => x.BattleName);
+            mFieldManager.AddColumn(columnHeaderAllTimes,
+                                    (x, y) => x.TimesRun.CompareTo(y.TimesRun),
+                                    x => x.TimesRun.ToString());
+            mFieldManager.AddColumn(columnHeaderAllTotalDrops,
+                                    (x, y) => x.TotalDrops.CompareTo(y.TotalDrops),
+                                    x => x.TotalDrops.ToString());
+            mFieldManager.AddColumn(columnHeaderAllDropsPerRun, 
+                                    (x, y) => x.DropsPerRun.CompareTo(y.DropsPerRun),
+                                    x => x.DropsPerRun.ToString("F"));
+            mFieldManager.AddColumn(columnHeaderAllStam,
+                                    (x, y) => x.StaminaPerDrop.CompareTo(y.StaminaPerDrop),
+                                    x => x.StaminaPerDrop.ToString("F"));
+            mFieldManager.AddColumn(columnHeaderAllReachStamina,
+                                    (x, y) => x.StaminaToReachBattle.CompareTo(y.StaminaToReachBattle),
+                                    x => x.StaminaToReachBattle.ToString());
+            mFieldManager.AddColumn(columnHeaderAllRepeatable,
+                                    (x, y) => x.IsBattleRepeatable.CompareTo(y.IsBattleRepeatable),
+                                    x => x.IsBattleRepeatable.ToString());
 
             if (FFRKProxy.Instance != null)
             {
@@ -296,41 +314,33 @@ namespace FFRKInspector.UI
         private void listViewAllDrops_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
         {
             if (e.ItemIndex >= mCachedItemStats.Count)
-            {
-                e.Item = new ListViewItem();
-                return;
-            }
+                throw new IndexOutOfRangeException();
 
             BasicItemDropStats item = mCachedItemStats[e.ItemIndex];
-            float drop_rate = 100.0f * (float)item.TotalDrops / (float)item.TimesRun;
-            float stam_per_drop = (float)(item.TimesRun * item.BattleStamina) / (float)item.TotalDrops;
-            string[] rows = new string[]
+            List<string> fields = new List<string>();
+            foreach (ColumnHeader column in listViewAllDrops.Columns)
             {
-                item.ItemName,
-                item.BattleName,
-                item.TimesRun.ToString(),
-                item.TotalDrops.ToString(),
-                drop_rate.ToString("F") + "%",
-                stam_per_drop.ToString("F")
-            };
-            e.Item = new ListViewItem(rows);
+                string value = mFieldManager.GetFieldValue(column, item);
+                fields.Add(value);
+            }
+            e.Item = new ListViewItem(fields.ToArray());
         }
 
         private void listViewAllDrops_ColumnClick(object sender, ColumnClickEventArgs e)
         {
-            if (e.Column == mSorter.SortColumn)
+            if (listViewAllDrops.Columns[e.Column] == mFieldManager.SortColumn)
             {
-                if (mSorter.Order == SortOrder.Ascending)
-                    mSorter.Order = SortOrder.Descending;
-                else if (mSorter.Order == SortOrder.Descending)
-                    mSorter.Order = SortOrder.Ascending;
+                if (mFieldManager.Order == SortOrder.Ascending)
+                    mFieldManager.Order = SortOrder.Descending;
+                else if (mFieldManager.Order == SortOrder.Descending)
+                    mFieldManager.Order = SortOrder.Ascending;
             }
             else
             {
-                mSorter.SortColumn = e.Column;
-                mSorter.Order = SortOrder.Ascending;
+                mFieldManager.SortColumn = listViewAllDrops.Columns[e.Column];
+                mFieldManager.Order = SortOrder.Ascending;
             }
-            mCachedItemStats.Sort(mSorter.ComparisonFunction);
+            mCachedItemStats.Sort(mFieldManager.ComparisonFunction);
             listViewAllDrops.Invalidate();
         }
     }

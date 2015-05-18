@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FFRKInspector.Proxy;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,6 +31,30 @@ namespace FFRKInspector.GameData
         public uint TotalDrops;
         public uint TimesRun;
         public ushort BattleStamina;
+
+        public ushort StaminaToReachBattle
+        {
+            get
+            {
+                DataCache.Battles.Key k = new DataCache.Battles.Key { BattleId = BattleId };
+                DataCache.Battles.Data d;
+                if (!FFRKProxy.Instance.Cache.Battles.TryGetValue(k, out d))
+                    return 0;
+                return d.StaminaToReach;
+            }
+        }
+
+        public bool IsBattleRepeatable
+        {
+            get
+            {
+                DataCache.Battles.Key k = new DataCache.Battles.Key { BattleId = BattleId };
+                DataCache.Battles.Data d;
+                if (!FFRKProxy.Instance.Cache.Battles.TryGetValue(k, out d))
+                    return true;
+                return d.Repeatable;
+            }
+        }
 
         public string EffectiveDungeonName
         {

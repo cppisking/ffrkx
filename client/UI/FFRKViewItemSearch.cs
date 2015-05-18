@@ -122,6 +122,12 @@ namespace FFRKInspector.UI
             mFieldManager.AddColumn(columnHeaderTimesRun, 
                                     (x, y) => x.TimesRun.CompareTo(y.TimesRun),
                                     x => x.TimesRun.ToString());
+            mFieldManager.AddColumn(columnHeaderStamToReach,
+                                    (x, y) => x.StaminaToReachBattle.CompareTo(y.StaminaToReachBattle),
+                                    x => x.StaminaToReachBattle.ToString());
+            mFieldManager.AddColumn(columnHeaderRepeatable,
+                                    (x, y) => x.IsBattleRepeatable.CompareTo(y.IsBattleRepeatable),
+                                    x => x.IsBattleRepeatable.ToString());
 
             listBoxItemType.Items.Clear();
             listBoxRealmSynergy.Items.Clear();
