@@ -26,6 +26,8 @@ namespace FFRKInspector.Proxy
         List<IResponseHandler> mResponseHandlers;
         FFRKDataCache mCache;
 
+        static readonly uint mRequiredSchema = 12;
+
         static FFRKProxy mInstance;
 
         public static FFRKProxy Instance { get { return mInstance; } }
@@ -33,6 +35,7 @@ namespace FFRKInspector.Proxy
         internal GameState GameState { get { return mGameState; } }
         internal FFRKMySqlInstance Database { get { return mDatabaseInstance; } }
         internal FFRKDataCache Cache { get { return mCache; } }
+        internal uint MinimumRequiredSchema { get { return mRequiredSchema; } }
 
         public FFRKProxy()
         {
@@ -54,21 +57,52 @@ namespace FFRKInspector.Proxy
 
             mHistory = new ResponseHistory();
             mGameState = new GameState();
-            mDatabaseInstance = new FFRKMySqlInstance();
 
+            // Do this first, because some of the form's OnLoad events register event handlers with it.
+            mDatabaseInstance = new FFRKMySqlInstance();
+            mCache = new FFRKDataCache();
+
+            // Do this before initializing the connection, because when it's done we need to update the
+            // UI.
             mTabPage = new TabPage("FFRK Inspector");
             mInspectorView = new FFRKTabInspector();
             mInspectorView.Dock = DockStyle.Fill;
             mTabPage.Controls.Add(mInspectorView);
             FiddlerApplication.UI.tabsViews.TabPages.Add(mTabPage);
 
-            // Do this last, so that all controls have had a chance to initialize.
-            InitializeDataCache();
+            // Do this last
+            mDatabaseInstance.OnConnectionInitialized += mDatabaseInstance_OnConnectionInitialized;
+            mDatabaseInstance.InitializeConnection(MinimumRequiredSchema);
         }
 
-        private void InitializeDataCache()
+        void mDatabaseInstance_OnConnectionInitialized(FFRKMySqlInstance.ConnectResult Result)
         {
-            mCache = new FFRKDataCache();
+            switch (Result)
+            {
+                case FFRKMySqlInstance.ConnectResult.Success:
+                    PopulateDataCache();
+                    break;
+                case FFRKMySqlInstance.ConnectResult.SchemaTooOld:
+                    mTabPage.BeginInvoke((Action)(() =>
+                        MessageBox.Show(
+                            "The database you are connected to is for an older version of FFRK " +
+                            "Inspector.  Please point to a newer database instance.  Database " +
+                            "connectivity will not be available for this session.",
+                            "Database version mismatch")));
+                    break;
+                case FFRKMySqlInstance.ConnectResult.SchemaTooNew:
+                    mTabPage.BeginInvoke((Action)(() =>
+                        MessageBox.Show(
+                            "FFRK Inspector is outdated and needs to be updated.  Please update " +
+                            "to the latest version.  Database connectivity will not be available " +
+                            "for this session.",
+                            "Database version mismatch")));
+                    break;
+            }
+        }
+
+        private void PopulateDataCache()
+        {
             DbOpLoadAllItems items_request = new DbOpLoadAllItems();
             items_request.OnRequestComplete += DbOpLoadAllItems_OnRequestComplete;
             mDatabaseInstance.BeginExecuteRequest(items_request);

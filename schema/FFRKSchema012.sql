@@ -15,4 +15,8 @@ END$$
 
 DELIMITER ;
 
-INSERT INTO schema_version VALUES (12);
+ALTER TABLE `schema_version` 
+ADD COLUMN `breaking` TINYINT(1) NOT NULL DEFAULT 0 AFTER `version`;
+
+
+INSERT INTO schema_version VALUES (12, false);

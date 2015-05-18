@@ -25,10 +25,20 @@ namespace FFRKInspector.Database
         {
             Connecting,
             Connected,
+            Disabled,
             Disconnected
         }
 
+        public enum ConnectResult
+        {
+            Success,
+            SchemaTooOld,
+            SchemaTooNew,
+            InvalidConnection
+        }
+
         BackgroundWorker mDatabaseThread = null;
+        CancellationTokenSource mCancellationTokenSource = null;
         CancellationToken mCancellationToken = CancellationToken.None;
         BlockingCollection<IDbRequest> mDatabaseQueue = null;
         string mConnStr = null;
@@ -39,6 +49,7 @@ namespace FFRKInspector.Database
         bool mInsertUnknownWorlds;
         bool mInsertUnknownItems;
         bool mInsertUnknownBattles;
+        bool mDatabaseDisabled;
 
         string mDatabaseHost;
         string mDatabaseUser;
@@ -68,8 +79,16 @@ namespace FFRKInspector.Database
             set { mInsertUnknownBattles = value; }
         }
 
+        public bool IsDatabaseDisabled
+        {
+            get { return mDatabaseDisabled; }
+        }
+
         public delegate void ConnectionStateChangedDelegate(ConnectionState NewState);
+        public delegate void ConnectionInitializedDelegate(ConnectResult ConnectResult);
+
         public event ConnectionStateChangedDelegate OnConnectionStateChanged;
+        public event ConnectionInitializedDelegate OnConnectionInitialized;
 
         public FFRKMySqlInstance()
         {
@@ -78,7 +97,13 @@ namespace FFRKInspector.Database
             mDatabaseThread.RunWorkerAsync();
             mDatabaseQueue = new BlockingCollection<IDbRequest>();
             mCancellationToken = new CancellationToken();
+            mCancellationTokenSource = new CancellationTokenSource();
             mConnectionState = ConnectionState.Disconnected;
+        }
+
+        public void Shutdown()
+        {
+            mCancellationTokenSource.Cancel();
         }
 
         string BuildConnectString(string Host, string User, string Password, string Schema)
@@ -90,15 +115,32 @@ namespace FFRKInspector.Database
                                  Host, User, Password, Schema);
         }
 
-        public void TestConnect(string Host, string User, string Password, string Schema)
+        public ConnectResult TestConnect(string Host, string User, string Password, string Schema, uint MinimumRequiredSchema)
         {
             string ConnectString = BuildConnectString(Host, User, Password, Schema);
-            MySqlConnection connection = new MySqlConnection(ConnectString);
-            connection.Open();
-            connection.Close();
+            MySqlConnection connection = null;
+            try
+            {
+                connection = new MySqlConnection(ConnectString);
+                connection.Open();
+
+                DbOpVerifySchema schema_request = new DbOpVerifySchema(MinimumRequiredSchema);
+                schema_request.Execute(connection, null);
+                DbOpVerifySchema.VerificationResult result = schema_request.Result;
+                return TranslateSchemaVerificationResult(result);
+            }
+            catch (MySqlException)
+            {
+                return ConnectResult.InvalidConnection;
+            }
+            finally
+            {
+                if (connection != null)
+                    connection.Close();
+            }
         }
 
-        void Connect()
+        public void InitializeConnection(uint MinimumRequiredSchema)
         {
             string Host = Properties.Settings.Default.DatabaseHost;
             string User = Properties.Settings.Default.DatabaseUser;
@@ -107,29 +149,75 @@ namespace FFRKInspector.Database
 
             string ConnectString = BuildConnectString(Host, User, Password, Schema);
 
-            MySqlConnection connection = new MySqlConnection(ConnectString);
-            connection.StateChange += MySqlConnection_StateChange;
-            connection.Open();
-            mConnection = connection;
-            mConnStr = ConnectString;
+            try
+            {
+                MySqlConnection connection = new MySqlConnection(ConnectString);
+                connection.StateChange += MySqlConnection_StateChange;
+                connection.Open();
+                mConnection = connection;
+                mConnStr = ConnectString;
+
+                DbOpVerifySchema schema_request = new DbOpVerifySchema(MinimumRequiredSchema);
+                schema_request.OnVerificationCompleted += DbOpGetSchemaInfo_OnVerificationCompleted;
+                BeginExecuteRequest(schema_request);
+            }
+            catch (MySqlException)
+            {
+                if (OnConnectionInitialized != null)
+                    OnConnectionInitialized(ConnectResult.InvalidConnection);
+            }
+        }
+
+        private ConnectResult TranslateSchemaVerificationResult(DbOpVerifySchema.VerificationResult Result)
+        {
+            switch (Result)
+            {
+                case DbOpVerifySchema.VerificationResult.DatabaseTooOld:
+                    return ConnectResult.SchemaTooOld;
+                case DbOpVerifySchema.VerificationResult.DatabaseTooNew:
+                    return ConnectResult.SchemaTooNew;
+                default:
+                    return ConnectResult.Success;
+            }
+        }
+
+        void DbOpGetSchemaInfo_OnVerificationCompleted(DbOpVerifySchema.VerificationResult VerificationResult)
+        {
+            ConnectResult result = TranslateSchemaVerificationResult(VerificationResult);
+            if (result != ConnectResult.Success)
+            {
+                mDatabaseDisabled = true;
+                mConnectionState = ConnectionState.Disabled;
+                if (OnConnectionStateChanged != null)
+                    OnConnectionStateChanged(mConnectionState);
+            }
+
+            if (OnConnectionInitialized != null)
+                OnConnectionInitialized(result);
         }
 
         void MySqlConnection_StateChange(object sender, System.Data.StateChangeEventArgs e)
         {
             ConnectionState new_state = ConnectionState.Disconnected;
-            switch (e.CurrentState)
+            if (mDatabaseDisabled)
+                new_state = ConnectionState.Disabled;
+            else
             {
-                case System.Data.ConnectionState.Broken:
-                case System.Data.ConnectionState.Closed:
-                    new_state = ConnectionState.Disconnected;
-                    break;
-                case System.Data.ConnectionState.Connecting:
-                    new_state = ConnectionState.Connecting;
-                    break;
-                default:
-                    new_state = ConnectionState.Connected;
-                    break;
+                switch (e.CurrentState)
+                {
+                    case System.Data.ConnectionState.Broken:
+                    case System.Data.ConnectionState.Closed:
+                        new_state = ConnectionState.Disconnected;
+                        break;
+                    case System.Data.ConnectionState.Connecting:
+                        new_state = ConnectionState.Connecting;
+                        break;
+                    default:
+                        new_state = ConnectionState.Connected;
+                        break;
+                }
             }
+
             if (new_state != mConnectionState)
             {
                 mConnectionState = new_state;
@@ -196,9 +284,6 @@ namespace FFRKInspector.Database
 
         void EnsureConnected()
         {
-            if (mConnection == null)
-                Connect();
-
             switch (mConnection.State)
             {
                 case System.Data.ConnectionState.Broken:
@@ -219,6 +304,9 @@ namespace FFRKInspector.Database
 
         public void BeginExecuteRequest(IDbRequest Request)
         {
+            if (mDatabaseDisabled)
+                return;
+
             try
             {
                 mDatabaseQueue.Add(Request, mCancellationToken);
