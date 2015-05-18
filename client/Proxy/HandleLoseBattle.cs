@@ -13,7 +13,8 @@ namespace FFRKInspector.Proxy
         {
             return RequestPath.Equals("/dff/battle/lose")       // Lose from a world map battle
                 || RequestPath.Equals("/dff/battle/escape")     // Escape from a world map battle
-                || RequestPath.StartsWith("/dff/world/fail");   // Fail a survival event
+                || RequestPath.StartsWith("/dff/world/fail")    // Fail a survival event
+                || RequestPath.Equals("/dff/battle/quit");      // User pushed Cancel after restarting from S/L
         }
 
         public void Handle(string RequestPath, string ResponseJson)
