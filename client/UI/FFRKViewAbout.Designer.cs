@@ -54,8 +54,8 @@
             this.labelConnectionResult = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.buttonDonate = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -313,15 +313,6 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Donate";
             // 
-            // label10
-            // 
-            this.label10.Location = new System.Drawing.Point(6, 30);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(242, 222);
-            this.label10.TabIndex = 0;
-            this.label10.Text = resources.GetString("label10.Text");
-            this.label10.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
             // buttonDonate
             // 
             this.buttonDonate.AutoSize = true;
@@ -338,6 +329,15 @@
             this.buttonDonate.TabIndex = 1;
             this.buttonDonate.UseVisualStyleBackColor = true;
             this.buttonDonate.Click += new System.EventHandler(this.buttonDonate_Click);
+            // 
+            // label10
+            // 
+            this.label10.Location = new System.Drawing.Point(6, 30);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(242, 248);
+            this.label10.TabIndex = 0;
+            this.label10.Text = resources.GetString("label10.Text");
+            this.label10.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // FFRKViewAbout
             // 

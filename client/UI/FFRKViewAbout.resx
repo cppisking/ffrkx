@@ -121,7 +121,7 @@
     <value>Disclaimer: This is an unofficial app and has no connections to DeNA or Square Enix.  Use of this application is at your own risk.  I assume no responsibility for, and offer no warranties or representations regarding the accuracy or reliability of the content.</value>
   </data>
   <data name="label10.Text" xml:space="preserve">
-    <value>If you like this program consider donating.  Not only for my time (I've put over 100 hours and counting of development time into this application), but also for my expenses associated with database hosting costs and maintenance.
+    <value>If you like this program consider donating.  Not only for my time (I've put over 100 hours and counting of development time into this application), but also for my expenses associated with database hosting costs and maintenance.  And, err...  stamina refills for testing purposes (sadly, this part is actually true).
 
 The app will continue to remain free, but I have a laundry list of features I would love to work on.  This includes things like iOS and Android support, other desktop platforms such as Mac, a website for viewing the data, and building on the existing feature set.  But all of these take time, and hosting a database server that can scale with the amount of users I anticipate isn't free.
 
