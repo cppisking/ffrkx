@@ -60,7 +60,6 @@
     <Compile Include="Database\DbOpRecordBattleEncounter.cs" />
     <Compile Include="Database\DbOpRecordBattleList.cs" />
     <Compile Include="Database\DbOpRecordDungeonList.cs" />
-    <Compile Include="Database\DbOpRequestDropsForDungeon.cs" />
     <Compile Include="Database\FFRKMySQLInstance.cs" />
     <Compile Include="Database\IDbRequest.cs" />
     <Compile Include="Database\ISelectParam.cs" />
@@ -183,6 +182,7 @@
     <Compile Include="UI\VirtualListViewColumnSorter.cs" />
     <Compile Include="UI\VirtualListViewFieldManager.cs" />
     <Compile Include="Utility\CriticalZ.cs" />
+    <Compile Include="Utility\Histogram.cs" />
     <Compile Include="Utility\IConverter.cs" />
     <Compile Include="Utility\Log.cs" />
     <Compile Include="Utility\Utility.cs" />

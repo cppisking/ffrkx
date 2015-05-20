@@ -56,13 +56,12 @@
             this.columnHeaderRarity = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderSynergy = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderDropsPerRun = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderStdev = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderStamDrop = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderNumDrops = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderTimesRun = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderStamToReach = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderRepeatable = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderBattleStamina = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderRepeatable = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBoxParameters.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -331,7 +330,6 @@
             this.columnHeaderRarity,
             this.columnHeaderSynergy,
             this.columnHeaderDropsPerRun,
-            this.columnHeaderStdev,
             this.columnHeaderStamDrop,
             this.columnHeaderNumDrops,
             this.columnHeaderTimesRun,
@@ -378,10 +376,6 @@
             this.columnHeaderDropsPerRun.Text = "Avg. Drops/Run";
             this.columnHeaderDropsPerRun.Width = 93;
             // 
-            // columnHeaderStdev
-            // 
-            this.columnHeaderStdev.Text = "Variance";
-            // 
             // columnHeaderStamDrop
             // 
             this.columnHeaderStamDrop.Text = "Stamina/Drop";
@@ -402,14 +396,14 @@
             this.columnHeaderStamToReach.Text = "Stam. to Reach";
             this.columnHeaderStamToReach.Width = 86;
             // 
+            // columnHeaderBattleStamina
+            // 
+            this.columnHeaderBattleStamina.Text = "Battle Stam.";
+            // 
             // columnHeaderRepeatable
             // 
             this.columnHeaderRepeatable.Text = "Repetable";
             this.columnHeaderRepeatable.Width = 61;
-            // 
-            // columnHeaderBattleStamina
-            // 
-            this.columnHeaderBattleStamina.Text = "Battle Stam.";
             // 
             // FFRKViewItemSearch
             // 
@@ -461,7 +455,6 @@
         private System.Windows.Forms.ColumnHeader columnHeaderTimesRun;
         private System.Windows.Forms.ColumnHeader columnHeaderStamToReach;
         private System.Windows.Forms.ColumnHeader columnHeaderRepeatable;
-        private System.Windows.Forms.ColumnHeader columnHeaderStdev;
         private System.Windows.Forms.ColumnHeader columnHeaderBattleStamina;
     }
 }

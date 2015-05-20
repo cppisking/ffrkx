@@ -41,8 +41,8 @@ namespace FFRKInspector.UI
                                     (x,y) => x.BattleName.CompareTo(y.BattleName),
                                     x => x.BattleName);
             mFieldManager.AddColumn(columnHeaderAllTimes,
-                                    (x, y) => x.Samples.CompareTo(y.Samples),
-                                    x => x.Samples.ToString());
+                                    (x, y) => x.TimesRun.CompareTo(y.TimesRun),
+                                    x => x.TimesRun.ToString());
             mFieldManager.AddColumn(columnHeaderAllTotalDrops,
                                     (x, y) => x.TotalDrops.CompareTo(y.TotalDrops),
                                     x => x.TotalDrops.ToString());
@@ -50,19 +50,8 @@ namespace FFRKInspector.UI
                                     (x, y) => x.DropsPerRun.CompareTo(y.DropsPerRun),
                                     x => x.DropsPerRun.ToString("F"));
             mFieldManager.AddColumn(columnHeaderAllStam,
-                                    (x, y) => {
-                                        int result = x.StaminaPerDrop.CompareTo(y.StaminaPerDrop);
-                                        if (result != 0 || x.StdevSamples <= 1)
-                                            return result;
-                                        return x.DropsMarginOfError.CompareTo(y.DropsMarginOfError);
-                                    },
-                                    x => {
-                                        string s = x.StaminaPerDrop.ToString("F") + " ± ";
-                                        if (x.StdevSamples <= 1)
-                                            return s + "??";
-                                        double margin = x.DropsMarginOfError * (double)x.BattleStamina;
-                                        return s + margin.ToString("F");
-                                    });
+                                    (x, y) => x.StaminaPerDrop.CompareTo(y.StaminaPerDrop),
+                                    x => x.StaminaPerDrop.ToString("F"));
             mFieldManager.AddColumn(columnHeaderAllReachStamina,
                                     (x, y) => x.StaminaToReachBattle.CompareTo(y.StaminaToReachBattle),
                                     x => x.StaminaToReachBattle.ToString());
@@ -104,7 +93,8 @@ namespace FFRKInspector.UI
         {
             if (dungeon != null)
             {
-                DbOpRequestDropsForDungeon op = new DbOpRequestDropsForDungeon(FFRKProxy.Instance.Database, dungeon.DungeonSession.DungeonId);
+                DbOpFilterDrops op = new DbOpFilterDrops(FFRKProxy.Instance.Database);
+                op.Dungeons.AddValue(dungeon.DungeonSession.DungeonId);
                 op.OnRequestComplete += RequestDungeonDrops_OnRequestComplete;
                 FFRKProxy.Instance.Database.BeginExecuteRequest(op);
             }
@@ -135,7 +125,10 @@ namespace FFRKInspector.UI
                     // this here in a separate loop, it will only happen for items that actually dropped in
                     // the following loop.
                     if (stats.BattleId == battle.Battle.BattleId)
-                        stats.Samples++;
+                    {
+                        stats.TimesRun++;
+                        stats.TimesRunWithHistogram++;
+                    }
                 }
 
                 lock(FFRKProxy.Instance.Cache.SyncRoot)
@@ -154,7 +147,7 @@ namespace FFRKInspector.UI
                             {
                                 DataBattle this_battle = this_battle_list.Battles.Find(x => x.Id == battle.Battle.BattleId);
                                 uint times_run = 1;
-                                uint stdev_times_run = 1;
+                                uint histo_times_run = 1;
                                 string item_name = drop.ItemId.ToString();
                                 DataCache.Items.Data item_data;
                                 DataCache.Battles.Data battle_data;
@@ -166,7 +159,7 @@ namespace FFRKInspector.UI
                                     {
                                         // Get the times_run from the cache, and add 1 to it.
                                         times_run = battle_data.Samples;
-                                        stdev_times_run = battle_data.StdevSamples;
+                                        histo_times_run = battle_data.HistoSamples;
                                     }
                                 }
 
@@ -178,10 +171,8 @@ namespace FFRKInspector.UI
                                         BattleStamina = this_battle.Stamina,
                                         ItemId = drop.ItemId,
                                         ItemName = item_name,
-                                        Samples = times_run,
-                                        StdevSamples = stdev_times_run,
+                                        TimesRun = times_run,
                                         TotalDrops = 1,
-                                        StdevDropCount = 1,
                                     });
                                 listViewAllDrops.VirtualListSize = mCachedItemStats.Count;
                             }

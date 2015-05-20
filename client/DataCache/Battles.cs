@@ -17,7 +17,7 @@ namespace FFRKInspector.DataCache.Battles
         public string Name;
         public ushort Stamina;
         public uint Samples;
-        public uint StdevSamples;
+        public uint HistoSamples;
 
         public bool Repeatable;
         public ushort StaminaToReach;

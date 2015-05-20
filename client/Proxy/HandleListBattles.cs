@@ -22,6 +22,28 @@ namespace FFRKInspector.Proxy
             EventListBattles result = JsonConvert.DeserializeObject<EventListBattles>(ResponseJson);
             FFRKProxy.Instance.GameState.ActiveDungeon = result;
 
+            lock (FFRKProxy.Instance.Cache.SyncRoot)
+            {
+                foreach (DataBattle battle in result.Battles)
+                {
+                    DataCache.Battles.Key key = new DataCache.Battles.Key { BattleId = battle.Id };
+                    DataCache.Battles.Data data = null;
+                    if (!FFRKProxy.Instance.Cache.Battles.TryGetValue(key, out data))
+                    {
+                        data = new DataCache.Battles.Data
+                        {
+                            DungeonId = battle.DungeonId,
+                            HistoSamples = data.HistoSamples,
+                            Name = data.Name,
+                            Repeatable = data.Repeatable,
+                            Samples = data.Samples,
+                            Stamina = data.Stamina,
+                            StaminaToReach = data.StaminaToReach
+                        };
+                        FFRKProxy.Instance.Cache.Battles.Update(key, data);
+                    }
+                }
+            }
             FFRKProxy.Instance.Database.BeginExecuteRequest(new DbOpRecordBattleList(result));
             FFRKProxy.Instance.RaiseListBattles(result);
         }

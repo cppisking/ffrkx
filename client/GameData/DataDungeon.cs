@@ -27,7 +27,7 @@ namespace FFRKInspector.GameData
         public uint SeriesId;
 
         [JsonProperty("type")]
-        public byte Type;
+        public SchemaConstants.DungeonType Type;
 
         [JsonProperty("rank")]
         public uint Rank;

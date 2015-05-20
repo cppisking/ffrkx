@@ -38,7 +38,7 @@ namespace FFRKInspector.Proxy
                     if (FFRKProxy.Instance.Cache.Battles.TryGetValue(key, out data))
                     {
                         data.Samples++;
-                        data.StdevSamples++;
+                        data.HistoSamples++;
                     }
                 }
 

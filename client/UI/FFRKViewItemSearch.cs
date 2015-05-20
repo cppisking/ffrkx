@@ -113,31 +113,17 @@ namespace FFRKInspector.UI
             mFieldManager.AddColumn(columnHeaderDropsPerRun, 
                                     (x, y) => x.DropsPerRun.CompareTo(y.DropsPerRun),
                                     x => x.DropsPerRun.ToString("F"));
-            mFieldManager.AddColumn(columnHeaderStdev,
-                                    (x, y) => x.DropsVariance.CompareTo(y.DropsVariance),
-                                    x => x.DropsVariance.ToString("F"));
             mFieldManager.AddColumn(columnHeaderStamDrop,
-                                    (x, y) => {
-                                        int result = x.StaminaPerDrop.CompareTo(y.StaminaPerDrop);
-                                        if (result != 0 || x.StdevSamples <= 1)
-                                            return result;
-                                        return x.DropsMarginOfError.CompareTo(y.DropsMarginOfError);
-                                    },
-                                    x => {
-                                        string s = x.StaminaPerDrop.ToString("F") + " ± ";
-                                        if (x.StdevSamples <= 1)
-                                            return s + "??";
-                                        double margin = x.DropsMarginOfError * (double)x.BattleStamina;
-                                        return s + margin.ToString("F");
-                                    });
+                                    (x, y) => x.StaminaPerDrop.CompareTo(y.StaminaPerDrop),
+                                    x => x.StaminaPerDrop.ToString("F"));
             mFieldManager.AddColumn(columnHeaderNumDrops, 
                                     (x, y) => x.TotalDrops.CompareTo(y.TotalDrops),
                                     x => x.TotalDrops.ToString());
-            mFieldManager.AddColumn(columnHeaderTimesRun, 
-                                    (x, y) => x.Samples.CompareTo(y.Samples),
-                                    x => x.Samples.ToString());
+            mFieldManager.AddColumn(columnHeaderTimesRun,
+                                    (x, y) => x.TimesRun.CompareTo(y.TimesRun),
+                                    x => x.TimesRun.ToString());
             mFieldManager.AddColumn(columnHeaderBattleStamina,
-                                    (x, y) => x.BattleStamina.CompareTo(y.Samples),
+                                    (x, y) => x.BattleStamina.CompareTo(y.BattleStamina),
                                     x => x.BattleStamina.ToString());
             mFieldManager.AddColumn(columnHeaderStamToReach,
                                     (x, y) => x.StaminaToReachBattle.CompareTo(y.StaminaToReachBattle),

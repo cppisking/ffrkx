@@ -26,7 +26,7 @@ namespace FFRKInspector.Proxy
         List<IResponseHandler> mResponseHandlers;
         FFRKDataCache mCache;
 
-        static readonly uint mRequiredSchema = 13;
+        static readonly uint mRequiredSchema = 14;
 
         static FFRKProxy mInstance;
 

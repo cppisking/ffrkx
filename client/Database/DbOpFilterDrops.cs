@@ -72,6 +72,10 @@ namespace FFRKInspector.Database
             builder.Parameters.Add(mBattles);
             builder.Parameters.Add(mName);
 
+            // Since histogram bars will come in on different rows we need a way to look up the item
+            // so we can modify its histogram on the fly.
+            var keyed_lookup = new Dictionary<KeyValuePair<uint, uint>, BasicItemDropStats>();
+
             string stmt = builder.ToString();
 
             using (MySqlCommand command = new MySqlCommand(stmt, connection))
@@ -81,35 +85,74 @@ namespace FFRKInspector.Database
                 {
                     while (reader.Read())
                     {
-                        RealmSynergy.SynergyValue synergy = null;
-                        int series_ordinal = reader.GetOrdinal("item_series");
-                        if (!reader.IsDBNull(series_ordinal))
+                        uint battle_id = (uint)reader["battleid"];
+                        uint item_id = (uint)reader["itemid"];
+                        var key = new KeyValuePair<uint, uint>(battle_id, item_id);
+
+                        BasicItemDropStats stats = null;
+                        if (!keyed_lookup.TryGetValue(key, out stats))
                         {
-                            uint series = (uint)reader["item_series"];
-                            synergy = RealmSynergy.FromSeries(series);
+                            // This is a new entry.
+                            RealmSynergy.SynergyValue synergy = null;
+                            int series_ordinal = reader.GetOrdinal("item_series");
+                            if (!reader.IsDBNull(series_ordinal))
+                            {
+                                uint series = (uint)reader["item_series"];
+                                synergy = RealmSynergy.FromSeries(series);
+                            }
+
+                            stats = new BasicItemDropStats
+                            {
+                                BattleId = battle_id,
+                                ItemId = item_id,
+                                DungeonId = (uint)reader["dungeon_id"],
+                                DungeonName = (string)reader["dungeon_name"],
+                                DungeonType = (SchemaConstants.DungeonType)reader["dungeon_type"],
+                                Rarity = (SchemaConstants.Rarity)reader["item_rarity"],
+                                Type = (SchemaConstants.ItemType)reader["item_type"],
+                                TimesRun = (uint)reader["times_run"],
+                                TimesRunWithHistogram = (uint)reader["times_run_with_histogram"],
+                                Synergy = synergy,
+                                BattleName = (string)reader["battle_name"],
+                                BattleStamina = (ushort)reader["battle_stamina"],
+                                ItemName = (string)reader["item_name"],
+                            };
+
+                            keyed_lookup.Add(key, stats);
                         }
 
-                        BasicItemDropStats stats = new BasicItemDropStats
+                        // Modify its histogram entry.
+                        int bucket = (int)reader["histo_bucket"];
+                        uint bucket_value = (uint)reader["histo_value"];
+
+                        if (bucket < 0)
                         {
-                            BattleId = (uint)reader["battleid"],
-                            ItemId = (uint)reader["itemid"],
-                            DungeonId = (uint)reader["dungeon_id"],
-                            DungeonName = (string)reader["dungeon_name"],
-                            DungeonType = (SchemaConstants.DungeonType)reader["dungeon_type"],
-                            Rarity = (SchemaConstants.Rarity)reader["item_rarity"],
-                            Type = (SchemaConstants.ItemType)reader["item_type"],
-                            Synergy = synergy,
-                            BattleName = (string)reader["battle_name"],
-                            BattleStamina = (ushort)reader["battle_stamina"],
-                            TotalDrops = (uint)reader["total_drops"],
-                            ItemName = (string)reader["item_name"],
-                            Samples = (uint)reader["times_run"],
-                            StdevSamples = (uint)reader["stdev_samples"],
-                            StdevDropCount = Convert.ToUInt64(reader["stdev_sum_of_drops"]),
-                            StdevSumOfSquares = Convert.ToUInt64(reader["stdev_sum_of_squares_of_drops"])
-                        };
-                        mDropList.Add(stats);
+                            // The total drops is stored in bucket -1.  This should always be present.
+                            stats.TotalDrops = bucket_value;
+                        }
+                        else if (bucket > 0)
+                        {
+                            // We should never have a bucket 0, because that would mean 0 of the item dropped,
+                            // in which case why would it even be in the drop list?
+                            System.Diagnostics.Debug.Assert(bucket != 0);
+
+                            stats.Histogram[bucket] = bucket_value;
+                        }
                     }
+                }
+            }
+
+            mDropList = keyed_lookup.Values.ToList();
+            foreach (BasicItemDropStats stats in mDropList)
+            {
+                // Post process the list.  None of the items will have a value set for Histogram[0] because that
+                // means we didn't see anything.  So we have to compute this by subtracting all the events where
+                // we did see something from all the events total.
+
+                stats.Histogram[0] = stats.TimesRunWithHistogram;
+                for (int i = 1; i < stats.Histogram.BucketCount; ++i)
+                {
+                    stats.Histogram[0] -= stats.Histogram[i];
                 }
             }
         }
