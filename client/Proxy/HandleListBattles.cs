@@ -24,8 +24,11 @@ namespace FFRKInspector.Proxy
 
             lock (FFRKProxy.Instance.Cache.SyncRoot)
             {
-                foreach (DataBattle battle in result.Battles)
+                result.Battles.Sort((x,y) => x.Id.CompareTo(y.Id));
+                ushort stam_to_reach = 0;
+                for (int i=0; i < result.Battles.Count; ++i)
                 {
+                    DataBattle battle = result.Battles[i];
                     DataCache.Battles.Key key = new DataCache.Battles.Key { BattleId = battle.Id };
                     DataCache.Battles.Data data = null;
                     if (!FFRKProxy.Instance.Cache.Battles.TryGetValue(key, out data))
@@ -33,15 +36,18 @@ namespace FFRKInspector.Proxy
                         data = new DataCache.Battles.Data
                         {
                             DungeonId = battle.DungeonId,
-                            HistoSamples = data.HistoSamples,
-                            Name = data.Name,
-                            Repeatable = data.Repeatable,
-                            Samples = data.Samples,
-                            Stamina = data.Stamina,
-                            StaminaToReach = data.StaminaToReach
+                            HistoSamples = 1,
+                            Name = battle.Name,
+                            Repeatable = (i < result.Battles.Count-1),
+                            Samples = 1,
+                            Stamina = battle.Stamina,
+                            StaminaToReach = stam_to_reach
                         };
+
                         FFRKProxy.Instance.Cache.Battles.Update(key, data);
                     }
+
+                    stam_to_reach += battle.Stamina;
                 }
             }
             FFRKProxy.Instance.Database.BeginExecuteRequest(new DbOpRecordBattleList(result));
