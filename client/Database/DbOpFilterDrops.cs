@@ -101,9 +101,12 @@ namespace FFRKInspector.Database
                             Synergy = synergy,
                             BattleName = (string)reader["battle_name"],
                             BattleStamina = (ushort)reader["battle_stamina"],
-                            TotalDrops = Convert.ToUInt32(reader["drop_count"]),
+                            TotalDrops = (uint)reader["total_drops"],
                             ItemName = (string)reader["item_name"],
-                            TimesRun = (uint)reader["times_run"]
+                            Samples = (uint)reader["times_run"],
+                            StdevSamples = (uint)reader["stdev_samples"],
+                            StdevDropCount = Convert.ToUInt64(reader["stdev_sum_of_drops"]),
+                            StdevSumOfSquares = Convert.ToUInt64(reader["stdev_sum_of_squares_of_drops"])
                         };
                         mDropList.Add(stats);
                     }

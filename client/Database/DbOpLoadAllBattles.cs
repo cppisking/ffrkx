@@ -41,7 +41,7 @@ namespace FFRKInspector.Database
                         data.DungeonId = (uint)reader["dungeon"];
                         data.Name = (string)reader["name"];
                         data.Stamina = (ushort)reader["stamina"];
-                        data.TimesRun = (uint)reader["times_run"];
+                        data.Samples = (uint)reader["times_run"];
                         data.Repeatable = true;
 
                         if (current_dungeon != data.DungeonId)

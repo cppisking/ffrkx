@@ -1,4 +1,5 @@
-﻿using FFRKInspector.GameData;
+﻿using FFRKInspector.Database;
+using FFRKInspector.GameData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,14 +8,17 @@ using System.Threading.Tasks;
 
 namespace FFRKInspector.Proxy
 {
-    class HandleLoseBattle : IResponseHandler
+    class HandleCompleteBattle : IResponseHandler
     {
         public bool CanHandle(string RequestPath)
         {
-            return RequestPath.Equals("/dff/battle/lose")       // Lose from a world map battle
+            return RequestPath.Equals("/dff/battle/win")        // Win a world battle
+                || RequestPath.EndsWith("/win_battle")          // Win an event battle.
+                || RequestPath.Equals("/dff/battle/lose")       // Lose from a world map battle
                 || RequestPath.Equals("/dff/battle/escape")     // Escape from a world map battle
                 || RequestPath.StartsWith("/dff/world/fail")    // Fail a survival event
                 || RequestPath.Equals("/dff/battle/quit");      // User pushed Cancel after restarting from S/L
+
         }
 
         public void Handle(string RequestPath, string ResponseJson)
@@ -32,12 +36,15 @@ namespace FFRKInspector.Proxy
                     DataCache.Battles.Key key = new DataCache.Battles.Key { BattleId = original_battle.Battle.BattleId };
                     DataCache.Battles.Data data = null;
                     if (FFRKProxy.Instance.Cache.Battles.TryGetValue(key, out data))
-                        data.TimesRun++;
+                    {
+                        data.Samples++;
+                        data.StdevSamples++;
+                    }
                 }
 
-                Database.DbOpRecordBattleEncounter op = new Database.DbOpRecordBattleEncounter(original_battle);
+                DbOpRecordBattleEncounter op = new DbOpRecordBattleEncounter(original_battle);
                 FFRKProxy.Instance.Database.BeginExecuteRequest(op);
-                FFRKProxy.Instance.RaiseBattleLost(original_battle);
+                FFRKProxy.Instance.RaiseBattleComplete(original_battle);
             }
         }
     }

@@ -101,8 +101,7 @@
     <Compile Include="Proxy\HandlePartyList.cs" />
     <Compile Include="Proxy\IResponseHandler.cs" />
     <Compile Include="Proxy\HandleLeaveDungeon.cs" />
-    <Compile Include="Proxy\HandleLoseBattle.cs" />
-    <Compile Include="Proxy\HandleWinBattle.cs" />
+    <Compile Include="Proxy\HandleCompleteBattle.cs" />
     <Compile Include="UI\DeselectableListBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -183,6 +182,7 @@
     </Compile>
     <Compile Include="UI\VirtualListViewColumnSorter.cs" />
     <Compile Include="UI\VirtualListViewFieldManager.cs" />
+    <Compile Include="Utility\CriticalZ.cs" />
     <Compile Include="Utility\IConverter.cs" />
     <Compile Include="Utility\Log.cs" />
     <Compile Include="Utility\Utility.cs" />

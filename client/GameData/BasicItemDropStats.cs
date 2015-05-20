@@ -29,8 +29,39 @@ namespace FFRKInspector.GameData
         public RealmSynergy.SynergyValue Synergy;
 
         public uint TotalDrops;
-        public uint TimesRun;
+        public uint Samples;
+        public ulong StdevSamples;
+        public ulong StdevDropCount;
+        public ulong StdevSumOfSquares;
         public ushort BattleStamina;
+
+        public double DropsAverage
+        {
+            get { return (double)TotalDrops/(double)Samples; }
+        }
+
+        public double DropsVariance
+        {
+            get
+            {
+                ulong denom_int = StdevSamples * (StdevSamples - 1);
+                if (denom_int == 0)
+                    return 0.0;
+                
+                double numerator = (double)(StdevSamples * StdevSumOfSquares - StdevDropCount * StdevDropCount);
+                return Math.Sqrt(numerator / (double)denom_int);
+            }
+        }
+
+        public double DropsStandardError
+        {
+            get { return DropsVariance / Math.Sqrt(StdevSamples); }
+        }
+
+        public double DropsMarginOfError
+        {
+            get { return Utility.CriticalZ.Lookup[95] * DropsStandardError; }
+        }
 
         public ushort StaminaToReachBattle
         {
@@ -66,7 +97,7 @@ namespace FFRKInspector.GameData
             }
         }
 
-        public float DropsPerRun { get { return (float)TotalDrops / (float)TimesRun; } }
-        public float StaminaPerDrop { get { return ((float)BattleStamina * (float)TimesRun) / (float)TotalDrops; } }
+        public float DropsPerRun { get { return (float)TotalDrops / (float)Samples; } }
+        public float StaminaPerDrop { get { return ((float)BattleStamina * (float)Samples) / (float)TotalDrops; } }
     }
 }

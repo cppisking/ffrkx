@@ -26,7 +26,7 @@ namespace FFRKInspector.Proxy
         List<IResponseHandler> mResponseHandlers;
         FFRKDataCache mCache;
 
-        static readonly uint mRequiredSchema = 12;
+        static readonly uint mRequiredSchema = 13;
 
         static FFRKProxy mInstance;
 
@@ -52,8 +52,7 @@ namespace FFRKInspector.Proxy
             mResponseHandlers.Add(new HandleInitiateBattle());
             mResponseHandlers.Add(new HandleGachaSeriesList());
             mResponseHandlers.Add(new HandleGachaSeriesDetails());
-            mResponseHandlers.Add(new HandleLoseBattle());
-            mResponseHandlers.Add(new HandleWinBattle());
+            mResponseHandlers.Add(new HandleCompleteBattle());
 
             mHistory = new ResponseHistory();
             mGameState = new GameState();
@@ -199,8 +198,7 @@ namespace FFRKInspector.Proxy
         internal void RaiseListDungeons(EventListDungeons dungeons) { if (OnListDungeons != null) OnListDungeons(dungeons); }
         internal void RaiseBattleInitiated(EventBattleInitiated battle) { if (OnBattleEngaged != null) OnBattleEngaged(battle); }
         internal void RaiseLeaveDungeon() { if (OnLeaveDungeon != null) OnLeaveDungeon(); }
-        internal void RaiseBattleLost(EventBattleInitiated original_battle) { if (OnFailBattle != null) OnFailBattle(original_battle); }
-        internal void RaiseBattleWon(EventBattleInitiated original_battle) { if (OnWinBattle != null) OnWinBattle(original_battle); }
+        internal void RaiseBattleComplete(EventBattleInitiated original_battle) { if (OnCompleteBattle != null) OnCompleteBattle(original_battle); }
 
         public void OnBeforeReturningError(Session oSession) { }
 
@@ -221,8 +219,7 @@ namespace FFRKInspector.Proxy
         internal event ListBattlesDelegate OnListBattles;
         internal event ListDungeonsDelegate OnListDungeons;
         internal event FFRKDefaultDelegate OnLeaveDungeon;
-        internal event BattleResultDelegate OnWinBattle;
-        internal event BattleResultDelegate OnFailBattle;
+        internal event BattleResultDelegate OnCompleteBattle;
         internal event GachaStatsDelegate OnGachaStats;
         internal event FFRKResponseDelegate OnFFRKResponse;
         internal event FFRKDefaultDelegate OnItemCacheRefreshed;

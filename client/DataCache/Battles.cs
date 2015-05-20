@@ -16,7 +16,8 @@ namespace FFRKInspector.DataCache.Battles
         public uint DungeonId;
         public string Name;
         public ushort Stamina;
-        public uint TimesRun;
+        public uint Samples;
+        public uint StdevSamples;
 
         public bool Repeatable;
         public ushort StaminaToReach;

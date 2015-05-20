@@ -25,17 +25,20 @@ namespace FFRKInspector.Database
             CallProcRecordBattleEncounter(connection, transaction, mEncounter.Battle);
             List<DropEvent> drops = mEncounter.Battle.Drops.ToList();
 
-            // Insert enemies before inserting drops, since there are foreign key
-            // requirements
+            // Insert enemies before inserting drops, since there are foreign key requirements
             foreach (BasicEnemyInfo enemy in mEncounter.Battle.Enemies)
                 CallProcInsertEnemyEntry(connection, transaction, enemy.EnemyId, enemy.EnemyName);
 
-            foreach (DropEvent drop in drops)
-            {
-                if (drop.ItemType == DataEnemyDropItem.DropItemType.Gold)
-                    continue;
+            var non_gold_drop_events = drops.Where(x => x.ItemType != DataEnemyDropItem.DropItemType.Gold);
+            // Record per-enemy drops
+            foreach (DropEvent drop in non_gold_drop_events)
+                CallProcRecordDropsForBattleAndEnemy(connection, transaction, mEncounter.Battle.BattleId, drop);
 
-                CallProcRecordDropEvent(connection, transaction, mEncounter.Battle, drop);
+            var drop_events_grouped_by_item = non_gold_drop_events.GroupBy(x => x.ItemId);
+            foreach (var drop in drop_events_grouped_by_item)
+            {
+                uint total_drops_of_this_item = (uint)drop.Count();
+                CallProcRecordDropsForBattle(connection, transaction, mEncounter.Battle.BattleId, drop.Key, total_drops_of_this_item);
             }
 
             Utility.Log.LogFormat("Committing drop information for battle #{0}.  {1} items.",
@@ -67,18 +70,31 @@ namespace FFRKInspector.Database
             }
         }
 
-        int CallProcRecordDropEvent(MySqlConnection connection, MySqlTransaction transaction, DataActiveBattle battle, DropEvent drop)
+        int CallProcRecordDropsForBattleAndEnemy(MySqlConnection connection, MySqlTransaction transaction, uint battle_id, DropEvent drop)
         {
             // Don't update the items cache here.  A DropEvent doesn't contain enough information to insert
             // an item anyway (in particular because it doesn't tell you the name of an item)
-
-            using (MySqlCommand command = new MySqlCommand("record_drop_event", connection, transaction))
+            using (MySqlCommand command = new MySqlCommand("record_drops_for_battle_and_enemy", connection, transaction))
             {
                 command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@battle_id", battle.BattleId);
+                command.Parameters.AddWithValue("@battle_id", battle_id);
                 command.Parameters.AddWithValue("@item_id", drop.ItemId);
                 command.Parameters.AddWithValue("@enemy_id", drop.EnemyId);
                 command.Parameters.AddWithValue("@item_count", 1);
+                return command.ExecuteNonQuery();
+            }
+        }
+
+        int CallProcRecordDropsForBattle(MySqlConnection connection, MySqlTransaction transaction, uint battle_id, uint item_id, uint count)
+        {
+            // Don't update the items cache here.  A DropEvent doesn't contain enough information to insert
+            // an item anyway (in particular because it doesn't tell you the name of an item)
+            using (MySqlCommand command = new MySqlCommand("record_drops_for_battle", connection, transaction))
+            {
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@battle_id", battle_id);
+                command.Parameters.AddWithValue("@item_id", item_id);
+                command.Parameters.AddWithValue("@item_count", count);
                 return command.ExecuteNonQuery();
             }
         }

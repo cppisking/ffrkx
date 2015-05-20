@@ -41,8 +41,8 @@ namespace FFRKInspector.UI
                                     (x,y) => x.BattleName.CompareTo(y.BattleName),
                                     x => x.BattleName);
             mFieldManager.AddColumn(columnHeaderAllTimes,
-                                    (x, y) => x.TimesRun.CompareTo(y.TimesRun),
-                                    x => x.TimesRun.ToString());
+                                    (x, y) => x.Samples.CompareTo(y.Samples),
+                                    x => x.Samples.ToString());
             mFieldManager.AddColumn(columnHeaderAllTotalDrops,
                                     (x, y) => x.TotalDrops.CompareTo(y.TotalDrops),
                                     x => x.TotalDrops.ToString());
@@ -50,8 +50,19 @@ namespace FFRKInspector.UI
                                     (x, y) => x.DropsPerRun.CompareTo(y.DropsPerRun),
                                     x => x.DropsPerRun.ToString("F"));
             mFieldManager.AddColumn(columnHeaderAllStam,
-                                    (x, y) => x.StaminaPerDrop.CompareTo(y.StaminaPerDrop),
-                                    x => x.StaminaPerDrop.ToString("F"));
+                                    (x, y) => {
+                                        int result = x.StaminaPerDrop.CompareTo(y.StaminaPerDrop);
+                                        if (result != 0 || x.StdevSamples <= 1)
+                                            return result;
+                                        return x.DropsMarginOfError.CompareTo(y.DropsMarginOfError);
+                                    },
+                                    x => {
+                                        string s = x.StaminaPerDrop.ToString("F") + " ± ";
+                                        if (x.StdevSamples <= 1)
+                                            return s + "??";
+                                        double margin = x.DropsMarginOfError * (double)x.BattleStamina;
+                                        return s + margin.ToString("F");
+                                    });
             mFieldManager.AddColumn(columnHeaderAllReachStamina,
                                     (x, y) => x.StaminaToReachBattle.CompareTo(y.StaminaToReachBattle),
                                     x => x.StaminaToReachBattle.ToString());
@@ -65,8 +76,7 @@ namespace FFRKInspector.UI
                 FFRKProxy.Instance.OnListBattles += FFRKProxy_OnListBattles;
                 FFRKProxy.Instance.OnListDungeons += FFRKProxy_OnListDungeons;
                 FFRKProxy.Instance.OnLeaveDungeon += FFRKProxy_OnLeaveDungeon;
-                FFRKProxy.Instance.OnWinBattle += FFRKProxy_OnWinBattle;
-                FFRKProxy.Instance.OnFailBattle += FFRKProxy_OnFailBattle;
+                FFRKProxy.Instance.OnCompleteBattle += FFRKProxy_OnCompleteBattle;
                 FFRKProxy.Instance.OnItemCacheRefreshed += FFRKProxy_OnItemCacheRefreshed;
 
                 PopulateActiveDungeonListView(FFRKProxy.Instance.GameState.ActiveDungeon);
@@ -125,7 +135,7 @@ namespace FFRKInspector.UI
                     // this here in a separate loop, it will only happen for items that actually dropped in
                     // the following loop.
                     if (stats.BattleId == battle.Battle.BattleId)
-                        stats.TimesRun++;
+                        stats.Samples++;
                 }
 
                 lock(FFRKProxy.Instance.Cache.SyncRoot)
@@ -144,16 +154,20 @@ namespace FFRKInspector.UI
                             {
                                 DataBattle this_battle = this_battle_list.Battles.Find(x => x.Id == battle.Battle.BattleId);
                                 uint times_run = 1;
+                                uint stdev_times_run = 1;
                                 string item_name = drop.ItemId.ToString();
                                 DataCache.Items.Data item_data;
                                 DataCache.Battles.Data battle_data;
-                                if (FFRKProxy.Instance.Cache.Items.TryGetValue(new DataCache.Items.Key { ItemId = drop.ItemId }, out item_data))
-                                    item_name = item_data.Name;
-                                if (FFRKProxy.Instance.Cache.Battles.TryGetValue(new DataCache.Battles.Key { BattleId = battle.Battle.BattleId }, out battle_data))
+                                lock (FFRKProxy.Instance.Cache.SyncRoot)
                                 {
-                                    // Get the times_run from the cache, and add 1 to it.  But make sure to update the value in the cache as well,
-                                    // so that subsequent runs will get the correct value back.
-                                    times_run = ++battle_data.TimesRun;
+                                    if (FFRKProxy.Instance.Cache.Items.TryGetValue(new DataCache.Items.Key { ItemId = drop.ItemId }, out item_data))
+                                        item_name = item_data.Name;
+                                    if (FFRKProxy.Instance.Cache.Battles.TryGetValue(new DataCache.Battles.Key { BattleId = battle.Battle.BattleId }, out battle_data))
+                                    {
+                                        // Get the times_run from the cache, and add 1 to it.
+                                        times_run = battle_data.Samples;
+                                        stdev_times_run = battle_data.StdevSamples;
+                                    }
                                 }
 
                                 mCachedItemStats.Add(
@@ -164,8 +178,10 @@ namespace FFRKInspector.UI
                                         BattleStamina = this_battle.Stamina,
                                         ItemId = drop.ItemId,
                                         ItemName = item_name,
-                                        TimesRun = times_run,
-                                        TotalDrops = 1
+                                        Samples = times_run,
+                                        StdevSamples = stdev_times_run,
+                                        TotalDrops = 1,
+                                        StdevDropCount = 1,
                                     });
                                 listViewAllDrops.VirtualListSize = mCachedItemStats.Count;
                             }
@@ -178,16 +194,7 @@ namespace FFRKInspector.UI
             }
         }
 
-        void FFRKProxy_OnWinBattle(EventBattleInitiated battle)
-        {
-            this.BeginInvoke((Action)(() => 
-            { 
-                PopulateActiveBattleListView(null);
-                UpdateAllDropsForLastBattle(battle);
-            }));
-        }
-
-        void FFRKProxy_OnFailBattle(EventBattleInitiated battle)
+        void FFRKProxy_OnCompleteBattle(EventBattleInitiated battle)
         {
             this.BeginInvoke((Action)(() => 
             { 
