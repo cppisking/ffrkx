@@ -31,6 +31,7 @@ namespace FFRKInspector.GameData
                         drop.Rarity = drop_item.Rarity;
                         drop.ItemType = drop_item.Type;
                         drop.GoldAmount = drop_item.GoldAmount;
+                        drop.NumberOfItems = drop_item.NumberOfItems;
 
                         drop.EnemyId = child.EnemyId;
                         if (child.Params.Count > 0)

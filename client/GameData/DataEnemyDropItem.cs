@@ -15,6 +15,7 @@ namespace FFRKInspector.GameData
             Gold = 11,
             Equipment = 41,
             Orb = 51,
+            Magicite = 61
         };
 
         [JsonProperty("rarity")]
@@ -28,6 +29,9 @@ namespace FFRKInspector.GameData
 
         [JsonProperty("amount")]
         public uint GoldAmount;
+
+        [JsonProperty("num")]
+        public uint NumberOfItems;
 
         [JsonExtensionData]
         public Dictionary<string, JToken> UnknownValues;

@@ -14,6 +14,7 @@ namespace FFRKInspector.GameData
         public uint ItemId;
         public uint Rarity;
         public uint GoldAmount;
+        public uint NumberOfItems;
         public DataEnemyDropItem.DropItemType ItemType;
     }
 }

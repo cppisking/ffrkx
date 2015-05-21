@@ -37,7 +37,7 @@ namespace FFRKInspector.Database
             var drop_events_grouped_by_item = non_gold_drop_events.GroupBy(x => x.ItemId);
             foreach (var drop in drop_events_grouped_by_item)
             {
-                uint total_drops_of_this_item = (uint)drop.Count();
+                uint total_drops_of_this_item = (uint)drop.Sum(x => x.NumberOfItems);
                 CallProcRecordDropsForBattle(connection, transaction, mEncounter.Battle.BattleId, drop.Key, total_drops_of_this_item);
             }
 

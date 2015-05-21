@@ -55,7 +55,11 @@ namespace FFRKInspector.Utility
         public uint this[int bucket]
         {
             get { return mHistogram[bucket]; }
-            set { mHistogram[bucket] = value; }
+            set
+            {
+                EnsureBucket(bucket);
+                mHistogram[bucket] = value;
+            }
         }
 
         public void TrimBack()
@@ -63,6 +67,12 @@ namespace FFRKInspector.Utility
             int last_non_zero = mHistogram.FindLastIndex(x => x != 0);
             if (last_non_zero > 0)
                 RemoveBucketsStartingAt(last_non_zero);
+        }
+
+        private void EnsureBucket(int bucket)
+        {
+            if (mHistogram.Count <= bucket)
+                AddBuckets(bucket - mHistogram.Count + 1);
         }
 
         private void AddBuckets(int count)

@@ -197,7 +197,7 @@ namespace FFRKInspector.UI
         void FFRKProxy_OnLeaveDungeon()
         {
             this.BeginInvoke((Action)(() => 
-            { 
+            {
                 PopulateActiveDungeonListView(null);
                 UpdateAllDropsForLastBattle(null);
             }));
@@ -209,6 +209,7 @@ namespace FFRKInspector.UI
             this.BeginInvoke((Action)(() => 
                 { 
                     PopulateActiveDungeonListView(battles);
+                    BeginPopulateAllDropsListView(battles);
                 }));
         }
 
@@ -277,6 +278,8 @@ namespace FFRKInspector.UI
                                 Item = ItemData.Name;
                             else
                                 Item = drop.ItemId.ToString();
+                            if (drop.NumberOfItems > 1)
+                                Item += String.Format(" x{0}", drop.NumberOfItems);
                             string[] row = 
                             {
                                 Item,
