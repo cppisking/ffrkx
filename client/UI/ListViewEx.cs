@@ -11,12 +11,6 @@ namespace FFRKInspector.UI
 {
     class ListViewEx : ListView
     {
-        private Rectangle mHeaderRect;
-        private ColumnHeader[] mConstantHeaderList;
-
-        private delegate bool EnumWinCallback(IntPtr Hwnd, IntPtr LParam);
-        private ContextMenuStrip mHeaderContextMenuStrip;
-
         private class ToolStripItemTag
         {
             public int LastIndex;
@@ -39,9 +33,95 @@ namespace FFRKInspector.UI
         [DllImport("user32.dll")]
         private static extern bool GetWindowRect(IntPtr Hwnd, out RECT Rect);
 
+        private struct ListViewFieldAdapter
+        {
+            public IListViewField Field;
+            public ColumnHeader Column;
+        }
+
+        private Rectangle mHeaderRect;
+        private List<ListViewFieldAdapter> mFields;
+
+        private delegate bool EnumWinCallback(IntPtr Hwnd, IntPtr LParam);
+        private ContextMenuStrip mHeaderContextMenuStrip;
+
+        private SortOrder mCurrentSortOrder;
+        private ColumnHeader mCurrentSortColumn;
+        private IListViewBinding mBinding;
+
         public ListViewEx()
         {
+            this.mCurrentSortOrder = SortOrder.None;
+            this.mCurrentSortColumn = null;
+            this.mFields = new List<ListViewFieldAdapter>();
+
             this.HandleCreated += ListViewEx_HandleCreated;
+            this.RetrieveVirtualItem += ListViewEx_RetrieveVirtualItem;
+            this.ColumnClick += ListViewEx_ColumnClick;
+        }
+
+        public IListViewBinding DataBinding
+        {
+            get { return mBinding; }
+            set { mBinding = value; }
+        }
+
+        public void AddField(IListViewField Field)
+        {
+            ListViewFieldAdapter Adapter = new ListViewFieldAdapter();
+            Adapter.Field = Field;
+            Adapter.Column = new ColumnHeader();
+            Adapter.Column.DisplayIndex = mFields.Count+1;
+            Adapter.Column.Text = Field.DisplayName;
+            Adapter.Column.Name = String.Format("ListViewEx_Field_{0}", Field.GetType().Name);
+            switch (Field.InitialWidthStyle)
+            {
+                case FieldWidthStyle.Absolute:
+                    Adapter.Column.Width = Field.InitialWidth;
+                    break;
+                case FieldWidthStyle.AutoSize:
+                    Adapter.Column.Width = -2;
+                    break;
+                case FieldWidthStyle.Percent:
+                    float pct = (float)Field.InitialWidth / 100.0f;
+                    Adapter.Column.Width = (int)(this.Width * pct);
+                    break;
+                case FieldWidthStyle.Fill:
+                    break;
+            }
+
+            mFields.Add(Adapter);
+            Columns.Add(Adapter.Column);
+        }
+
+        void ListViewEx_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            ColumnHeader clicked_column = Columns[e.Column];
+            if (clicked_column == mCurrentSortColumn)
+            {
+                if (mCurrentSortOrder == SortOrder.Ascending)
+                    mCurrentSortOrder = SortOrder.Descending;
+                else if (mCurrentSortOrder == SortOrder.Descending)
+                    mCurrentSortOrder = SortOrder.Ascending;
+            }
+            else
+            {
+                mCurrentSortColumn = clicked_column;
+                mCurrentSortOrder = SortOrder.Ascending;
+            }
+            
+            ListViewFieldAdapter Field = mFields.Find(x => x.Column == clicked_column);
+            switch (mCurrentSortOrder)
+            {
+                case SortOrder.Ascending:
+                    mBinding.SortData(Field.Field.Compare);
+                    Invalidate();
+                    break;
+                case SortOrder.Descending:
+                    mBinding.SortData((x,y) => -Field.Field.Compare(x,y));
+                    Invalidate();
+                    break;
+            }
         }
 
         void ListViewEx_HandleCreated(object sender, EventArgs e)
@@ -49,15 +129,9 @@ namespace FFRKInspector.UI
             this.ContextMenuStripChanged += ListViewEx_ContextMenuStripChanged;
             mHeaderContextMenuStrip = new ContextMenuStrip();
 
-            // This is a list of column headers when the control was created.  We use this to 
-            // determine where to insert a column into the column list after it is shown again
-            // after being hidden, since all the DisplayIndexes could have changed.
-            mConstantHeaderList = new ColumnHeader[Columns.Count];
-
-            foreach (ColumnHeader header in Columns)
+            foreach (ColumnHeader header in mFields.Select(x => x.Column))
             {
                 ToolStripMenuItem item = new ToolStripMenuItem(header.Text);
-                mConstantHeaderList[header.DisplayIndex] = header;
                 item.Checked = true;
                 item.CheckOnClick = true;
                 item.Tag = new ToolStripItemTag { Header = header, LastIndex = header.DisplayIndex };
@@ -71,13 +145,34 @@ namespace FFRKInspector.UI
                 ContextMenuStrip = mHeaderContextMenuStrip;
         }
 
+        void ListViewEx_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
+        {
+            object item = mBinding.RetrieveItem(e.ItemIndex);
+            List<string> fields = new List<string>();
+            foreach (ListViewFieldAdapter field in mFields)
+            {
+                if (field.Column.DisplayIndex == -1)
+                    continue;
+
+                string formatted_value = field.Field.Format(item);
+                fields.Add(formatted_value);
+            }
+            e.Item = new ListViewItem(fields.ToArray());
+        }
+
         void item_CheckStateChanged(object sender, EventArgs e)
         {
+            // A column was chosen to be either hidden or displayed.
             ToolStripMenuItem item = (ToolStripMenuItem)sender;
             ToolStripItemTag tag = (ToolStripItemTag)item.Tag;
+            ColumnHeader column_to_change = tag.Header;
+
+            // Find the corresponding field so we can update its visibility state.
+            ListViewFieldAdapter Field = mFields.Find(x => x.Column == column_to_change);
+
             if (item.CheckState == CheckState.Checked)
             {
-                int new_index = FindIndexForColumn(tag.Header);
+                int new_index = DetermineIndexForInsertingColumn(tag.Header);
                 Columns.Insert(new_index, tag.Header);
                 tag.Header.DisplayIndex = new_index;
                 tag.Header.Width = tag.LastWidth;
@@ -89,22 +184,13 @@ namespace FFRKInspector.UI
             }
         }
 
-        private int FindIndexForColumn(ColumnHeader Header)
+        private int DetermineIndexForInsertingColumn(ColumnHeader Header)
         {
-            int this_index = Array.IndexOf(mConstantHeaderList, Header);
-            if (this_index <= 0)
-                return 0;
-
-            // Work backwards in the constant header list looking for an item that is
-            // still in the current list.
-            for (int i=this_index; i >= 0; --i)
-            {
-                ColumnHeader next = mConstantHeaderList[i];
-                int found_index = Columns.IndexOf(next);
-                if (found_index >= 0)
-                    return found_index + 1;
-            }
-            return 0;
+            // We want to find where this column should go in the internal list view's
+            // column header collection.  We want to put it after the last currently
+            // displayed item which comes before this item in the master field collection.
+            return mFields.TakeWhile(x => x.Column != Header)
+                          .Count(x => x.Column.DisplayIndex != -1);
         }
 
         void ListViewEx_ContextMenuStripChanged(object sender, EventArgs e)
@@ -155,17 +241,6 @@ namespace FFRKInspector.UI
                 mHeaderRect = new Rectangle(rect.Left, rect.Top, rect.Right - rect.Left + 1, rect.Bottom - rect.Top + 1);
             }
             return false;
-        }
-
-        public ColumnHeader[] OrderedColumnHeaders
-        {
-            get
-            {
-                ColumnHeader[] array = new ColumnHeader[Columns.Count];
-                foreach (ColumnHeader header in Columns)
-                    array[header.DisplayIndex] = header;
-                return array;
-            }
         }
     }
 }

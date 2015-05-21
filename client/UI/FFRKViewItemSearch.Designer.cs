@@ -50,18 +50,6 @@
             this.listBoxItemType = new FFRKInspector.UI.DeselectableListBox();
             this.buttonSearch = new System.Windows.Forms.Button();
             this.listViewResults = new FFRKInspector.UI.ListViewEx();
-            this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderDungeon = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderBattle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderRarity = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderSynergy = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderDropsPerRun = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderStamDrop = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderNumDrops = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderTimesRun = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderStamToReach = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderBattleStamina = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderRepeatable = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBoxParameters.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -323,19 +311,6 @@
             this.listViewResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listViewResults.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeaderName,
-            this.columnHeaderDungeon,
-            this.columnHeaderBattle,
-            this.columnHeaderRarity,
-            this.columnHeaderSynergy,
-            this.columnHeaderDropsPerRun,
-            this.columnHeaderStamDrop,
-            this.columnHeaderNumDrops,
-            this.columnHeaderTimesRun,
-            this.columnHeaderStamToReach,
-            this.columnHeaderBattleStamina,
-            this.columnHeaderRepeatable});
             this.listViewResults.FullRowSelect = true;
             this.listViewResults.HideSelection = false;
             this.listViewResults.Location = new System.Drawing.Point(16, 247);
@@ -345,65 +320,6 @@
             this.listViewResults.UseCompatibleStateImageBehavior = false;
             this.listViewResults.View = System.Windows.Forms.View.Details;
             this.listViewResults.VirtualMode = true;
-            this.listViewResults.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewResults_ColumnClick);
-            this.listViewResults.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.listViewResults_RetrieveVirtualItem);
-            // 
-            // columnHeaderName
-            // 
-            this.columnHeaderName.Text = "Name";
-            this.columnHeaderName.Width = 159;
-            // 
-            // columnHeaderDungeon
-            // 
-            this.columnHeaderDungeon.Text = "Dungeon";
-            this.columnHeaderDungeon.Width = 177;
-            // 
-            // columnHeaderBattle
-            // 
-            this.columnHeaderBattle.Text = "Battle";
-            this.columnHeaderBattle.Width = 183;
-            // 
-            // columnHeaderRarity
-            // 
-            this.columnHeaderRarity.Text = "Rarity";
-            // 
-            // columnHeaderSynergy
-            // 
-            this.columnHeaderSynergy.Text = "Synergy";
-            // 
-            // columnHeaderDropsPerRun
-            // 
-            this.columnHeaderDropsPerRun.Text = "Avg. Drops/Run";
-            this.columnHeaderDropsPerRun.Width = 93;
-            // 
-            // columnHeaderStamDrop
-            // 
-            this.columnHeaderStamDrop.Text = "Stamina/Drop";
-            this.columnHeaderStamDrop.Width = 93;
-            // 
-            // columnHeaderNumDrops
-            // 
-            this.columnHeaderNumDrops.Text = "NumDrops";
-            this.columnHeaderNumDrops.Width = 78;
-            // 
-            // columnHeaderTimesRun
-            // 
-            this.columnHeaderTimesRun.Text = "Times Run";
-            this.columnHeaderTimesRun.Width = 80;
-            // 
-            // columnHeaderStamToReach
-            // 
-            this.columnHeaderStamToReach.Text = "Stam. to Reach";
-            this.columnHeaderStamToReach.Width = 86;
-            // 
-            // columnHeaderBattleStamina
-            // 
-            this.columnHeaderBattleStamina.Text = "Battle Stam.";
-            // 
-            // columnHeaderRepeatable
-            // 
-            this.columnHeaderRepeatable.Text = "Repetable";
-            this.columnHeaderRepeatable.Width = 61;
             // 
             // FFRKViewItemSearch
             // 
@@ -435,13 +351,6 @@
         private System.Windows.Forms.TextBox textBoxNameFilter;
         private System.Windows.Forms.Label labelName;
         private ListViewEx listViewResults;
-        private System.Windows.Forms.ColumnHeader columnHeaderName;
-        private System.Windows.Forms.ColumnHeader columnHeaderRarity;
-        private System.Windows.Forms.ColumnHeader columnHeaderSynergy;
-        private System.Windows.Forms.ColumnHeader columnHeaderDungeon;
-        private System.Windows.Forms.ColumnHeader columnHeaderBattle;
-        private System.Windows.Forms.ColumnHeader columnHeaderDropsPerRun;
-        private System.Windows.Forms.ColumnHeader columnHeaderStamDrop;
         private System.Windows.Forms.Label Battle;
         private DeselectableListBox listBoxBattle;
         private System.Windows.Forms.Label labelDungeon;
@@ -451,10 +360,5 @@
         private System.Windows.Forms.Label label2;
         private DeselectableListBox listBoxWorld;
         private System.Windows.Forms.Button buttonResetAll;
-        private System.Windows.Forms.ColumnHeader columnHeaderNumDrops;
-        private System.Windows.Forms.ColumnHeader columnHeaderTimesRun;
-        private System.Windows.Forms.ColumnHeader columnHeaderStamToReach;
-        private System.Windows.Forms.ColumnHeader columnHeaderRepeatable;
-        private System.Windows.Forms.ColumnHeader columnHeaderBattleStamina;
     }
 }

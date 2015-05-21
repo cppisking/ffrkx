@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using FFRKInspector.GameData;
 using FFRKInspector.Proxy;
 using FFRKInspector.Database;
+using FFRKInspector.UI.ListViewFields;
 
 namespace FFRKInspector.UI
 {
@@ -74,63 +75,33 @@ namespace FFRKInspector.UI
 
         private delegate string GetListViewField(BasicItemDropStats item);
 
-        private List<BasicItemDropStats> mResultSet;
-        private VirtualListViewFieldManager<BasicItemDropStats> mFieldManager;
+        private ListListViewBinding<BasicItemDropStats> mBinding;
 
         public FFRKViewItemSearch()
         {
             InitializeComponent();
+            mBinding = new ListListViewBinding<BasicItemDropStats>();
+
+            listViewResults.AddField(new ItemNameField("Item", FieldWidthStyle.Percent, 16));
+            listViewResults.AddField(new ItemDungeonField("Dungeon", FieldWidthStyle.Percent, 16));
+            listViewResults.AddField(new ItemBattleField("Battle", FieldWidthStyle.Percent, 16));
+            listViewResults.AddField(new ItemRarityField("Rarity"));
+            listViewResults.AddField(new ItemSynergyField("Synergy"));
+            listViewResults.AddField(new ItemDropsPerRunField("Drops/Run"));
+            listViewResults.AddField(new ItemStaminaPerDropField("Stamina/Drop"));
+            listViewResults.AddField(new ItemTotalDropsField("Total Drops"));
+            listViewResults.AddField(new ItemTimesRunField("Times Run"));
+            listViewResults.AddField(new ItemBattleStaminaField("Stamina"));
+            listViewResults.AddField(new ItemStaminaToReachField("Stamina to Reach"));
+            listViewResults.AddField(new ItemRepeatableField("Is Repeatable"));
+
+            listViewResults.DataBinding = mBinding;
         }
 
         private void FFRKViewItemSearch_Load(object sender, EventArgs e)
         {
             if (DesignMode)
                 return;
-
-            mResultSet = new List<BasicItemDropStats>();
-            mFieldManager = new VirtualListViewFieldManager<BasicItemDropStats>();
-
-            mFieldManager.AddColumn(columnHeaderName,
-                                    (x, y) => x.ItemName.CompareTo(y.ItemName), 
-                                    x => x.ItemName);
-            mFieldManager.AddColumn(columnHeaderDungeon,
-                                    (x, y) => x.DungeonName.CompareTo(y.DungeonName),
-                                    x => x.EffectiveDungeonName);
-            mFieldManager.AddColumn(columnHeaderBattle,
-                                    (x, y) => x.BattleName.CompareTo(y.BattleName), 
-                                    x => x.BattleName);
-            mFieldManager.AddColumn(columnHeaderRarity, 
-                                    (x, y) => x.Rarity.CompareTo(y.Rarity), 
-                                    x => ((byte)x.Rarity).ToString());
-            mFieldManager.AddColumn(columnHeaderSynergy, 
-                                    (x, y) => {
-                                        if (x.Synergy == y.Synergy) return 0;
-                                        if (x.Synergy == null) return -1;
-                                        if (y.Synergy == null) return 1;
-                                        return x.Synergy.Realm.CompareTo(y.Synergy.Realm);
-                                    }, 
-                                    x => (x.Synergy == null) ? String.Empty : x.Synergy.Text);
-            mFieldManager.AddColumn(columnHeaderDropsPerRun, 
-                                    (x, y) => x.DropsPerRun.CompareTo(y.DropsPerRun),
-                                    x => x.DropsPerRun.ToString("F"));
-            mFieldManager.AddColumn(columnHeaderStamDrop,
-                                    (x, y) => x.StaminaPerDrop.CompareTo(y.StaminaPerDrop),
-                                    x => x.StaminaPerDrop.ToString("F"));
-            mFieldManager.AddColumn(columnHeaderNumDrops, 
-                                    (x, y) => x.TotalDrops.CompareTo(y.TotalDrops),
-                                    x => x.TotalDrops.ToString());
-            mFieldManager.AddColumn(columnHeaderTimesRun,
-                                    (x, y) => x.TimesRun.CompareTo(y.TimesRun),
-                                    x => x.TimesRun.ToString());
-            mFieldManager.AddColumn(columnHeaderBattleStamina,
-                                    (x, y) => x.BattleStamina.CompareTo(y.BattleStamina),
-                                    x => x.BattleStamina.ToString());
-            mFieldManager.AddColumn(columnHeaderStamToReach,
-                                    (x, y) => x.StaminaToReachBattle.CompareTo(y.StaminaToReachBattle),
-                                    x => x.StaminaToReachBattle.ToString());
-            mFieldManager.AddColumn(columnHeaderRepeatable,
-                                    (x, y) => x.IsBattleRepeatable.CompareTo(y.IsBattleRepeatable),
-                                    x => x.IsBattleRepeatable.ToString());
 
             listBoxItemType.Items.Clear();
             listBoxRealmSynergy.Items.Clear();
@@ -243,43 +214,10 @@ namespace FFRKInspector.UI
         {
             BeginInvoke((Action)(() =>
             {
-                mResultSet = items;
-                listViewResults.VirtualListSize = mResultSet.Count;
+                mBinding.Collection = items;
+                listViewResults.VirtualListSize = mBinding.Collection.Count;
                 listViewResults.Invalidate();
             }));
-        }
-
-        private void listViewResults_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
-        {
-            if (e.ItemIndex >= mResultSet.Count)
-                throw new IndexOutOfRangeException();
-
-            BasicItemDropStats item = mResultSet[e.ItemIndex];
-            List<string> fields = new List<string>();
-            foreach (ColumnHeader column in listViewResults.Columns)
-            {
-                string value = mFieldManager.GetFieldValue(column, item);
-                fields.Add(value);
-            }
-            e.Item = new ListViewItem(fields.ToArray());
-        }
-
-        private void listViewResults_ColumnClick(object sender, ColumnClickEventArgs e)
-        {
-            if (listViewResults.Columns[e.Column] == mFieldManager.SortColumn)
-            {
-                if (mFieldManager.Order == SortOrder.Ascending)
-                    mFieldManager.Order = SortOrder.Descending;
-                else if (mFieldManager.Order == SortOrder.Descending)
-                    mFieldManager.Order = SortOrder.Ascending;
-            }
-            else
-            {
-                mFieldManager.SortColumn = listViewResults.Columns[e.Column];
-                mFieldManager.Order = SortOrder.Ascending;
-            }
-            mResultSet.Sort(mFieldManager.ComparisonFunction);
-            listViewResults.Invalidate();
         }
 
         private void buttonResetAll_Click(object sender, EventArgs e)
@@ -292,7 +230,7 @@ namespace FFRKInspector.UI
             listBoxBattle.SelectedItems.Clear();
             listBoxRarity.SelectedItems.Clear();
 
-            mResultSet.Clear();
+            mBinding.Collection.Clear();
             listViewResults.VirtualListSize = 0;
         }
     }
