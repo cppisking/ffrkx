@@ -33,6 +33,8 @@ namespace FFRKInspector.Proxy
                 insert_request.Items.Add(record);
             }
             FFRKProxy.Instance.Database.BeginExecuteRequest(insert_request);
+
+            FFRKProxy.Instance.RaisePartyList(party);
         }
     }
 }

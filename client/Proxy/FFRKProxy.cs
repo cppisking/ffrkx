@@ -17,6 +17,7 @@ using System.Configuration;
 using System.Xml.Serialization;
 using System.IO;
 using FFRKInspector.Config;
+using FFRKInspector.GameData.Party;
 
 namespace FFRKInspector.Proxy
 {
@@ -253,19 +254,20 @@ namespace FFRKInspector.Proxy
             return;
         }
 
-        internal void RaiseGachaStats(DataGachaSeriesItemsForEntryPoints gacha) { if (OnGachaStats != null) OnGachaStats(gacha); }
-        internal void RaiseListBattles(EventListBattles battles) { if (OnListBattles != null) OnListBattles(battles); }
-        internal void RaiseListDungeons(EventListDungeons dungeons) { if (OnListDungeons != null) OnListDungeons(dungeons); }
-        internal void RaiseBattleInitiated(EventBattleInitiated battle) { if (OnBattleEngaged != null) OnBattleEngaged(battle); }
-        internal void RaiseLeaveDungeon() { if (OnLeaveDungeon != null) OnLeaveDungeon(); }
-        internal void RaiseBattleComplete(EventBattleInitiated original_battle) { if (OnCompleteBattle != null) OnCompleteBattle(original_battle); }
-
         public void OnBeforeReturningError(Session oSession) { }
 
         public bool OnExecAction(string sCommand)
         {
             throw new NotImplementedException();
         }
+
+        internal void RaiseGachaStats(DataGachaSeriesItemsForEntryPoints gacha) { if (OnGachaStats != null) OnGachaStats(gacha); }
+        internal void RaiseListBattles(EventListBattles battles) { if (OnListBattles != null) OnListBattles(battles); }
+        internal void RaiseListDungeons(EventListDungeons dungeons) { if (OnListDungeons != null) OnListDungeons(dungeons); }
+        internal void RaiseBattleInitiated(EventBattleInitiated battle) { if (OnBattleEngaged != null) OnBattleEngaged(battle); }
+        internal void RaiseLeaveDungeon() { if (OnLeaveDungeon != null) OnLeaveDungeon(); }
+        internal void RaiseBattleComplete(EventBattleInitiated original_battle) { if (OnCompleteBattle != null) OnCompleteBattle(original_battle); }
+        internal void RaisePartyList(DataPartyDetails party) { if (OnPartyList != null) OnPartyList(party); }
 
         internal delegate void BattleInitiatedDelegate(EventBattleInitiated battle);
         internal delegate void BattleResultDelegate(EventBattleInitiated battle);
@@ -274,6 +276,7 @@ namespace FFRKInspector.Proxy
         internal delegate void GachaStatsDelegate(DataGachaSeriesItemsForEntryPoints gacha);
         internal delegate void FFRKDefaultDelegate();
         internal delegate void FFRKResponseDelegate(string Path);
+        internal delegate void FFRKPartyListDelegate(DataPartyDetails party);
 
         internal event BattleInitiatedDelegate OnBattleEngaged;
         internal event ListBattlesDelegate OnListBattles;
@@ -283,5 +286,6 @@ namespace FFRKInspector.Proxy
         internal event GachaStatsDelegate OnGachaStats;
         internal event FFRKResponseDelegate OnFFRKResponse;
         internal event FFRKDefaultDelegate OnItemCacheRefreshed;
+        internal event FFRKPartyListDelegate OnPartyList;
     }
 }

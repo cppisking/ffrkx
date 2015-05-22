@@ -45,17 +45,19 @@
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel6 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ffrkViewActiveDungeon1 = new FFRKInspector.UI.FFRKViewActiveDungeon();
             this.ffrkViewGacha1 = new FFRKInspector.UI.FFRKViewGacha();
             this.ffrkBrowseView1 = new FFRKInspector.UI.FFRKViewBrowse();
+            this.ffrkViewItemSearch1 = new FFRKInspector.UI.FFRKViewItemSearch();
             this.ffrkViewAbout1 = new FFRKInspector.UI.FFRKViewAbout();
             this.ffrkViewDebugging1 = new FFRKInspector.UI.FFRKViewDebugging();
-            this.ffrkViewActiveDungeon1 = new FFRKInspector.UI.FFRKViewActiveDungeon();
-            this.ffrkViewItemSearch1 = new FFRKInspector.UI.FFRKViewItemSearch();
+            this.ffrkViewInventory1 = new FFRKInspector.UI.FFRKViewInventory();
             this.tabControlFFRKInspector.SuspendLayout();
             this.tabPageBattle.SuspendLayout();
             this.tabPageGacha.SuspendLayout();
             this.tabPageBrowse.SuspendLayout();
             this.tabPageSearch.SuspendLayout();
+            this.tabPageInventory.SuspendLayout();
             this.tabPageAbout.SuspendLayout();
             this.tabPageDebug.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -123,6 +125,7 @@
             // 
             // tabPageInventory
             // 
+            this.tabPageInventory.Controls.Add(this.ffrkViewInventory1);
             this.tabPageInventory.Location = new System.Drawing.Point(4, 22);
             this.tabPageInventory.Name = "tabPageInventory";
             this.tabPageInventory.Size = new System.Drawing.Size(716, 357);
@@ -219,6 +222,14 @@
             this.toolStripStatusLabel6.Size = new System.Drawing.Size(49, 17);
             this.toolStripStatusLabel6.Text = "1234567";
             // 
+            // ffrkViewActiveDungeon1
+            // 
+            this.ffrkViewActiveDungeon1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ffrkViewActiveDungeon1.Location = new System.Drawing.Point(3, 3);
+            this.ffrkViewActiveDungeon1.Name = "ffrkViewActiveDungeon1";
+            this.ffrkViewActiveDungeon1.Size = new System.Drawing.Size(710, 351);
+            this.ffrkViewActiveDungeon1.TabIndex = 0;
+            // 
             // ffrkViewGacha1
             // 
             this.ffrkViewGacha1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -234,6 +245,14 @@
             this.ffrkBrowseView1.Name = "ffrkBrowseView1";
             this.ffrkBrowseView1.Size = new System.Drawing.Size(716, 357);
             this.ffrkBrowseView1.TabIndex = 0;
+            // 
+            // ffrkViewItemSearch1
+            // 
+            this.ffrkViewItemSearch1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ffrkViewItemSearch1.Location = new System.Drawing.Point(3, 3);
+            this.ffrkViewItemSearch1.Name = "ffrkViewItemSearch1";
+            this.ffrkViewItemSearch1.Size = new System.Drawing.Size(710, 351);
+            this.ffrkViewItemSearch1.TabIndex = 0;
             // 
             // ffrkViewAbout1
             // 
@@ -251,21 +270,13 @@
             this.ffrkViewDebugging1.Size = new System.Drawing.Size(716, 357);
             this.ffrkViewDebugging1.TabIndex = 0;
             // 
-            // ffrkViewActiveDungeon1
+            // ffrkViewInventory1
             // 
-            this.ffrkViewActiveDungeon1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ffrkViewActiveDungeon1.Location = new System.Drawing.Point(3, 3);
-            this.ffrkViewActiveDungeon1.Name = "ffrkViewActiveDungeon1";
-            this.ffrkViewActiveDungeon1.Size = new System.Drawing.Size(710, 351);
-            this.ffrkViewActiveDungeon1.TabIndex = 0;
-            // 
-            // ffrkViewItemSearch1
-            // 
-            this.ffrkViewItemSearch1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ffrkViewItemSearch1.Location = new System.Drawing.Point(3, 3);
-            this.ffrkViewItemSearch1.Name = "ffrkViewItemSearch1";
-            this.ffrkViewItemSearch1.Size = new System.Drawing.Size(710, 351);
-            this.ffrkViewItemSearch1.TabIndex = 0;
+            this.ffrkViewInventory1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ffrkViewInventory1.Location = new System.Drawing.Point(0, 0);
+            this.ffrkViewInventory1.Name = "ffrkViewInventory1";
+            this.ffrkViewInventory1.Size = new System.Drawing.Size(716, 357);
+            this.ffrkViewInventory1.TabIndex = 0;
             // 
             // FFRKTabInspector
             // 
@@ -281,6 +292,7 @@
             this.tabPageGacha.ResumeLayout(false);
             this.tabPageBrowse.ResumeLayout(false);
             this.tabPageSearch.ResumeLayout(false);
+            this.tabPageInventory.ResumeLayout(false);
             this.tabPageAbout.ResumeLayout(false);
             this.tabPageDebug.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
@@ -315,6 +327,7 @@
         private FFRKViewAbout ffrkViewAbout1;
         private FFRKViewActiveDungeon ffrkViewActiveDungeon1;
         private FFRKViewItemSearch ffrkViewItemSearch1;
+        private FFRKViewInventory ffrkViewInventory1;
 
 
     }
