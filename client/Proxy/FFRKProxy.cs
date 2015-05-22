@@ -13,6 +13,10 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using FFRKInspector.UI;
 using FFRKInspector.DataCache;
+using System.Configuration;
+using System.Xml.Serialization;
+using System.IO;
+using FFRKInspector.Config;
 
 namespace FFRKInspector.Proxy
 {
@@ -25,6 +29,7 @@ namespace FFRKInspector.Proxy
         GameState mGameState;
         List<IResponseHandler> mResponseHandlers;
         FFRKDataCache mCache;
+        AppSettings mSettings;
 
         static readonly uint mRequiredSchema = 16;
 
@@ -36,6 +41,17 @@ namespace FFRKInspector.Proxy
         internal FFRKMySqlInstance Database { get { return mDatabaseInstance; } }
         internal FFRKDataCache Cache { get { return mCache; } }
         internal uint MinimumRequiredSchema { get { return mRequiredSchema; } }
+        public AppSettings AppSettings { get { return mSettings; } }
+        
+        private string SettingsFile
+        {
+            get
+            {
+                Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
+                string Folder = Path.GetDirectoryName(config.FilePath);
+                return Path.Combine(Folder, "ffrk_inspector_settings.config");
+            }
+        }
 
         public FFRKProxy()
         {
@@ -43,6 +59,8 @@ namespace FFRKInspector.Proxy
 
         public void OnLoad()
         {
+            LoadAppSettings();
+
             mInstance = this;
             mResponseHandlers = new List<IResponseHandler>();
             mResponseHandlers.Add(new HandlePartyList());
@@ -73,6 +91,46 @@ namespace FFRKInspector.Proxy
             mDatabaseInstance.OnConnectionInitialized += mDatabaseInstance_OnConnectionInitialized;
             mDatabaseInstance.OnSchemaError += mDatabaseInstance_OnSchemaError;
             mDatabaseInstance.InitializeConnection(MinimumRequiredSchema);
+        }
+
+        public void OnBeforeUnload()
+        {
+            mInstance = null;
+            SaveAppSettings();
+        }
+
+        private void LoadAppSettings()
+        {
+            try
+            {
+                using (FileStream fs = File.Open(SettingsFile, FileMode.Open))
+                using (StreamReader sw = new StreamReader(fs))
+                using (JsonReader jr = new JsonTextReader(sw))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    mSettings = (AppSettings)serializer.Deserialize(jr, typeof(AppSettings));
+                }
+            }
+            catch(Exception)
+            {
+                mSettings = new Config.AppSettings();
+            }
+        }
+
+        private void SaveAppSettings()
+        {
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
+            string Folder = Path.GetDirectoryName(config.FilePath);
+            string SettingsFile = Path.Combine(Folder, "ffrk_inspector_settings.config");
+
+            using (FileStream fs = File.Open(SettingsFile, FileMode.Create))
+            using (StreamWriter sw = new StreamWriter(fs))
+            using (JsonWriter jw = new JsonTextWriter(sw))
+            {
+                jw.Formatting = Formatting.Indented;
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(jw, mSettings);
+            }
         }
 
         void mDatabaseInstance_OnSchemaError(FFRKMySqlInstance.ConnectResult ConnectResult)
@@ -156,11 +214,6 @@ namespace FFRKInspector.Proxy
                 mCache.Items = items;
             if (OnItemCacheRefreshed != null)
                 OnItemCacheRefreshed();
-        }
-
-        public void OnBeforeUnload()
-        {
-            mInstance = null;
         }
 
         public void AutoTamperRequestBefore(Session oSession) { }

@@ -39,6 +39,7 @@
       <HintPath>thirdparty\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -49,6 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config\ListViewSettings.cs" />
+    <Compile Include="Config\SerializableDictionary.cs" />
     <Compile Include="Database\DataRecordExtensions.cs" />
     <Compile Include="Database\DbOpFilterDrops.cs" />
     <Compile Include="Database\DbOpVerifySchema.cs" />
@@ -101,6 +104,7 @@
     <Compile Include="Proxy\IResponseHandler.cs" />
     <Compile Include="Proxy\HandleLeaveDungeon.cs" />
     <Compile Include="Proxy\HandleCompleteBattle.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="UI\DeselectableListBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -140,6 +144,12 @@
     </Compile>
     <Compile Include="UI\FFRKViewGacha.Designer.cs">
       <DependentUpon>FFRKViewGacha.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FFRKViewInventory.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\FFRKViewInventory.Designer.cs">
+      <DependentUpon>FFRKViewInventory.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\FFRKViewItemSearch.cs">
       <SubType>UserControl</SubType>
@@ -185,8 +195,7 @@
     <Compile Include="UI\ListViewField.cs" />
     <Compile Include="UI\ListViewFields\ItemStatFields.cs" />
     <Compile Include="UI\ListViewFields\TrivialField.cs" />
-    <Compile Include="UI\VirtualListViewColumnSorter.cs" />
-    <Compile Include="UI\VirtualListViewFieldManager.cs" />
+    <Compile Include="Config\Configuration.cs" />
     <Compile Include="Utility\CriticalZ.cs" />
     <Compile Include="Utility\Histogram.cs" />
     <Compile Include="Utility\IConverter.cs" />
@@ -211,6 +220,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FFRKViewGacha.resx">
       <DependentUpon>FFRKViewGacha.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FFRKViewInventory.resx">
+      <DependentUpon>FFRKViewInventory.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FFRKViewItemSearch.resx">
       <DependentUpon>FFRKViewItemSearch.cs</DependentUpon>
