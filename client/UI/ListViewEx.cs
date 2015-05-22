@@ -1,5 +1,8 @@
-﻿using System;
+﻿using FFRKInspector.Config;
+using FFRKInspector.Proxy;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -48,6 +51,8 @@ namespace FFRKInspector.UI
         private SortOrder mCurrentSortOrder;
         private ColumnHeader mCurrentSortColumn;
         private IListViewBinding mBinding;
+        private Config.ListViewSettings mSettings;
+        private string mSettingsKey;
 
         public ListViewEx()
         {
@@ -58,6 +63,7 @@ namespace FFRKInspector.UI
             this.HandleCreated += ListViewEx_HandleCreated;
             this.RetrieveVirtualItem += ListViewEx_RetrieveVirtualItem;
             this.ColumnClick += ListViewEx_ColumnClick;
+            this.ColumnWidthChanged += ListViewEx_ColumnWidthChanged;
         }
 
         public IListViewBinding DataBinding
@@ -66,32 +72,64 @@ namespace FFRKInspector.UI
             set { mBinding = value; }
         }
 
+        [Browsable(true)]
+        [Category("Behavior")]
+        public string SettingsKey
+        {
+            get { return mSettingsKey; }
+            set { mSettingsKey = value; }
+        }
+
+        public void LoadSettings()
+        {
+            if (mSettingsKey == null)
+                return;
+
+            if (!FFRKProxy.Instance.AppSettings.ListViews.TryGetValue(mSettingsKey, out mSettings))
+            {
+                mSettings = new Config.ListViewSettings();
+                FFRKProxy.Instance.AppSettings.ListViews.Add(mSettingsKey, mSettings);
+            }
+        }
+
         public void AddField(IListViewField Field)
         {
             ListViewFieldAdapter Adapter = new ListViewFieldAdapter();
             Adapter.Field = Field;
             Adapter.Column = new ColumnHeader();
-            Adapter.Column.DisplayIndex = mFields.Count+1;
             Adapter.Column.Text = Field.DisplayName;
-            Adapter.Column.Name = String.Format("ListViewEx_Field_{0}", Field.GetType().Name);
-            switch (Field.InitialWidthStyle)
+            Adapter.Column.Name = Field.GetType().Name;
+
+            int field_width = Field.InitialWidth;
+            FieldWidthStyle width_style = Field.InitialWidthStyle;
+            ListViewColumnSettings field_settings = null;
+            if (mSettings != null)
             {
-                case FieldWidthStyle.Absolute:
-                    Adapter.Column.Width = Field.InitialWidth;
-                    break;
-                case FieldWidthStyle.AutoSize:
-                    Adapter.Column.Width = -2;
-                    break;
-                case FieldWidthStyle.Percent:
-                    float pct = (float)Field.InitialWidth / 100.0f;
-                    Adapter.Column.Width = (int)(this.Width * pct);
-                    break;
-                case FieldWidthStyle.Fill:
-                    break;
+                field_settings = mSettings.GetColumnSettings(
+                    Adapter.Column, Field.InitialWidthStyle, Field.InitialWidth);
+                field_width = field_settings.Width;
+                width_style = field_settings.WidthStyle;
             }
 
+            Adapter.Column.Width = ComputeColumnWidth(width_style, field_width);
+
             mFields.Add(Adapter);
-            Columns.Add(Adapter.Column);
+            if (field_settings == null || field_settings.Visible)
+            {
+                Adapter.Column.DisplayIndex = mFields.Count+1;
+                Columns.Add(Adapter.Column);
+            }
+        }
+
+        void ListViewEx_ColumnWidthChanged(object sender, ColumnWidthChangedEventArgs e)
+        {
+            ColumnHeader changed_column = Columns[e.ColumnIndex];
+            if (mSettings != null)
+            {
+                var settings = mSettings.Columns[changed_column.Name];
+                settings.WidthStyle = FieldWidthStyle.Absolute;
+                settings.Width = changed_column.Width;
+            }
         }
 
         void ListViewEx_ColumnClick(object sender, ColumnClickEventArgs e)
@@ -124,6 +162,22 @@ namespace FFRKInspector.UI
             }
         }
 
+        private int ComputeColumnWidth(FieldWidthStyle Style, int Magnitude)
+        {
+            switch (Style)
+            {
+                case FieldWidthStyle.Absolute:
+                    return Magnitude;
+                case FieldWidthStyle.AutoSize:
+                    return -2;
+                case FieldWidthStyle.Percent:
+                    float pct = (float)Magnitude / 100.0f;
+                    return (int)(this.Width * pct);
+                default:
+                    return Magnitude;
+            }
+        }
+
         void ListViewEx_HandleCreated(object sender, EventArgs e)
         {
             this.ContextMenuStripChanged += ListViewEx_ContextMenuStripChanged;
@@ -132,9 +186,19 @@ namespace FFRKInspector.UI
             foreach (ColumnHeader header in mFields.Select(x => x.Column))
             {
                 ToolStripMenuItem item = new ToolStripMenuItem(header.Text);
-                item.Checked = true;
+                ListViewColumnSettings column_settings = 
+                    (mSettings == null) ? null : mSettings.Columns[header.Name];
+                item.Checked = (column_settings == null) || column_settings.Visible;
+
                 item.CheckOnClick = true;
-                item.Tag = new ToolStripItemTag { Header = header, LastIndex = header.DisplayIndex };
+                item.Tag = new ToolStripItemTag
+                {
+                    Header = header,
+                    LastIndex = header.DisplayIndex,
+                    LastWidth = (mSettings == null) 
+                              ? header.Width 
+                              : ComputeColumnWidth(column_settings.WidthStyle, column_settings.Width)
+                };
                 item.CheckStateChanged += item_CheckStateChanged;
                 mHeaderContextMenuStrip.Items.Add(item);
             }
@@ -176,11 +240,15 @@ namespace FFRKInspector.UI
                 Columns.Insert(new_index, tag.Header);
                 tag.Header.DisplayIndex = new_index;
                 tag.Header.Width = tag.LastWidth;
+                if (mSettings != null)
+                    mSettings.Columns[column_to_change.Name].Visible = true;
             }
             else
             {
                 tag.LastWidth = tag.Header.Width;
                 Columns.Remove(tag.Header);
+                if (mSettings != null)
+                    mSettings.Columns[column_to_change.Name].Visible = false;
             }
         }
 

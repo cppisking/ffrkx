@@ -311,10 +311,12 @@
             this.listViewResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewResults.DataBinding = null;
             this.listViewResults.FullRowSelect = true;
             this.listViewResults.HideSelection = false;
             this.listViewResults.Location = new System.Drawing.Point(16, 247);
             this.listViewResults.Name = "listViewResults";
+            this.listViewResults.SettingsKey = "FFRKViewItemSearch_ListViewResults";
             this.listViewResults.Size = new System.Drawing.Size(1028, 159);
             this.listViewResults.TabIndex = 1;
             this.listViewResults.UseCompatibleStateImageBehavior = false;

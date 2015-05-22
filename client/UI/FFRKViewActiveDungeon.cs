@@ -24,6 +24,8 @@ namespace FFRKInspector.UI
             InitializeComponent();
             mBinding = new ListListViewBinding<BasicItemDropStats>();
 
+            listViewAllDrops.LoadSettings();
+
             listViewAllDrops.AddField(new ItemNameField("Item", FieldWidthStyle.Percent, 24));
             listViewAllDrops.AddField(new ItemBattleField("Battle", FieldWidthStyle.Percent, 24));
             listViewAllDrops.AddField(new ItemTimesRunField("Times Run"));

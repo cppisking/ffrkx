@@ -82,6 +82,8 @@ namespace FFRKInspector.UI
             InitializeComponent();
             mBinding = new ListListViewBinding<BasicItemDropStats>();
 
+            listViewResults.LoadSettings();
+
             listViewResults.AddField(new ItemNameField("Item", FieldWidthStyle.Percent, 16));
             listViewResults.AddField(new ItemDungeonField("Dungeon", FieldWidthStyle.Percent, 16));
             listViewResults.AddField(new ItemBattleField("Battle", FieldWidthStyle.Percent, 16));
