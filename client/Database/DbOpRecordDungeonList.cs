@@ -1,4 +1,5 @@
 ﻿using FFRKInspector.GameData;
+using FFRKInspector.Proxy;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;

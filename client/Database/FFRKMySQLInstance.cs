@@ -89,6 +89,7 @@ namespace FFRKInspector.Database
 
         public event ConnectionStateChangedDelegate OnConnectionStateChanged;
         public event ConnectionInitializedDelegate OnConnectionInitialized;
+        public event ConnectionInitializedDelegate OnSchemaError;
 
         public FFRKMySqlInstance()
         {
@@ -272,6 +273,20 @@ namespace FFRKInspector.Database
                 {
                     Utility.Log.LogString("Database thread waiting for request");
                     request = mDatabaseQueue.Take(mCancellationToken);
+
+                    DbOpVerifySchema schema_request = new DbOpVerifySchema(FFRKProxy.Instance.MinimumRequiredSchema);
+                    schema_request.Execute(mConnection, null);
+
+                    if (schema_request.Result != DbOpVerifySchema.VerificationResult.OK)
+                    {
+                        mConnectionState = ConnectionState.Disabled;
+                        if (OnSchemaError != null)
+                            OnSchemaError(TranslateSchemaVerificationResult(schema_request.Result));
+
+                        if (OnConnectionStateChanged != null)
+                            OnConnectionStateChanged(mConnectionState);
+                        return;
+                    }
 
                     ProcessDbRequestOnThisThread(request);
                 }

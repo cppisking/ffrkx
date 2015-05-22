@@ -16,6 +16,7 @@ namespace FFRKInspector.Proxy
                 || RequestPath.EndsWith("/win_battle")          // Win an event battle.
                 || RequestPath.Equals("/dff/battle/lose")       // Lose from a world map battle
                 || RequestPath.Equals("/dff/battle/escape")     // Escape from a world map battle
+                || RequestPath.EndsWith("/escape_battle")       // Escape from an event battle
                 || RequestPath.StartsWith("/dff/world/fail")    // Fail a survival event
                 || RequestPath.Equals("/dff/battle/quit");      // User pushed Cancel after restarting from S/L
 

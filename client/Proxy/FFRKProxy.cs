@@ -26,7 +26,7 @@ namespace FFRKInspector.Proxy
         List<IResponseHandler> mResponseHandlers;
         FFRKDataCache mCache;
 
-        static readonly uint mRequiredSchema = 15;
+        static readonly uint mRequiredSchema = 16;
 
         static FFRKProxy mInstance;
 
@@ -71,7 +71,14 @@ namespace FFRKInspector.Proxy
 
             // Do this last
             mDatabaseInstance.OnConnectionInitialized += mDatabaseInstance_OnConnectionInitialized;
+            mDatabaseInstance.OnSchemaError += mDatabaseInstance_OnSchemaError;
             mDatabaseInstance.InitializeConnection(MinimumRequiredSchema);
+        }
+
+        void mDatabaseInstance_OnSchemaError(FFRKMySqlInstance.ConnectResult ConnectResult)
+        {
+            mTabPage.BeginInvoke((Action)(() =>
+                MessageBox.Show("This client is too old to connect against this database.  Please update FFRK Inspector")));
         }
 
         void mDatabaseInstance_OnConnectionInitialized(FFRKMySqlInstance.ConnectResult Result)
