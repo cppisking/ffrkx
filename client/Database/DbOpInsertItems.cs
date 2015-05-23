@@ -26,11 +26,17 @@ namespace FFRKInspector.Database
             {
                 get
                 {
-                    if (Type == SchemaConstants.ItemType.Equipment)
-                        return (byte)EquipCategory.Value;
-                    else if (Type == SchemaConstants.ItemType.Orb)
-                        return (byte)OrbType.Value;
-                    return 0;
+                    switch (Type)
+                    {
+                        case SchemaConstants.ItemType.Weapon:
+                        case SchemaConstants.ItemType.Armor:
+                        case SchemaConstants.ItemType.Accessory:
+                            return (byte)EquipCategory.Value;
+                        case SchemaConstants.ItemType.Orb:
+                            return (byte)OrbType.Value;
+                        default:
+                            return 0;
+                    }
                 }
             }
         }

@@ -52,8 +52,16 @@ namespace FFRKInspector.Database
         bool mDatabaseDisabled;
 
         string mDatabaseHost;
-        string mDatabaseUser;
-        string mDatabasePassword;
+
+        public string DatabaseHost
+        {
+            get { return mDatabaseHost; }
+        }
+
+        public string ConnectionString
+        {
+            get { return mConnStr; }
+        }
 
         public bool InsertUnknownDungeons
         { 
@@ -155,6 +163,7 @@ namespace FFRKInspector.Database
                 MySqlConnection connection = new MySqlConnection(ConnectString);
                 connection.StateChange += MySqlConnection_StateChange;
                 connection.Open();
+                mDatabaseHost = Host;
                 mConnection = connection;
                 mConnStr = ConnectString;
 

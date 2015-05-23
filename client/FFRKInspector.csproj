@@ -75,6 +75,15 @@
     <Compile Include="DataCache\FFRKDataCacheTable.cs" />
     <Compile Include="DataCache\Items.cs" />
     <Compile Include="DataCache\Worlds.cs" />
+    <Compile Include="ffrktestDataSet.cs">
+      <DependentUpon>ffrktestDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ffrktestDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ffrktestDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="GameData\BasicEnemyInfo.cs" />
     <Compile Include="GameData\BasicItemDropStats.cs" />
     <Compile Include="GameData\Converters\JsonCreationConverter.cs" />
@@ -107,6 +116,12 @@
     <Compile Include="Settings.cs" />
     <Compile Include="UI\DeselectableListBox.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\FFRKViewEditItemStats.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\FFRKViewEditItemStats.Designer.cs">
+      <DependentUpon>FFRKViewEditItemStats.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\FFRKViewAbout.cs">
       <SubType>UserControl</SubType>
@@ -219,6 +234,9 @@
     <EmbeddedResource Include="UI\FFRKViewDebugging.resx">
       <DependentUpon>FFRKViewDebugging.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\FFRKViewEditItemStats.resx">
+      <DependentUpon>FFRKViewEditItemStats.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\FFRKViewGacha.resx">
       <DependentUpon>FFRKViewGacha.cs</DependentUpon>
     </EmbeddedResource>
@@ -233,6 +251,17 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
+    <None Include="ffrktestDataSet.xsc">
+      <DependentUpon>ffrktestDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ffrktestDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ffrktestDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ffrktestDataSet.xss">
+      <DependentUpon>ffrktestDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

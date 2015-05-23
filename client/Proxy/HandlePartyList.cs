@@ -27,7 +27,7 @@ namespace FFRKInspector.Proxy
                 record.EquipCategory = equip.Category;
                 record.Id = equip.EquipmentId;
                 record.Name = equip.Name.TrimEnd(' ', '+', '＋');
-                record.Type = SchemaConstants.ItemType.Equipment;
+                record.Type = equip.Type;
                 record.Rarity = equip.BaseRarity;
                 record.Series = equip.SeriesId;
                 insert_request.Items.Add(record);

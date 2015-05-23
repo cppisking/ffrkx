@@ -37,7 +37,7 @@ namespace FFRKInspector.GameData.Party
         public uint SeriesId;
 
         [JsonProperty("equipment_type")]
-        public SchemaConstants.EquipmentType Type;
+        public SchemaConstants.ItemType Type;
 
         [JsonProperty("category_id")]
         public SchemaConstants.EquipmentCategory Category;

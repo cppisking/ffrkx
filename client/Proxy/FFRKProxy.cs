@@ -145,6 +145,8 @@ namespace FFRKInspector.Proxy
             switch (Result)
             {
                 case FFRKMySqlInstance.ConnectResult.Success:
+                    if (mDatabaseInstance.DatabaseHost == "localhost")
+                        mInspectorView.DeveloperTabsEnabled = true;
                     PopulateDataCache();
                     break;
                 case FFRKMySqlInstance.ConnectResult.SchemaTooOld:
