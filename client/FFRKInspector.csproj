@@ -17,7 +17,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;ALLOW_ITEM_EDITING</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -75,14 +75,19 @@
     <Compile Include="DataCache\FFRKDataCacheTable.cs" />
     <Compile Include="DataCache\Items.cs" />
     <Compile Include="DataCache\Worlds.cs" />
-    <Compile Include="ffrktestDataSet.cs">
-      <DependentUpon>ffrktestDataSet.xsd</DependentUpon>
+    <Compile Condition="$(DefineConstants.Contains('ALLOW_ITEM_EDITING'))" Include="EquipmentStatsDataSet.cs">
+      <DependentUpon>EquipmentStatsDataSet.xsd</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ffrktestDataSet.Designer.cs">
+    <Compile Condition="$(DefineConstants.Contains('ALLOW_ITEM_EDITING'))" Include="EquipmentStatsDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ffrktestDataSet.xsd</DependentUpon>
+      <DependentUpon>EquipmentStatsDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="MissingItemsDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MissingItemsDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="GameData\BasicEnemyInfo.cs" />
     <Compile Include="GameData\BasicItemDropStats.cs" />
@@ -116,6 +121,12 @@
     <Compile Include="Settings.cs" />
     <Compile Include="UI\DeselectableListBox.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Condition="$(DefineConstants.Contains('ALLOW_ITEM_EDITING'))" Include="UI\EditExistingItemsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Condition="$(DefineConstants.Contains('ALLOW_ITEM_EDITING'))" Include="UI\EditExistingItemsPanel.Designer.cs">
+      <DependentUpon>EditExistingItemsPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\FFRKViewEditItemStats.cs">
       <SubType>UserControl</SubType>
@@ -189,6 +200,7 @@
     <Compile Include="GameData\EventBattleInitiated.cs" />
     <Compile Include="GameData\DataGachaSeriesItemDetailsList.cs" />
     <Compile Include="GameData\GameState.cs" />
+    <Compile Include="UI\FFRKDataBoundPanel.cs" />
     <Compile Include="UI\IListViewField.cs" />
     <Compile Include="UI\IListViewBinding.cs" />
     <Compile Include="UI\ListListViewBinding.cs" />
@@ -212,6 +224,12 @@
     <Compile Include="UI\ListViewFields\PartyFields.cs" />
     <Compile Include="UI\ListViewFields\TrivialField.cs" />
     <Compile Include="Config\Configuration.cs" />
+    <Compile Include="UI\MissingItemsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\MissingItemsPanel.Designer.cs">
+      <DependentUpon>MissingItemsPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utility\CriticalZ.cs" />
     <Compile Include="Utility\Histogram.cs" />
     <Compile Include="Utility\IConverter.cs" />
@@ -219,6 +237,9 @@
     <Compile Include="Utility\Utility.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="UI\EditExistingItemsPanel.resx">
+      <DependentUpon>EditExistingItemsPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\FFRKViewAbout.resx">
       <DependentUpon>FFRKViewAbout.cs</DependentUpon>
     </EmbeddedResource>
@@ -250,17 +271,31 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\MissingItemsPanel.resx">
+      <DependentUpon>MissingItemsPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="ffrktestDataSet.xsc">
-      <DependentUpon>ffrktestDataSet.xsd</DependentUpon>
+    <None Condition="$(DefineConstants.Contains('ALLOW_ITEM_EDITING'))" Include="EquipmentStatsDataSet.xsc">
+      <DependentUpon>EquipmentStatsDataSet.xsd</DependentUpon>
     </None>
-    <None Include="ffrktestDataSet.xsd">
+    <None Include="EquipmentStatsDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>ffrktestDataSet.Designer.cs</LastGenOutput>
+      <LastGenOutput>EquipmentStatsDataSet.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="ffrktestDataSet.xss">
-      <DependentUpon>ffrktestDataSet.xsd</DependentUpon>
+    <None Condition="$(DefineConstants.Contains('ALLOW_ITEM_EDITING'))" Include="EquipmentStatsDataSet.xss">
+      <DependentUpon>EquipmentStatsDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="MissingItemsDataSet.xsc">
+      <DependentUpon>MissingItemsDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="MissingItemsDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MissingItemsDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="MissingItemsDataSet.xss">
+      <DependentUpon>MissingItemsDataSet.xsd</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

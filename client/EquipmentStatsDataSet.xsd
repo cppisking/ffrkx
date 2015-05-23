@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema id="ffrktestDataSet" targetNamespace="http://tempuri.org/ffrktestDataSet.xsd" xmlns:mstns="http://tempuri.org/ffrktestDataSet.xsd" xmlns="http://tempuri.org/ffrktestDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+<xs:schema id="equipmentStatsDataSet" targetNamespace="http://tempuri.org/ffrktestDataSet.xsd" xmlns:mstns="http://tempuri.org/ffrktestDataSet.xsd" xmlns="http://tempuri.org/ffrktestDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:annotation>
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
       <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
@@ -9,7 +9,7 @@
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="equipment_statsTableAdapter" GeneratorDataComponentClassName="equipment_statsTableAdapter" Name="equipment_stats" UserDataComponentName="equipment_statsTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="ffrktestConnectionString (Settings)" DbObjectName="ffrktest.equipment_stats" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="ffrktestConnectionString (Settings)" DbObjectName="ffrktest.equipment_stats" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
                     <CommandText>DELETE FROM `equipment_stats` WHERE ((`equipment_id` = @p1) AND ((@p2 = 1 AND `name` IS NULL) OR (`name` = @p3)) AND ((@p4 = 1 AND `base_atk` IS NULL) OR (`base_atk` = @p5)) AND ((@p6 = 1 AND `base_mag` IS NULL) OR (`base_mag` = @p7)) AND ((@p8 = 1 AND `base_acc` IS NULL) OR (`base_acc` = @p9)) AND ((@p10 = 1 AND `base_def` IS NULL) OR (`base_def` = @p11)) AND ((@p12 = 1 AND `base_res` IS NULL) OR (`base_res` = @p13)) AND ((@p14 = 1 AND `base_eva` IS NULL) OR (`base_eva` = @p15)) AND ((@p16 = 1 AND `base_mnd` IS NULL) OR (`base_mnd` = @p17)) AND ((@p18 = 1 AND `max_atk` IS NULL) OR (`max_atk` = @p19)) AND ((@p20 = 1 AND `max_mag` IS NULL) OR (`max_mag` = @p21)) AND ((@p22 = 1 AND `max_acc` IS NULL) OR (`max_acc` = @p23)) AND ((@p24 = 1 AND `max_def` IS NULL) OR (`max_def` = @p25)) AND ((@p26 = 1 AND `max_res` IS NULL) OR (`max_res` = @p27)) AND ((@p28 = 1 AND `max_eva` IS NULL) OR (`max_eva` = @p29)) AND ((@p30 = 1 AND `max_mnd` IS NULL) OR (`max_mnd` = @p31)))</CommandText>
@@ -73,8 +73,7 @@
                 </InsertCommand>
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
-                    <CommandText>SELECT        equipment_id, name, base_atk, base_mag, base_acc, base_def, base_res, base_eva, base_mnd, max_atk, max_mag, max_acc, max_def, max_res, max_eva, max_mnd
-FROM            equipment_stats</CommandText>
+                    <CommandText>SELECT equipment_id, name, base_atk, base_mag, base_acc, base_def, base_res, base_eva, base_mnd, max_atk, max_mag, max_acc, max_def, max_res, max_eva, max_mnd FROM equipment_stats</CommandText>
                     <Parameters />
                   </DbCommand>
                 </SelectCommand>
@@ -199,13 +198,20 @@ FROM            equipment_stats</CommandText>
       </DataSource>
     </xs:appinfo>
   </xs:annotation>
-  <xs:element name="ffrktestDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="ffrktestDataSet" msprop:Generator_UserDSName="ffrktestDataSet">
+  <xs:element name="equipmentStatsDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="equipmentStatsDataSet" msprop:Generator_UserDSName="equipmentStatsDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="equipment_stats" msprop:Generator_TableClassName="equipment_statsDataTable" msprop:Generator_TableVarName="tableequipment_stats" msprop:Generator_RowChangedName="equipment_statsRowChanged" msprop:Generator_TablePropName="equipment_stats" msprop:Generator_RowDeletingName="equipment_statsRowDeleting" msprop:Generator_RowChangingName="equipment_statsRowChanging" msprop:Generator_RowEvHandlerName="equipment_statsRowChangeEventHandler" msprop:Generator_RowDeletedName="equipment_statsRowDeleted" msprop:Generator_RowClassName="equipment_statsRow" msprop:Generator_UserTableName="equipment_stats" msprop:Generator_RowEvArgName="equipment_statsRowChangeEvent">
+        <xs:element name="equipment_stats" msprop:Generator_TableClassName="equipment_statsDataTable" msprop:Generator_TableVarName="tableequipment_stats" msprop:Generator_TablePropName="equipment_stats" msprop:Generator_RowDeletingName="equipment_statsRowDeleting" msprop:Generator_RowChangingName="equipment_statsRowChanging" msprop:Generator_RowEvHandlerName="equipment_statsRowChangeEventHandler" msprop:Generator_RowDeletedName="equipment_statsRowDeleted" msprop:Generator_UserTableName="equipment_stats" msprop:Generator_RowChangedName="equipment_statsRowChanged" msprop:Generator_RowEvArgName="equipment_statsRowChangeEvent" msprop:Generator_RowClassName="equipment_statsRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="equipment_id" msprop:Generator_ColumnVarNameInTable="columnequipment_id" msprop:Generator_ColumnPropNameInRow="equipment_id" msprop:Generator_ColumnPropNameInTable="equipment_idColumn" msprop:Generator_UserColumnName="equipment_id" type="xs:unsignedInt" />
+              <xs:element name="name" msprop:Generator_ColumnVarNameInTable="columnname" msprop:Generator_ColumnPropNameInRow="name" msprop:Generator_ColumnPropNameInTable="nameColumn" msprop:Generator_UserColumnName="name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="45" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
               <xs:element name="base_atk" msprop:Generator_ColumnVarNameInTable="columnbase_atk" msprop:Generator_ColumnPropNameInRow="base_atk" msprop:Generator_ColumnPropNameInTable="base_atkColumn" msprop:Generator_UserColumnName="base_atk" type="xs:unsignedShort" minOccurs="0" />
               <xs:element name="base_mag" msprop:Generator_ColumnVarNameInTable="columnbase_mag" msprop:Generator_ColumnPropNameInRow="base_mag" msprop:Generator_ColumnPropNameInTable="base_magColumn" msprop:Generator_UserColumnName="base_mag" type="xs:unsignedShort" minOccurs="0" />
               <xs:element name="base_acc" msprop:Generator_ColumnVarNameInTable="columnbase_acc" msprop:Generator_ColumnPropNameInRow="base_acc" msprop:Generator_ColumnPropNameInTable="base_accColumn" msprop:Generator_UserColumnName="base_acc" type="xs:unsignedShort" minOccurs="0" />
@@ -220,13 +226,6 @@ FROM            equipment_stats</CommandText>
               <xs:element name="max_res" msprop:Generator_ColumnVarNameInTable="columnmax_res" msprop:Generator_ColumnPropNameInRow="max_res" msprop:Generator_ColumnPropNameInTable="max_resColumn" msprop:Generator_UserColumnName="max_res" type="xs:unsignedShort" minOccurs="0" />
               <xs:element name="max_eva" msprop:Generator_ColumnVarNameInTable="columnmax_eva" msprop:Generator_ColumnPropNameInRow="max_eva" msprop:Generator_ColumnPropNameInTable="max_evaColumn" msprop:Generator_UserColumnName="max_eva" type="xs:unsignedShort" minOccurs="0" />
               <xs:element name="max_mnd" msprop:Generator_ColumnVarNameInTable="columnmax_mnd" msprop:Generator_ColumnPropNameInRow="max_mnd" msprop:Generator_ColumnPropNameInTable="max_mndColumn" msprop:Generator_UserColumnName="max_mnd" type="xs:unsignedShort" minOccurs="0" />
-              <xs:element name="name" msprop:Generator_ColumnVarNameInTable="columnname" msprop:Generator_ColumnPropNameInRow="name" msprop:Generator_ColumnPropNameInTable="nameColumn" msprop:Generator_UserColumnName="name" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="45" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>

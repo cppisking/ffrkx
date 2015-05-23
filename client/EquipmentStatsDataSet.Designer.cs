@@ -20,9 +20,9 @@ namespace FFRKInspector {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("ffrktestDataSet")]
+    [global::System.Xml.Serialization.XmlRootAttribute("equipmentStatsDataSet")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    public partial class ffrktestDataSet : global::System.Data.DataSet {
+    public partial class equipmentStatsDataSet : global::System.Data.DataSet {
         
         private equipment_statsDataTable tableequipment_stats;
         
@@ -30,7 +30,7 @@ namespace FFRKInspector {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public ffrktestDataSet() {
+        public equipmentStatsDataSet() {
             this.BeginInit();
             this.InitClass();
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -41,7 +41,7 @@ namespace FFRKInspector {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        protected ffrktestDataSet(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+        protected equipmentStatsDataSet(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                 base(info, context, false) {
             if ((this.IsBinarySerialized(info, context) == true)) {
                 this.InitVars(false);
@@ -127,7 +127,7 @@ namespace FFRKInspector {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public override global::System.Data.DataSet Clone() {
-            ffrktestDataSet cln = ((ffrktestDataSet)(base.Clone()));
+            equipmentStatsDataSet cln = ((equipmentStatsDataSet)(base.Clone()));
             cln.InitVars();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
@@ -199,7 +199,7 @@ namespace FFRKInspector {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitClass() {
-            this.DataSetName = "ffrktestDataSet";
+            this.DataSetName = "equipmentStatsDataSet";
             this.Prefix = "";
             this.Namespace = "http://tempuri.org/ffrktestDataSet.xsd";
             this.EnforceConstraints = true;
@@ -225,7 +225,7 @@ namespace FFRKInspector {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-            ffrktestDataSet ds = new ffrktestDataSet();
+            equipmentStatsDataSet ds = new equipmentStatsDataSet();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
             global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
             global::System.Xml.Schema.XmlSchemaAny any = new global::System.Xml.Schema.XmlSchemaAny();
@@ -281,6 +281,8 @@ namespace FFRKInspector {
             
             private global::System.Data.DataColumn columnequipment_id;
             
+            private global::System.Data.DataColumn columnname;
+            
             private global::System.Data.DataColumn columnbase_atk;
             
             private global::System.Data.DataColumn columnbase_mag;
@@ -308,8 +310,6 @@ namespace FFRKInspector {
             private global::System.Data.DataColumn columnmax_eva;
             
             private global::System.Data.DataColumn columnmax_mnd;
-            
-            private global::System.Data.DataColumn columnname;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -349,6 +349,14 @@ namespace FFRKInspector {
             public global::System.Data.DataColumn equipment_idColumn {
                 get {
                     return this.columnequipment_id;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn nameColumn {
+                get {
+                    return this.columnname;
                 }
             }
             
@@ -466,14 +474,6 @@ namespace FFRKInspector {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn nameColumn {
-                get {
-                    return this.columnname;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -511,6 +511,7 @@ namespace FFRKInspector {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public equipment_statsRow Addequipment_statsRow(
                         uint equipment_id, 
+                        string name, 
                         ushort base_atk, 
                         ushort base_mag, 
                         ushort base_acc, 
@@ -524,11 +525,11 @@ namespace FFRKInspector {
                         ushort max_def, 
                         ushort max_res, 
                         ushort max_eva, 
-                        ushort max_mnd, 
-                        string name) {
+                        ushort max_mnd) {
                 equipment_statsRow rowequipment_statsRow = ((equipment_statsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         equipment_id,
+                        name,
                         base_atk,
                         base_mag,
                         base_acc,
@@ -542,8 +543,7 @@ namespace FFRKInspector {
                         max_def,
                         max_res,
                         max_eva,
-                        max_mnd,
-                        name};
+                        max_mnd};
                 rowequipment_statsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowequipment_statsRow);
                 return rowequipment_statsRow;
@@ -574,6 +574,7 @@ namespace FFRKInspector {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
                 this.columnequipment_id = base.Columns["equipment_id"];
+                this.columnname = base.Columns["name"];
                 this.columnbase_atk = base.Columns["base_atk"];
                 this.columnbase_mag = base.Columns["base_mag"];
                 this.columnbase_acc = base.Columns["base_acc"];
@@ -588,7 +589,6 @@ namespace FFRKInspector {
                 this.columnmax_res = base.Columns["max_res"];
                 this.columnmax_eva = base.Columns["max_eva"];
                 this.columnmax_mnd = base.Columns["max_mnd"];
-                this.columnname = base.Columns["name"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -596,6 +596,8 @@ namespace FFRKInspector {
             private void InitClass() {
                 this.columnequipment_id = new global::System.Data.DataColumn("equipment_id", typeof(uint), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnequipment_id);
+                this.columnname = new global::System.Data.DataColumn("name", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnname);
                 this.columnbase_atk = new global::System.Data.DataColumn("base_atk", typeof(ushort), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnbase_atk);
                 this.columnbase_mag = new global::System.Data.DataColumn("base_mag", typeof(ushort), null, global::System.Data.MappingType.Element);
@@ -624,8 +626,6 @@ namespace FFRKInspector {
                 base.Columns.Add(this.columnmax_eva);
                 this.columnmax_mnd = new global::System.Data.DataColumn("max_mnd", typeof(ushort), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnmax_mnd);
-                this.columnname = new global::System.Data.DataColumn("name", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnname);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnequipment_id}, true));
                 this.columnequipment_id.AllowDBNull = false;
@@ -698,7 +698,7 @@ namespace FFRKInspector {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                ffrktestDataSet ds = new ffrktestDataSet();
+                equipmentStatsDataSet ds = new equipmentStatsDataSet();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -779,6 +779,22 @@ namespace FFRKInspector {
                 }
                 set {
                     this[this.tableequipment_stats.equipment_idColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string name {
+                get {
+                    try {
+                        return ((string)(this[this.tableequipment_stats.nameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'name\' in table \'equipment_stats\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableequipment_stats.nameColumn] = value;
                 }
             }
             
@@ -1008,18 +1024,14 @@ namespace FFRKInspector {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string name {
-                get {
-                    try {
-                        return ((string)(this[this.tableequipment_stats.nameColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'name\' in table \'equipment_stats\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableequipment_stats.nameColumn] = value;
-                }
+            public bool IsnameNull() {
+                return this.IsNull(this.tableequipment_stats.nameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetnameNull() {
+                this[this.tableequipment_stats.nameColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1189,18 +1201,6 @@ namespace FFRKInspector {
             public void Setmax_mndNull() {
                 this[this.tableequipment_stats.max_mndColumn] = global::System.Convert.DBNull;
             }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsnameNull() {
-                return this.IsNull(this.tableequipment_stats.nameColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetnameNull() {
-                this[this.tableequipment_stats.nameColumn] = global::System.Convert.DBNull;
-            }
         }
         
         /// <summary>
@@ -1238,7 +1238,7 @@ namespace FFRKInspector {
         }
     }
 }
-namespace FFRKInspector.ffrktestDataSetTableAdapters {
+namespace FFRKInspector.equipmentStatsDataSetTableAdapters {
     
     
     /// <summary>
@@ -2156,9 +2156,9 @@ namespace FFRKInspector.ffrktestDataSetTableAdapters {
             this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[2];
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT        equipment_id, name, base_atk, base_mag, base_acc, base_def, base_re" +
-                "s, base_eva, base_mnd, max_atk, max_mag, max_acc, max_def, max_res, max_eva, max" +
-                "_mnd\r\nFROM            equipment_stats";
+            this._commandCollection[0].CommandText = "SELECT equipment_id, name, base_atk, base_mag, base_acc, base_def, base_res, base" +
+                "_eva, base_mnd, max_atk, max_mag, max_acc, max_def, max_res, max_eva, max_mnd FR" +
+                "OM equipment_stats";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[1].Connection = this.Connection;
@@ -2395,7 +2395,7 @@ namespace FFRKInspector.ffrktestDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(ffrktestDataSet.equipment_statsDataTable dataTable) {
+        public virtual int Fill(equipmentStatsDataSet.equipment_statsDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -2408,9 +2408,9 @@ namespace FFRKInspector.ffrktestDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual ffrktestDataSet.equipment_statsDataTable GetData() {
+        public virtual equipmentStatsDataSet.equipment_statsDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            ffrktestDataSet.equipment_statsDataTable dataTable = new ffrktestDataSet.equipment_statsDataTable();
+            equipmentStatsDataSet.equipment_statsDataTable dataTable = new equipmentStatsDataSet.equipment_statsDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -2418,14 +2418,14 @@ namespace FFRKInspector.ffrktestDataSetTableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(ffrktestDataSet.equipment_statsDataTable dataTable) {
+        public virtual int Update(equipmentStatsDataSet.equipment_statsDataTable dataTable) {
             return this.Adapter.Update(dataTable);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(ffrktestDataSet dataSet) {
+        public virtual int Update(equipmentStatsDataSet dataSet) {
             return this.Adapter.Update(dataSet, "equipment_stats");
         }
         
@@ -2442,596 +2442,6 @@ namespace FFRKInspector.ffrktestDataSetTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         public virtual int Update(global::System.Data.DataRow[] dataRows) {
             return this.Adapter.Update(dataRows);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(
-                    uint p1, 
-                    string p3, 
-                    global::System.Nullable<ushort> p5, 
-                    global::System.Nullable<ushort> p7, 
-                    global::System.Nullable<ushort> p9, 
-                    global::System.Nullable<ushort> p11, 
-                    global::System.Nullable<ushort> p13, 
-                    global::System.Nullable<ushort> p15, 
-                    global::System.Nullable<ushort> p17, 
-                    global::System.Nullable<ushort> p19, 
-                    global::System.Nullable<ushort> p21, 
-                    global::System.Nullable<ushort> p23, 
-                    global::System.Nullable<ushort> p25, 
-                    global::System.Nullable<ushort> p27, 
-                    global::System.Nullable<ushort> p29, 
-                    global::System.Nullable<ushort> p31) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((uint)(p1));
-            if ((p3 == null)) {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((string)(p3));
-            }
-            if ((p5.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[4].Value = ((ushort)(p5.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            if ((p7.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[6].Value = ((ushort)(p7.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[6].Value = global::System.DBNull.Value;
-            }
-            if ((p9.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[8].Value = ((ushort)(p9.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[8].Value = global::System.DBNull.Value;
-            }
-            if ((p11.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[10].Value = ((ushort)(p11.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[10].Value = global::System.DBNull.Value;
-            }
-            if ((p13.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[12].Value = ((ushort)(p13.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[12].Value = global::System.DBNull.Value;
-            }
-            if ((p15.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[13].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[14].Value = ((ushort)(p15.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[13].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[14].Value = global::System.DBNull.Value;
-            }
-            if ((p17.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[15].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[16].Value = ((ushort)(p17.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[15].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[16].Value = global::System.DBNull.Value;
-            }
-            if ((p19.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[17].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[18].Value = ((ushort)(p19.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[17].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[18].Value = global::System.DBNull.Value;
-            }
-            if ((p21.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[19].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[20].Value = ((ushort)(p21.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[19].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[20].Value = global::System.DBNull.Value;
-            }
-            if ((p23.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[21].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[22].Value = ((ushort)(p23.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[21].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[22].Value = global::System.DBNull.Value;
-            }
-            if ((p25.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[23].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[24].Value = ((ushort)(p25.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[23].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[24].Value = global::System.DBNull.Value;
-            }
-            if ((p27.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[25].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[26].Value = ((ushort)(p27.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[25].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[26].Value = global::System.DBNull.Value;
-            }
-            if ((p29.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[27].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[28].Value = ((ushort)(p29.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[27].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[28].Value = global::System.DBNull.Value;
-            }
-            if ((p31.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[29].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[30].Value = ((ushort)(p31.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[29].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[30].Value = global::System.DBNull.Value;
-            }
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
-            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.DeleteCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.DeleteCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(
-                    uint p1, 
-                    string p2, 
-                    global::System.Nullable<ushort> p3, 
-                    global::System.Nullable<ushort> p4, 
-                    global::System.Nullable<ushort> p5, 
-                    global::System.Nullable<ushort> p6, 
-                    global::System.Nullable<ushort> p7, 
-                    global::System.Nullable<ushort> p8, 
-                    global::System.Nullable<ushort> p9, 
-                    global::System.Nullable<ushort> p10, 
-                    global::System.Nullable<ushort> p11, 
-                    global::System.Nullable<ushort> p12, 
-                    global::System.Nullable<ushort> p13, 
-                    global::System.Nullable<ushort> p14, 
-                    global::System.Nullable<ushort> p15, 
-                    global::System.Nullable<ushort> p16) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((uint)(p1));
-            if ((p2 == null)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(p2));
-            }
-            if ((p3.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((ushort)(p3.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            if ((p4.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((ushort)(p4.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
-            }
-            if ((p5.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[4].Value = ((ushort)(p5.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            if ((p6.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[5].Value = ((ushort)(p6.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
-            }
-            if ((p7.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[6].Value = ((ushort)(p7.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
-            }
-            if ((p8.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[7].Value = ((ushort)(p8.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[7].Value = global::System.DBNull.Value;
-            }
-            if ((p9.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[8].Value = ((ushort)(p9.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[8].Value = global::System.DBNull.Value;
-            }
-            if ((p10.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[9].Value = ((ushort)(p10.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[9].Value = global::System.DBNull.Value;
-            }
-            if ((p11.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[10].Value = ((ushort)(p11.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[10].Value = global::System.DBNull.Value;
-            }
-            if ((p12.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[11].Value = ((ushort)(p12.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[11].Value = global::System.DBNull.Value;
-            }
-            if ((p13.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[12].Value = ((ushort)(p13.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[12].Value = global::System.DBNull.Value;
-            }
-            if ((p14.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[13].Value = ((ushort)(p14.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[13].Value = global::System.DBNull.Value;
-            }
-            if ((p15.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[14].Value = ((ushort)(p15.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[14].Value = global::System.DBNull.Value;
-            }
-            if ((p16.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[15].Value = ((ushort)(p16.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[15].Value = global::System.DBNull.Value;
-            }
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
-            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.InsertCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.InsertCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(
-                    uint p1, 
-                    string p2, 
-                    global::System.Nullable<ushort> p3, 
-                    global::System.Nullable<ushort> p4, 
-                    global::System.Nullable<ushort> p5, 
-                    global::System.Nullable<ushort> p6, 
-                    global::System.Nullable<ushort> p7, 
-                    global::System.Nullable<ushort> p8, 
-                    global::System.Nullable<ushort> p9, 
-                    global::System.Nullable<ushort> p10, 
-                    global::System.Nullable<ushort> p11, 
-                    global::System.Nullable<ushort> p12, 
-                    global::System.Nullable<ushort> p13, 
-                    global::System.Nullable<ushort> p14, 
-                    global::System.Nullable<ushort> p15, 
-                    global::System.Nullable<ushort> p16, 
-                    uint p17, 
-                    string p19, 
-                    global::System.Nullable<ushort> p21, 
-                    global::System.Nullable<ushort> p23, 
-                    global::System.Nullable<ushort> p25, 
-                    global::System.Nullable<ushort> p27, 
-                    global::System.Nullable<ushort> p29, 
-                    global::System.Nullable<ushort> p31, 
-                    global::System.Nullable<ushort> p33, 
-                    global::System.Nullable<ushort> p35, 
-                    global::System.Nullable<ushort> p37, 
-                    global::System.Nullable<ushort> p39, 
-                    global::System.Nullable<ushort> p41, 
-                    global::System.Nullable<ushort> p43, 
-                    global::System.Nullable<ushort> p45, 
-                    global::System.Nullable<ushort> p47) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((uint)(p1));
-            if ((p2 == null)) {
-                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(p2));
-            }
-            if ((p3.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((ushort)(p3.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            if ((p4.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((ushort)(p4.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
-            }
-            if ((p5.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((ushort)(p5.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            if ((p6.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((ushort)(p6.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
-            }
-            if ((p7.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((ushort)(p7.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
-            }
-            if ((p8.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((ushort)(p8.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
-            }
-            if ((p9.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((ushort)(p9.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
-            }
-            if ((p10.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((ushort)(p10.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
-            }
-            if ((p11.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((ushort)(p11.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
-            }
-            if ((p12.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((ushort)(p12.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[11].Value = global::System.DBNull.Value;
-            }
-            if ((p13.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((ushort)(p13.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
-            }
-            if ((p14.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((ushort)(p14.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[13].Value = global::System.DBNull.Value;
-            }
-            if ((p15.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((ushort)(p15.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[14].Value = global::System.DBNull.Value;
-            }
-            if ((p16.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[15].Value = ((ushort)(p16.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[15].Value = global::System.DBNull.Value;
-            }
-            this.Adapter.UpdateCommand.Parameters[16].Value = ((uint)(p17));
-            if ((p19 == null)) {
-                this.Adapter.UpdateCommand.Parameters[17].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[18].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[17].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((string)(p19));
-            }
-            if ((p21.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[19].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[20].Value = ((ushort)(p21.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[19].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[20].Value = global::System.DBNull.Value;
-            }
-            if ((p23.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[21].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[22].Value = ((ushort)(p23.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[21].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[22].Value = global::System.DBNull.Value;
-            }
-            if ((p25.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[23].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[24].Value = ((ushort)(p25.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[23].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[24].Value = global::System.DBNull.Value;
-            }
-            if ((p27.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[25].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[26].Value = ((ushort)(p27.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[25].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[26].Value = global::System.DBNull.Value;
-            }
-            if ((p29.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[27].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[28].Value = ((ushort)(p29.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[27].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[28].Value = global::System.DBNull.Value;
-            }
-            if ((p31.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[29].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[30].Value = ((ushort)(p31.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[29].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[30].Value = global::System.DBNull.Value;
-            }
-            if ((p33.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[31].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[32].Value = ((ushort)(p33.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[31].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[32].Value = global::System.DBNull.Value;
-            }
-            if ((p35.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[33].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[34].Value = ((ushort)(p35.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[33].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[34].Value = global::System.DBNull.Value;
-            }
-            if ((p37.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[35].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[36].Value = ((ushort)(p37.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[35].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[36].Value = global::System.DBNull.Value;
-            }
-            if ((p39.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[37].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[38].Value = ((ushort)(p39.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[37].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[38].Value = global::System.DBNull.Value;
-            }
-            if ((p41.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[39].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[40].Value = ((ushort)(p41.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[39].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[40].Value = global::System.DBNull.Value;
-            }
-            if ((p43.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[41].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[42].Value = ((ushort)(p43.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[41].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[42].Value = global::System.DBNull.Value;
-            }
-            if ((p45.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[43].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[44].Value = ((ushort)(p45.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[43].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[44].Value = global::System.DBNull.Value;
-            }
-            if ((p47.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[45].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[46].Value = ((ushort)(p47.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[45].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[46].Value = global::System.DBNull.Value;
-            }
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
-            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.UpdateCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.UpdateCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(
-                    string p2, 
-                    global::System.Nullable<ushort> p3, 
-                    global::System.Nullable<ushort> p4, 
-                    global::System.Nullable<ushort> p5, 
-                    global::System.Nullable<ushort> p6, 
-                    global::System.Nullable<ushort> p7, 
-                    global::System.Nullable<ushort> p8, 
-                    global::System.Nullable<ushort> p9, 
-                    global::System.Nullable<ushort> p10, 
-                    global::System.Nullable<ushort> p11, 
-                    global::System.Nullable<ushort> p12, 
-                    global::System.Nullable<ushort> p13, 
-                    global::System.Nullable<ushort> p14, 
-                    global::System.Nullable<ushort> p15, 
-                    global::System.Nullable<ushort> p16, 
-                    uint p17, 
-                    string p19, 
-                    global::System.Nullable<ushort> p21, 
-                    global::System.Nullable<ushort> p23, 
-                    global::System.Nullable<ushort> p25, 
-                    global::System.Nullable<ushort> p27, 
-                    global::System.Nullable<ushort> p29, 
-                    global::System.Nullable<ushort> p31, 
-                    global::System.Nullable<ushort> p33, 
-                    global::System.Nullable<ushort> p35, 
-                    global::System.Nullable<ushort> p37, 
-                    global::System.Nullable<ushort> p39, 
-                    global::System.Nullable<ushort> p41, 
-                    global::System.Nullable<ushort> p43, 
-                    global::System.Nullable<ushort> p45, 
-                    global::System.Nullable<ushort> p47) {
-            return this.Update(p17, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p19, p21, p23, p25, p27, p29, p31, p33, p35, p37, p39, p41, p43, p45, p47);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3349,7 +2759,7 @@ namespace FFRKInspector.ffrktestDataSetTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private int UpdateUpdatedRows(ffrktestDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateUpdatedRows(equipmentStatsDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             if ((this._equipment_statsTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.equipment_stats.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
@@ -3368,7 +2778,7 @@ namespace FFRKInspector.ffrktestDataSetTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private int UpdateInsertedRows(ffrktestDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateInsertedRows(equipmentStatsDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             if ((this._equipment_statsTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.equipment_stats.Select(null, null, global::System.Data.DataViewRowState.Added);
@@ -3386,7 +2796,7 @@ namespace FFRKInspector.ffrktestDataSetTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private int UpdateDeletedRows(ffrktestDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
+        private int UpdateDeletedRows(equipmentStatsDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
             if ((this._equipment_statsTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.equipment_stats.Select(null, null, global::System.Data.DataViewRowState.Deleted);
@@ -3428,7 +2838,7 @@ namespace FFRKInspector.ffrktestDataSetTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public virtual int UpdateAll(ffrktestDataSet dataSet) {
+        public virtual int UpdateAll(equipmentStatsDataSet dataSet) {
             if ((dataSet == null)) {
                 throw new global::System.ArgumentNullException("dataSet");
             }

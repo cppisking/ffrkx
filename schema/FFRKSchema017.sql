@@ -1,4 +1,4 @@
-CREATE TABLE `ffrktest`.`equipment_stats` (
+CREATE TABLE `equipment_stats` (
   `equipment_id` INT UNSIGNED NOT NULL,
   `base_atk` SMALLINT UNSIGNED NOT NULL,
   `base_mag` SMALLINT UNSIGNED NOT NULL,
@@ -18,9 +18,29 @@ CREATE TABLE `ffrktest`.`equipment_stats` (
   UNIQUE INDEX `equipment_id_UNIQUE` (`equipment_id` ASC),
   CONSTRAINT `FK_equipment_stat_id`
     FOREIGN KEY (`equipment_id`)
-    REFERENCES `ffrktest`.`items` (`id`)
+    REFERENCES `items` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+    
+CREATE TABLE `missing_items` (
+  `equipment_id` INT(10) UNSIGNED NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `base_atk` SMALLINT UNSIGNED NOT NULL,
+  `base_mag` SMALLINT UNSIGNED NOT NULL,
+  `base_acc` SMALLINT UNSIGNED NOT NULL,
+  `base_def` SMALLINT UNSIGNED NOT NULL,
+  `base_res` SMALLINT UNSIGNED NOT NULL,
+  `base_eva` SMALLINT UNSIGNED NOT NULL,
+  `base_mnd` SMALLINT UNSIGNED NOT NULL,
+  `max_atk` SMALLINT UNSIGNED NOT NULL,
+  `max_mag` SMALLINT UNSIGNED NOT NULL,
+  `max_acc` SMALLINT UNSIGNED NOT NULL,
+  `max_def` SMALLINT UNSIGNED NOT NULL,
+  `max_res` SMALLINT UNSIGNED NOT NULL,
+  `max_eva` SMALLINT UNSIGNED NOT NULL,
+  `max_mnd` SMALLINT UNSIGNED NOT NULL),
+  PRIMARY KEY (`equipment_id`);
+
 
 
 # Set the correct type for armors

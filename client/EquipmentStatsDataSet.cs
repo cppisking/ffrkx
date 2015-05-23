@@ -1,7 +1,8 @@
 ﻿namespace FFRKInspector {
-    
-    
-    public partial class ffrktestDataSet {
+
+
+    public partial class equipmentStatsDataSet
+    {
         partial class equipment_statsDataTable
         {
         }
