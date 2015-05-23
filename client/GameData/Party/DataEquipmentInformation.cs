@@ -18,11 +18,26 @@ namespace FFRKInspector.GameData.Party
         [JsonProperty("name")]
         public string Name;
 
+        [JsonProperty("evolution_num")]
+        public byte EvolutionNumber;
+
+        [JsonProperty("level")]
+        public byte Level;
+
+        [JsonProperty("level_max")]
+        public byte LevelMax;
+
+        [JsonProperty("rarity")]
+        public SchemaConstants.Rarity Rarity;
+
         [JsonProperty("base_rarity")]
         public SchemaConstants.Rarity BaseRarity;
 
         [JsonProperty("series_id")]
         public uint SeriesId;
+
+        [JsonProperty("equipment_type")]
+        public SchemaConstants.EquipmentType Type;
 
         [JsonProperty("category_id")]
         public SchemaConstants.EquipmentCategory Category;

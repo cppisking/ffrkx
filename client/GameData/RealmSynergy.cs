@@ -10,6 +10,7 @@ namespace FFRKInspector.GameData
     {
         public enum Value
         {
+            None = -1,
             Core = 0,
             FF1 = 1,
             FF2 = 2,
@@ -63,6 +64,7 @@ namespace FFRKInspector.GameData
             // and a third value 1 which means "no synergy", but these don't seem to be
             // used for anything import to us, so I don't include them here.
             SynergyValue[] values = { 
+                new SynergyValue("None", 1, Value.None),
                 new SynergyValue("Core", 200001, Value.Core),
                 new SynergyValue("I", 101001, Value.FF1),
                 new SynergyValue("II", 102001, Value.FF2),

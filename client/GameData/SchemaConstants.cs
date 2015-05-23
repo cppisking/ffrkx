@@ -11,6 +11,13 @@ namespace FFRKInspector.GameData
         // These correspond to values the game sends us.  We can just cast an
         // equipment category directly from the game to this type and it will
         // match.
+        public enum EquipmentType : byte
+        {
+            Weapon = 1,
+            Armor = 2,
+            Accessory = 3
+        }
+
         public enum EquipmentCategory : byte
         {
             Dagger = 1,
@@ -35,6 +42,7 @@ namespace FFRKInspector.GameData
             Armor = 54,
             Robe = 55,
             Bracer = 56,
+            Accessory = 80
         }
 
         public enum PartyFormation : byte
@@ -58,7 +66,9 @@ namespace FFRKInspector.GameData
             Two = 2,
             Three = 3,
             Four = 4,
-            Five = 5
+            Five = 5,
+            Six = 6,
+            Seven = 7
         }
 
         // Similar to ItemType, the values here are application-defined, but should

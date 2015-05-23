@@ -18,6 +18,23 @@ namespace FFRKInspector.UI
     {
         private ListListViewBinding<DataBuddyInformation> mBuddyList;
 
+        private class SynergyFormatter
+        {
+            private RealmSynergy.SynergyValue mSynergy;
+            public SynergyFormatter(RealmSynergy.SynergyValue Synergy)
+            {
+                mSynergy = Synergy;
+            }
+
+            public override string ToString()
+            {
+                if (mSynergy.Realm == RealmSynergy.Value.None)
+                    return "no";
+                else
+                    return mSynergy.Realm.ToString();
+            }
+        }
+
         public FFRKViewInventory()
         {
             InitializeComponent();
@@ -31,6 +48,8 @@ namespace FFRKInspector.UI
             listViewEx1.AddField(new CharacterLevelMaxField("Max Level"));
 
             listViewEx1.DataBinding = mBuddyList;
+            foreach (RealmSynergy.SynergyValue synergy in RealmSynergy.Values)
+                comboBoxSynergy.Items.Add(new SynergyFormatter(synergy));
         }
 
         private void FFRKViewInventory_Load(object sender, EventArgs e)
@@ -42,9 +61,10 @@ namespace FFRKInspector.UI
             {
                 FFRKProxy.Instance.OnPartyList += FFRKProxy_OnPartyList;
 
-                DataBuddyInformation[] buddies = FFRKProxy.Instance.GameState.PartyDetails.Buddies;
-                if (buddies != null)
+                DataPartyDetails party = FFRKProxy.Instance.GameState.PartyDetails;
+                if (party != null)
                 {
+                    DataBuddyInformation[] buddies = party.Buddies;
                     mBuddyList.Collection = buddies.ToList();
                     listViewEx1.VirtualListSize = buddies.Length;
                 }
@@ -54,24 +74,23 @@ namespace FFRKInspector.UI
 
         void FFRKProxy_OnPartyList(DataPartyDetails party)
         {
-            mBuddyList.Collection = party.Buddies.ToList();
-            listViewEx1.VirtualListSize = party.Buddies.Length;
-        }
+            BeginInvoke((Action)(() =>
+            {
+                mBuddyList.Collection = party.Buddies.ToList();
+                listViewEx1.VirtualListSize = party.Buddies.Length;
 
-        private void dataGridView2_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
-        {
-        }
-
-        private void dataGridView2_RowLeave(object sender, DataGridViewCellEventArgs e)
-        {
-            //if (dataGridView2.RowCount > 5)
-            //    dataGridView2.AllowUserToAddRows = false;
-        }
-
-        private void dataGridView2_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
-        {
-            //if (dataGridView2.RowCount < 5)
-            //    dataGridView2.AllowUserToAddRows = false;
+                foreach (DataEquipmentInformation equip in party.Equipments)
+                {
+                    int row_index = dataGridView1.Rows.Add();
+                    DataGridViewRow row = dataGridView1.Rows[row_index];
+                    row.Cells[dgcItem.Name].Value = equip.Name;
+                    row.Cells[dgcCategory.Name].Value = equip.Category;
+                    row.Cells[dgcType.Name].Value = equip.Type;
+                    row.Cells[dgcRarity.Name].Value = (int)equip.Rarity;
+                    row.Cells[dgcSynergy.Name].Value = RealmSynergy.FromSeries(equip.SeriesId).Text;
+                    row.Cells[dgcLevel.Name].Value = String.Format("{0}/{1}", equip.Level, equip.LevelMax);
+                }
+            }));
         }
     }
 }
