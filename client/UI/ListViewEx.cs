@@ -64,6 +64,8 @@ namespace FFRKInspector.UI
             this.RetrieveVirtualItem += ListViewEx_RetrieveVirtualItem;
             this.ColumnClick += ListViewEx_ColumnClick;
             this.ColumnWidthChanged += ListViewEx_ColumnWidthChanged;
+
+            this.View = System.Windows.Forms.View.Details;
         }
 
         public IListViewBinding DataBinding

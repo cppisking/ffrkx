@@ -194,6 +194,7 @@
     </Compile>
     <Compile Include="UI\ListViewField.cs" />
     <Compile Include="UI\ListViewFields\ItemStatFields.cs" />
+    <Compile Include="UI\ListViewFields\PartyFields.cs" />
     <Compile Include="UI\ListViewFields\TrivialField.cs" />
     <Compile Include="Config\Configuration.cs" />
     <Compile Include="Utility\CriticalZ.cs" />

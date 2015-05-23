@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FFRKInspector.GameData.Party;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace FFRKInspector.GameData
         private EventBattleInitiated mActiveBattle;
         private EventListBattles mActiveDungeon;
         private DataGachaSeriesList mGachas;
+        private DataPartyDetails mParty;
 
         public GameState()
         {
@@ -35,6 +37,12 @@ namespace FFRKInspector.GameData
         {
             get { return mGachas; }
             set { mGachas = value; }
+        }
+
+        public DataPartyDetails PartyDetails
+        {
+            get { return mParty; }
+            set { mParty = value; }
         }
     }
 }
