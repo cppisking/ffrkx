@@ -75,11 +75,11 @@
     <Compile Include="DataCache\FFRKDataCacheTable.cs" />
     <Compile Include="DataCache\Items.cs" />
     <Compile Include="DataCache\Worlds.cs" />
-    <Compile Condition="$(DefineConstants.Contains('ALLOW_ITEM_EDITING'))" Include="EquipmentStatsDataSet.cs">
+    <Compile Include="EquipmentStatsDataSet.cs">
       <DependentUpon>EquipmentStatsDataSet.xsd</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Condition="$(DefineConstants.Contains('ALLOW_ITEM_EDITING'))" Include="EquipmentStatsDataSet.Designer.cs">
+    <Compile Include="EquipmentStatsDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EquipmentStatsDataSet.xsd</DependentUpon>
@@ -122,13 +122,14 @@
     <Compile Include="UI\DataGridViewEx.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="UI\EnumDataViewGridCell.cs" />
     <Compile Include="UI\DeselectableListBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Condition="$(DefineConstants.Contains('ALLOW_ITEM_EDITING'))" Include="UI\EditExistingItemsPanel.cs">
+    <Compile Include="UI\EditExistingItemsPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Condition="$(DefineConstants.Contains('ALLOW_ITEM_EDITING'))" Include="UI\EditExistingItemsPanel.Designer.cs">
+    <Compile Include="UI\EditExistingItemsPanel.Designer.cs">
       <DependentUpon>EditExistingItemsPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\FFRKViewEditItemStats.cs">
@@ -278,7 +279,7 @@
       <DependentUpon>MissingItemsPanel.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Condition="$(DefineConstants.Contains('ALLOW_ITEM_EDITING'))" Include="EquipmentStatsDataSet.xsc">
+    <None Include="EquipmentStatsDataSet.xsc">
       <DependentUpon>EquipmentStatsDataSet.xsd</DependentUpon>
     </None>
     <None Include="EquipmentStatsDataSet.xsd">
@@ -286,7 +287,7 @@
       <LastGenOutput>EquipmentStatsDataSet.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Condition="$(DefineConstants.Contains('ALLOW_ITEM_EDITING'))" Include="EquipmentStatsDataSet.xss">
+    <None Include="EquipmentStatsDataSet.xss">
       <DependentUpon>EquipmentStatsDataSet.xsd</DependentUpon>
     </None>
     <None Include="MissingItemsDataSet.xsc">

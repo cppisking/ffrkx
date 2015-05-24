@@ -45,6 +45,8 @@
             this.ffrkViewAbout1 = new FFRKInspector.UI.FFRKViewAbout();
             this.tabPageDebug = new System.Windows.Forms.TabPage();
             this.ffrkViewDebugging1 = new FFRKInspector.UI.FFRKViewDebugging();
+            this.tabPageEditEquipment = new System.Windows.Forms.TabPage();
+            this.ffrkViewEditItemStats1 = new FFRKInspector.UI.FFRKViewEditItemStats();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelConnection = new System.Windows.Forms.ToolStripStatusLabel();
@@ -52,8 +54,6 @@
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel6 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tabPageEditEquipment = new System.Windows.Forms.TabPage();
-            this.ffrkViewEditItemStats1 = new FFRKInspector.UI.FFRKViewEditItemStats();
             this.tabControlFFRKInspector.SuspendLayout();
             this.tabPageBattle.SuspendLayout();
             this.tabPageGacha.SuspendLayout();
@@ -62,8 +62,8 @@
             this.tabPageInventory.SuspendLayout();
             this.tabPageAbout.SuspendLayout();
             this.tabPageDebug.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
             this.tabPageEditEquipment.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControlFFRKInspector
@@ -231,6 +231,24 @@
             this.ffrkViewDebugging1.Size = new System.Drawing.Size(716, 357);
             this.ffrkViewDebugging1.TabIndex = 0;
             // 
+            // tabPageEditEquipment
+            // 
+            this.tabPageEditEquipment.Controls.Add(this.ffrkViewEditItemStats1);
+            this.tabPageEditEquipment.Location = new System.Drawing.Point(4, 22);
+            this.tabPageEditEquipment.Name = "tabPageEditEquipment";
+            this.tabPageEditEquipment.Size = new System.Drawing.Size(716, 357);
+            this.tabPageEditEquipment.TabIndex = 9;
+            this.tabPageEditEquipment.Text = "Item Database";
+            this.tabPageEditEquipment.UseVisualStyleBackColor = true;
+            // 
+            // ffrkViewEditItemStats1
+            // 
+            this.ffrkViewEditItemStats1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ffrkViewEditItemStats1.Location = new System.Drawing.Point(0, 0);
+            this.ffrkViewEditItemStats1.Name = "ffrkViewEditItemStats1";
+            this.ffrkViewEditItemStats1.Size = new System.Drawing.Size(716, 357);
+            this.ffrkViewEditItemStats1.TabIndex = 0;
+            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -282,24 +300,6 @@
             this.toolStripStatusLabel6.Size = new System.Drawing.Size(49, 17);
             this.toolStripStatusLabel6.Text = "1234567";
             // 
-            // tabPageEditEquipment
-            // 
-            this.tabPageEditEquipment.Controls.Add(this.ffrkViewEditItemStats1);
-            this.tabPageEditEquipment.Location = new System.Drawing.Point(4, 22);
-            this.tabPageEditEquipment.Name = "tabPageEditEquipment";
-            this.tabPageEditEquipment.Size = new System.Drawing.Size(716, 357);
-            this.tabPageEditEquipment.TabIndex = 9;
-            this.tabPageEditEquipment.Text = "Edit Equipment";
-            this.tabPageEditEquipment.UseVisualStyleBackColor = true;
-            // 
-            // ffrkViewEditItemStats1
-            // 
-            this.ffrkViewEditItemStats1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ffrkViewEditItemStats1.Location = new System.Drawing.Point(0, 0);
-            this.ffrkViewEditItemStats1.Name = "ffrkViewEditItemStats1";
-            this.ffrkViewEditItemStats1.Size = new System.Drawing.Size(716, 357);
-            this.ffrkViewEditItemStats1.TabIndex = 0;
-            // 
             // FFRKTabInspector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -317,9 +317,9 @@
             this.tabPageInventory.ResumeLayout(false);
             this.tabPageAbout.ResumeLayout(false);
             this.tabPageDebug.ResumeLayout(false);
+            this.tabPageEditEquipment.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.tabPageEditEquipment.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

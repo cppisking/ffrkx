@@ -30,11 +30,15 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.missingItemsDataSet = new FFRKInspector.missingItemsDataSet();
             this.missingitemsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.missingItemsDataSet = new FFRKInspector.missingItemsDataSet();
             this.missing_itemsTableAdapter = new FFRKInspector.missingItemsDataSetTableAdapters.missing_itemsTableAdapter();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rarity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.series = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.subtype = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,18 +54,23 @@
             this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.missingItemsDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.missingitemsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.missingItemsDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
             this.dataGridViewTextBoxColumn2,
+            this.rarity,
+            this.series,
+            this.type,
+            this.subtype,
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn4,
             this.dataGridViewTextBoxColumn5,
@@ -83,15 +92,15 @@
             this.dataGridView1.Size = new System.Drawing.Size(798, 452);
             this.dataGridView1.TabIndex = 0;
             // 
-            // missingItemsDataSet
-            // 
-            this.missingItemsDataSet.DataSetName = "missingItemsDataSet";
-            this.missingItemsDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // missingitemsBindingSource
             // 
             this.missingitemsBindingSource.DataMember = "missing_items";
             this.missingitemsBindingSource.DataSource = this.missingItemsDataSet;
+            // 
+            // missingItemsDataSet
+            // 
+            this.missingItemsDataSet.DataSetName = "missingItemsDataSet";
+            this.missingItemsDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // missing_itemsTableAdapter
             // 
@@ -108,6 +117,31 @@
             this.dataGridViewTextBoxColumn2.DataPropertyName = "name";
             this.dataGridViewTextBoxColumn2.HeaderText = "name";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
+            // rarity
+            // 
+            this.rarity.DataPropertyName = "rarity";
+            this.rarity.HeaderText = "rarity";
+            this.rarity.Name = "rarity";
+            // 
+            // series
+            // 
+            this.series.DataPropertyName = "series";
+            this.series.HeaderText = "series";
+            this.series.Name = "series";
+            // 
+            // type
+            // 
+            this.type.DataPropertyName = "type";
+            this.type.HeaderText = "type";
+            this.type.Name = "type";
+            // 
+            // subtype
+            // 
+            this.subtype.DataPropertyName = "subtype";
+            this.subtype.DividerWidth = 3;
+            this.subtype.HeaderText = "subtype";
+            this.subtype.Name = "subtype";
             // 
             // dataGridViewTextBoxColumn3
             // 
@@ -148,6 +182,7 @@
             // dataGridViewTextBoxColumn9
             // 
             this.dataGridViewTextBoxColumn9.DataPropertyName = "base_mnd";
+            this.dataGridViewTextBoxColumn9.DividerWidth = 3;
             this.dataGridViewTextBoxColumn9.HeaderText = "base_mnd";
             this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
             // 
@@ -202,8 +237,8 @@
             this.Size = new System.Drawing.Size(798, 452);
             this.Load += new System.EventHandler(this.MissingItemsPanel_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.missingItemsDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.missingitemsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.missingItemsDataSet)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -227,8 +262,15 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn maxresDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn maxevaDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn maxmndDataGridViewTextBoxColumn;
+        private System.Windows.Forms.BindingSource missingitemsBindingSource;
+        private missingItemsDataSet missingItemsDataSet;
+        private missingItemsDataSetTableAdapters.missing_itemsTableAdapter missing_itemsTableAdapter;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rarity;
+        private System.Windows.Forms.DataGridViewTextBoxColumn series;
+        private System.Windows.Forms.DataGridViewTextBoxColumn type;
+        private System.Windows.Forms.DataGridViewTextBoxColumn subtype;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
@@ -243,8 +285,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn15;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn16;
-        private System.Windows.Forms.BindingSource missingitemsBindingSource;
-        private missingItemsDataSet missingItemsDataSet;
-        private missingItemsDataSetTableAdapters.missing_itemsTableAdapter missing_itemsTableAdapter;
     }
 }

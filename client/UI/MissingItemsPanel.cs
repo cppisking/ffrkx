@@ -20,7 +20,11 @@ namespace FFRKInspector.UI
 
         private void MissingItemsPanel_Load(object sender, EventArgs e)
         {
-            this.missing_itemsTableAdapter.Connection.ConnectionString = FFRKProxy.Instance.Database.ConnectionString;
+            if (DesignMode)
+                return;
+
+            if (FFRKProxy.Instance != null)
+                this.missing_itemsTableAdapter.Connection.ConnectionString = FFRKProxy.Instance.Database.ConnectionString;
         }
 
         public void Reload()

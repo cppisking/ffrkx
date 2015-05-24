@@ -25,6 +25,10 @@ CREATE TABLE `equipment_stats` (
 CREATE TABLE `missing_items` (
   `equipment_id` INT(10) UNSIGNED NOT NULL,
   `name` VARCHAR(45) NOT NULL,
+  `rarity` TINYINT UNSIGNED NULL,
+  `series` INT UNSIGNED NULL,
+  `type` TINYINT UNSIGNED NULL,
+  `subtype` TINYINT UNSIGNED NULL,
   `base_atk` SMALLINT NOT NULL,
   `base_mag` SMALLINT NOT NULL,
   `base_acc` SMALLINT NOT NULL,

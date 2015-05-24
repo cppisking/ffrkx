@@ -8,23 +8,35 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FFRKInspector.Proxy;
+using FFRKInspector.GameData;
 
 namespace FFRKInspector.UI
 {
     public partial class EditExistingItemsPanel : UserControl, FFRKDataBoundPanel
     {
-        private static readonly int kBaseStatsColumnZero = 2;
-        private static readonly int kMaxStatsColumnZero = 9;
+        private static readonly int kBaseStatsColumnZero = 5;
+        private static readonly int kMaxStatsColumnZero = 12;
 
         public EditExistingItemsPanel()
         {
             InitializeComponent();
+
+            type.CellTemplate = new EnumDataViewGridCell<SchemaConstants.ItemType>();
+            subtype.CellTemplate = new EnumDataViewGridCell<SchemaConstants.EquipmentCategory>();
         }
 
         private void EditExistingItemsPanel_Load(object sender, EventArgs e)
         {
-            this.equipment_statsTableAdapter.Connection.ConnectionString = FFRKProxy.Instance.Database.ConnectionString;
-            Reload();
+            if (DesignMode)
+                return;
+
+            if (FFRKProxy.Instance != null)
+            {
+                this.equipment_statsTableAdapter.Connection.ConnectionString = FFRKProxy.Instance.Database.ConnectionString;
+#if !ALLOW_ITEM_EDITING
+                this.equipment_statsTableAdapter.Adapter.UpdateCommand = null;
+#endif
+            }
         }
 
         public void Reload()
@@ -34,7 +46,11 @@ namespace FFRKInspector.UI
 
         public void Commit()
         {
+#if ALLOW_ITEM_EDITING
             this.equipment_statsTableAdapter.Update(this.equipmentStatsDataSet.equipment_stats);
+#else
+            MessageBox.Show("Editing items is not supported.  Use the missing items panel to submit missing or incorrect items.");
+#endif
         }
 
         private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
@@ -202,6 +218,15 @@ namespace FFRKInspector.UI
                 }
                 start_row_index++;
             }
+        }
+
+        private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+        }
+
+        private void dataGridView1_CellParsing(object sender, DataGridViewCellParsingEventArgs e)
+        {
+
         }
     }
 }

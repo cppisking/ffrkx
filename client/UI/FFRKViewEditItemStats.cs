@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FFRKInspector.Proxy;
+using MySql.Data.MySqlClient;
 
 namespace FFRKInspector.UI
 {
@@ -22,14 +23,12 @@ namespace FFRKInspector.UI
             InitializeComponent();
             mPanels = new List<UserControl>();
 
-#if ALLOW_ITEM_EDITING
             EditExistingItemsPanel edit_panel = new EditExistingItemsPanel();
             edit_panel.Dock = DockStyle.Fill;
             edit_panel.Location = new Point(0, 0);
             this.groupBox1.Controls.Add(edit_panel);
             mPanels.Add(edit_panel);
-            this.comboBox1.Items.Add("Edit existing items");
-#endif
+            this.comboBox1.Items.Add("Item database");
 
             MissingItemsPanel missing_panel = new MissingItemsPanel();
             missing_panel.Dock = DockStyle.Fill;
@@ -47,6 +46,9 @@ namespace FFRKInspector.UI
 
         private void FFRKViewEditItemStats_Load(object sender, EventArgs e)
         {
+            if (DesignMode)
+                return;
+
             try
             {
                 foreach (FFRKDataBoundPanel panel in mPanels)
@@ -66,7 +68,14 @@ namespace FFRKInspector.UI
         {
             if (mSelectedPanel == null)
                 return;
-            ((FFRKDataBoundPanel)mSelectedPanel).Commit();
+            try
+            {
+                ((FFRKDataBoundPanel)mSelectedPanel).Commit();
+            }
+            catch (MySqlException ex)
+            {
+                return;
+            }
         }
 
         private void buttonReload_Click(object sender, EventArgs e)
