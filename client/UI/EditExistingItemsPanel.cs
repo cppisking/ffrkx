@@ -95,7 +95,8 @@ namespace FFRKInspector.UI
                     else
                         col = kBaseStatsColumnZero;
                     dataGridView1.CurrentCell = dataGridView1.Rows[row].Cells[col];
-                    e.Handled = true;
+                    e.Handled = false;
+                    e.SuppressKeyPress = true;
                     break;
                 case Keys.Tab:
                     if (dataGridView1.CurrentCell == null)
@@ -215,11 +216,6 @@ namespace FFRKInspector.UI
                 }
                 start_row_index++;
             }
-        }
-
-        private void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
-        {
-            e.Control.KeyDown += dataGridView1_KeyDown;
         }
     }
 }

@@ -119,6 +119,9 @@
     <Compile Include="Proxy\HandleLeaveDungeon.cs" />
     <Compile Include="Proxy\HandleCompleteBattle.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="UI\DataGridViewEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\DeselectableListBox.cs">
       <SubType>Component</SubType>
     </Compile>
