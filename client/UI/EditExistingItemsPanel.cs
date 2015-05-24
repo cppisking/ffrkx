@@ -29,26 +29,12 @@ namespace FFRKInspector.UI
 
         public void Reload()
         {
-            try
-            {
-                this.equipment_statsTableAdapter.Fill(this.equipmentStatsDataSet.equipment_stats);
-            }
-            catch (System.Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
-            }
+            this.equipment_statsTableAdapter.Fill(this.equipmentStatsDataSet.equipment_stats);
         }
 
         public void Commit()
         {
-            try
-            {
-                this.equipment_statsTableAdapter.Update(this.equipmentStatsDataSet.equipment_stats);
-            }
-            catch (System.Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
-            }
+            this.equipment_statsTableAdapter.Update(this.equipmentStatsDataSet.equipment_stats);
         }
 
         private void dataGridView1_KeyDown(object sender, KeyEventArgs e)

@@ -41,28 +41,39 @@ namespace FFRKInspector.UI
             comboBox1.SelectedIndex = 0;
         }
 
+        private string sDatabaseLoadError = "Unable to load items from the database.  Check that you are " +
+                                            "using the latest version of FFRKInspector.  Functionality on this page " +
+                                            "will be disabled.";
+
         private void FFRKViewEditItemStats_Load(object sender, EventArgs e)
         {
+            try
+            {
+                foreach (FFRKDataBoundPanel panel in mPanels)
+                    panel.Reload();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(sDatabaseLoadError);
+                groupBox1.Controls.Clear();
+                mPanels.Clear();
+                mSelectedPanel = null;
+            }
+
         }
 
         private void buttonCommit_Click(object sender, EventArgs e)
         {
-            if (comboBox1.SelectedIndex != -1)
-            {
-                FFRKDataBoundPanel panel = mPanels[comboBox1.SelectedIndex] as FFRKDataBoundPanel;
-                if (panel != null)
-                    panel.Commit();
-            }
+            if (mSelectedPanel == null)
+                return;
+            ((FFRKDataBoundPanel)mSelectedPanel).Commit();
         }
 
         private void buttonReload_Click(object sender, EventArgs e)
         {
-            if (comboBox1.SelectedIndex != -1)
-            {
-                FFRKDataBoundPanel panel = mPanels[comboBox1.SelectedIndex] as FFRKDataBoundPanel;
-                if (panel != null)
-                    panel.Reload();
-            }
+            if (mSelectedPanel == null)
+                return;
+            ((FFRKDataBoundPanel)mSelectedPanel).Reload();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)

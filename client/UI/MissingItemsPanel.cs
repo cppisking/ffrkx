@@ -21,31 +21,16 @@ namespace FFRKInspector.UI
         private void MissingItemsPanel_Load(object sender, EventArgs e)
         {
             this.missing_itemsTableAdapter.Connection.ConnectionString = FFRKProxy.Instance.Database.ConnectionString;
-            Reload();
         }
 
         public void Reload()
         {
-            try
-            {
-                this.missing_itemsTableAdapter.Fill(this.missingItemsDataSet.missing_items);
-            }
-            catch (System.Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
-            }
+            this.missing_itemsTableAdapter.Fill(this.missingItemsDataSet.missing_items);
         }
 
         public void Commit()
         {
-            try
-            {
-                this.missing_itemsTableAdapter.Update(this.missingItemsDataSet.missing_items);
-            }
-            catch (System.Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
-            }
+            this.missing_itemsTableAdapter.Update(this.missingItemsDataSet.missing_items);
         }
     }
 }
