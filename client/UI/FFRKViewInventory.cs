@@ -88,6 +88,78 @@ namespace FFRKInspector.UI
             }
         }
 
+        private class SynergyColumnValue : IComparable
+        {
+            private RealmSynergy.SynergyValue mValue;
+            public SynergyColumnValue(RealmSynergy.SynergyValue Value)
+            {
+                mValue = Value;
+            }
+        
+            public int CompareTo(object obj)
+            {
+                return mValue.GameSeries.CompareTo(((SynergyColumnValue)obj).mValue.GameSeries);
+            }
+
+            public override string ToString()
+            {
+                return mValue.Text;
+            }
+        }
+
+        private class LevelColumnValue : IComparable
+        {
+            private int mCurrentLevel;
+            private int mMaxLevel;
+
+            public LevelColumnValue(int Current, int Max)
+            {
+                mCurrentLevel = Current;
+                mMaxLevel = Max;
+            }
+        
+            public int CompareTo(object obj)
+            {
+                LevelColumnValue other = (LevelColumnValue)obj;
+                int current_result = mCurrentLevel.CompareTo(other.mCurrentLevel);
+                if (current_result != 0)
+                    return current_result;
+                return mMaxLevel.CompareTo(other.mMaxLevel);
+            }
+
+            public override string ToString()
+            {
+                return String.Format("{0}/{1}", mCurrentLevel, mMaxLevel);
+            }
+        }
+
+        private class RarityColumnValue : IComparable
+        {
+            private int mBaseRarity;
+            private int mUpgrades;
+
+            public RarityColumnValue(int BaseRarity, int Upgrades)
+            {
+                mBaseRarity = BaseRarity;
+                mUpgrades = Upgrades;
+            }
+        
+            public int CompareTo(object obj)
+            {
+                RarityColumnValue other = (RarityColumnValue)obj;
+                int current_result = mBaseRarity.CompareTo(other.mBaseRarity);
+                if (current_result != 0)
+                    return current_result;
+                return mUpgrades.CompareTo(other.mUpgrades);
+            }
+
+            public override string ToString()
+            {
+                string result = mBaseRarity.ToString() + new string('+', mUpgrades);
+                return result;
+            }
+        }
+
         void FFRKProxy_OnPartyList(DataPartyDetails party)
         {
             BeginInvoke((Action)(() =>
@@ -103,31 +175,37 @@ namespace FFRKInspector.UI
                     row.Cells[dgcItem.Name].Value = equip.Name;
                     row.Cells[dgcCategory.Name].Value = equip.Category;
                     row.Cells[dgcType.Name].Value = equip.Type;
-                    row.Cells[dgcRarity.Name].Value = (int)equip.Rarity;
-                    row.Cells[dgcSynergy.Name].Value = RealmSynergy.FromSeries(equip.SeriesId).Text;
-                    row.Cells[dgcLevel.Name].Value = String.Format("{0}/{1}", equip.Level, equip.LevelMax);
+                    row.Cells[dgcRarity.Name].Value = new RarityColumnValue((int)equip.BaseRarity, (int)equip.EvolutionNumber);
+                    row.Cells[dgcSynergy.Name].Value = new SynergyColumnValue(RealmSynergy.FromSeries(equip.SeriesId));
+                    row.Cells[dgcLevel.Name].Value = new LevelColumnValue(equip.Level, equip.LevelMax);
 
                     EquipStats stats = ComputeDisplayStats(equip);
-                    SetStatsForRow(row, stats);
+                    SetStatsForRow(row, equip, stats);
                 }
             }));
         }
 
-        private void SetStatForCell(DataGridViewRow row, DataGridViewColumn col, short? value)
+        private void SetStatForCell(DataGridViewRow row, DataGridViewColumn col, short? actual_value, short? display_value)
         {
-            if (value == 0 || value == null)
+            if (display_value == 0 || display_value == null)
                 row.Cells[col.Name].Value = null;
             else
-                row.Cells[col.Name].Value = value;
+            {
+                row.Cells[col.Name].Value = display_value;
+                if (actual_value.Value != display_value.Value)
+                    row.Cells[col.Name].Style.ForeColor = Color.Yellow;
+                else
+                    row.Cells[col.Name].Style.ForeColor = Color.Black;
+            }
         }
 
-        private void SetStatsForRow(DataGridViewRow row, EquipStats stats)
+        private void SetStatsForRow(DataGridViewRow row, DataEquipmentInformation actual_stats, EquipStats display_stats)
         {
-            SetStatForCell(row, dgcATK, stats.Atk);
-            SetStatForCell(row, dgcMAG, stats.Mag);
-            SetStatForCell(row, dgcMND, stats.Mnd);
-            SetStatForCell(row, dgcDEF, stats.Def);
-            SetStatForCell(row, dgcRES, stats.Res);
+            SetStatForCell(row, dgcATK, actual_stats.Atk, display_stats.Atk);
+            SetStatForCell(row, dgcMAG, actual_stats.Mag, display_stats.Mag);
+            SetStatForCell(row, dgcMND, actual_stats.Mnd, display_stats.Mnd);
+            SetStatForCell(row, dgcDEF, actual_stats.Def, display_stats.Def);
+            SetStatForCell(row, dgcRES, actual_stats.Res, display_stats.Res);
         }
 
         private EquipStats ComputeDisplayStats(DataEquipmentInformation equip)
@@ -180,7 +258,7 @@ namespace FFRKInspector.UI
                 if (equipment == null)
                     continue;
                 EquipStats stats = ComputeDisplayStats(equipment);
-                SetStatsForRow(row, stats);
+                SetStatsForRow(row, equipment, stats);
             }
             if (dataGridView1.SortOrder != SortOrder.None)
             {
@@ -202,6 +280,21 @@ namespace FFRKInspector.UI
         private void comboBoxSynergy_SelectedIndexChanged(object sender, EventArgs e)
         {
             RecomputeAllItemStats();
+        }
+
+        private void dataGridView1_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
+        {
+            //if (e.Column == dgcSynergy)
+            //{
+            //    RealmSynergy.SynergyValue sv1 = RealmSynergy.FromName((string)e.CellValue1);
+            //    RealmSynergy.SynergyValue sv2 = RealmSynergy.FromName((string)e.CellValue2);
+            //    e.SortResult = sv1.GameSeries.CompareTo(sv2.GameSeries);
+            //    e.Handled = true;
+            //}
+            //else if (e.Column == dgcLevel)
+            //{
+
+            //}
         }
     }
 }
