@@ -8,6 +8,13 @@ namespace FFRKInspector.GameData
 {
     public static class SchemaConstants
     {
+        public enum EvolutionLevel : byte
+        {
+            Base = 0,
+            Plus = 1,
+            PlusPlus = 2
+        }
+
         // These correspond to values the game sends us.  We can just cast an
         // equipment category directly from the game to this type and it will
         // match.

@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using FFRKInspector.GameData;
+
 namespace FFRKInspector.GameData.Party
 {
     class DataEquipmentInformation
@@ -19,7 +21,7 @@ namespace FFRKInspector.GameData.Party
         public string Name;
 
         [JsonProperty("evolution_num")]
-        public byte EvolutionNumber;
+        public SchemaConstants.EvolutionLevel EvolutionNumber;
 
         [JsonProperty("level")]
         public byte Level;
@@ -38,6 +40,36 @@ namespace FFRKInspector.GameData.Party
 
         [JsonProperty("equipment_type")]
         public SchemaConstants.ItemType Type;
+
+        [JsonProperty("atk")]
+        public short Atk;
+        [JsonProperty("matk")]
+        public short Mag;
+        [JsonProperty("acc")]
+        public short Acc;
+        [JsonProperty("def")]
+        public short Def;
+        [JsonProperty("mdef")]
+        public short Res;
+        [JsonProperty("eva")]
+        public short Eva;
+        [JsonProperty("mnd")]
+        public short Mnd;
+
+        [JsonProperty("series_atk")]
+        public short SeriesAtk;
+        [JsonProperty("series_matk")]
+        public short SeriesMag;
+        [JsonProperty("series_acc")]
+        public short SeriesAcc;
+        [JsonProperty("series_def")]
+        public short SeriesDef;
+        [JsonProperty("series_mdef")]
+        public short SeriesRes;
+        [JsonProperty("series_eva")]
+        public short SeriesEva;
+        [JsonProperty("series_mnd")]
+        public short SeriesMnd;
 
         [JsonProperty("category_id")]
         public SchemaConstants.EquipmentCategory Category;

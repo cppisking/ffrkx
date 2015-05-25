@@ -84,6 +84,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EquipmentStatsDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="GameData\EquipStats.cs" />
+    <Compile Include="GameData\StatCalculator.cs" />
     <Compile Include="MissingItemsDataSet1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

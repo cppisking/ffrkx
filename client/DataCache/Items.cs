@@ -18,16 +18,12 @@ namespace FFRKInspector.DataCache.Items
         public byte Type;
         public byte Subtype;
         public uint? Series;
-        public EquipStats Stats;
+        public GameData.EquipStats BaseStats;
+        public GameData.EquipStats MaxStats;
 
         public override string ToString()
         {
             return Name;
         }
-    }
-
-    public class EquipStats
-    {
-
     }
 }

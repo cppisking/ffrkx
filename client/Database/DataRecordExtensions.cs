@@ -18,5 +18,16 @@ namespace FFRKInspector.Database
             }
             return false;
         }
+
+        public static T? GetValueOrNull<T>(this IDataRecord Record, string Column) where T : struct
+        {
+            int ordinal = Record.GetOrdinal(Column);
+            if (ordinal == -1)
+                return null;
+
+            if (Record.IsDBNull(ordinal))
+                return null;
+            return (T)Record[ordinal];
+        }
     }
 }
