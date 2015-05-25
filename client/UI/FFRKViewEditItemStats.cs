@@ -100,8 +100,11 @@ namespace FFRKInspector.UI
         {
             if (mSelectedPanel != null)
                 mSelectedPanel.Visible = false;
-            mSelectedPanel = mPanels[comboBox1.SelectedIndex];
-            mSelectedPanel.Visible = true;
+            if (comboBox1.SelectedIndex < mPanels.Count)
+            {
+                mSelectedPanel = mPanels[comboBox1.SelectedIndex];
+                mSelectedPanel.Visible = true;
+            }
         }
     }
 }
