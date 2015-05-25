@@ -33,9 +33,6 @@ namespace FFRKInspector.UI
             if (FFRKProxy.Instance != null)
             {
                 this.equipment_statsTableAdapter.Connection.ConnectionString = FFRKProxy.Instance.Database.ConnectionString;
-#if !ALLOW_ITEM_EDITING
-                this.equipment_statsTableAdapter.Adapter.UpdateCommand = null;
-#endif
             }
         }
 
@@ -46,11 +43,9 @@ namespace FFRKInspector.UI
 
         public void Commit()
         {
-#if ALLOW_ITEM_EDITING
-            this.equipment_statsTableAdapter.Update(this.equipmentStatsDataSet.equipment_stats);
-#else
-            MessageBox.Show("Editing items is not supported.  Use the missing items panel to submit missing or incorrect items.");
-#endif
+            int result = this.equipment_statsTableAdapter.Update(this.equipmentStatsDataSet.equipment_stats);
+            if (result > 0)
+                MessageBox.Show(String.Format("{0} items successfully updated.", result));
         }
 
         private void dataGridView1_KeyDown(object sender, KeyEventArgs e)

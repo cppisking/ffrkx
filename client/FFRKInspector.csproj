@@ -17,7 +17,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;ALLOW_ITEM_EDITING</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -234,6 +234,7 @@
     <Compile Include="UI\MissingItemsPanel.Designer.cs">
       <DependentUpon>MissingItemsPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\SeriesDataGridViewCell.cs" />
     <Compile Include="Utility\CriticalZ.cs" />
     <Compile Include="Utility\Histogram.cs" />
     <Compile Include="Utility\IConverter.cs" />

@@ -311,34 +311,6 @@ namespace FFRKInspector {
             
             private global::System.Data.DataColumn columnmax_mnd;
             
-            private global::System.Data.DataColumn columnbase_atk1;
-            
-            private global::System.Data.DataColumn columnbase_mag1;
-            
-            private global::System.Data.DataColumn columnbase_acc1;
-            
-            private global::System.Data.DataColumn columnbase_def1;
-            
-            private global::System.Data.DataColumn columnbase_res1;
-            
-            private global::System.Data.DataColumn columnbase_eva1;
-            
-            private global::System.Data.DataColumn columnbase_mnd1;
-            
-            private global::System.Data.DataColumn columnmax_atk1;
-            
-            private global::System.Data.DataColumn columnmax_mag1;
-            
-            private global::System.Data.DataColumn columnmax_acc1;
-            
-            private global::System.Data.DataColumn columnmax_def1;
-            
-            private global::System.Data.DataColumn columnmax_res1;
-            
-            private global::System.Data.DataColumn columnmax_eva1;
-            
-            private global::System.Data.DataColumn columnmax_mnd1;
-            
             private global::System.Data.DataColumn columnrarity;
             
             private global::System.Data.DataColumn columnseries;
@@ -510,118 +482,6 @@ namespace FFRKInspector {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn base_atk1Column {
-                get {
-                    return this.columnbase_atk1;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn base_mag1Column {
-                get {
-                    return this.columnbase_mag1;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn base_acc1Column {
-                get {
-                    return this.columnbase_acc1;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn base_def1Column {
-                get {
-                    return this.columnbase_def1;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn base_res1Column {
-                get {
-                    return this.columnbase_res1;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn base_eva1Column {
-                get {
-                    return this.columnbase_eva1;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn base_mnd1Column {
-                get {
-                    return this.columnbase_mnd1;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn max_atk1Column {
-                get {
-                    return this.columnmax_atk1;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn max_mag1Column {
-                get {
-                    return this.columnmax_mag1;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn max_acc1Column {
-                get {
-                    return this.columnmax_acc1;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn max_def1Column {
-                get {
-                    return this.columnmax_def1;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn max_res1Column {
-                get {
-                    return this.columnmax_res1;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn max_eva1Column {
-                get {
-                    return this.columnmax_eva1;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn max_mnd1Column {
-                get {
-                    return this.columnmax_mnd1;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn rarityColumn {
                 get {
                     return this.columnrarity;
@@ -706,20 +566,6 @@ namespace FFRKInspector {
                         ushort max_res, 
                         ushort max_eva, 
                         ushort max_mnd, 
-                        short base_atk1, 
-                        short base_mag1, 
-                        short base_acc1, 
-                        short base_def1, 
-                        short base_res1, 
-                        short base_eva1, 
-                        short base_mnd1, 
-                        short max_atk1, 
-                        short max_mag1, 
-                        short max_acc1, 
-                        short max_def1, 
-                        short max_res1, 
-                        short max_eva1, 
-                        short max_mnd1, 
                         byte rarity, 
                         uint series, 
                         byte subtype, 
@@ -742,20 +588,6 @@ namespace FFRKInspector {
                         max_res,
                         max_eva,
                         max_mnd,
-                        base_atk1,
-                        base_mag1,
-                        base_acc1,
-                        base_def1,
-                        base_res1,
-                        base_eva1,
-                        base_mnd1,
-                        max_atk1,
-                        max_mag1,
-                        max_acc1,
-                        max_def1,
-                        max_res1,
-                        max_eva1,
-                        max_mnd1,
                         rarity,
                         series,
                         subtype,
@@ -805,20 +637,6 @@ namespace FFRKInspector {
                 this.columnmax_res = base.Columns["max_res"];
                 this.columnmax_eva = base.Columns["max_eva"];
                 this.columnmax_mnd = base.Columns["max_mnd"];
-                this.columnbase_atk1 = base.Columns["base_atk1"];
-                this.columnbase_mag1 = base.Columns["base_mag1"];
-                this.columnbase_acc1 = base.Columns["base_acc1"];
-                this.columnbase_def1 = base.Columns["base_def1"];
-                this.columnbase_res1 = base.Columns["base_res1"];
-                this.columnbase_eva1 = base.Columns["base_eva1"];
-                this.columnbase_mnd1 = base.Columns["base_mnd1"];
-                this.columnmax_atk1 = base.Columns["max_atk1"];
-                this.columnmax_mag1 = base.Columns["max_mag1"];
-                this.columnmax_acc1 = base.Columns["max_acc1"];
-                this.columnmax_def1 = base.Columns["max_def1"];
-                this.columnmax_res1 = base.Columns["max_res1"];
-                this.columnmax_eva1 = base.Columns["max_eva1"];
-                this.columnmax_mnd1 = base.Columns["max_mnd1"];
                 this.columnrarity = base.Columns["rarity"];
                 this.columnseries = base.Columns["series"];
                 this.columnsubtype = base.Columns["subtype"];
@@ -860,34 +678,6 @@ namespace FFRKInspector {
                 base.Columns.Add(this.columnmax_eva);
                 this.columnmax_mnd = new global::System.Data.DataColumn("max_mnd", typeof(ushort), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnmax_mnd);
-                this.columnbase_atk1 = new global::System.Data.DataColumn("base_atk1", typeof(short), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnbase_atk1);
-                this.columnbase_mag1 = new global::System.Data.DataColumn("base_mag1", typeof(short), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnbase_mag1);
-                this.columnbase_acc1 = new global::System.Data.DataColumn("base_acc1", typeof(short), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnbase_acc1);
-                this.columnbase_def1 = new global::System.Data.DataColumn("base_def1", typeof(short), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnbase_def1);
-                this.columnbase_res1 = new global::System.Data.DataColumn("base_res1", typeof(short), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnbase_res1);
-                this.columnbase_eva1 = new global::System.Data.DataColumn("base_eva1", typeof(short), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnbase_eva1);
-                this.columnbase_mnd1 = new global::System.Data.DataColumn("base_mnd1", typeof(short), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnbase_mnd1);
-                this.columnmax_atk1 = new global::System.Data.DataColumn("max_atk1", typeof(short), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnmax_atk1);
-                this.columnmax_mag1 = new global::System.Data.DataColumn("max_mag1", typeof(short), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnmax_mag1);
-                this.columnmax_acc1 = new global::System.Data.DataColumn("max_acc1", typeof(short), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnmax_acc1);
-                this.columnmax_def1 = new global::System.Data.DataColumn("max_def1", typeof(short), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnmax_def1);
-                this.columnmax_res1 = new global::System.Data.DataColumn("max_res1", typeof(short), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnmax_res1);
-                this.columnmax_eva1 = new global::System.Data.DataColumn("max_eva1", typeof(short), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnmax_eva1);
-                this.columnmax_mnd1 = new global::System.Data.DataColumn("max_mnd1", typeof(short), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnmax_mnd1);
                 this.columnrarity = new global::System.Data.DataColumn("rarity", typeof(byte), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnrarity);
                 this.columnseries = new global::System.Data.DataColumn("series", typeof(uint), null, global::System.Data.MappingType.Element);
@@ -902,48 +692,6 @@ namespace FFRKInspector {
                 this.columnequipment_id.Unique = true;
                 this.columnname.AllowDBNull = false;
                 this.columnname.MaxLength = 45;
-                this.columnbase_atk.AllowDBNull = false;
-                this.columnbase_mag.AllowDBNull = false;
-                this.columnbase_acc.AllowDBNull = false;
-                this.columnbase_def.AllowDBNull = false;
-                this.columnbase_res.AllowDBNull = false;
-                this.columnbase_eva.AllowDBNull = false;
-                this.columnbase_mnd.AllowDBNull = false;
-                this.columnmax_atk.AllowDBNull = false;
-                this.columnmax_mag.AllowDBNull = false;
-                this.columnmax_acc.AllowDBNull = false;
-                this.columnmax_def.AllowDBNull = false;
-                this.columnmax_res.AllowDBNull = false;
-                this.columnmax_eva.AllowDBNull = false;
-                this.columnmax_mnd.AllowDBNull = false;
-                this.columnbase_atk1.AllowDBNull = false;
-                this.columnbase_atk1.Caption = "base_atk";
-                this.columnbase_mag1.AllowDBNull = false;
-                this.columnbase_mag1.Caption = "base_mag";
-                this.columnbase_acc1.AllowDBNull = false;
-                this.columnbase_acc1.Caption = "base_acc";
-                this.columnbase_def1.AllowDBNull = false;
-                this.columnbase_def1.Caption = "base_def";
-                this.columnbase_res1.AllowDBNull = false;
-                this.columnbase_res1.Caption = "base_res";
-                this.columnbase_eva1.AllowDBNull = false;
-                this.columnbase_eva1.Caption = "base_eva";
-                this.columnbase_mnd1.AllowDBNull = false;
-                this.columnbase_mnd1.Caption = "base_mnd";
-                this.columnmax_atk1.AllowDBNull = false;
-                this.columnmax_atk1.Caption = "max_atk";
-                this.columnmax_mag1.AllowDBNull = false;
-                this.columnmax_mag1.Caption = "max_mag";
-                this.columnmax_acc1.AllowDBNull = false;
-                this.columnmax_acc1.Caption = "max_acc";
-                this.columnmax_def1.AllowDBNull = false;
-                this.columnmax_def1.Caption = "max_def";
-                this.columnmax_res1.AllowDBNull = false;
-                this.columnmax_res1.Caption = "max_res";
-                this.columnmax_eva1.AllowDBNull = false;
-                this.columnmax_eva1.Caption = "max_eva";
-                this.columnmax_mnd1.AllowDBNull = false;
-                this.columnmax_mnd1.Caption = "max_mnd";
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1110,7 +858,12 @@ namespace FFRKInspector {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ushort base_atk {
                 get {
-                    return ((ushort)(this[this.tablemissing_items.base_atkColumn]));
+                    try {
+                        return ((ushort)(this[this.tablemissing_items.base_atkColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'base_atk\' in table \'missing_items\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tablemissing_items.base_atkColumn] = value;
@@ -1121,7 +874,12 @@ namespace FFRKInspector {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ushort base_mag {
                 get {
-                    return ((ushort)(this[this.tablemissing_items.base_magColumn]));
+                    try {
+                        return ((ushort)(this[this.tablemissing_items.base_magColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'base_mag\' in table \'missing_items\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tablemissing_items.base_magColumn] = value;
@@ -1132,7 +890,12 @@ namespace FFRKInspector {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ushort base_acc {
                 get {
-                    return ((ushort)(this[this.tablemissing_items.base_accColumn]));
+                    try {
+                        return ((ushort)(this[this.tablemissing_items.base_accColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'base_acc\' in table \'missing_items\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tablemissing_items.base_accColumn] = value;
@@ -1143,7 +906,12 @@ namespace FFRKInspector {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ushort base_def {
                 get {
-                    return ((ushort)(this[this.tablemissing_items.base_defColumn]));
+                    try {
+                        return ((ushort)(this[this.tablemissing_items.base_defColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'base_def\' in table \'missing_items\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tablemissing_items.base_defColumn] = value;
@@ -1154,7 +922,12 @@ namespace FFRKInspector {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ushort base_res {
                 get {
-                    return ((ushort)(this[this.tablemissing_items.base_resColumn]));
+                    try {
+                        return ((ushort)(this[this.tablemissing_items.base_resColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'base_res\' in table \'missing_items\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tablemissing_items.base_resColumn] = value;
@@ -1165,7 +938,12 @@ namespace FFRKInspector {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ushort base_eva {
                 get {
-                    return ((ushort)(this[this.tablemissing_items.base_evaColumn]));
+                    try {
+                        return ((ushort)(this[this.tablemissing_items.base_evaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'base_eva\' in table \'missing_items\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tablemissing_items.base_evaColumn] = value;
@@ -1176,7 +954,12 @@ namespace FFRKInspector {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ushort base_mnd {
                 get {
-                    return ((ushort)(this[this.tablemissing_items.base_mndColumn]));
+                    try {
+                        return ((ushort)(this[this.tablemissing_items.base_mndColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'base_mnd\' in table \'missing_items\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tablemissing_items.base_mndColumn] = value;
@@ -1187,7 +970,12 @@ namespace FFRKInspector {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ushort max_atk {
                 get {
-                    return ((ushort)(this[this.tablemissing_items.max_atkColumn]));
+                    try {
+                        return ((ushort)(this[this.tablemissing_items.max_atkColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'max_atk\' in table \'missing_items\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tablemissing_items.max_atkColumn] = value;
@@ -1198,7 +986,12 @@ namespace FFRKInspector {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ushort max_mag {
                 get {
-                    return ((ushort)(this[this.tablemissing_items.max_magColumn]));
+                    try {
+                        return ((ushort)(this[this.tablemissing_items.max_magColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'max_mag\' in table \'missing_items\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tablemissing_items.max_magColumn] = value;
@@ -1209,7 +1002,12 @@ namespace FFRKInspector {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ushort max_acc {
                 get {
-                    return ((ushort)(this[this.tablemissing_items.max_accColumn]));
+                    try {
+                        return ((ushort)(this[this.tablemissing_items.max_accColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'max_acc\' in table \'missing_items\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tablemissing_items.max_accColumn] = value;
@@ -1220,7 +1018,12 @@ namespace FFRKInspector {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ushort max_def {
                 get {
-                    return ((ushort)(this[this.tablemissing_items.max_defColumn]));
+                    try {
+                        return ((ushort)(this[this.tablemissing_items.max_defColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'max_def\' in table \'missing_items\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tablemissing_items.max_defColumn] = value;
@@ -1231,7 +1034,12 @@ namespace FFRKInspector {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ushort max_res {
                 get {
-                    return ((ushort)(this[this.tablemissing_items.max_resColumn]));
+                    try {
+                        return ((ushort)(this[this.tablemissing_items.max_resColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'max_res\' in table \'missing_items\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tablemissing_items.max_resColumn] = value;
@@ -1242,7 +1050,12 @@ namespace FFRKInspector {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ushort max_eva {
                 get {
-                    return ((ushort)(this[this.tablemissing_items.max_evaColumn]));
+                    try {
+                        return ((ushort)(this[this.tablemissing_items.max_evaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'max_eva\' in table \'missing_items\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tablemissing_items.max_evaColumn] = value;
@@ -1253,164 +1066,15 @@ namespace FFRKInspector {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ushort max_mnd {
                 get {
-                    return ((ushort)(this[this.tablemissing_items.max_mndColumn]));
+                    try {
+                        return ((ushort)(this[this.tablemissing_items.max_mndColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'max_mnd\' in table \'missing_items\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tablemissing_items.max_mndColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public short base_atk1 {
-                get {
-                    return ((short)(this[this.tablemissing_items.base_atk1Column]));
-                }
-                set {
-                    this[this.tablemissing_items.base_atk1Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public short base_mag1 {
-                get {
-                    return ((short)(this[this.tablemissing_items.base_mag1Column]));
-                }
-                set {
-                    this[this.tablemissing_items.base_mag1Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public short base_acc1 {
-                get {
-                    return ((short)(this[this.tablemissing_items.base_acc1Column]));
-                }
-                set {
-                    this[this.tablemissing_items.base_acc1Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public short base_def1 {
-                get {
-                    return ((short)(this[this.tablemissing_items.base_def1Column]));
-                }
-                set {
-                    this[this.tablemissing_items.base_def1Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public short base_res1 {
-                get {
-                    return ((short)(this[this.tablemissing_items.base_res1Column]));
-                }
-                set {
-                    this[this.tablemissing_items.base_res1Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public short base_eva1 {
-                get {
-                    return ((short)(this[this.tablemissing_items.base_eva1Column]));
-                }
-                set {
-                    this[this.tablemissing_items.base_eva1Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public short base_mnd1 {
-                get {
-                    return ((short)(this[this.tablemissing_items.base_mnd1Column]));
-                }
-                set {
-                    this[this.tablemissing_items.base_mnd1Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public short max_atk1 {
-                get {
-                    return ((short)(this[this.tablemissing_items.max_atk1Column]));
-                }
-                set {
-                    this[this.tablemissing_items.max_atk1Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public short max_mag1 {
-                get {
-                    return ((short)(this[this.tablemissing_items.max_mag1Column]));
-                }
-                set {
-                    this[this.tablemissing_items.max_mag1Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public short max_acc1 {
-                get {
-                    return ((short)(this[this.tablemissing_items.max_acc1Column]));
-                }
-                set {
-                    this[this.tablemissing_items.max_acc1Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public short max_def1 {
-                get {
-                    return ((short)(this[this.tablemissing_items.max_def1Column]));
-                }
-                set {
-                    this[this.tablemissing_items.max_def1Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public short max_res1 {
-                get {
-                    return ((short)(this[this.tablemissing_items.max_res1Column]));
-                }
-                set {
-                    this[this.tablemissing_items.max_res1Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public short max_eva1 {
-                get {
-                    return ((short)(this[this.tablemissing_items.max_eva1Column]));
-                }
-                set {
-                    this[this.tablemissing_items.max_eva1Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public short max_mnd1 {
-                get {
-                    return ((short)(this[this.tablemissing_items.max_mnd1Column]));
-                }
-                set {
-                    this[this.tablemissing_items.max_mnd1Column] = value;
                 }
             }
             
@@ -1476,6 +1140,174 @@ namespace FFRKInspector {
                 set {
                     this[this.tablemissing_items.typeColumn] = value;
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Isbase_atkNull() {
+                return this.IsNull(this.tablemissing_items.base_atkColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Setbase_atkNull() {
+                this[this.tablemissing_items.base_atkColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Isbase_magNull() {
+                return this.IsNull(this.tablemissing_items.base_magColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Setbase_magNull() {
+                this[this.tablemissing_items.base_magColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Isbase_accNull() {
+                return this.IsNull(this.tablemissing_items.base_accColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Setbase_accNull() {
+                this[this.tablemissing_items.base_accColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Isbase_defNull() {
+                return this.IsNull(this.tablemissing_items.base_defColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Setbase_defNull() {
+                this[this.tablemissing_items.base_defColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Isbase_resNull() {
+                return this.IsNull(this.tablemissing_items.base_resColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Setbase_resNull() {
+                this[this.tablemissing_items.base_resColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Isbase_evaNull() {
+                return this.IsNull(this.tablemissing_items.base_evaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Setbase_evaNull() {
+                this[this.tablemissing_items.base_evaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Isbase_mndNull() {
+                return this.IsNull(this.tablemissing_items.base_mndColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Setbase_mndNull() {
+                this[this.tablemissing_items.base_mndColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Ismax_atkNull() {
+                return this.IsNull(this.tablemissing_items.max_atkColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Setmax_atkNull() {
+                this[this.tablemissing_items.max_atkColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Ismax_magNull() {
+                return this.IsNull(this.tablemissing_items.max_magColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Setmax_magNull() {
+                this[this.tablemissing_items.max_magColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Ismax_accNull() {
+                return this.IsNull(this.tablemissing_items.max_accColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Setmax_accNull() {
+                this[this.tablemissing_items.max_accColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Ismax_defNull() {
+                return this.IsNull(this.tablemissing_items.max_defColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Setmax_defNull() {
+                this[this.tablemissing_items.max_defColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Ismax_resNull() {
+                return this.IsNull(this.tablemissing_items.max_resColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Setmax_resNull() {
+                this[this.tablemissing_items.max_resColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Ismax_evaNull() {
+                return this.IsNull(this.tablemissing_items.max_evaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Setmax_evaNull() {
+                this[this.tablemissing_items.max_evaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Ismax_mndNull() {
+                return this.IsNull(this.tablemissing_items.max_mndColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Setmax_mndNull() {
+                this[this.tablemissing_items.max_mndColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1688,20 +1520,6 @@ namespace FFRKInspector.missingItemsDataSetTableAdapters {
             tableMapping.DataSetTable = "missing_items";
             tableMapping.ColumnMappings.Add("equipment_id", "equipment_id");
             tableMapping.ColumnMappings.Add("name", "name");
-            tableMapping.ColumnMappings.Add("base_atk", "base_atk1");
-            tableMapping.ColumnMappings.Add("base_mag", "base_mag1");
-            tableMapping.ColumnMappings.Add("base_acc", "base_acc1");
-            tableMapping.ColumnMappings.Add("base_def", "base_def1");
-            tableMapping.ColumnMappings.Add("base_res", "base_res1");
-            tableMapping.ColumnMappings.Add("base_eva", "base_eva1");
-            tableMapping.ColumnMappings.Add("base_mnd", "base_mnd1");
-            tableMapping.ColumnMappings.Add("max_atk", "max_atk1");
-            tableMapping.ColumnMappings.Add("max_mag", "max_mag1");
-            tableMapping.ColumnMappings.Add("max_acc", "max_acc1");
-            tableMapping.ColumnMappings.Add("max_def", "max_def1");
-            tableMapping.ColumnMappings.Add("max_res", "max_res1");
-            tableMapping.ColumnMappings.Add("max_eva", "max_eva1");
-            tableMapping.ColumnMappings.Add("max_mnd", "max_mnd1");
             tableMapping.ColumnMappings.Add("rarity", "rarity");
             tableMapping.ColumnMappings.Add("series", "series");
             tableMapping.ColumnMappings.Add("subtype", "subtype");
@@ -1709,202 +1527,14 @@ namespace FFRKInspector.missingItemsDataSetTableAdapters {
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `missing_items` WHERE ((`equipment_id` = @p1) AND (`name` = @p2) AND (`base_atk` = @p3) AND (`base_mag` = @p4) AND (`base_acc` = @p5) AND (`base_def` = @p6) AND (`base_res` = @p7) AND (`base_eva` = @p8) AND (`base_mnd` = @p9) AND (`max_atk` = @p10) AND (`max_mag` = @p11) AND (`max_acc` = @p12) AND (`max_def` = @p13) AND (`max_res` = @p14) AND (`max_eva` = @p15) AND (`max_mnd` = @p16) AND ((@p17 = 1 AND `rarity` IS NULL) OR (`rarity` = @p18)) AND ((@p19 = 1 AND `series` IS NULL) OR (`series` = @p20)) AND ((@p21 = 1 AND `subtype` IS NULL) OR (`subtype` = @p22)) AND ((@p23 = 1 AND `type` IS NULL) OR (`type` = @p24)))";
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM missing_items\r\nWHERE        (equipment_id = @p1)";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             global::MySql.Data.MySqlClient.MySqlParameter param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@p1";
-            param.DbType = global::System.Data.DbType.UInt32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.UInt32;
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
             param.IsNullable = true;
             param.SourceColumn = "equipment_id";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p2";
-            param.DbType = global::System.Data.DbType.String;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
-            param.IsNullable = true;
-            param.SourceColumn = "name";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p3";
-            param.DbType = global::System.Data.DbType.Int16;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int16;
-            param.IsNullable = true;
-            param.SourceColumn = "base_atk";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p4";
-            param.DbType = global::System.Data.DbType.Int16;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int16;
-            param.IsNullable = true;
-            param.SourceColumn = "base_mag";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p5";
-            param.DbType = global::System.Data.DbType.Int16;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int16;
-            param.IsNullable = true;
-            param.SourceColumn = "base_acc";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p6";
-            param.DbType = global::System.Data.DbType.Int16;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int16;
-            param.IsNullable = true;
-            param.SourceColumn = "base_def";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p7";
-            param.DbType = global::System.Data.DbType.Int16;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int16;
-            param.IsNullable = true;
-            param.SourceColumn = "base_res";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p8";
-            param.DbType = global::System.Data.DbType.Int16;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int16;
-            param.IsNullable = true;
-            param.SourceColumn = "base_eva";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p9";
-            param.DbType = global::System.Data.DbType.Int16;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int16;
-            param.IsNullable = true;
-            param.SourceColumn = "base_mnd";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p10";
-            param.DbType = global::System.Data.DbType.Int16;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int16;
-            param.IsNullable = true;
-            param.SourceColumn = "max_atk";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p11";
-            param.DbType = global::System.Data.DbType.Int16;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int16;
-            param.IsNullable = true;
-            param.SourceColumn = "max_mag";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p12";
-            param.DbType = global::System.Data.DbType.Int16;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int16;
-            param.IsNullable = true;
-            param.SourceColumn = "max_acc";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p13";
-            param.DbType = global::System.Data.DbType.Int16;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int16;
-            param.IsNullable = true;
-            param.SourceColumn = "max_def";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p14";
-            param.DbType = global::System.Data.DbType.Int16;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int16;
-            param.IsNullable = true;
-            param.SourceColumn = "max_res";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p15";
-            param.DbType = global::System.Data.DbType.Int16;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int16;
-            param.IsNullable = true;
-            param.SourceColumn = "max_eva";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p16";
-            param.DbType = global::System.Data.DbType.Int16;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int16;
-            param.IsNullable = true;
-            param.SourceColumn = "max_mnd";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p17";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
-            param.IsNullable = true;
-            param.SourceColumn = "rarity";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            param.SourceColumnNullMapping = true;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p18";
-            param.DbType = global::System.Data.DbType.Byte;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.UByte;
-            param.IsNullable = true;
-            param.SourceColumn = "rarity";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p19";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
-            param.IsNullable = true;
-            param.SourceColumn = "series";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            param.SourceColumnNullMapping = true;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p20";
-            param.DbType = global::System.Data.DbType.UInt32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.UInt32;
-            param.IsNullable = true;
-            param.SourceColumn = "series";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p21";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
-            param.IsNullable = true;
-            param.SourceColumn = "subtype";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            param.SourceColumnNullMapping = true;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p22";
-            param.DbType = global::System.Data.DbType.Byte;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.UByte;
-            param.IsNullable = true;
-            param.SourceColumn = "subtype";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p23";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
-            param.IsNullable = true;
-            param.SourceColumn = "type";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            param.SourceColumnNullMapping = true;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p24";
-            param.DbType = global::System.Data.DbType.Byte;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.UByte;
-            param.IsNullable = true;
-            param.SourceColumn = "type";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
             this._adapter.DeleteCommand.Parameters.Add(param);
             this._adapter.InsertCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
@@ -2053,19 +1683,17 @@ namespace FFRKInspector.missingItemsDataSetTableAdapters {
             this._adapter.InsertCommand.Parameters.Add(param);
             this._adapter.UpdateCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE `missing_items` SET `equipment_id` = @p1, `name` = @p2, `base_atk` = @p3, `base_mag` = @p4, `base_acc` = @p5, `base_def` = @p6, `base_res` = @p7, `base_eva` = @p8, `base_mnd` = @p9, `max_atk` = @p10, `max_mag` = @p11, `max_acc` = @p12, `max_def` = @p13, `max_res` = @p14, `max_eva` = @p15, `max_mnd` = @p16, `rarity` = @p17, `series` = @p18, `subtype` = @p19, `type` = @p20 WHERE ((`equipment_id` = @p21) AND (`name` = @p22) AND (`base_atk` = @p23) AND (`base_mag` = @p24) AND (`base_acc` = @p25) AND (`base_def` = @p26) AND (`base_res` = @p27) AND (`base_eva` = @p28) AND (`base_mnd` = @p29) AND (`max_atk` = @p30) AND (`max_mag` = @p31) AND (`max_acc` = @p32) AND (`max_def` = @p33) AND (`max_res` = @p34) AND (`max_eva` = @p35) AND (`max_mnd` = @p36) AND ((@p37 = 1 AND `rarity` IS NULL) OR (`rarity` = @p38)) AND ((@p39 = 1 AND `series` IS NULL) OR (`series` = @p40)) AND ((@p41 = 1 AND `subtype` IS NULL) OR (`subtype` = @p42)) AND ((@p43 = 1 AND `type` IS NULL) OR (`type` = @p44)))";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE       missing_items
+SET                name = @p2, base_atk = @p3, base_mag = @p4, base_acc = @p5, base_def = @p6, base_res = @p7, base_eva = @p8, base_mnd = @p9, max_atk = @p10, 
+                         max_mag = @p11, max_acc = @p12, max_def = @p13, max_res = @p14, max_eva = @p15, max_mnd = @p16, rarity = @p17, series = @p18, subtype = @p19, 
+                         type = @p20
+WHERE        (equipment_id = @p21)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p1";
-            param.DbType = global::System.Data.DbType.UInt32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.UInt32;
-            param.IsNullable = true;
-            param.SourceColumn = "equipment_id";
-            this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@p2";
             param.DbType = global::System.Data.DbType.String;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
+            param.Size = 45;
             param.IsNullable = true;
             param.SourceColumn = "name";
             this._adapter.UpdateCommand.Parameters.Add(param);
@@ -2169,226 +1797,41 @@ namespace FFRKInspector.missingItemsDataSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@p17";
-            param.DbType = global::System.Data.DbType.Byte;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.UByte;
+            param.DbType = global::System.Data.DbType.Object;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Byte;
+            param.Size = 1024;
             param.IsNullable = true;
             param.SourceColumn = "rarity";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@p18";
-            param.DbType = global::System.Data.DbType.UInt32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.UInt32;
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
             param.IsNullable = true;
             param.SourceColumn = "series";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@p19";
-            param.DbType = global::System.Data.DbType.Byte;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.UByte;
+            param.DbType = global::System.Data.DbType.Object;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Byte;
+            param.Size = 1024;
             param.IsNullable = true;
             param.SourceColumn = "subtype";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@p20";
-            param.DbType = global::System.Data.DbType.Byte;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.UByte;
+            param.DbType = global::System.Data.DbType.Object;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Byte;
+            param.Size = 1024;
             param.IsNullable = true;
             param.SourceColumn = "type";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@p21";
-            param.DbType = global::System.Data.DbType.UInt32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.UInt32;
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
             param.IsNullable = true;
             param.SourceColumn = "equipment_id";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p22";
-            param.DbType = global::System.Data.DbType.String;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
-            param.IsNullable = true;
-            param.SourceColumn = "name";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p23";
-            param.DbType = global::System.Data.DbType.Int16;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int16;
-            param.IsNullable = true;
-            param.SourceColumn = "base_atk";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p24";
-            param.DbType = global::System.Data.DbType.Int16;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int16;
-            param.IsNullable = true;
-            param.SourceColumn = "base_mag";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p25";
-            param.DbType = global::System.Data.DbType.Int16;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int16;
-            param.IsNullable = true;
-            param.SourceColumn = "base_acc";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p26";
-            param.DbType = global::System.Data.DbType.Int16;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int16;
-            param.IsNullable = true;
-            param.SourceColumn = "base_def";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p27";
-            param.DbType = global::System.Data.DbType.Int16;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int16;
-            param.IsNullable = true;
-            param.SourceColumn = "base_res";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p28";
-            param.DbType = global::System.Data.DbType.Int16;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int16;
-            param.IsNullable = true;
-            param.SourceColumn = "base_eva";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p29";
-            param.DbType = global::System.Data.DbType.Int16;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int16;
-            param.IsNullable = true;
-            param.SourceColumn = "base_mnd";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p30";
-            param.DbType = global::System.Data.DbType.Int16;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int16;
-            param.IsNullable = true;
-            param.SourceColumn = "max_atk";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p31";
-            param.DbType = global::System.Data.DbType.Int16;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int16;
-            param.IsNullable = true;
-            param.SourceColumn = "max_mag";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p32";
-            param.DbType = global::System.Data.DbType.Int16;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int16;
-            param.IsNullable = true;
-            param.SourceColumn = "max_acc";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p33";
-            param.DbType = global::System.Data.DbType.Int16;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int16;
-            param.IsNullable = true;
-            param.SourceColumn = "max_def";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p34";
-            param.DbType = global::System.Data.DbType.Int16;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int16;
-            param.IsNullable = true;
-            param.SourceColumn = "max_res";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p35";
-            param.DbType = global::System.Data.DbType.Int16;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int16;
-            param.IsNullable = true;
-            param.SourceColumn = "max_eva";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p36";
-            param.DbType = global::System.Data.DbType.Int16;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int16;
-            param.IsNullable = true;
-            param.SourceColumn = "max_mnd";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p37";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
-            param.IsNullable = true;
-            param.SourceColumn = "rarity";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            param.SourceColumnNullMapping = true;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p38";
-            param.DbType = global::System.Data.DbType.Byte;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.UByte;
-            param.IsNullable = true;
-            param.SourceColumn = "rarity";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p39";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
-            param.IsNullable = true;
-            param.SourceColumn = "series";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            param.SourceColumnNullMapping = true;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p40";
-            param.DbType = global::System.Data.DbType.UInt32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.UInt32;
-            param.IsNullable = true;
-            param.SourceColumn = "series";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p41";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
-            param.IsNullable = true;
-            param.SourceColumn = "subtype";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            param.SourceColumnNullMapping = true;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p42";
-            param.DbType = global::System.Data.DbType.Byte;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.UByte;
-            param.IsNullable = true;
-            param.SourceColumn = "subtype";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p43";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
-            param.IsNullable = true;
-            param.SourceColumn = "type";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            param.SourceColumnNullMapping = true;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@p44";
-            param.DbType = global::System.Data.DbType.Byte;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.UByte;
-            param.IsNullable = true;
-            param.SourceColumn = "type";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
             this._adapter.UpdateCommand.Parameters.Add(param);
         }
@@ -2470,80 +1913,8 @@ namespace FFRKInspector.missingItemsDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(
-                    uint p1, 
-                    string p2, 
-                    short p3, 
-                    short p4, 
-                    short p5, 
-                    short p6, 
-                    short p7, 
-                    short p8, 
-                    short p9, 
-                    short p10, 
-                    short p11, 
-                    short p12, 
-                    short p13, 
-                    short p14, 
-                    short p15, 
-                    short p16, 
-                    global::System.Nullable<byte> p18, 
-                    global::System.Nullable<uint> p20, 
-                    global::System.Nullable<byte> p22, 
-                    global::System.Nullable<byte> p24) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((uint)(p1));
-            if ((p2 == null)) {
-                throw new global::System.ArgumentNullException("p2");
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((string)(p2));
-            }
-            this.Adapter.DeleteCommand.Parameters[2].Value = ((short)(p3));
-            this.Adapter.DeleteCommand.Parameters[3].Value = ((short)(p4));
-            this.Adapter.DeleteCommand.Parameters[4].Value = ((short)(p5));
-            this.Adapter.DeleteCommand.Parameters[5].Value = ((short)(p6));
-            this.Adapter.DeleteCommand.Parameters[6].Value = ((short)(p7));
-            this.Adapter.DeleteCommand.Parameters[7].Value = ((short)(p8));
-            this.Adapter.DeleteCommand.Parameters[8].Value = ((short)(p9));
-            this.Adapter.DeleteCommand.Parameters[9].Value = ((short)(p10));
-            this.Adapter.DeleteCommand.Parameters[10].Value = ((short)(p11));
-            this.Adapter.DeleteCommand.Parameters[11].Value = ((short)(p12));
-            this.Adapter.DeleteCommand.Parameters[12].Value = ((short)(p13));
-            this.Adapter.DeleteCommand.Parameters[13].Value = ((short)(p14));
-            this.Adapter.DeleteCommand.Parameters[14].Value = ((short)(p15));
-            this.Adapter.DeleteCommand.Parameters[15].Value = ((short)(p16));
-            if ((p18.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[16].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[17].Value = ((byte)(p18.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[16].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[17].Value = global::System.DBNull.Value;
-            }
-            if ((p20.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[18].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[19].Value = ((uint)(p20.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[18].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[19].Value = global::System.DBNull.Value;
-            }
-            if ((p22.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[20].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[21].Value = ((byte)(p22.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[20].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[21].Value = global::System.DBNull.Value;
-            }
-            if ((p24.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[22].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[23].Value = ((byte)(p24.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[22].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[23].Value = global::System.DBNull.Value;
-            }
+        public virtual int Delete(int p1) {
+            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(p1));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -2567,20 +1938,20 @@ namespace FFRKInspector.missingItemsDataSetTableAdapters {
         public virtual int Insert(
                     uint p1, 
                     string p2, 
-                    short p3, 
-                    short p4, 
-                    short p5, 
-                    short p6, 
-                    short p7, 
-                    short p8, 
-                    short p9, 
-                    short p10, 
-                    short p11, 
-                    short p12, 
-                    short p13, 
-                    short p14, 
-                    short p15, 
-                    short p16, 
+                    global::System.Nullable<short> p3, 
+                    global::System.Nullable<short> p4, 
+                    global::System.Nullable<short> p5, 
+                    global::System.Nullable<short> p6, 
+                    global::System.Nullable<short> p7, 
+                    global::System.Nullable<short> p8, 
+                    global::System.Nullable<short> p9, 
+                    global::System.Nullable<short> p10, 
+                    global::System.Nullable<short> p11, 
+                    global::System.Nullable<short> p12, 
+                    global::System.Nullable<short> p13, 
+                    global::System.Nullable<short> p14, 
+                    global::System.Nullable<short> p15, 
+                    global::System.Nullable<short> p16, 
                     global::System.Nullable<byte> p17, 
                     global::System.Nullable<uint> p18, 
                     global::System.Nullable<byte> p19, 
@@ -2592,20 +1963,90 @@ namespace FFRKInspector.missingItemsDataSetTableAdapters {
             else {
                 this.Adapter.InsertCommand.Parameters[1].Value = ((string)(p2));
             }
-            this.Adapter.InsertCommand.Parameters[2].Value = ((short)(p3));
-            this.Adapter.InsertCommand.Parameters[3].Value = ((short)(p4));
-            this.Adapter.InsertCommand.Parameters[4].Value = ((short)(p5));
-            this.Adapter.InsertCommand.Parameters[5].Value = ((short)(p6));
-            this.Adapter.InsertCommand.Parameters[6].Value = ((short)(p7));
-            this.Adapter.InsertCommand.Parameters[7].Value = ((short)(p8));
-            this.Adapter.InsertCommand.Parameters[8].Value = ((short)(p9));
-            this.Adapter.InsertCommand.Parameters[9].Value = ((short)(p10));
-            this.Adapter.InsertCommand.Parameters[10].Value = ((short)(p11));
-            this.Adapter.InsertCommand.Parameters[11].Value = ((short)(p12));
-            this.Adapter.InsertCommand.Parameters[12].Value = ((short)(p13));
-            this.Adapter.InsertCommand.Parameters[13].Value = ((short)(p14));
-            this.Adapter.InsertCommand.Parameters[14].Value = ((short)(p15));
-            this.Adapter.InsertCommand.Parameters[15].Value = ((short)(p16));
+            if ((p3.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((short)(p3.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            if ((p4.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[3].Value = ((short)(p4.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            if ((p5.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[4].Value = ((short)(p5.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            if ((p6.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[5].Value = ((short)(p6.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            if ((p7.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[6].Value = ((short)(p7.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            if ((p8.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[7].Value = ((short)(p8.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[7].Value = global::System.DBNull.Value;
+            }
+            if ((p9.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[8].Value = ((short)(p9.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[8].Value = global::System.DBNull.Value;
+            }
+            if ((p10.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[9].Value = ((short)(p10.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[9].Value = global::System.DBNull.Value;
+            }
+            if ((p11.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[10].Value = ((short)(p11.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[10].Value = global::System.DBNull.Value;
+            }
+            if ((p12.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[11].Value = ((short)(p12.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[11].Value = global::System.DBNull.Value;
+            }
+            if ((p13.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[12].Value = ((short)(p13.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[12].Value = global::System.DBNull.Value;
+            }
+            if ((p14.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[13].Value = ((short)(p14.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[13].Value = global::System.DBNull.Value;
+            }
+            if ((p15.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[14].Value = ((short)(p15.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[14].Value = global::System.DBNull.Value;
+            }
+            if ((p16.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[15].Value = ((short)(p16.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[15].Value = global::System.DBNull.Value;
+            }
             if ((p17.HasValue == true)) {
                 this.Adapter.InsertCommand.Parameters[16].Value = ((byte)(p17.Value));
             }
@@ -2651,144 +2092,136 @@ namespace FFRKInspector.missingItemsDataSetTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(
-                    uint p1, 
                     string p2, 
-                    short p3, 
-                    short p4, 
-                    short p5, 
-                    short p6, 
-                    short p7, 
-                    short p8, 
-                    short p9, 
-                    short p10, 
-                    short p11, 
-                    short p12, 
-                    short p13, 
-                    short p14, 
-                    short p15, 
-                    short p16, 
-                    global::System.Nullable<byte> p17, 
-                    global::System.Nullable<uint> p18, 
-                    global::System.Nullable<byte> p19, 
-                    global::System.Nullable<byte> p20, 
-                    uint p21, 
-                    string p22, 
-                    short p23, 
-                    short p24, 
-                    short p25, 
-                    short p26, 
-                    short p27, 
-                    short p28, 
-                    short p29, 
-                    short p30, 
-                    short p31, 
-                    short p32, 
-                    short p33, 
-                    short p34, 
-                    short p35, 
-                    short p36, 
-                    global::System.Nullable<byte> p38, 
-                    global::System.Nullable<uint> p40, 
-                    global::System.Nullable<byte> p42, 
-                    global::System.Nullable<byte> p44) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((uint)(p1));
+                    global::System.Nullable<short> p3, 
+                    global::System.Nullable<short> p4, 
+                    global::System.Nullable<short> p5, 
+                    global::System.Nullable<short> p6, 
+                    global::System.Nullable<short> p7, 
+                    global::System.Nullable<short> p8, 
+                    global::System.Nullable<short> p9, 
+                    global::System.Nullable<short> p10, 
+                    global::System.Nullable<short> p11, 
+                    global::System.Nullable<short> p12, 
+                    global::System.Nullable<short> p13, 
+                    global::System.Nullable<short> p14, 
+                    global::System.Nullable<short> p15, 
+                    global::System.Nullable<short> p16, 
+                    object p17, 
+                    int p18, 
+                    object p19, 
+                    object p20, 
+                    int p21) {
             if ((p2 == null)) {
                 throw new global::System.ArgumentNullException("p2");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(p2));
+                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(p2));
             }
-            this.Adapter.UpdateCommand.Parameters[2].Value = ((short)(p3));
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((short)(p4));
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((short)(p5));
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((short)(p6));
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((short)(p7));
-            this.Adapter.UpdateCommand.Parameters[7].Value = ((short)(p8));
-            this.Adapter.UpdateCommand.Parameters[8].Value = ((short)(p9));
-            this.Adapter.UpdateCommand.Parameters[9].Value = ((short)(p10));
-            this.Adapter.UpdateCommand.Parameters[10].Value = ((short)(p11));
-            this.Adapter.UpdateCommand.Parameters[11].Value = ((short)(p12));
-            this.Adapter.UpdateCommand.Parameters[12].Value = ((short)(p13));
-            this.Adapter.UpdateCommand.Parameters[13].Value = ((short)(p14));
-            this.Adapter.UpdateCommand.Parameters[14].Value = ((short)(p15));
-            this.Adapter.UpdateCommand.Parameters[15].Value = ((short)(p16));
-            if ((p17.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[16].Value = ((byte)(p17.Value));
+            if ((p3.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((short)(p3.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[16].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
-            if ((p18.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[17].Value = ((uint)(p18.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[17].Value = global::System.DBNull.Value;
-            }
-            if ((p19.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((byte)(p19.Value));
+            if ((p4.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((short)(p4.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[18].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
-            if ((p20.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[19].Value = ((byte)(p20.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[19].Value = global::System.DBNull.Value;
-            }
-            this.Adapter.UpdateCommand.Parameters[20].Value = ((uint)(p21));
-            if ((p22 == null)) {
-                throw new global::System.ArgumentNullException("p22");
+            if ((p5.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((short)(p5.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[21].Value = ((string)(p22));
+                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[22].Value = ((short)(p23));
-            this.Adapter.UpdateCommand.Parameters[23].Value = ((short)(p24));
-            this.Adapter.UpdateCommand.Parameters[24].Value = ((short)(p25));
-            this.Adapter.UpdateCommand.Parameters[25].Value = ((short)(p26));
-            this.Adapter.UpdateCommand.Parameters[26].Value = ((short)(p27));
-            this.Adapter.UpdateCommand.Parameters[27].Value = ((short)(p28));
-            this.Adapter.UpdateCommand.Parameters[28].Value = ((short)(p29));
-            this.Adapter.UpdateCommand.Parameters[29].Value = ((short)(p30));
-            this.Adapter.UpdateCommand.Parameters[30].Value = ((short)(p31));
-            this.Adapter.UpdateCommand.Parameters[31].Value = ((short)(p32));
-            this.Adapter.UpdateCommand.Parameters[32].Value = ((short)(p33));
-            this.Adapter.UpdateCommand.Parameters[33].Value = ((short)(p34));
-            this.Adapter.UpdateCommand.Parameters[34].Value = ((short)(p35));
-            this.Adapter.UpdateCommand.Parameters[35].Value = ((short)(p36));
-            if ((p38.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[36].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[37].Value = ((byte)(p38.Value));
+            if ((p6.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((short)(p6.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[36].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[37].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
-            if ((p40.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[38].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[39].Value = ((uint)(p40.Value));
+            if ((p7.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((short)(p7.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[38].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[39].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
-            if ((p42.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[40].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[41].Value = ((byte)(p42.Value));
+            if ((p8.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((short)(p8.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[40].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[41].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
-            if ((p44.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[42].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[43].Value = ((byte)(p44.Value));
+            if ((p9.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((short)(p9.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[42].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[43].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
+            if ((p10.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((short)(p10.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
+            }
+            if ((p11.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((short)(p11.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
+            }
+            if ((p12.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((short)(p12.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
+            }
+            if ((p13.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((short)(p13.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[11].Value = global::System.DBNull.Value;
+            }
+            if ((p14.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((short)(p14.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
+            }
+            if ((p15.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((short)(p15.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[13].Value = global::System.DBNull.Value;
+            }
+            if ((p16.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[14].Value = ((short)(p16.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[14].Value = global::System.DBNull.Value;
+            }
+            if ((p17 == null)) {
+                throw new global::System.ArgumentNullException("p17");
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(p17));
+            }
+            this.Adapter.UpdateCommand.Parameters[16].Value = ((int)(p18));
+            if ((p19 == null)) {
+                throw new global::System.ArgumentNullException("p19");
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[17].Value = ((object)(p19));
+            }
+            if ((p20 == null)) {
+                throw new global::System.ArgumentNullException("p20");
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(p20));
+            }
+            this.Adapter.UpdateCommand.Parameters[19].Value = ((int)(p21));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -2803,53 +2236,6 @@ namespace FFRKInspector.missingItemsDataSetTableAdapters {
                     this.Adapter.UpdateCommand.Connection.Close();
                 }
             }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(
-                    string p2, 
-                    short p3, 
-                    short p4, 
-                    short p5, 
-                    short p6, 
-                    short p7, 
-                    short p8, 
-                    short p9, 
-                    short p10, 
-                    short p11, 
-                    short p12, 
-                    short p13, 
-                    short p14, 
-                    short p15, 
-                    short p16, 
-                    global::System.Nullable<byte> p17, 
-                    global::System.Nullable<uint> p18, 
-                    global::System.Nullable<byte> p19, 
-                    global::System.Nullable<byte> p20, 
-                    uint p21, 
-                    string p22, 
-                    short p23, 
-                    short p24, 
-                    short p25, 
-                    short p26, 
-                    short p27, 
-                    short p28, 
-                    short p29, 
-                    short p30, 
-                    short p31, 
-                    short p32, 
-                    short p33, 
-                    short p34, 
-                    short p35, 
-                    short p36, 
-                    global::System.Nullable<byte> p38, 
-                    global::System.Nullable<uint> p40, 
-                    global::System.Nullable<byte> p42, 
-                    global::System.Nullable<byte> p44) {
-            return this.Update(p21, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28, p29, p30, p31, p32, p33, p34, p35, p36, p38, p40, p42, p44);
         }
     }
     

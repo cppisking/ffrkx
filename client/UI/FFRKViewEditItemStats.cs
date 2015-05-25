@@ -28,14 +28,14 @@ namespace FFRKInspector.UI
             edit_panel.Location = new Point(0, 0);
             this.groupBox1.Controls.Add(edit_panel);
             mPanels.Add(edit_panel);
-            this.comboBox1.Items.Add("Item database");
+            this.comboBox1.Items.Add("View equipment database");
 
             MissingItemsPanel missing_panel = new MissingItemsPanel();
             missing_panel.Dock = DockStyle.Fill;
             missing_panel.Location = new Point(0, 0);
             this.groupBox1.Controls.Add(missing_panel);
             mPanels.Add(missing_panel);
-            this.comboBox1.Items.Add("Add missing items");
+            this.comboBox1.Items.Add("Add missing items or submit fixes for incorrect items");
 
             comboBox1.SelectedIndex = 0;
         }
@@ -43,6 +43,9 @@ namespace FFRKInspector.UI
         private string sDatabaseLoadError = "Unable to load items from the database.  Check that you are " +
                                             "using the latest version of FFRKInspector.  Functionality on this page " +
                                             "will be disabled.";
+        private string sPrivilegeError = "You do not have the appropriate privileges to submit changes to " +
+                                         "the requested fields.  Please submit missing and incorrect item information " +
+                                         "through the missing items panel";
 
         private void FFRKViewEditItemStats_Load(object sender, EventArgs e)
         {
@@ -74,7 +77,15 @@ namespace FFRKInspector.UI
             }
             catch (MySqlException ex)
             {
-                return;
+                switch (ex.Number)
+                {
+                    case 1142:
+                        // User does not have privileges to edit the requested table.
+                        MessageBox.Show(sPrivilegeError);
+                        break;
+                    default:
+                        throw;
+                }
             }
         }
 

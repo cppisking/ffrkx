@@ -135,10 +135,10 @@
   <metadata name="missingItemsDataSet.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <metadata name="missingItemsDataSet.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
   <metadata name="missing_itemsTableAdapter.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>383, 17</value>
   </metadata>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Is the database missing items?  Add them here, or edit entries other haves submitted if you see errors.  The first 6 fields are required.  An administrator will review the changes and add them to the main item database as necessary.</value>
+  </data>
 </root>

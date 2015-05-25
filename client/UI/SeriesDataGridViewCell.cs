@@ -8,12 +8,8 @@ using System.Windows.Forms;
 
 namespace FFRKInspector.UI
 {
-    public class EnumDataViewGridCell<T> : DataGridViewTextBoxCell where T : struct
+    class SeriesDataGridViewCell : DataGridViewTextBoxCell
     {
-        public EnumDataViewGridCell()
-        {
-
-        }
 
         public override object ParseFormattedValue(object formattedValue, DataGridViewCellStyle cellStyle, System.ComponentModel.TypeConverter formattedValueTypeConverter, System.ComponentModel.TypeConverter valueTypeConverter)
         {
@@ -21,7 +17,7 @@ namespace FFRKInspector.UI
                 return DBNull.Value;
             string s = (string)formattedValue;
             if (s == string.Empty) return DBNull.Value;
-            return Enum.Parse(typeof(T), s, true);
+            return RealmSynergy.FromName(s).GameSeries;
         }
 
         protected override object GetFormattedValue(object value, int rowIndex, ref DataGridViewCellStyle cellStyle, System.ComponentModel.TypeConverter valueTypeConverter, System.ComponentModel.TypeConverter formattedValueTypeConverter, DataGridViewDataErrorContexts context)
@@ -29,11 +25,7 @@ namespace FFRKInspector.UI
             if (value == DBNull.Value || value == null)
                 return "";
 
-            string value_str = value.ToString();
-            T result;
-            if (Enum.TryParse<T>(value_str, true, out result))
-                return result.ToString();
-            return value_str;
+            return RealmSynergy.FromSeries((uint)value).Text;
         }
     }
 }

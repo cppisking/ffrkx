@@ -30,7 +30,6 @@
         {
             this.buttonCommit = new System.Windows.Forms.Button();
             this.buttonReload = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.SuspendLayout();
@@ -57,22 +56,13 @@
             this.buttonReload.UseVisualStyleBackColor = true;
             this.buttonReload.Click += new System.EventHandler(this.buttonReload_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(22, 14);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(30, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "View";
-            // 
             // comboBox1
             // 
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(109, 12);
+            this.comboBox1.Location = new System.Drawing.Point(12, 21);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(259, 21);
+            this.comboBox1.Size = new System.Drawing.Size(392, 21);
             this.comboBox1.TabIndex = 4;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -94,14 +84,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonReload);
             this.Controls.Add(this.buttonCommit);
             this.Name = "FFRKViewEditItemStats";
             this.Size = new System.Drawing.Size(968, 513);
             this.Load += new System.EventHandler(this.FFRKViewEditItemStats_Load);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -109,7 +97,6 @@
 
         private System.Windows.Forms.Button buttonCommit;
         private System.Windows.Forms.Button buttonReload;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.GroupBox groupBox1;
     }

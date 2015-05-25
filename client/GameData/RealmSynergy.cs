@@ -91,7 +91,13 @@ namespace FFRKInspector.GameData
 
         public static SynergyValue FromName(string Name)
         {
-            return mTextLookup[Name];
+            SynergyValue result;
+            if (mTextLookup.TryGetValue(Name, out result))
+                return result;
+            Value result2;
+            if (Enum.TryParse<Value>(Name, true, out result2))
+                return FromRealm(result2);
+            throw new KeyNotFoundException();
         }
 
         public static SynergyValue FromSeries(uint Series)
