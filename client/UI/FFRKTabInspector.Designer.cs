@@ -33,51 +33,39 @@
             this.ffrkViewActiveDungeon1 = new FFRKInspector.UI.FFRKViewActiveDungeon();
             this.tabPageGacha = new System.Windows.Forms.TabPage();
             this.ffrkViewGacha1 = new FFRKInspector.UI.FFRKViewGacha();
-            this.tabPageBrowse = new System.Windows.Forms.TabPage();
-            this.ffrkBrowseView1 = new FFRKInspector.UI.FFRKViewBrowse();
             this.tabPageSearch = new System.Windows.Forms.TabPage();
             this.ffrkViewItemSearch1 = new FFRKInspector.UI.FFRKViewItemSearch();
+            this.tabPageEditEquipment = new System.Windows.Forms.TabPage();
+            this.ffrkViewEditItemStats1 = new FFRKInspector.UI.FFRKViewEditItemStats();
             this.tabPageInventory = new System.Windows.Forms.TabPage();
             this.ffrkViewInventory1 = new FFRKInspector.UI.FFRKViewInventory();
-            this.tabPageAbilities = new System.Windows.Forms.TabPage();
-            this.tabPageParty = new System.Windows.Forms.TabPage();
             this.tabPageAbout = new System.Windows.Forms.TabPage();
             this.ffrkViewAbout1 = new FFRKInspector.UI.FFRKViewAbout();
             this.tabPageDebug = new System.Windows.Forms.TabPage();
             this.ffrkViewDebugging1 = new FFRKInspector.UI.FFRKViewDebugging();
-            this.tabPageEditEquipment = new System.Windows.Forms.TabPage();
-            this.ffrkViewEditItemStats1 = new FFRKInspector.UI.FFRKViewEditItemStats();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelConnection = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel6 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControlFFRKInspector.SuspendLayout();
             this.tabPageBattle.SuspendLayout();
             this.tabPageGacha.SuspendLayout();
-            this.tabPageBrowse.SuspendLayout();
             this.tabPageSearch.SuspendLayout();
+            this.tabPageEditEquipment.SuspendLayout();
             this.tabPageInventory.SuspendLayout();
             this.tabPageAbout.SuspendLayout();
             this.tabPageDebug.SuspendLayout();
-            this.tabPageEditEquipment.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControlFFRKInspector
             // 
             this.tabControlFFRKInspector.Controls.Add(this.tabPageBattle);
-            this.tabControlFFRKInspector.Controls.Add(this.tabPageGacha);
-            this.tabControlFFRKInspector.Controls.Add(this.tabPageBrowse);
             this.tabControlFFRKInspector.Controls.Add(this.tabPageSearch);
             this.tabControlFFRKInspector.Controls.Add(this.tabPageInventory);
-            this.tabControlFFRKInspector.Controls.Add(this.tabPageAbilities);
-            this.tabControlFFRKInspector.Controls.Add(this.tabPageParty);
+            this.tabControlFFRKInspector.Controls.Add(this.tabPageEditEquipment);
+            this.tabControlFFRKInspector.Controls.Add(this.tabPageGacha);
             this.tabControlFFRKInspector.Controls.Add(this.tabPageAbout);
             this.tabControlFFRKInspector.Controls.Add(this.tabPageDebug);
-            this.tabControlFFRKInspector.Controls.Add(this.tabPageEditEquipment);
             this.tabControlFFRKInspector.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlFFRKInspector.Location = new System.Drawing.Point(0, 0);
             this.tabControlFFRKInspector.Name = "tabControlFFRKInspector";
@@ -122,24 +110,6 @@
             this.ffrkViewGacha1.Size = new System.Drawing.Size(716, 357);
             this.ffrkViewGacha1.TabIndex = 0;
             // 
-            // tabPageBrowse
-            // 
-            this.tabPageBrowse.Controls.Add(this.ffrkBrowseView1);
-            this.tabPageBrowse.Location = new System.Drawing.Point(4, 22);
-            this.tabPageBrowse.Name = "tabPageBrowse";
-            this.tabPageBrowse.Size = new System.Drawing.Size(716, 357);
-            this.tabPageBrowse.TabIndex = 6;
-            this.tabPageBrowse.Text = "Browse";
-            this.tabPageBrowse.UseVisualStyleBackColor = true;
-            // 
-            // ffrkBrowseView1
-            // 
-            this.ffrkBrowseView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ffrkBrowseView1.Location = new System.Drawing.Point(0, 0);
-            this.ffrkBrowseView1.Name = "ffrkBrowseView1";
-            this.ffrkBrowseView1.Size = new System.Drawing.Size(716, 357);
-            this.ffrkBrowseView1.TabIndex = 0;
-            // 
             // tabPageSearch
             // 
             this.tabPageSearch.Controls.Add(this.ffrkViewItemSearch1);
@@ -159,6 +129,24 @@
             this.ffrkViewItemSearch1.Size = new System.Drawing.Size(710, 351);
             this.ffrkViewItemSearch1.TabIndex = 0;
             // 
+            // tabPageEditEquipment
+            // 
+            this.tabPageEditEquipment.Controls.Add(this.ffrkViewEditItemStats1);
+            this.tabPageEditEquipment.Location = new System.Drawing.Point(4, 22);
+            this.tabPageEditEquipment.Name = "tabPageEditEquipment";
+            this.tabPageEditEquipment.Size = new System.Drawing.Size(716, 357);
+            this.tabPageEditEquipment.TabIndex = 9;
+            this.tabPageEditEquipment.Text = "Item Database";
+            this.tabPageEditEquipment.UseVisualStyleBackColor = true;
+            // 
+            // ffrkViewEditItemStats1
+            // 
+            this.ffrkViewEditItemStats1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ffrkViewEditItemStats1.Location = new System.Drawing.Point(0, 0);
+            this.ffrkViewEditItemStats1.Name = "ffrkViewEditItemStats1";
+            this.ffrkViewEditItemStats1.Size = new System.Drawing.Size(716, 357);
+            this.ffrkViewEditItemStats1.TabIndex = 0;
+            // 
             // tabPageInventory
             // 
             this.tabPageInventory.Controls.Add(this.ffrkViewInventory1);
@@ -176,24 +164,6 @@
             this.ffrkViewInventory1.Name = "ffrkViewInventory1";
             this.ffrkViewInventory1.Size = new System.Drawing.Size(716, 357);
             this.ffrkViewInventory1.TabIndex = 0;
-            // 
-            // tabPageAbilities
-            // 
-            this.tabPageAbilities.Location = new System.Drawing.Point(4, 22);
-            this.tabPageAbilities.Name = "tabPageAbilities";
-            this.tabPageAbilities.Size = new System.Drawing.Size(716, 357);
-            this.tabPageAbilities.TabIndex = 3;
-            this.tabPageAbilities.Text = "Abilities";
-            this.tabPageAbilities.UseVisualStyleBackColor = true;
-            // 
-            // tabPageParty
-            // 
-            this.tabPageParty.Location = new System.Drawing.Point(4, 22);
-            this.tabPageParty.Name = "tabPageParty";
-            this.tabPageParty.Size = new System.Drawing.Size(716, 357);
-            this.tabPageParty.TabIndex = 4;
-            this.tabPageParty.Text = "Party";
-            this.tabPageParty.UseVisualStyleBackColor = true;
             // 
             // tabPageAbout
             // 
@@ -231,33 +201,11 @@
             this.ffrkViewDebugging1.Size = new System.Drawing.Size(716, 357);
             this.ffrkViewDebugging1.TabIndex = 0;
             // 
-            // tabPageEditEquipment
-            // 
-            this.tabPageEditEquipment.Controls.Add(this.ffrkViewEditItemStats1);
-            this.tabPageEditEquipment.Location = new System.Drawing.Point(4, 22);
-            this.tabPageEditEquipment.Name = "tabPageEditEquipment";
-            this.tabPageEditEquipment.Size = new System.Drawing.Size(716, 357);
-            this.tabPageEditEquipment.TabIndex = 9;
-            this.tabPageEditEquipment.Text = "Item Database";
-            this.tabPageEditEquipment.UseVisualStyleBackColor = true;
-            // 
-            // ffrkViewEditItemStats1
-            // 
-            this.ffrkViewEditItemStats1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ffrkViewEditItemStats1.Location = new System.Drawing.Point(0, 0);
-            this.ffrkViewEditItemStats1.Name = "ffrkViewEditItemStats1";
-            this.ffrkViewEditItemStats1.Size = new System.Drawing.Size(716, 357);
-            this.ffrkViewEditItemStats1.TabIndex = 0;
-            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
-            this.toolStripStatusLabelConnection,
-            this.toolStripStatusLabel3,
-            this.toolStripStatusLabel4,
-            this.toolStripStatusLabel5,
-            this.toolStripStatusLabel6});
+            this.toolStripStatusLabelConnection});
             this.statusStrip1.Location = new System.Drawing.Point(0, 361);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(724, 22);
@@ -276,30 +224,6 @@
             this.toolStripStatusLabelConnection.Size = new System.Drawing.Size(79, 17);
             this.toolStripStatusLabelConnection.Text = "Disconnected";
             // 
-            // toolStripStatusLabel3
-            // 
-            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(53, 17);
-            this.toolStripStatusLabel3.Text = "Stamina:";
-            // 
-            // toolStripStatusLabel4
-            // 
-            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
-            this.toolStripStatusLabel4.Size = new System.Drawing.Size(30, 17);
-            this.toolStripStatusLabel4.Text = "0/78";
-            // 
-            // toolStripStatusLabel5
-            // 
-            this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
-            this.toolStripStatusLabel5.Size = new System.Drawing.Size(24, 17);
-            this.toolStripStatusLabel5.Text = "Gil:";
-            // 
-            // toolStripStatusLabel6
-            // 
-            this.toolStripStatusLabel6.Name = "toolStripStatusLabel6";
-            this.toolStripStatusLabel6.Size = new System.Drawing.Size(49, 17);
-            this.toolStripStatusLabel6.Text = "1234567";
-            // 
             // FFRKTabInspector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -312,12 +236,11 @@
             this.tabControlFFRKInspector.ResumeLayout(false);
             this.tabPageBattle.ResumeLayout(false);
             this.tabPageGacha.ResumeLayout(false);
-            this.tabPageBrowse.ResumeLayout(false);
             this.tabPageSearch.ResumeLayout(false);
+            this.tabPageEditEquipment.ResumeLayout(false);
             this.tabPageInventory.ResumeLayout(false);
             this.tabPageAbout.ResumeLayout(false);
             this.tabPageDebug.ResumeLayout(false);
-            this.tabPageEditEquipment.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -331,18 +254,10 @@
         private System.Windows.Forms.TabPage tabPageSearch;
         private System.Windows.Forms.TabPage tabPageBattle;
         private System.Windows.Forms.TabPage tabPageInventory;
-        private System.Windows.Forms.TabPage tabPageAbilities;
-        private System.Windows.Forms.TabPage tabPageParty;
         private System.Windows.Forms.TabPage tabPageAbout;
-        private System.Windows.Forms.TabPage tabPageBrowse;
-        private FFRKViewBrowse ffrkBrowseView1;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelConnection;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel5;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel6;
         private System.Windows.Forms.TabPage tabPageDebug;
         private FFRKViewDebugging ffrkViewDebugging1;
         private System.Windows.Forms.TabPage tabPageGacha;
