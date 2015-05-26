@@ -19,6 +19,13 @@ namespace FFRKInspector.UI
     {
         private ListListViewBinding<DataBuddyInformation> mBuddyList;
 
+        private class GridEquipStats
+        {
+            public EquipStats Stats = new EquipStats();
+            public ushort Level;
+            public ushort MaxLevel;
+        }
+
         private enum ViewModeComboIndex
         {
             AvailableItems = 0,
@@ -84,6 +91,7 @@ namespace FFRKInspector.UI
                     DataBuddyInformation[] buddies = party.Buddies;
                     mBuddyList.Collection = buddies.ToList();
                     listViewEx1.VirtualListSize = buddies.Length;
+                    UpdateEquipmentGrid(party.Equipments);
                 }
             }
         }
@@ -104,6 +112,15 @@ namespace FFRKInspector.UI
             public override string ToString()
             {
                 return mValue.Text;
+            }
+
+            public override bool Equals(object obj)
+            {
+                if (obj == null || obj == DBNull.Value)
+                    return false;
+
+                SynergyColumnValue other = (SynergyColumnValue)obj;
+                return (mValue == other.mValue);
             }
         }
 
@@ -130,6 +147,15 @@ namespace FFRKInspector.UI
             public override string ToString()
             {
                 return String.Format("{0}/{1}", mCurrentLevel, mMaxLevel);
+            }
+
+            public override bool Equals(object obj)
+            {
+                if (obj == null || obj == DBNull.Value)
+                    return false;
+
+                LevelColumnValue other = (LevelColumnValue)obj;
+                return (mCurrentLevel == other.mCurrentLevel) && (mMaxLevel == other.mMaxLevel);
             }
         }
 
@@ -158,6 +184,15 @@ namespace FFRKInspector.UI
                 string result = mBaseRarity.ToString() + new string('+', mUpgrades);
                 return result;
             }
+
+            public override bool Equals(object obj)
+            {
+                if (obj == null || obj == DBNull.Value)
+                    return false;
+
+                RarityColumnValue other = (RarityColumnValue)obj;
+                return (mBaseRarity == other.mBaseRarity) && (mUpgrades == other.mUpgrades);
+            }
         }
 
         void FFRKProxy_OnPartyList(DataPartyDetails party)
@@ -167,48 +202,57 @@ namespace FFRKInspector.UI
                 mBuddyList.Collection = party.Buddies.ToList();
                 listViewEx1.VirtualListSize = party.Buddies.Length;
 
-                foreach (DataEquipmentInformation equip in party.Equipments)
-                {
-                    int row_index = dataGridView1.Rows.Add();
-                    DataGridViewRow row = dataGridView1.Rows[row_index];
-                    row.Tag = equip;
-                    row.Cells[dgcItem.Name].Value = equip.Name;
-                    row.Cells[dgcCategory.Name].Value = equip.Category;
-                    row.Cells[dgcType.Name].Value = equip.Type;
-                    row.Cells[dgcRarity.Name].Value = new RarityColumnValue((int)equip.BaseRarity, (int)equip.EvolutionNumber);
-                    row.Cells[dgcSynergy.Name].Value = new SynergyColumnValue(RealmSynergy.FromSeries(equip.SeriesId));
-                    row.Cells[dgcLevel.Name].Value = new LevelColumnValue(equip.Level, equip.LevelMax);
-
-                    EquipStats stats = ComputeDisplayStats(equip);
-                    SetStatsForRow(row, equip, stats);
-                }
+                UpdateEquipmentGrid(party.Equipments);
             }));
         }
 
-        private void SetStatForCell(DataGridViewRow row, DataGridViewColumn col, short? actual_value, short? display_value)
+        void UpdateEquipmentGrid(DataEquipmentInformation[] EquipList)
         {
-            if (display_value == 0 || display_value == null)
+            foreach (DataEquipmentInformation equip in EquipList)
+            {
+                int row_index = dataGridView1.Rows.Add();
+                DataGridViewRow row = dataGridView1.Rows[row_index];
+                row.Tag = equip;
+                row.Cells[dgcItem.Name].Value = equip.Name;
+                row.Cells[dgcCategory.Name].Value = equip.Category;
+                row.Cells[dgcType.Name].Value = equip.Type;
+                row.Cells[dgcRarity.Name].Value = new RarityColumnValue((int)equip.BaseRarity, (int)equip.EvolutionNumber);
+                row.Cells[dgcSynergy.Name].Value = new SynergyColumnValue(RealmSynergy.FromSeries(equip.SeriesId));
+                row.Cells[dgcLevel.Name].Value = new LevelColumnValue(equip.Level, equip.LevelMax);
+
+                GridEquipStats stats = ComputeDisplayStats(equip);
+                SetStatsForRow(row, equip, stats);
+            }
+        }
+
+        private void SetStatForCell<T>(DataGridViewRow row, DataGridViewColumn col, T actual_value, T display_value)
+        {
+            if (display_value.Equals(default(T)) || display_value == null)
                 row.Cells[col.Name].Value = null;
             else
             {
                 row.Cells[col.Name].Value = display_value;
-                if (actual_value.Value != display_value.Value)
-                    row.Cells[col.Name].Style.ForeColor = Color.Yellow;
+                DataGridViewCellStyle current_style = row.Cells[col.Name].Style;
+                if (!actual_value.Equals(display_value))
+                    current_style.ForeColor = Color.Yellow;
                 else
-                    row.Cells[col.Name].Style.ForeColor = Color.Black;
+                    current_style.ForeColor = Color.Black;
             }
         }
 
-        private void SetStatsForRow(DataGridViewRow row, DataEquipmentInformation actual_stats, EquipStats display_stats)
+        private void SetStatsForRow(DataGridViewRow row, DataEquipmentInformation actual_stats, GridEquipStats display_stats)
         {
-            SetStatForCell(row, dgcATK, actual_stats.Atk, display_stats.Atk);
-            SetStatForCell(row, dgcMAG, actual_stats.Mag, display_stats.Mag);
-            SetStatForCell(row, dgcMND, actual_stats.Mnd, display_stats.Mnd);
-            SetStatForCell(row, dgcDEF, actual_stats.Def, display_stats.Def);
-            SetStatForCell(row, dgcRES, actual_stats.Res, display_stats.Res);
+            SetStatForCell(row, dgcLevel,
+                                new LevelColumnValue(actual_stats.Level, actual_stats.LevelMax),
+                                new LevelColumnValue(display_stats.Level, display_stats.MaxLevel));
+            SetStatForCell(row, dgcATK, actual_stats.Atk, display_stats.Stats.Atk);
+            SetStatForCell(row, dgcMAG, actual_stats.Mag, display_stats.Stats.Mag);
+            SetStatForCell(row, dgcMND, actual_stats.Mnd, display_stats.Stats.Mnd);
+            SetStatForCell(row, dgcDEF, actual_stats.Def, display_stats.Stats.Def);
+            SetStatForCell(row, dgcRES, actual_stats.Res, display_stats.Stats.Res);
         }
 
-        private EquipStats ComputeDisplayStats(DataEquipmentInformation equip)
+        private GridEquipStats ComputeDisplayStats(DataEquipmentInformation equip)
         {
             UpgradeModeComboIndex upgrade_type = (UpgradeModeComboIndex)comboBoxUpgradeMode.SelectedIndex;
             RealmSynergy.SynergyValue synergy = RealmSynergy.Values.ElementAt(comboBoxSynergy.SelectedIndex);
@@ -216,35 +260,39 @@ namespace FFRKInspector.UI
             DataCache.Items.Data cache_value;
             bool in_cache = FFRKProxy.Instance.Cache.Items.TryGetValue(cache_key, out cache_value);
 
-            EquipStats result = new EquipStats();
+            GridEquipStats result = new GridEquipStats();
             if (upgrade_type == UpgradeModeComboIndex.CurrentUpgradeCurrentLevel || !in_cache)
             {
-                result.Atk = (equip.SeriesId == synergy.GameSeries) ? equip.SeriesAtk : equip.Atk;
-                result.Mag = (equip.SeriesId == synergy.GameSeries) ? equip.SeriesMag : equip.Mag;
-                result.Acc = (equip.SeriesId == synergy.GameSeries) ? equip.SeriesAcc : equip.Acc;
-                result.Def = (equip.SeriesId == synergy.GameSeries) ? equip.SeriesDef : equip.Def;
-                result.Res = (equip.SeriesId == synergy.GameSeries) ? equip.SeriesRes : equip.Res;
-                result.Eva = (equip.SeriesId == synergy.GameSeries) ? equip.SeriesEva : equip.Eva;
-                result.Mnd = (equip.SeriesId == synergy.GameSeries) ? equip.SeriesMnd : equip.Mnd;
+                result.Stats.Atk = (equip.SeriesId == synergy.GameSeries) ? equip.SeriesAtk : equip.Atk;
+                result.Stats.Mag = (equip.SeriesId == synergy.GameSeries) ? equip.SeriesMag : equip.Mag;
+                result.Stats.Acc = (equip.SeriesId == synergy.GameSeries) ? equip.SeriesAcc : equip.Acc;
+                result.Stats.Def = (equip.SeriesId == synergy.GameSeries) ? equip.SeriesDef : equip.Def;
+                result.Stats.Res = (equip.SeriesId == synergy.GameSeries) ? equip.SeriesRes : equip.Res;
+                result.Stats.Eva = (equip.SeriesId == synergy.GameSeries) ? equip.SeriesEva : equip.Eva;
+                result.Stats.Mnd = (equip.SeriesId == synergy.GameSeries) ? equip.SeriesMnd : equip.Mnd;
+                result.Level = equip.Level;
+                result.MaxLevel = equip.LevelMax;
+                if (equip.SeriesId == synergy.GameSeries)
+                    result.Level = StatCalculator.EffectiveLevelWithSynergy(result.Level);
             }
             else
             {
-                ushort effective_level;
+                
                 if (upgrade_type == UpgradeModeComboIndex.CurrentUpgradeMaxLevel)
-                    effective_level = StatCalculator.MaxLevel(equip.Rarity);
+                    result.MaxLevel = StatCalculator.MaxLevel(equip.Rarity);
                 else
-                    effective_level = StatCalculator.MaxLevel(StatCalculator.Evolve(equip.BaseRarity, SchemaConstants.EvolutionLevel.PlusPlus));
-
+                    result.MaxLevel = StatCalculator.MaxLevel(StatCalculator.Evolve(equip.BaseRarity, SchemaConstants.EvolutionLevel.PlusPlus));
+                result.Level = result.MaxLevel;
                 if (equip.SeriesId == synergy.GameSeries)
-                    effective_level = StatCalculator.EffectiveLevelWithSynergy(effective_level);
+                    result.Level = StatCalculator.EffectiveLevelWithSynergy(result.Level);
 
-                result.Atk = StatCalculator.ComputeStatForLevel(equip.BaseRarity, cache_value.BaseStats.Atk, cache_value.MaxStats.Atk, effective_level);
-                result.Mag = StatCalculator.ComputeStatForLevel(equip.BaseRarity, cache_value.BaseStats.Mag, cache_value.MaxStats.Mag, effective_level);
-                result.Acc = StatCalculator.ComputeStatForLevel(equip.BaseRarity, cache_value.BaseStats.Acc, cache_value.MaxStats.Acc, effective_level);
-                result.Def = StatCalculator.ComputeStatForLevel(equip.BaseRarity, cache_value.BaseStats.Def, cache_value.MaxStats.Def, effective_level);
-                result.Res = StatCalculator.ComputeStatForLevel(equip.BaseRarity, cache_value.BaseStats.Res, cache_value.MaxStats.Res, effective_level);
-                result.Eva = StatCalculator.ComputeStatForLevel(equip.BaseRarity, cache_value.BaseStats.Eva, cache_value.MaxStats.Eva, effective_level);
-                result.Mnd = StatCalculator.ComputeStatForLevel(equip.BaseRarity, cache_value.BaseStats.Mnd, cache_value.MaxStats.Mnd, effective_level);
+                result.Stats.Atk = StatCalculator.ComputeStatForLevel(equip.BaseRarity, cache_value.BaseStats.Atk, cache_value.MaxStats.Atk, result.Level);
+                result.Stats.Mag = StatCalculator.ComputeStatForLevel(equip.BaseRarity, cache_value.BaseStats.Mag, cache_value.MaxStats.Mag, result.Level);
+                result.Stats.Acc = StatCalculator.ComputeStatForLevel(equip.BaseRarity, cache_value.BaseStats.Acc, cache_value.MaxStats.Acc, result.Level);
+                result.Stats.Def = StatCalculator.ComputeStatForLevel(equip.BaseRarity, cache_value.BaseStats.Def, cache_value.MaxStats.Def, result.Level);
+                result.Stats.Res = StatCalculator.ComputeStatForLevel(equip.BaseRarity, cache_value.BaseStats.Res, cache_value.MaxStats.Res, result.Level);
+                result.Stats.Eva = StatCalculator.ComputeStatForLevel(equip.BaseRarity, cache_value.BaseStats.Eva, cache_value.MaxStats.Eva, result.Level);
+                result.Stats.Mnd = StatCalculator.ComputeStatForLevel(equip.BaseRarity, cache_value.BaseStats.Mnd, cache_value.MaxStats.Mnd, result.Level);
             }
 
             return result;
@@ -257,7 +305,7 @@ namespace FFRKInspector.UI
                 DataEquipmentInformation equipment = row.Tag as DataEquipmentInformation;
                 if (equipment == null)
                     continue;
-                EquipStats stats = ComputeDisplayStats(equipment);
+                GridEquipStats stats = ComputeDisplayStats(equipment);
                 SetStatsForRow(row, equipment, stats);
             }
             if (dataGridView1.SortOrder != SortOrder.None)
@@ -284,17 +332,6 @@ namespace FFRKInspector.UI
 
         private void dataGridView1_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
         {
-            //if (e.Column == dgcSynergy)
-            //{
-            //    RealmSynergy.SynergyValue sv1 = RealmSynergy.FromName((string)e.CellValue1);
-            //    RealmSynergy.SynergyValue sv2 = RealmSynergy.FromName((string)e.CellValue2);
-            //    e.SortResult = sv1.GameSeries.CompareTo(sv2.GameSeries);
-            //    e.Handled = true;
-            //}
-            //else if (e.Column == dgcLevel)
-            //{
-
-            //}
         }
     }
 }

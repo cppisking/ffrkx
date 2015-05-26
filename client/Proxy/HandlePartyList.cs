@@ -34,6 +34,7 @@ namespace FFRKInspector.Proxy
             }
             FFRKProxy.Instance.Database.BeginExecuteRequest(insert_request);
 
+            FFRKProxy.Instance.GameState.PartyDetails = party;
             FFRKProxy.Instance.RaisePartyList(party);
         }
     }
