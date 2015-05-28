@@ -8,11 +8,14 @@ using System.Windows.Forms;
 
 namespace FFRKInspector.UI
 {
-    public class EnumDataViewGridCell<T> : DataGridViewTextBoxCell where T : struct
+    public class EnumDataViewGridCell<T> : DataGridViewTextBoxCell, IAutoCompleteSource where T : struct
     {
+        private AutoCompleteStringCollection mAutoComplete;
         public EnumDataViewGridCell()
         {
-
+            mAutoComplete = new AutoCompleteStringCollection();
+            string[] values = Enum.GetValues(typeof(T)).Cast<T>().Select(x => x.ToString()).ToArray();
+            mAutoComplete.AddRange(values);
         }
 
         public override object ParseFormattedValue(object formattedValue, DataGridViewCellStyle cellStyle, System.ComponentModel.TypeConverter formattedValueTypeConverter, System.ComponentModel.TypeConverter valueTypeConverter)
@@ -34,6 +37,14 @@ namespace FFRKInspector.UI
             if (Enum.TryParse<T>(value_str, true, out result))
                 return result.ToString();
             return value_str;
+        }
+
+        public AutoCompleteStringCollection AutoCompleteSource
+        {
+            get
+            {
+                return mAutoComplete;
+            }
         }
     }
 }

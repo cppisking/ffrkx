@@ -84,6 +84,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EquipmentStatsDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="EquipUsageDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EquipUsageDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="GameData\EquipmentUsage.cs" />
     <Compile Include="GameData\EquipStats.cs" />
     <Compile Include="GameData\StatCalculator.cs" />
     <Compile Include="MissingItemsDataSet1.Designer.cs">
@@ -134,11 +140,17 @@
     <Compile Include="UI\EditExistingItemsPanel.Designer.cs">
       <DependentUpon>EditExistingItemsPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\FFRKViewEditItemStats.cs">
+    <Compile Include="UI\EquipUsagePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\FFRKViewEditItemStats.Designer.cs">
-      <DependentUpon>FFRKViewEditItemStats.cs</DependentUpon>
+    <Compile Include="UI\EquipUsagePanel.Designer.cs">
+      <DependentUpon>EquipUsagePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FFRKViewDatabase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\FFRKViewDatabase.Designer.cs">
+      <DependentUpon>FFRKViewDatabase.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\FFRKViewAbout.cs">
       <SubType>UserControl</SubType>
@@ -207,6 +219,7 @@
     <Compile Include="GameData\DataGachaSeriesItemDetailsList.cs" />
     <Compile Include="GameData\GameState.cs" />
     <Compile Include="UI\FFRKDataBoundPanel.cs" />
+    <Compile Include="UI\IAutoCompleteSource.cs" />
     <Compile Include="UI\IListViewField.cs" />
     <Compile Include="UI\IListViewBinding.cs" />
     <Compile Include="UI\ListListViewBinding.cs" />
@@ -247,6 +260,9 @@
     <EmbeddedResource Include="UI\EditExistingItemsPanel.resx">
       <DependentUpon>EditExistingItemsPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\EquipUsagePanel.resx">
+      <DependentUpon>EquipUsagePanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\FFRKViewAbout.resx">
       <DependentUpon>FFRKViewAbout.cs</DependentUpon>
     </EmbeddedResource>
@@ -262,8 +278,8 @@
     <EmbeddedResource Include="UI\FFRKViewDebugging.resx">
       <DependentUpon>FFRKViewDebugging.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\FFRKViewEditItemStats.resx">
-      <DependentUpon>FFRKViewEditItemStats.cs</DependentUpon>
+    <EmbeddedResource Include="UI\FFRKViewDatabase.resx">
+      <DependentUpon>FFRKViewDatabase.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FFRKViewGacha.resx">
       <DependentUpon>FFRKViewGacha.cs</DependentUpon>
@@ -292,6 +308,17 @@
     </None>
     <None Include="EquipmentStatsDataSet.xss">
       <DependentUpon>EquipmentStatsDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="EquipUsageDataSet.xsc">
+      <DependentUpon>EquipUsageDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="EquipUsageDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>EquipUsageDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="EquipUsageDataSet.xss">
+      <DependentUpon>EquipUsageDataSet.xsd</DependentUpon>
     </None>
     <None Include="MissingItemsDataSet.xsc">
       <DependentUpon>MissingItemsDataSet.xsd</DependentUpon>

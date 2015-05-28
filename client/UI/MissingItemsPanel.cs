@@ -29,7 +29,7 @@ namespace FFRKInspector.UI
                 return;
 
             if (FFRKProxy.Instance != null)
-                this.missing_itemsTableAdapter.Connection.ConnectionString = FFRKProxy.Instance.Database.ConnectionString;
+                this.missing_itemsTableAdapter.Connection = FFRKProxy.Instance.Database.Connection;
         }
 
         public void Reload()

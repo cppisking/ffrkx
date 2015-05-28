@@ -92,6 +92,11 @@ namespace FFRKInspector.Database
             get { return mDatabaseDisabled; }
         }
 
+        public MySqlConnection Connection
+        {
+            get { return mConnection; }
+        }
+
         public delegate void ConnectionStateChangedDelegate(ConnectionState NewState);
         public delegate void ConnectionInitializedDelegate(ConnectResult ConnectResult);
 

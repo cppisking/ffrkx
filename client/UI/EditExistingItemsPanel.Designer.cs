@@ -158,21 +158,26 @@
             // 
             // type
             // 
+            this.type.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.type.DataPropertyName = "type";
             dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(109)))), ((int)(((byte)(10)))));
             this.type.DefaultCellStyle = dataGridViewCellStyle4;
             this.type.HeaderText = "type";
             this.type.Name = "type";
             this.type.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.type.Width = 52;
             // 
             // subtype
             // 
+            this.subtype.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.subtype.DataPropertyName = "subtype";
             dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(109)))), ((int)(((byte)(10)))));
             this.subtype.DefaultCellStyle = dataGridViewCellStyle5;
             this.subtype.DividerWidth = 3;
             this.subtype.HeaderText = "subtype";
             this.subtype.Name = "subtype";
+            this.subtype.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.subtype.Width = 72;
             // 
             // dataGridViewTextBoxColumn3
             // 

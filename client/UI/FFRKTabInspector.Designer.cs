@@ -36,7 +36,7 @@
             this.tabPageSearch = new System.Windows.Forms.TabPage();
             this.ffrkViewItemSearch1 = new FFRKInspector.UI.FFRKViewItemSearch();
             this.tabPageEditEquipment = new System.Windows.Forms.TabPage();
-            this.ffrkViewEditItemStats1 = new FFRKInspector.UI.FFRKViewEditItemStats();
+            this.ffrkViewEditItemStats1 = new FFRKInspector.UI.FFRKViewDatabase();
             this.tabPageInventory = new System.Windows.Forms.TabPage();
             this.ffrkViewInventory1 = new FFRKInspector.UI.FFRKViewInventory();
             this.tabPageAbout = new System.Windows.Forms.TabPage();
@@ -267,7 +267,7 @@
         private FFRKViewItemSearch ffrkViewItemSearch1;
         private FFRKViewInventory ffrkViewInventory1;
         private System.Windows.Forms.TabPage tabPageEditEquipment;
-        private FFRKViewEditItemStats ffrkViewEditItemStats1;
+        private FFRKViewDatabase ffrkViewEditItemStats1;
 
 
     }

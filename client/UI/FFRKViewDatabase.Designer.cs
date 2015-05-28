@@ -1,6 +1,6 @@
 ﻿namespace FFRKInspector.UI
 {
-    partial class FFRKViewEditItemStats
+    partial class FFRKViewDatabase
     {
         /// <summary> 
         /// Required designer variable.

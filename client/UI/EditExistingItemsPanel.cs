@@ -32,7 +32,7 @@ namespace FFRKInspector.UI
 
             if (FFRKProxy.Instance != null)
             {
-                this.equipment_statsTableAdapter.Connection.ConnectionString = FFRKProxy.Instance.Database.ConnectionString;
+                this.equipment_statsTableAdapter.Connection = FFRKProxy.Instance.Database.Connection;
             }
         }
 
