@@ -1,4 +1,4 @@
-﻿namespace FFRKInspector.UI
+﻿namespace FFRKInspector.UI.DatabaseUI
 {
     partial class MissingItemsPanel
     {
@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MissingItemsPanel));
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridView1 = new DataGridViewEx();
             this.missingitemsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.missingItemsDataSet = new FFRKInspector.missingItemsDataSet();
             this.missing_itemsTableAdapter = new FFRKInspector.missingItemsDataSetTableAdapters.missing_itemsTableAdapter();
@@ -281,7 +281,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private DataGridViewEx dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn equipmentidDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn baseatkDataGridViewTextBoxColumn;

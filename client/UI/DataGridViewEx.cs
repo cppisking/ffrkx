@@ -19,7 +19,7 @@ namespace FFRKInspector.UI
             DataGridViewCell template = CurrentCell.OwningColumn.CellTemplate;
             if (template == null)
                 return;
-            IAutoCompleteSource source = template as IAutoCompleteSource;
+            IDataGridViewAutoCompleteSource source = template as IDataGridViewAutoCompleteSource;
             if (source == null)
                 return;
             TextBox box = e.Control as TextBox;

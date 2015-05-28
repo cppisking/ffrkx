@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using FFRKInspector.Proxy;
 using FFRKInspector.GameData;
 
-namespace FFRKInspector.UI
+namespace FFRKInspector.UI.DatabaseUI
 {
     public partial class EquipUsagePanel : UserControl, FFRKDataBoundPanel
     {
@@ -30,7 +30,7 @@ namespace FFRKInspector.UI
             public static Dictionary<string, uint> mCharacterReverseLookup = new Dictionary<string,uint>(StringComparer.CurrentCultureIgnoreCase);
         }
 
-        public class CharacterNameCellTemplate : DataGridViewTextBoxCell, IAutoCompleteSource
+        public class CharacterNameCellTemplate : DataGridViewTextBoxCell, IDataGridViewAutoCompleteSource
         {
             public CharacterNameCellTemplate()
             {

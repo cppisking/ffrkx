@@ -10,14 +10,14 @@ using System.Windows.Forms;
 using FFRKInspector.Proxy;
 using FFRKInspector.GameData;
 
-namespace FFRKInspector.UI
+namespace FFRKInspector.UI.DatabaseUI
 {
-    public partial class EditExistingItemsPanel : UserControl, FFRKDataBoundPanel
+    public partial class ItemStatsPanel : UserControl, FFRKDataBoundPanel
     {
         private static readonly int kBaseStatsColumnZero = 5;
         private static readonly int kMaxStatsColumnZero = 12;
 
-        public EditExistingItemsPanel()
+        public ItemStatsPanel()
         {
             InitializeComponent();
 

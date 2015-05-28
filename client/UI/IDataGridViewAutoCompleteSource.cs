@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace FFRKInspector.UI
 {
-    interface IAutoCompleteSource
+    interface IDataGridViewAutoCompleteSource
     {
         AutoCompleteStringCollection AutoCompleteSource { get; }
     }

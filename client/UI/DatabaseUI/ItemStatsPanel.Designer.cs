@@ -1,6 +1,6 @@
-﻿namespace FFRKInspector.UI
+﻿namespace FFRKInspector.UI.DatabaseUI
 {
-    partial class EditExistingItemsPanel
+    partial class ItemStatsPanel
     {
         /// <summary> 
         /// Required designer variable.
@@ -48,7 +48,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.dataGridView1 = new FFRKInspector.UI.DataGridViewEx();
+            this.dataGridView1 = new DataGridViewEx();
             this.equipmentstatsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.equipmentStatsDataSet = new FFRKInspector.equipmentStatsDataSet();
             this.equipment_statsTableAdapter = new FFRKInspector.equipmentStatsDataSetTableAdapters.equipment_statsTableAdapter();

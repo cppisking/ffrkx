@@ -1,4 +1,4 @@
-﻿namespace FFRKInspector.UI
+﻿namespace FFRKInspector.UI.DatabaseUI
 {
     partial class FFRKViewDatabase
     {

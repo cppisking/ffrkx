@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using FFRKInspector.Proxy;
 using FFRKInspector.GameData;
 
-namespace FFRKInspector.UI
+namespace FFRKInspector.UI.DatabaseUI
 {
     public partial class MissingItemsPanel : UserControl, FFRKDataBoundPanel
     {

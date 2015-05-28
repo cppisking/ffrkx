@@ -50,10 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Analyzer\EquipmentAnalyzer.cs" />
     <Compile Include="Config\ListViewSettings.cs" />
     <Compile Include="Config\SerializableDictionary.cs" />
     <Compile Include="Database\DataRecordExtensions.cs" />
     <Compile Include="Database\DbOpFilterDrops.cs" />
+    <Compile Include="Database\DbOpLoadAllCharacters.cs" />
     <Compile Include="Database\DbOpVerifySchema.cs" />
     <Compile Include="Database\DbOpInsertItems.cs" />
     <Compile Include="Database\DbOpLoadAllBattles.cs" />
@@ -70,6 +72,7 @@
     <Compile Include="Database\SelectSingleParam.cs" />
     <Compile Include="Database\SelectMultiParam.cs" />
     <Compile Include="DataCache\Battles.cs" />
+    <Compile Include="DataCache\Characters.cs" />
     <Compile Include="DataCache\Dungeons.cs" />
     <Compile Include="DataCache\FFRKDataCache.cs" />
     <Compile Include="DataCache\FFRKDataCacheTable.cs" />
@@ -130,26 +133,26 @@
     <Compile Include="UI\DataGridViewEx.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\EnumDataViewGridCell.cs" />
+    <Compile Include="UI\DatabaseUI\EnumDataViewGridCell.cs" />
     <Compile Include="UI\DeselectableListBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\EditExistingItemsPanel.cs">
+    <Compile Include="UI\DatabaseUI\ItemStatsPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\EditExistingItemsPanel.Designer.cs">
-      <DependentUpon>EditExistingItemsPanel.cs</DependentUpon>
+    <Compile Include="UI\DatabaseUI\ItemStatsPanel.Designer.cs">
+      <DependentUpon>ItemStatsPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\EquipUsagePanel.cs">
+    <Compile Include="UI\DatabaseUI\EquipUsagePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\EquipUsagePanel.Designer.cs">
+    <Compile Include="UI\DatabaseUI\EquipUsagePanel.Designer.cs">
       <DependentUpon>EquipUsagePanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\FFRKViewDatabase.cs">
+    <Compile Include="UI\DatabaseUI\FFRKViewDatabase.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\FFRKViewDatabase.Designer.cs">
+    <Compile Include="UI\DatabaseUI\FFRKViewDatabase.Designer.cs">
       <DependentUpon>FFRKViewDatabase.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\FFRKViewAbout.cs">
@@ -218,8 +221,8 @@
     <Compile Include="GameData\EventBattleInitiated.cs" />
     <Compile Include="GameData\DataGachaSeriesItemDetailsList.cs" />
     <Compile Include="GameData\GameState.cs" />
-    <Compile Include="UI\FFRKDataBoundPanel.cs" />
-    <Compile Include="UI\IAutoCompleteSource.cs" />
+    <Compile Include="UI\DatabaseUI\FFRKDataBoundPanel.cs" />
+    <Compile Include="UI\IDataGridViewAutoCompleteSource.cs" />
     <Compile Include="UI\IListViewField.cs" />
     <Compile Include="UI\IListViewBinding.cs" />
     <Compile Include="UI\ListListViewBinding.cs" />
@@ -243,13 +246,14 @@
     <Compile Include="UI\ListViewFields\PartyFields.cs" />
     <Compile Include="UI\ListViewFields\TrivialField.cs" />
     <Compile Include="Config\Configuration.cs" />
-    <Compile Include="UI\MissingItemsPanel.cs">
+    <Compile Include="UI\DatabaseUI\MissingItemsPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\MissingItemsPanel.Designer.cs">
+    <Compile Include="UI\DatabaseUI\MissingItemsPanel.Designer.cs">
       <DependentUpon>MissingItemsPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\SeriesDataGridViewCell.cs" />
+    <Compile Include="UI\DatabaseUI\SeriesDataGridViewCell.cs" />
+    <Compile Include="Analyzer\AnalyzerSettings.cs" />
     <Compile Include="Utility\CriticalZ.cs" />
     <Compile Include="Utility\Histogram.cs" />
     <Compile Include="Utility\IConverter.cs" />
@@ -257,10 +261,10 @@
     <Compile Include="Utility\Utility.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="UI\EditExistingItemsPanel.resx">
-      <DependentUpon>EditExistingItemsPanel.cs</DependentUpon>
+    <EmbeddedResource Include="UI\DatabaseUI\ItemStatsPanel.resx">
+      <DependentUpon>ItemStatsPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\EquipUsagePanel.resx">
+    <EmbeddedResource Include="UI\DatabaseUI\EquipUsagePanel.resx">
       <DependentUpon>EquipUsagePanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FFRKViewAbout.resx">
@@ -278,7 +282,7 @@
     <EmbeddedResource Include="UI\FFRKViewDebugging.resx">
       <DependentUpon>FFRKViewDebugging.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\FFRKViewDatabase.resx">
+    <EmbeddedResource Include="UI\DatabaseUI\FFRKViewDatabase.resx">
       <DependentUpon>FFRKViewDatabase.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FFRKViewGacha.resx">
@@ -294,7 +298,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\MissingItemsPanel.resx">
+    <EmbeddedResource Include="UI\DatabaseUI\MissingItemsPanel.resx">
       <DependentUpon>MissingItemsPanel.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />

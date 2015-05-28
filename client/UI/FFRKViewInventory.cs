@@ -12,12 +12,14 @@ using FFRKInspector.GameData.Party;
 using FFRKInspector.UI.ListViewFields;
 using FFRKInspector.GameData;
 using FFRKInspector.DataCache;
+using FFRKInspector.Analyzer;
 
 namespace FFRKInspector.UI
 {
     public partial class FFRKViewInventory : UserControl
     {
         private ListListViewBinding<DataBuddyInformation> mBuddyList;
+        private AnalyzerSettings mAnalyzerSettings;
 
         private class GridEquipStats
         {
@@ -62,13 +64,6 @@ namespace FFRKInspector.UI
 
             mBuddyList = new ListListViewBinding<DataBuddyInformation>();
 
-            listViewEx1.LoadSettings();
-
-            listViewEx1.AddField(new CharacterNameField("Name"));
-            listViewEx1.AddField(new CharacterLevelField("Level"));
-            listViewEx1.AddField(new CharacterLevelMaxField("Max Level"));
-
-            listViewEx1.DataBinding = mBuddyList;
             foreach (RealmSynergy.SynergyValue synergy in RealmSynergy.Values)
                 comboBoxSynergy.Items.Add(new SynergyFormatter(synergy));
             comboBoxViewMode.SelectedIndex = 0;
@@ -89,8 +84,7 @@ namespace FFRKInspector.UI
                 if (party != null)
                 {
                     DataBuddyInformation[] buddies = party.Buddies;
-                    mBuddyList.Collection = buddies.ToList();
-                    listViewEx1.VirtualListSize = buddies.Length;
+                    UpdatePartyGrid(buddies.ToList());
                     UpdateEquipmentGrid(party.Equipments);
                 }
             }
@@ -199,19 +193,43 @@ namespace FFRKInspector.UI
         {
             BeginInvoke((Action)(() =>
             {
-                mBuddyList.Collection = party.Buddies.ToList();
-                listViewEx1.VirtualListSize = party.Buddies.Length;
-
+                UpdatePartyGrid(party.Buddies.ToList());
                 UpdateEquipmentGrid(party.Equipments);
             }));
+        }
+
+        private void UpdatePartyGrid(List<DataBuddyInformation> buddies)
+        {
+            mBuddyList.Collection = buddies;
+
+            dataGridViewBuddies.Rows.Clear();
+            dataGridViewBuddies.Rows.Add(buddies.Count);
+            int cur_row = 0;
+            AnalyzerSettings settings = mAnalyzerSettings;
+            if (settings == null)
+                settings = AnalyzerSettings.DefaultSettings;
+            foreach (DataBuddyInformation info in buddies)
+            {
+                DataGridViewRow row = dataGridViewBuddies.Rows[cur_row];
+                row.Tag = info;
+                row.Cells[dgcCharacterName.Name].Value = info.Name;
+                row.Cells[dgcCharacterLevel.Name].Value = info.Level;
+                row.Cells[dgcCharacterMaxLevel.Name].Value = info.LevelMax;
+                AnalyzerSettings.PartyMemberSettings member_settings = settings[info.Name];
+
+                ((DataGridViewCheckBoxCell)row.Cells[dgcCharacterOptimize.Name]).Value = member_settings.Score;
+                ((DataGridViewComboBoxCell)row.Cells[dgcCharacterOffensiveStat.Name]).Value = member_settings.OffensiveStat.ToString();
+                ((DataGridViewComboBoxCell)row.Cells[dgcCharacterDefensiveStat.Name]).Value = member_settings.DefensiveStat.ToString();
+                ++cur_row;
+            }
         }
 
         void UpdateEquipmentGrid(DataEquipmentInformation[] EquipList)
         {
             foreach (DataEquipmentInformation equip in EquipList)
             {
-                int row_index = dataGridView1.Rows.Add();
-                DataGridViewRow row = dataGridView1.Rows[row_index];
+                int row_index = dataGridViewEquipment.Rows.Add();
+                DataGridViewRow row = dataGridViewEquipment.Rows[row_index];
                 row.Tag = equip;
                 row.Cells[dgcItem.Name].Value = equip.Name;
                 row.Cells[dgcCategory.Name].Value = equip.Category;
@@ -300,7 +318,7 @@ namespace FFRKInspector.UI
 
         private void RecomputeAllItemStats()
         {
-            foreach (DataGridViewRow row in dataGridView1.Rows)
+            foreach (DataGridViewRow row in dataGridViewEquipment.Rows)
             {
                 DataEquipmentInformation equipment = row.Tag as DataEquipmentInformation;
                 if (equipment == null)
@@ -308,10 +326,10 @@ namespace FFRKInspector.UI
                 GridEquipStats stats = ComputeDisplayStats(equipment);
                 SetStatsForRow(row, equipment, stats);
             }
-            if (dataGridView1.SortOrder != SortOrder.None)
+            if (dataGridViewEquipment.SortOrder != SortOrder.None)
             {
-                ListSortDirection dir = (dataGridView1.SortOrder == SortOrder.Ascending) ? ListSortDirection.Ascending : ListSortDirection.Descending;
-                dataGridView1.Sort(dataGridView1.SortedColumn, dir);
+                ListSortDirection dir = (dataGridViewEquipment.SortOrder == SortOrder.Ascending) ? ListSortDirection.Ascending : ListSortDirection.Descending;
+                dataGridViewEquipment.Sort(dataGridViewEquipment.SortedColumn, dir);
             }
         }
 

@@ -6,17 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FFRKInspector.UI
+namespace FFRKInspector.UI.DatabaseUI
 {
-    public class EnumDataViewGridCell<T> : DataGridViewTextBoxCell, IAutoCompleteSource where T : struct
+    class SeriesDataGridViewCell : DataGridViewTextBoxCell
     {
-        private AutoCompleteStringCollection mAutoComplete;
-        public EnumDataViewGridCell()
-        {
-            mAutoComplete = new AutoCompleteStringCollection();
-            string[] values = Enum.GetValues(typeof(T)).Cast<T>().Select(x => x.ToString()).ToArray();
-            mAutoComplete.AddRange(values);
-        }
 
         public override object ParseFormattedValue(object formattedValue, DataGridViewCellStyle cellStyle, System.ComponentModel.TypeConverter formattedValueTypeConverter, System.ComponentModel.TypeConverter valueTypeConverter)
         {
@@ -24,7 +17,7 @@ namespace FFRKInspector.UI
                 return DBNull.Value;
             string s = (string)formattedValue;
             if (s == string.Empty) return DBNull.Value;
-            return Enum.Parse(typeof(T), s, true);
+            return RealmSynergy.FromName(s).GameSeries;
         }
 
         protected override object GetFormattedValue(object value, int rowIndex, ref DataGridViewCellStyle cellStyle, System.ComponentModel.TypeConverter valueTypeConverter, System.ComponentModel.TypeConverter formattedValueTypeConverter, DataGridViewDataErrorContexts context)
@@ -32,19 +25,7 @@ namespace FFRKInspector.UI
             if (value == DBNull.Value || value == null)
                 return "";
 
-            string value_str = value.ToString();
-            T result;
-            if (Enum.TryParse<T>(value_str, true, out result))
-                return result.ToString();
-            return value_str;
-        }
-
-        public AutoCompleteStringCollection AutoCompleteSource
-        {
-            get
-            {
-                return mAutoComplete;
-            }
+            return RealmSynergy.FromSeries((uint)value).Text;
         }
     }
 }

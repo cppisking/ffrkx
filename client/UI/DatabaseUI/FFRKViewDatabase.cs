@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using FFRKInspector.Proxy;
 using MySql.Data.MySqlClient;
 
-namespace FFRKInspector.UI
+namespace FFRKInspector.UI.DatabaseUI
 {
     public partial class FFRKViewDatabase : UserControl
     {
@@ -23,7 +23,7 @@ namespace FFRKInspector.UI
             InitializeComponent();
             mPanels = new List<UserControl>();
 
-            EditExistingItemsPanel edit_panel = new EditExistingItemsPanel();
+            ItemStatsPanel edit_panel = new ItemStatsPanel();
             edit_panel.Dock = DockStyle.Fill;
             edit_panel.Location = new Point(0, 0);
             this.groupBox1.Controls.Add(edit_panel);
