@@ -183,6 +183,16 @@ namespace FFRKInspector.Proxy
             DbOpLoadAllWorlds worlds_request = new DbOpLoadAllWorlds();
             worlds_request.OnRequestComplete += DbOpLoadAllWorlds_OnRequestComplete;
             mDatabaseInstance.BeginExecuteRequest(worlds_request);
+
+            DbOpLoadAllCharacters chars_request = new DbOpLoadAllCharacters();
+            chars_request.OnRequestComplete += DbOpLoadAllCharacters_OnRequestComplete;
+            mDatabaseInstance.BeginExecuteRequest(chars_request);
+        }
+
+        void DbOpLoadAllCharacters_OnRequestComplete(FFRKDataCacheTable<DataCache.Characters.Key, DataCache.Characters.Data> characters)
+        {
+            lock (mCache.SyncRoot)
+                mCache.Characters = characters;
         }
 
         void DbOpLoadAllWorlds_OnRequestComplete(FFRKDataCacheTable<DataCache.Worlds.Key, DataCache.Worlds.Data> worlds)

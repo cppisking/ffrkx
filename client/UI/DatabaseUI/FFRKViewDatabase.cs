@@ -64,7 +64,7 @@ namespace FFRKInspector.UI.DatabaseUI
                 foreach (FFRKDataBoundPanel panel in mPanels)
                     panel.Reload();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 MessageBox.Show(sDatabaseLoadError);
                 groupBox1.Controls.Clear();

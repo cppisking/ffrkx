@@ -12,6 +12,18 @@ namespace FFRKInspector.UI
         public DataGridViewEx()
         {
             this.EditingControlShowing += DataGridViewEx_EditingControlShowing;
+            this.CurrentCellDirtyStateChanged += DataGridViewEx_CurrentCellDirtyStateChanged;
+        }
+
+        void DataGridViewEx_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            // By default edits are only committed to a cell after you "leave" the cell.  But for
+            // some types of cells, like checkboxes and combo boxes, they should be treated as
+            // instant commits.  So for those types of cells, commit the edit immediately.
+            if (!IsCurrentCellDirty)
+                return;
+            if (CurrentCell is DataGridViewCheckBoxCell || CurrentCell is DataGridViewComboBoxCell)
+                CommitEdit(DataGridViewDataErrorContexts.Commit);
         }
 
         void DataGridViewEx_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)

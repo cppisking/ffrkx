@@ -19,13 +19,18 @@ namespace FFRKInspector.UI
     public partial class FFRKViewInventory : UserControl
     {
         private ListListViewBinding<DataBuddyInformation> mBuddyList;
+
+        private DataBuddyInformation[] mBuddies;
+        private DataEquipmentInformation[] mEquipments;
+
         private AnalyzerSettings mAnalyzerSettings;
+        private EquipmentAnalyzer mAnalyzer;
 
         private class GridEquipStats
         {
             public EquipStats Stats = new EquipStats();
-            public ushort Level;
-            public ushort MaxLevel;
+            public byte Level;
+            public byte MaxLevel;
         }
 
         private enum ViewModeComboIndex
@@ -69,6 +74,11 @@ namespace FFRKInspector.UI
             comboBoxViewMode.SelectedIndex = 0;
             comboBoxUpgradeMode.SelectedIndex = 0;
             comboBoxSynergy.SelectedIndex = 0;
+            dgcCharacterDefensiveStat.CellTemplate = new EnumDataViewGridComboBoxCell<AnalyzerSettings.DefensiveStat>();
+            dgcCharacterOffensiveStat.CellTemplate = new EnumDataViewGridComboBoxCell<AnalyzerSettings.OffensiveStat>();
+
+            mAnalyzerSettings = AnalyzerSettings.DefaultSettings;
+            mAnalyzer = new EquipmentAnalyzer(mAnalyzerSettings);
         }
 
         private void FFRKViewInventory_Load(object sender, EventArgs e)
@@ -83,8 +93,13 @@ namespace FFRKInspector.UI
                 DataPartyDetails party = FFRKProxy.Instance.GameState.PartyDetails;
                 if (party != null)
                 {
-                    DataBuddyInformation[] buddies = party.Buddies;
-                    UpdatePartyGrid(buddies.ToList());
+                    // Run the initial analysis before updating the grids, so we can pass the
+                    // scores straight through.  We'll run the analysis again every time they
+                    // change one of the settings, so that the scores update on the fly.
+                    mAnalyzer.Items = party.Equipments;
+                    mAnalyzer.Buddies = party.Buddies;
+                    mAnalyzer.Run();
+                    UpdatePartyGrid(party.Buddies.ToList());
                     UpdateEquipmentGrid(party.Equipments);
                 }
             }
@@ -205,9 +220,6 @@ namespace FFRKInspector.UI
             dataGridViewBuddies.Rows.Clear();
             dataGridViewBuddies.Rows.Add(buddies.Count);
             int cur_row = 0;
-            AnalyzerSettings settings = mAnalyzerSettings;
-            if (settings == null)
-                settings = AnalyzerSettings.DefaultSettings;
             foreach (DataBuddyInformation info in buddies)
             {
                 DataGridViewRow row = dataGridViewBuddies.Rows[cur_row];
@@ -215,17 +227,18 @@ namespace FFRKInspector.UI
                 row.Cells[dgcCharacterName.Name].Value = info.Name;
                 row.Cells[dgcCharacterLevel.Name].Value = info.Level;
                 row.Cells[dgcCharacterMaxLevel.Name].Value = info.LevelMax;
-                AnalyzerSettings.PartyMemberSettings member_settings = settings[info.Name];
 
-                ((DataGridViewCheckBoxCell)row.Cells[dgcCharacterOptimize.Name]).Value = member_settings.Score;
-                ((DataGridViewComboBoxCell)row.Cells[dgcCharacterOffensiveStat.Name]).Value = member_settings.OffensiveStat.ToString();
-                ((DataGridViewComboBoxCell)row.Cells[dgcCharacterDefensiveStat.Name]).Value = member_settings.DefensiveStat.ToString();
+                AnalyzerSettings.PartyMemberSettings member_settings = mAnalyzerSettings[info.BuddyId];
+                row.Cells[dgcCharacterOffensiveStat.Name].Value = member_settings.OffensiveStat;
+                row.Cells[dgcCharacterDefensiveStat.Name].Value = member_settings.DefensiveStat;
+                row.Cells[dgcCharacterOptimize.Name].Value = member_settings.Score;
                 ++cur_row;
             }
         }
 
         void UpdateEquipmentGrid(DataEquipmentInformation[] EquipList)
         {
+            dataGridViewEquipment.Rows.Clear();
             foreach (DataEquipmentInformation equip in EquipList)
             {
                 int row_index = dataGridViewEquipment.Rows.Add();
@@ -316,6 +329,11 @@ namespace FFRKInspector.UI
             return result;
         }
 
+        private void RecomputeAllScores()
+        {
+            mAnalyzer.Run();
+        }
+
         private void RecomputeAllItemStats()
         {
             foreach (DataGridViewRow row in dataGridViewEquipment.Rows)
@@ -348,8 +366,44 @@ namespace FFRKInspector.UI
             RecomputeAllItemStats();
         }
 
-        private void dataGridView1_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
+        private bool SetValueIfDirty<T>(object source, ref T dest)
         {
+            T new_value = (T)source;
+            bool is_dirty = !EqualityComparer<T>.Default.Equals(dest, new_value);
+            if (is_dirty)
+                dest = (T)new_value;
+            return is_dirty;
+        }
+
+        private void dataGridViewBuddies_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (mAnalyzerSettings == null)
+                return;
+
+            DataGridViewColumn col = dataGridViewBuddies.Columns[e.ColumnIndex];
+            DataGridViewRow row = dataGridViewBuddies.Rows[e.RowIndex];
+            DataBuddyInformation buddy = (DataBuddyInformation)row.Tag;
+            AnalyzerSettings.PartyMemberSettings member_settings = mAnalyzerSettings[buddy.BuddyId];
+            if (member_settings == null)
+                return;
+            if (dataGridViewBuddies.CurrentCell == null)
+                return;
+            bool was_dirty = false;
+            if (col == dgcCharacterOffensiveStat)
+            {
+                was_dirty = SetValueIfDirty(row.Cells[e.ColumnIndex].Value, ref member_settings.OffensiveStat);
+            }
+            else if (col == dgcCharacterDefensiveStat)
+            {
+                was_dirty = SetValueIfDirty(row.Cells[e.ColumnIndex].Value, ref member_settings.DefensiveStat);
+            }
+            else if (col == dgcCharacterOptimize)
+            {
+                was_dirty = SetValueIfDirty(row.Cells[e.ColumnIndex].Value, ref member_settings.Score);
+            }
+
+            if (was_dirty)
+                RecomputeAllScores();
         }
     }
 }

@@ -20,6 +20,7 @@
     <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <NoWarn>169;649</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -133,7 +134,7 @@
     <Compile Include="UI\DataGridViewEx.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\DatabaseUI\EnumDataViewGridCell.cs" />
+    <Compile Include="UI\EnumDataViewGridCell.cs" />
     <Compile Include="UI\DeselectableListBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -252,7 +253,7 @@
     <Compile Include="UI\DatabaseUI\MissingItemsPanel.Designer.cs">
       <DependentUpon>MissingItemsPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\DatabaseUI\SeriesDataGridViewCell.cs" />
+    <Compile Include="UI\SeriesDataGridViewCell.cs" />
     <Compile Include="Analyzer\AnalyzerSettings.cs" />
     <Compile Include="Utility\CriticalZ.cs" />
     <Compile Include="Utility\Histogram.cs" />

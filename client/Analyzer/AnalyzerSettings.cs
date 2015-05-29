@@ -9,6 +9,13 @@ namespace FFRKInspector.Analyzer
 {
     class AnalyzerSettings
     {
+        public enum ItemLevelConsideration
+        {
+            Current,
+            CurrentRankMaxLevel,
+            FullyMaxed
+        }
+
         public enum OffensiveStat
         {
             ATK,
@@ -34,18 +41,27 @@ namespace FFRKInspector.Analyzer
             }
         }
 
-        private Dictionary<string, PartyMemberSettings> mConfiguration;
+        private ItemLevelConsideration mLevelConsideration;
+        private Dictionary<uint, PartyMemberSettings> mConfiguration;
         private static AnalyzerSettings mDefaultSettings;
         private static PartyMemberSettings mDefaultMemberSettings;
 
+        private AnalyzerSettings Clone()
+        {
+            AnalyzerSettings result = (AnalyzerSettings)MemberwiseClone();
+            result.mConfiguration = new Dictionary<uint, PartyMemberSettings>(result.mConfiguration);
+            return result;
+        }
+
         public static AnalyzerSettings DefaultSettings
         {
-            get { return mDefaultSettings; }
+            get { return mDefaultSettings.Clone(); }
         }
 
         static AnalyzerSettings()
         {
             mDefaultSettings = new AnalyzerSettings();
+            mDefaultSettings.mLevelConsideration = ItemLevelConsideration.Current;
             mDefaultMemberSettings = new PartyMemberSettings
             {
                 Score = true,
@@ -87,8 +103,10 @@ namespace FFRKInspector.Analyzer
 
         private static void AddDefault(string Name, bool Score, OffensiveStat Off, DefensiveStat Def)
         {
-            DefaultSettings.mConfiguration.Add(
-                Name,
+            DataCache.Characters.Key key = FFRKProxy.Instance.Cache.Characters.First(
+                x => x.Value.Name.ToString().Equals(Name, StringComparison.CurrentCultureIgnoreCase)).Key;
+            mDefaultSettings.mConfiguration.Add(
+                key.Id,
                 new PartyMemberSettings
                 {
                     Score = Score,
@@ -99,27 +117,33 @@ namespace FFRKInspector.Analyzer
 
         public AnalyzerSettings()
         {
-            mConfiguration = new Dictionary<string, PartyMemberSettings>(StringComparer.CurrentCultureIgnoreCase);
+            mConfiguration = new Dictionary<uint, PartyMemberSettings>();
         }
 
-        public PartyMemberSettings this[string Name]
+        public PartyMemberSettings this[uint Id]
         {
             get
             {
                 // If we have a local configuration, try to get the name from there first.
                 PartyMemberSettings result = null;
-                if (mConfiguration.TryGetValue(Name, out result))
+                if (mConfiguration.TryGetValue(Id, out result))
                     return result;
 
                 // If we couldn't find it and this is already the default configuration, don't ask
                 // ourselves to do the lookup again which would create an infinite recursion.  Just
                 // return something sane.
-                if (this == DefaultSettings)
+                if (this == mDefaultSettings)
                     return mDefaultMemberSettings.Clone();
 
                 // Otherwise ask the default configuration.
-                return DefaultSettings[Name];
+                return mDefaultSettings[Id];
             }
+        }
+
+        public ItemLevelConsideration LevelConsideration
+        {
+            get { return mLevelConsideration; }
+            set { mLevelConsideration = value; }
         }
     }
 }
