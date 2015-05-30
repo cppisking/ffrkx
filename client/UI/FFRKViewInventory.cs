@@ -76,9 +76,6 @@ namespace FFRKInspector.UI
             comboBoxSynergy.SelectedIndex = 0;
             dgcCharacterDefensiveStat.CellTemplate = new EnumDataViewGridComboBoxCell<AnalyzerSettings.DefensiveStat>();
             dgcCharacterOffensiveStat.CellTemplate = new EnumDataViewGridComboBoxCell<AnalyzerSettings.OffensiveStat>();
-
-            mAnalyzerSettings = AnalyzerSettings.DefaultSettings;
-            mAnalyzer = new EquipmentAnalyzer(mAnalyzerSettings);
         }
 
         private void FFRKViewInventory_Load(object sender, EventArgs e)
@@ -88,6 +85,9 @@ namespace FFRKInspector.UI
 
             if (FFRKProxy.Instance != null)
             {
+                mAnalyzerSettings = AnalyzerSettings.DefaultSettings;
+                mAnalyzer = new EquipmentAnalyzer(mAnalyzerSettings);
+
                 FFRKProxy.Instance.OnPartyList += FFRKProxy_OnPartyList;
 
                 DataPartyDetails party = FFRKProxy.Instance.GameState.PartyDetails;
@@ -208,6 +208,9 @@ namespace FFRKInspector.UI
         {
             BeginInvoke((Action)(() =>
             {
+                mAnalyzer.Items = party.Equipments;
+                mAnalyzer.Buddies = party.Buddies;
+                mAnalyzer.Run();
                 UpdatePartyGrid(party.Buddies.ToList());
                 UpdateEquipmentGrid(party.Equipments);
             }));

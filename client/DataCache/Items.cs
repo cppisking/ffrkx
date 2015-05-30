@@ -21,6 +21,18 @@ namespace FFRKInspector.DataCache.Items
         public GameData.EquipStats BaseStats;
         public GameData.EquipStats MaxStats;
 
+        public bool AreStatsValid
+        {
+            get
+            {
+                if (BaseStats == null || MaxStats == null)
+                    return false;
+                if (!BaseStats.IsValid || !MaxStats.IsValid)
+                    return false;
+                return true;
+            }
+        }
+
         public override string ToString()
         {
             return Name;

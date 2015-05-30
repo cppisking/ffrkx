@@ -15,5 +15,20 @@ namespace FFRKInspector.GameData
         public short? Res;
         public short? Eva;
         public short? Mnd;
+
+        public bool IsValid
+        {
+            get
+            {
+                if (Atk != null) return true;
+                if (Mag != null) return true;
+                if (Acc != null) return true;
+                if (Def != null) return true;
+                if (Res != null) return true;
+                if (Eva != null) return true;
+                if (Mnd != null) return true;
+                return false;
+            }
+        }
     }
 }

@@ -48,11 +48,20 @@ namespace FFRKInspector.Analyzer
             public EquipStats SynergizedStats = new EquipStats();
             public EquipStats NonSynergizedStats = new EquipStats();
             public Result Result;
+            public EquipStats BaseStats;
+            public EquipStats MaxStats;
+            public bool Ignore = false;
+
+            public EquipStats GetEffectiveStats(RealmSynergy.SynergyValue synergy)
+            {
+                return (Item.SeriesId == synergy.GameSeries) ? SynergizedStats : NonSynergizedStats;
+            }
         }
 
         private AnalyzerSettings mSettings;
-        private List<AnalysisItem> mItems;
-        private List<AnalysisBuddy> mBuddies;
+        private List<AnalysisItem> mItems = new List<AnalysisItem>();
+        private List<AnalysisBuddy> mBuddies = new List<AnalysisBuddy>();
+        private Dictionary<uint, Result> mResults = new Dictionary<uint, Result>();
         private int mTopN = kDefaultN;
 
         public EquipmentAnalyzer(AnalyzerSettings Settings)
@@ -75,11 +84,28 @@ namespace FFRKInspector.Analyzer
         {
             set
             {
+                mResults.Clear();
                 mItems.Clear();
                 foreach (DataEquipmentInformation equip in value)
                 {
+                    // Lookup the item in the cache.  This gives us base stats and max stats, so we can
+                    // compute effective stats.  If we don't find it, or the stats are invalid, don't score
+                    // this item.
+                    DataCache.Items.Key item_key = new DataCache.Items.Key { ItemId = equip.EquipmentId };
+                    DataCache.Items.Data item_data = null;
                     AnalysisItem item = new AnalysisItem();
                     item.Item = equip;
+                    item.Result = new Result();
+                    mResults[item.Item.InstanceId] = item.Result;
+
+                    if (!FFRKProxy.Instance.Cache.Items.TryGetValue(item_key, out item_data) || !item_data.AreStatsValid)
+                        item.Ignore = true;
+                    else
+                    {
+                        item.BaseStats = item_data.BaseStats;
+                        item.MaxStats = item_data.MaxStats;
+                    }
+
                     mItems.Add(item);
                 }
                 UpdateWhoCanUse();
@@ -133,34 +159,28 @@ namespace FFRKInspector.Analyzer
         {
             // First run through and compute the effective stats of each item based
             // on the value of the item level consideration setting.
-            foreach (AnalysisItem item in mItems)
-            {
-                // Lookup the item in the cache.  This gives us base stats and max stats, so we can
-                // compute effective stats.
-                DataCache.Items.Key item_key = new DataCache.Items.Key { ItemId = item.Item.EquipmentId };
-                DataCache.Items.Data item_data = null;
-                if (!FFRKProxy.Instance.Cache.Items.TryGetValue(item_key, out item_data))
-                    continue;
-
-                byte effective_level = item.Item.Level;
-                switch (mSettings.LevelConsideration)
+            DebugParallelForEach(mItems.Where(x => !x.Ignore),
+                item =>
                 {
-                    case AnalyzerSettings.ItemLevelConsideration.Current:
-                        effective_level = item.Item.Level;
-                        break;
-                    case AnalyzerSettings.ItemLevelConsideration.CurrentRankMaxLevel:
-                        effective_level = item.Item.LevelMax;
-                        break;
-                    case AnalyzerSettings.ItemLevelConsideration.FullyMaxed:
-                        effective_level = StatCalculator.MaxLevel(
-                            StatCalculator.Evolve(item.Item.BaseRarity, SchemaConstants.EvolutionLevel.PlusPlus));
-                        break;
-                }
+                    byte effective_level = item.Item.Level;
+                    switch (mSettings.LevelConsideration)
+                    {
+                        case AnalyzerSettings.ItemLevelConsideration.Current:
+                            effective_level = item.Item.Level;
+                            break;
+                        case AnalyzerSettings.ItemLevelConsideration.CurrentRankMaxLevel:
+                            effective_level = item.Item.LevelMax;
+                            break;
+                        case AnalyzerSettings.ItemLevelConsideration.FullyMaxed:
+                            effective_level = StatCalculator.MaxLevel(
+                                StatCalculator.Evolve(item.Item.BaseRarity, SchemaConstants.EvolutionLevel.PlusPlus));
+                            break;
+                    }
 
-                item.NonSynergizedStats = StatCalculator.ComputeStatsForLevel(item.Item.BaseRarity, item_data.BaseStats, item_data.MaxStats, effective_level);
-                effective_level = StatCalculator.EffectiveLevelWithSynergy(effective_level);
-                item.SynergizedStats = StatCalculator.ComputeStatsForLevel(item.Item.BaseRarity, item_data.BaseStats, item_data.MaxStats, effective_level);
-            }
+                    item.NonSynergizedStats = StatCalculator.ComputeStatsForLevel(item.Item.BaseRarity, item.BaseStats, item.MaxStats, effective_level);
+                    effective_level = StatCalculator.EffectiveLevelWithSynergy(effective_level);
+                    item.SynergizedStats = StatCalculator.ComputeStatsForLevel(item.Item.BaseRarity, item.BaseStats, item.MaxStats, effective_level);
+                });
 
             RealmSynergy.SynergyValue[] synergy_values = RealmSynergy.Values.ToArray();
             AnalyzerSettings.DefensiveStat[] defensive_stats = Enum.GetValues(typeof(AnalyzerSettings.DefensiveStat)).Cast<AnalyzerSettings.DefensiveStat>().ToArray();
@@ -170,42 +190,42 @@ namespace FFRKInspector.Analyzer
             List<AnalysisItem>[,] best_offensive_items = new List<AnalysisItem>[synergy_values.Length,offensive_stats.Length];
 
             // Sort the item list MxN different ways, once for each combination of (realm,stat)
-            Parallel.ForEach(CartesianProduct(synergy_values, defensive_stats),
+            DebugParallelForEach(CartesianProduct(synergy_values, defensive_stats),
                 x =>
                 {
                     RealmSynergy.SynergyValue synergy = x.Key;
                     AnalyzerSettings.DefensiveStat stat = x.Value;
-                    List<AnalysisItem> sorted_items = new List<AnalysisItem>(mItems);
+                    List<AnalysisItem> sorted_items = new List<AnalysisItem>(mItems.Where(y => !y.Ignore));
                     sorted_items.Sort((a,b) =>
                     {
-                        EquipStats a_stats = (a.Item.SeriesId == synergy.GameSeries) ? a.SynergizedStats : a.NonSynergizedStats;
-                        EquipStats b_stats = (b.Item.SeriesId == synergy.GameSeries) ? a.SynergizedStats : b.NonSynergizedStats;
+                        EquipStats a_stats = a.GetEffectiveStats(synergy);
+                        EquipStats b_stats = b.GetEffectiveStats(synergy);
                         short a_value = ChooseDefensiveStat(a_stats, stat);
                         short b_value = ChooseDefensiveStat(b_stats, stat);
-                        return a_value.CompareTo(b_value);
+                        return -a_value.CompareTo(b_value);
                     });
                     best_defensive_items[(int)synergy.Realm + 1,(int)stat] = sorted_items;
                 });
 
-            Parallel.ForEach(CartesianProduct(synergy_values, offensive_stats),
+            DebugParallelForEach(CartesianProduct(synergy_values, offensive_stats),
                 x =>
                 {
                     RealmSynergy.SynergyValue synergy = x.Key;
                     AnalyzerSettings.OffensiveStat stat = x.Value;
-                    List<AnalysisItem> sorted_items = new List<AnalysisItem>(mItems);
+                    List<AnalysisItem> sorted_items = new List<AnalysisItem>(mItems.Where(y => !y.Ignore));
                     sorted_items.Sort((a, b) =>
                     {
-                        EquipStats a_stats = (a.Item.SeriesId == synergy.GameSeries) ? a.SynergizedStats : a.NonSynergizedStats;
-                        EquipStats b_stats = (b.Item.SeriesId == synergy.GameSeries) ? a.SynergizedStats : b.NonSynergizedStats;
+                        EquipStats a_stats = a.GetEffectiveStats(synergy);
+                        EquipStats b_stats = b.GetEffectiveStats(synergy);
                         short a_value = ChooseOffensiveStat(a_stats, stat);
                         short b_value = ChooseOffensiveStat(b_stats, stat);
-                        return a_value.CompareTo(b_value);
+                        return -a_value.CompareTo(b_value);
                     });
                     best_offensive_items[(int)synergy.Realm + 1, (int)stat] = sorted_items;
                 });
 
             // Compute the top N items for each character.
-            Parallel.ForEach(mBuddies,
+            DebugParallelForEach(mBuddies,
                 buddy =>
                 {
                     buddy.TopNDefense = new List<AnalysisItem>[synergy_values.Length, defensive_stats.Length];
@@ -215,7 +235,7 @@ namespace FFRKInspector.Analyzer
                         for (int y=0; y < best_defensive_items.GetLength(1); ++y)
                         {
                             List<AnalysisItem> best_items = best_defensive_items[x, y];
-                            buddy.TopNDefense[x,y] = best_items.TakeWhile(item => item.WhoCanUse.Contains(buddy)).Take(mTopN).ToList();
+                            buddy.TopNDefense[x,y] = best_items.Where(item => item.WhoCanUse.Contains(buddy)).Take(mTopN).ToList();
                         }
                     }
                     for (int x = 0; x < best_offensive_items.GetLength(0); ++x)
@@ -223,13 +243,13 @@ namespace FFRKInspector.Analyzer
                         for (int y = 0; y < best_offensive_items.GetLength(1); ++y)
                         {
                             List<AnalysisItem> best_items = best_offensive_items[x, y];
-                            buddy.TopNOffense[x, y] = best_items.TakeWhile(item => item.WhoCanUse.Contains(buddy)).Take(mTopN).ToList();
+                            buddy.TopNOffense[x, y] = best_items.Where(item => item.WhoCanUse.Contains(buddy)).Take(mTopN).ToList();
                         }
                     }
                 });
 
             // Finally, go through each item and assign it a score based on how many times it appears in someone's Top N list.
-            Parallel.ForEach(mItems,
+            DebugParallelForEach(mItems.Where(x => !x.Ignore),
                 item =>
                 {
                     bool is_weapon = false;
@@ -267,9 +287,23 @@ namespace FFRKInspector.Analyzer
                             denormalized_score += top_n_for_stat.Count - index;
                         }
                     }
+                    System.Diagnostics.Debug.Assert(denormalized_score <= max_denormalized_score);
                     item.Result.IsValid = true;
                     item.Result.Score = (double)denormalized_score / (double)max_denormalized_score;
                 });
+        }
+
+        private void DebugParallelForEach<T>(IEnumerable<T> Source, Action<T> Body)
+        {
+            if (System.Diagnostics.Debugger.IsAttached)
+            {
+                foreach (T Item in Source)
+                    Body(Item);
+            }
+            else
+            {
+                Parallel.ForEach(Source, Body);
+            }
         }
 
         private IEnumerable<KeyValuePair<T,U>> CartesianProduct<T,U>(IEnumerable<T> First, IEnumerable<U> Second)
