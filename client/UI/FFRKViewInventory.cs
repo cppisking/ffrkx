@@ -72,8 +72,9 @@ namespace FFRKInspector.UI
             foreach (RealmSynergy.SynergyValue synergy in RealmSynergy.Values)
                 comboBoxSynergy.Items.Add(new SynergyFormatter(synergy));
             comboBoxViewMode.SelectedIndex = 0;
-            comboBoxUpgradeMode.SelectedIndex = 0;
+            comboBoxUpgradeMode.SelectedIndex = (int)UpgradeModeComboIndex.CurrentUpgradeCurrentLevel;
             comboBoxSynergy.SelectedIndex = 0;
+            comboBoxScoreSelection.SelectedIndex = (int)UpgradeModeComboIndex.MaxUpgradeMaxLevel;
             dgcCharacterDefensiveStat.CellTemplate = new EnumDataViewGridComboBoxCell<AnalyzerSettings.DefensiveStat>();
             dgcCharacterOffensiveStat.CellTemplate = new EnumDataViewGridComboBoxCell<AnalyzerSettings.OffensiveStat>();
         }
@@ -86,6 +87,7 @@ namespace FFRKInspector.UI
             if (FFRKProxy.Instance != null)
             {
                 mAnalyzerSettings = AnalyzerSettings.DefaultSettings;
+                mAnalyzerSettings.LevelConsideration = TranslateLevelConsideration((UpgradeModeComboIndex)comboBoxScoreSelection.SelectedIndex);
                 mAnalyzer = new EquipmentAnalyzer(mAnalyzerSettings);
 
                 FFRKProxy.Instance.OnPartyList += FFRKProxy_OnPartyList;
@@ -388,6 +390,10 @@ namespace FFRKInspector.UI
 
         private void RecomputeAllScores()
         {
+            if (mAnalyzer == null)
+                return;
+
+            mAnalyzerSettings.LevelConsideration = TranslateLevelConsideration((UpgradeModeComboIndex)comboBoxScoreSelection.SelectedIndex);
             mAnalyzer.Run();
             foreach (DataGridViewRow row in dataGridViewEquipment.Rows)
             {
@@ -395,6 +401,9 @@ namespace FFRKInspector.UI
                 row.Cells[dgcScore.Name].Value = new ScoreColumnValue(mAnalyzer.GetScore(equip.InstanceId));
             }
             dataGridViewEquipment.InvalidateColumn(dgcScore.Index);
+
+            if (dataGridViewEquipment.SortedColumn == dgcScore)
+                ResortByCurrentlySortedColumn();
         }
 
         private void RecomputeAllItemStats()
@@ -407,6 +416,11 @@ namespace FFRKInspector.UI
                 GridEquipStats stats = ComputeDisplayStats(equipment);
                 SetStatsForRow(row, equipment, stats);
             }
+            ResortByCurrentlySortedColumn();
+        }
+
+        private void ResortByCurrentlySortedColumn()
+        {
             if (dataGridViewEquipment.SortOrder != SortOrder.None)
             {
                 ListSortDirection dir = (dataGridViewEquipment.SortOrder == SortOrder.Ascending) ? ListSortDirection.Ascending : ListSortDirection.Descending;
@@ -438,6 +452,19 @@ namespace FFRKInspector.UI
             return is_dirty;
         }
 
+        private AnalyzerSettings.ItemLevelConsideration TranslateLevelConsideration(UpgradeModeComboIndex mode)
+        {
+            switch (mode)
+            {
+                case UpgradeModeComboIndex.CurrentUpgradeCurrentLevel:
+                    return AnalyzerSettings.ItemLevelConsideration.Current;
+                case UpgradeModeComboIndex.CurrentUpgradeMaxLevel:
+                    return AnalyzerSettings.ItemLevelConsideration.CurrentRankMaxLevel;
+                default:
+                    return AnalyzerSettings.ItemLevelConsideration.FullyMaxed;
+            }
+        }
+
         private void dataGridViewBuddies_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (mAnalyzerSettings == null)
@@ -467,6 +494,11 @@ namespace FFRKInspector.UI
 
             if (was_dirty)
                 RecomputeAllScores();
+        }
+
+        private void comboBoxScoreSelection_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RecomputeAllScores();
         }
     }
 }

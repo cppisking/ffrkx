@@ -326,12 +326,12 @@ namespace FFRKInspector.Analyzer
 
         private void DebugParallelForEach<T>(IEnumerable<T> Source, Action<T> Body)
         {
-            if (System.Diagnostics.Debugger.IsAttached)
-            {
-                foreach (T Item in Source)
-                    Body(Item);
-            }
-            else
+            //if (System.Diagnostics.Debugger.IsAttached)
+            //{
+            //    foreach (T Item in Source)
+            //        Body(Item);
+            //}
+            //else
             {
                 Parallel.ForEach(Source, Body);
             }

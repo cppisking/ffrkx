@@ -31,6 +31,18 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridViewEquipment = new System.Windows.Forms.DataGridView();
+            this.dgcItem = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgcCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgcType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgcRarity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgcSynergy = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgcLevel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgcATK = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgcMAG = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgcMND = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgcDEF = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgcRES = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgcScore = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.comboBoxUpgradeMode = new System.Windows.Forms.ComboBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.dataGridViewBuddies = new FFRKInspector.UI.DataGridViewEx();
@@ -41,6 +53,8 @@
             this.dgcCharacterOffensiveStat = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.dgcCharacterDefensiveStat = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.comboBoxScoreSelection = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxSynergy = new System.Windows.Forms.ComboBox();
@@ -59,18 +73,6 @@
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgcItem = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgcCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgcType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgcRarity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgcSynergy = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgcLevel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgcATK = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgcMAG = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgcMND = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgcDEF = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgcRES = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgcScore = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEquipment)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBuddies)).BeginInit();
@@ -101,7 +103,7 @@
             this.dgcDEF,
             this.dgcRES,
             this.dgcScore});
-            this.dataGridViewEquipment.Location = new System.Drawing.Point(13, 66);
+            this.dataGridViewEquipment.Location = new System.Drawing.Point(13, 92);
             this.dataGridViewEquipment.MultiSelect = false;
             this.dataGridViewEquipment.Name = "dataGridViewEquipment";
             this.dataGridViewEquipment.RowHeadersVisible = false;
@@ -109,8 +111,96 @@
             this.dataGridViewEquipment.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewEquipment.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewEquipment.ShowEditingIcon = false;
-            this.dataGridViewEquipment.Size = new System.Drawing.Size(723, 499);
+            this.dataGridViewEquipment.Size = new System.Drawing.Size(723, 473);
             this.dataGridViewEquipment.TabIndex = 0;
+            // 
+            // dgcItem
+            // 
+            this.dgcItem.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dgcItem.HeaderText = "Item";
+            this.dgcItem.Name = "dgcItem";
+            this.dgcItem.ReadOnly = true;
+            this.dgcItem.Width = 52;
+            // 
+            // dgcCategory
+            // 
+            this.dgcCategory.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dgcCategory.HeaderText = "Category";
+            this.dgcCategory.Name = "dgcCategory";
+            this.dgcCategory.ReadOnly = true;
+            this.dgcCategory.Width = 74;
+            // 
+            // dgcType
+            // 
+            this.dgcType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dgcType.HeaderText = "Type";
+            this.dgcType.Name = "dgcType";
+            this.dgcType.ReadOnly = true;
+            this.dgcType.Width = 56;
+            // 
+            // dgcRarity
+            // 
+            this.dgcRarity.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dgcRarity.HeaderText = "Rarity";
+            this.dgcRarity.Name = "dgcRarity";
+            this.dgcRarity.ReadOnly = true;
+            // 
+            // dgcSynergy
+            // 
+            this.dgcSynergy.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dgcSynergy.HeaderText = "Synergy";
+            this.dgcSynergy.Name = "dgcSynergy";
+            this.dgcSynergy.ReadOnly = true;
+            // 
+            // dgcLevel
+            // 
+            this.dgcLevel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dgcLevel.HeaderText = "Level";
+            this.dgcLevel.Name = "dgcLevel";
+            this.dgcLevel.ReadOnly = true;
+            // 
+            // dgcATK
+            // 
+            this.dgcATK.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dgcATK.HeaderText = "ATK";
+            this.dgcATK.Name = "dgcATK";
+            this.dgcATK.ReadOnly = true;
+            // 
+            // dgcMAG
+            // 
+            this.dgcMAG.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dgcMAG.HeaderText = "MAG";
+            this.dgcMAG.Name = "dgcMAG";
+            this.dgcMAG.ReadOnly = true;
+            // 
+            // dgcMND
+            // 
+            this.dgcMND.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dgcMND.HeaderText = "MND";
+            this.dgcMND.Name = "dgcMND";
+            this.dgcMND.ReadOnly = true;
+            // 
+            // dgcDEF
+            // 
+            this.dgcDEF.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dgcDEF.HeaderText = "DEF";
+            this.dgcDEF.Name = "dgcDEF";
+            this.dgcDEF.ReadOnly = true;
+            // 
+            // dgcRES
+            // 
+            this.dgcRES.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dgcRES.HeaderText = "RES";
+            this.dgcRES.Name = "dgcRES";
+            this.dgcRES.ReadOnly = true;
+            // 
+            // dgcScore
+            // 
+            this.dgcScore.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dgcScore.HeaderText = "Score";
+            this.dgcScore.Name = "dgcScore";
+            this.dgcScore.ReadOnly = true;
+            this.dgcScore.Width = 60;
             // 
             // comboBoxUpgradeMode
             // 
@@ -211,6 +301,8 @@
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.comboBoxScoreSelection);
+            this.groupBox4.Controls.Add(this.label5);
             this.groupBox4.Controls.Add(this.label4);
             this.groupBox4.Controls.Add(this.label2);
             this.groupBox4.Controls.Add(this.comboBoxSynergy);
@@ -225,6 +317,29 @@
             this.groupBox4.TabIndex = 7;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Equipment";
+            // 
+            // comboBoxScoreSelection
+            // 
+            this.comboBoxScoreSelection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxScoreSelection.FormattingEnabled = true;
+            this.comboBoxScoreSelection.Items.AddRange(new object[] {
+            "using each item\'s current rarity and level.",
+            "using each item\'s current rarity and maximum level.",
+            "using each item\'s maximum rarity and level."});
+            this.comboBoxScoreSelection.Location = new System.Drawing.Point(94, 65);
+            this.comboBoxScoreSelection.Name = "comboBoxScoreSelection";
+            this.comboBoxScoreSelection.Size = new System.Drawing.Size(255, 21);
+            this.comboBoxScoreSelection.TabIndex = 8;
+            this.comboBoxScoreSelection.SelectedIndexChanged += new System.EventHandler(this.comboBoxScoreSelection_SelectedIndexChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(10, 68);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(78, 13);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "Compute score";
             // 
             // label4
             // 
@@ -370,94 +485,6 @@
             this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
             this.dataGridViewTextBoxColumn12.ReadOnly = true;
             // 
-            // dgcItem
-            // 
-            this.dgcItem.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dgcItem.HeaderText = "Item";
-            this.dgcItem.Name = "dgcItem";
-            this.dgcItem.ReadOnly = true;
-            this.dgcItem.Width = 52;
-            // 
-            // dgcCategory
-            // 
-            this.dgcCategory.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dgcCategory.HeaderText = "Category";
-            this.dgcCategory.Name = "dgcCategory";
-            this.dgcCategory.ReadOnly = true;
-            this.dgcCategory.Width = 74;
-            // 
-            // dgcType
-            // 
-            this.dgcType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dgcType.HeaderText = "Type";
-            this.dgcType.Name = "dgcType";
-            this.dgcType.ReadOnly = true;
-            this.dgcType.Width = 56;
-            // 
-            // dgcRarity
-            // 
-            this.dgcRarity.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dgcRarity.HeaderText = "Rarity";
-            this.dgcRarity.Name = "dgcRarity";
-            this.dgcRarity.ReadOnly = true;
-            // 
-            // dgcSynergy
-            // 
-            this.dgcSynergy.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dgcSynergy.HeaderText = "Synergy";
-            this.dgcSynergy.Name = "dgcSynergy";
-            this.dgcSynergy.ReadOnly = true;
-            // 
-            // dgcLevel
-            // 
-            this.dgcLevel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dgcLevel.HeaderText = "Level";
-            this.dgcLevel.Name = "dgcLevel";
-            this.dgcLevel.ReadOnly = true;
-            // 
-            // dgcATK
-            // 
-            this.dgcATK.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dgcATK.HeaderText = "ATK";
-            this.dgcATK.Name = "dgcATK";
-            this.dgcATK.ReadOnly = true;
-            // 
-            // dgcMAG
-            // 
-            this.dgcMAG.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dgcMAG.HeaderText = "MAG";
-            this.dgcMAG.Name = "dgcMAG";
-            this.dgcMAG.ReadOnly = true;
-            // 
-            // dgcMND
-            // 
-            this.dgcMND.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dgcMND.HeaderText = "MND";
-            this.dgcMND.Name = "dgcMND";
-            this.dgcMND.ReadOnly = true;
-            // 
-            // dgcDEF
-            // 
-            this.dgcDEF.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dgcDEF.HeaderText = "DEF";
-            this.dgcDEF.Name = "dgcDEF";
-            this.dgcDEF.ReadOnly = true;
-            // 
-            // dgcRES
-            // 
-            this.dgcRES.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dgcRES.HeaderText = "RES";
-            this.dgcRES.Name = "dgcRES";
-            this.dgcRES.ReadOnly = true;
-            // 
-            // dgcScore
-            // 
-            this.dgcScore.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dgcScore.HeaderText = "Score";
-            this.dgcScore.Name = "dgcScore";
-            this.dgcScore.ReadOnly = true;
-            this.dgcScore.Width = 60;
-            // 
             // FFRKViewInventory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -519,5 +546,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dgcDEF;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgcRES;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgcScore;
+        private System.Windows.Forms.ComboBox comboBoxScoreSelection;
+        private System.Windows.Forms.Label label5;
     }
 }
