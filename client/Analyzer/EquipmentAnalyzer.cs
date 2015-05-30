@@ -43,14 +43,26 @@ namespace FFRKInspector.Analyzer
 
         private class AnalysisItem
         {
+            private List<AnalysisBuddy> mUsers = new List<AnalysisBuddy>();
+
             public DataEquipmentInformation Item;
-            public List<AnalysisBuddy> WhoCanUse = new List<AnalysisBuddy>();
             public EquipStats SynergizedStats = new EquipStats();
             public EquipStats NonSynergizedStats = new EquipStats();
             public Result Result;
             public EquipStats BaseStats;
             public EquipStats MaxStats;
             public bool Ignore = false;
+
+            public List<AnalysisBuddy> Users
+            {
+                get { return mUsers; }
+                set { mUsers = value; }
+            }
+
+            public List<AnalysisBuddy> EnabledUsers
+            {
+                get { return mUsers.Where(x => x.Settings.Score).ToList(); }
+            }
 
             public EquipStats GetEffectiveStats(RealmSynergy.SynergyValue synergy)
             {
@@ -80,6 +92,16 @@ namespace FFRKInspector.Analyzer
             set { mTopN = value; }
         }
 
+        public double GetScore(uint EquipInstanceId)
+        {
+            Result result = null;
+            if (!mResults.TryGetValue(EquipInstanceId, out result))
+                return double.NaN;
+            if (!result.IsValid)
+                return double.NaN;
+            return result.Score;
+        }
+
         public DataEquipmentInformation[] Items
         {
             set
@@ -96,10 +118,18 @@ namespace FFRKInspector.Analyzer
                     AnalysisItem item = new AnalysisItem();
                     item.Item = equip;
                     item.Result = new Result();
+                    item.Result.IsValid = true;
                     mResults[item.Item.InstanceId] = item.Result;
 
-                    if (!FFRKProxy.Instance.Cache.Items.TryGetValue(item_key, out item_data) || !item_data.AreStatsValid)
+                    // We also don't know the formula for synergizing accessories right now, so ignore those
+                    // for the time being.
+                    if (!FFRKProxy.Instance.Cache.Items.TryGetValue(item_key, out item_data) 
+                        || !item_data.AreStatsValid
+                        || equip.Category == SchemaConstants.EquipmentCategory.Accessory)
+                    {
                         item.Ignore = true;
+                        item.Result.IsValid = false;
+                    }
                     else
                     {
                         item.BaseStats = item_data.BaseStats;
@@ -117,7 +147,7 @@ namespace FFRKInspector.Analyzer
             set
             {
                 mBuddies.Clear();
-                foreach (DataBuddyInformation buddy in value.Where(x => mSettings[x.BuddyId].Score))
+                foreach (DataBuddyInformation buddy in value)
                 {
                     AnalysisBuddy instance = new AnalysisBuddy();
                     instance.Buddy = buddy;
@@ -133,7 +163,7 @@ namespace FFRKInspector.Analyzer
             foreach (AnalysisBuddy buddy in mBuddies)
                 buddy.UsableItems.Clear();
             foreach (AnalysisItem item in mItems)
-                item.WhoCanUse.Clear();
+                item.Users.Clear();
 
             if (mItems.Count == 0 || mBuddies.Count == 0)
                 return;
@@ -149,7 +179,7 @@ namespace FFRKInspector.Analyzer
                 {
                     if (!buddy_data.UsableEquips.Contains(item.Item.Category))
                         continue;
-                    item.WhoCanUse.Add(buddy);
+                    item.Users.Add(buddy);
                     buddy.UsableItems.Add(item);
                 }
             }
@@ -225,7 +255,7 @@ namespace FFRKInspector.Analyzer
                 });
 
             // Compute the top N items for each character.
-            DebugParallelForEach(mBuddies,
+            DebugParallelForEach(mBuddies.Where(x => x.Settings.Score),
                 buddy =>
                 {
                     buddy.TopNDefense = new List<AnalysisItem>[synergy_values.Length, defensive_stats.Length];
@@ -235,7 +265,7 @@ namespace FFRKInspector.Analyzer
                         for (int y=0; y < best_defensive_items.GetLength(1); ++y)
                         {
                             List<AnalysisItem> best_items = best_defensive_items[x, y];
-                            buddy.TopNDefense[x,y] = best_items.Where(item => item.WhoCanUse.Contains(buddy)).Take(mTopN).ToList();
+                            buddy.TopNDefense[x,y] = best_items.Where(item => item.EnabledUsers.Contains(buddy)).Take(mTopN).ToList();
                         }
                     }
                     for (int x = 0; x < best_offensive_items.GetLength(0); ++x)
@@ -243,7 +273,7 @@ namespace FFRKInspector.Analyzer
                         for (int y = 0; y < best_offensive_items.GetLength(1); ++y)
                         {
                             List<AnalysisItem> best_items = best_offensive_items[x, y];
-                            buddy.TopNOffense[x, y] = best_items.Where(item => item.WhoCanUse.Contains(buddy)).Take(mTopN).ToList();
+                            buddy.TopNOffense[x, y] = best_items.Where(item => item.EnabledUsers.Contains(buddy)).Take(mTopN).ToList();
                         }
                     }
                 });
@@ -269,10 +299,10 @@ namespace FFRKInspector.Analyzer
                     // case it appears somewhere in the top N for every character who can use it, and in every single realm.
                     // Furthermore, we weight appearances by their rank, so the max *score* is that value times the best
                     // possible rank.
-                    int usable_by = item.WhoCanUse.Count;
+                    int usable_by = item.EnabledUsers.Count;
                     int max_denormalized_score = mTopN * usable_by * synergy_values.Length;
                     int denormalized_score = 0;
-                    foreach (AnalysisBuddy buddy in mBuddies)
+                    foreach (AnalysisBuddy buddy in mBuddies.Where(b => b.Settings.Score))
                     {
                         AnalyzerSettings.PartyMemberSettings buddy_settings = mSettings[buddy.Buddy.BuddyId];
                         List<AnalysisItem>[,] rank_array = is_weapon ? buddy.TopNOffense : buddy.TopNDefense;
@@ -290,6 +320,7 @@ namespace FFRKInspector.Analyzer
                     System.Diagnostics.Debug.Assert(denormalized_score <= max_denormalized_score);
                     item.Result.IsValid = true;
                     item.Result.Score = (double)denormalized_score / (double)max_denormalized_score;
+                    item.Result.Score *= 100.0;
                 });
         }
 

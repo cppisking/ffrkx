@@ -131,6 +131,11 @@ namespace FFRKInspector.UI
                 SynergyColumnValue other = (SynergyColumnValue)obj;
                 return (mValue == other.mValue);
             }
+
+            public override int GetHashCode()
+            {
+                return mValue.GetHashCode();
+            }
         }
 
         private class LevelColumnValue : IComparable
@@ -165,6 +170,11 @@ namespace FFRKInspector.UI
 
                 LevelColumnValue other = (LevelColumnValue)obj;
                 return (mCurrentLevel == other.mCurrentLevel) && (mMaxLevel == other.mMaxLevel);
+            }
+
+            public override int GetHashCode()
+            {
+                return mCurrentLevel + 100 * mMaxLevel;
             }
         }
 
@@ -202,6 +212,48 @@ namespace FFRKInspector.UI
                 RarityColumnValue other = (RarityColumnValue)obj;
                 return (mBaseRarity == other.mBaseRarity) && (mUpgrades == other.mUpgrades);
             }
+
+            public override int GetHashCode()
+            {
+                return 10 * mBaseRarity + mUpgrades;
+            }
+        }
+
+        private class ScoreColumnValue : IComparable
+        {
+            private double mScore;
+            public ScoreColumnValue(double Score)
+            {
+                mScore = Score;
+            }
+        
+            public int CompareTo(object obj)
+            {
+                ScoreColumnValue other = (ScoreColumnValue)obj;
+                return mScore.CompareTo(other.mScore);
+            }
+
+            public override string ToString()
+            {
+                if (double.IsNaN(mScore))
+                    return "N/A";
+                return mScore.ToString("F");
+            }
+
+            public override bool Equals(object obj)
+            {
+                if (obj == null || obj == DBNull.Value)
+                    return false;
+
+                ScoreColumnValue other = (ScoreColumnValue)obj;
+                return mScore == other.mScore;
+            }
+
+            public override int GetHashCode()
+            {
+                return mScore.GetHashCode();
+            }
+
         }
 
         void FFRKProxy_OnPartyList(DataPartyDetails party)
@@ -253,6 +305,7 @@ namespace FFRKInspector.UI
                 row.Cells[dgcRarity.Name].Value = new RarityColumnValue((int)equip.BaseRarity, (int)equip.EvolutionNumber);
                 row.Cells[dgcSynergy.Name].Value = new SynergyColumnValue(RealmSynergy.FromSeries(equip.SeriesId));
                 row.Cells[dgcLevel.Name].Value = new LevelColumnValue(equip.Level, equip.LevelMax);
+                row.Cells[dgcScore.Name].Value = new ScoreColumnValue(mAnalyzer.GetScore(equip.InstanceId));
 
                 GridEquipStats stats = ComputeDisplayStats(equip);
                 SetStatsForRow(row, equip, stats);
@@ -279,6 +332,7 @@ namespace FFRKInspector.UI
             SetStatForCell(row, dgcLevel,
                                 new LevelColumnValue(actual_stats.Level, actual_stats.LevelMax),
                                 new LevelColumnValue(display_stats.Level, display_stats.MaxLevel));
+
             SetStatForCell(row, dgcATK, actual_stats.Atk, display_stats.Stats.Atk);
             SetStatForCell(row, dgcMAG, actual_stats.Mag, display_stats.Stats.Mag);
             SetStatForCell(row, dgcMND, actual_stats.Mnd, display_stats.Stats.Mnd);
@@ -335,6 +389,12 @@ namespace FFRKInspector.UI
         private void RecomputeAllScores()
         {
             mAnalyzer.Run();
+            foreach (DataGridViewRow row in dataGridViewEquipment.Rows)
+            {
+                DataEquipmentInformation equip = (DataEquipmentInformation)row.Tag;
+                row.Cells[dgcScore.Name].Value = new ScoreColumnValue(mAnalyzer.GetScore(equip.InstanceId));
+            }
+            dataGridViewEquipment.InvalidateColumn(dgcScore.Index);
         }
 
         private void RecomputeAllItemStats()
