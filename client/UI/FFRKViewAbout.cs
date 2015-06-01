@@ -93,5 +93,15 @@ namespace FFRKInspector.UI
 
             System.Diagnostics.Process.Start(url);
         }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://ffrki.wordpress.com/");
+        }
+
+        private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/cppisking/ffrk-inspector/");
+        }
     }
 }
