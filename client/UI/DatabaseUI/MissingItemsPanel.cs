@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using FFRKInspector.Proxy;
 using FFRKInspector.GameData;
+using System.Diagnostics;
 
 namespace FFRKInspector.UI.DatabaseUI
 {
@@ -27,7 +28,11 @@ namespace FFRKInspector.UI.DatabaseUI
         {
             if (DesignMode)
                 return;
+            InitializeConnection();
+        }
 
+        public void InitializeConnection()
+        {
             if (FFRKProxy.Instance != null)
                 this.missing_itemsTableAdapter.Connection = FFRKProxy.Instance.Database.Connection;
         }
@@ -44,6 +49,11 @@ namespace FFRKInspector.UI.DatabaseUI
                 MessageBox.Show("There are no changes to commit");
             else
                 MessageBox.Show(String.Format("Updated {0} entries.", result));
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://ffrkstrategy.gamematome.jp");
         }
     }
 }

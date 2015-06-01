@@ -32,14 +32,21 @@ namespace FFRKInspector.UI
             if (template == null)
                 return;
             IDataGridViewAutoCompleteSource source = template as IDataGridViewAutoCompleteSource;
-            if (source == null)
-                return;
             TextBox box = e.Control as TextBox;
             if (box != null)
             {
-                box.AutoCompleteMode = AutoCompleteMode.Append;
-                box.AutoCompleteSource = AutoCompleteSource.CustomSource;
-                box.AutoCompleteCustomSource = source.AutoCompleteSource;
+                if (source == null)
+                {
+                    box.AutoCompleteMode = AutoCompleteMode.None;
+                    box.AutoCompleteSource = AutoCompleteSource.None;
+                    box.AutoCompleteCustomSource = null;
+                }
+                else
+                {
+                    box.AutoCompleteMode = AutoCompleteMode.Append;
+                    box.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                    box.AutoCompleteCustomSource = source.AutoCompleteSource;
+                }
             }
         }
 

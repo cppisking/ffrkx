@@ -86,6 +86,11 @@ namespace FFRKInspector.UI.DatabaseUI
             if (DesignMode)
                 return;
 
+            InitializeConnection();
+        }
+
+        public void InitializeConnection()
+        {
             if (FFRKProxy.Instance != null)
             {
                 this.equip_usageTableAdapter.Connection = FFRKProxy.Instance.Database.Connection;

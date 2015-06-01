@@ -139,6 +139,9 @@
     <value>383, 17</value>
   </metadata>
   <data name="label1.Text" xml:space="preserve">
-    <value>Is the database missing items?  Add them here, or edit entries other haves submitted if you see errors.  The first 6 fields are required.  An administrator will review the changes and add them to the main item database as necessary.</value>
+    <value>Is the database missing items?  Add them here, or edit entries other haves submitted if you see errors.  The first 6 fields are required.  An administrator will review the changes and add them to the main item database as necessary.
+
+Rules for submissions:
+* Equipment Id you can find in the inventory tab when you view your party list</value>
   </data>
 </root>

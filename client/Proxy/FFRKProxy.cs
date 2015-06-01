@@ -32,7 +32,7 @@ namespace FFRKInspector.Proxy
         FFRKDataCache mCache;
         AppSettings mSettings;
 
-        static readonly uint mRequiredSchema = 17;
+        static readonly uint mRequiredSchema = 18;
 
         static FFRKProxy mInstance;
 

@@ -13,6 +13,7 @@ using FFRKInspector.UI.ListViewFields;
 using FFRKInspector.GameData;
 using FFRKInspector.DataCache;
 using FFRKInspector.Analyzer;
+using System.Diagnostics;
 
 namespace FFRKInspector.UI
 {
@@ -323,9 +324,17 @@ namespace FFRKInspector.UI
                 row.Cells[col.Name].Value = display_value;
                 DataGridViewCellStyle current_style = row.Cells[col.Name].Style;
                 if (!actual_value.Equals(display_value))
-                    current_style.ForeColor = Color.Yellow;
+                {
+                    current_style.ForeColor = Color.White;
+                    if (current_style.Font != null)
+                        current_style.Font = new Font(current_style.Font, FontStyle.Bold);
+                }
                 else
+                {
                     current_style.ForeColor = Color.Black;
+                    if (current_style.Font != null)
+                        current_style.Font = new Font(current_style.Font, FontStyle.Regular);
+                }
             }
         }
 
@@ -499,6 +508,21 @@ namespace FFRKInspector.UI
         private void comboBoxScoreSelection_SelectedIndexChanged(object sender, EventArgs e)
         {
             RecomputeAllScores();
+        }
+
+        private void linkLabelMissing_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Control parent = Parent;
+            while (!(parent is FFRKTabInspector))
+                parent = parent.Parent;
+            FFRKTabInspector tab_control = (FFRKTabInspector)parent;
+            tab_control.DatabaseTab.DatabaseMode = DatabaseUI.FFRKViewDatabase.DatabaseModeEnum.MissingItems;
+            tab_control.SelectedPage = FFRKTabInspector.InspectorPage.Database;
+        }
+
+        private void linkLabelAlgo_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://ffrki.wordpress.com/2015/05/30/about-the-inventory-analysis-algorithm/");
         }
     }
 }

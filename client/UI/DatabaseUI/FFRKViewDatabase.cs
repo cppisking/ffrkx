@@ -18,6 +18,13 @@ namespace FFRKInspector.UI.DatabaseUI
 
         UserControl mSelectedPanel;
 
+        public enum DatabaseModeEnum
+        {
+            EquipmentAndStats,
+            EquipUsage,
+            MissingItems
+        }
+
         public FFRKViewDatabase()
         {
             InitializeComponent();
@@ -62,7 +69,10 @@ namespace FFRKInspector.UI.DatabaseUI
             try
             {
                 foreach (FFRKDataBoundPanel panel in mPanels)
+                {
+                    panel.InitializeConnection();
                     panel.Reload();
+                }
             }
             catch (Exception)
             {
@@ -105,12 +115,22 @@ namespace FFRKInspector.UI.DatabaseUI
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (mSelectedPanel != null)
-                mSelectedPanel.Visible = false;
-            if (comboBox1.SelectedIndex < mPanels.Count)
+            UserControl selectedPanel = (comboBox1.SelectedIndex < mPanels.Count) ? mPanels[comboBox1.SelectedIndex] : null;
+            foreach (UserControl panel in mPanels)
             {
-                mSelectedPanel = mPanels[comboBox1.SelectedIndex];
-                mSelectedPanel.Visible = true;
+                panel.Visible = (panel == selectedPanel);
+            }
+        }
+
+        public DatabaseModeEnum DatabaseMode
+        {
+            get
+            {
+                return (DatabaseModeEnum)comboBox1.SelectedIndex;
+            }
+            set
+            {
+                comboBox1.SelectedIndex = (int)value;
             }
         }
     }

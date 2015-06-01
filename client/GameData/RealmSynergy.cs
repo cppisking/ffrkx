@@ -56,7 +56,7 @@ namespace FFRKInspector.GameData
 
         static RealmSynergy()
         {
-            mTextLookup = new Dictionary<string, SynergyValue>();
+            mTextLookup = new Dictionary<string, SynergyValue>(StringComparer.CurrentCultureIgnoreCase);
             mSeriesLookup = new Dictionary<uint, SynergyValue>();
             mRealmLookup = new Dictionary<Value, SynergyValue>();
             // These values used here for the `series` field are sent to us by the server.

@@ -29,11 +29,13 @@ namespace FFRKInspector.UI.DatabaseUI
         {
             if (DesignMode)
                 return;
+            InitializeConnection();
+        }
 
+        public void InitializeConnection()
+        {
             if (FFRKProxy.Instance != null)
-            {
                 this.equipment_statsTableAdapter.Connection = FFRKProxy.Instance.Database.Connection;
-            }
         }
 
         public void Reload()

@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FFRKViewInventory));
             this.dataGridViewEquipment = new System.Windows.Forms.DataGridView();
             this.dgcItem = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgcCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -53,6 +54,9 @@
             this.dgcCharacterOffensiveStat = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.dgcCharacterDefensiveStat = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.linkLabelAlgo = new System.Windows.Forms.LinkLabel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.linkLabelMissing = new System.Windows.Forms.LinkLabel();
             this.comboBoxScoreSelection = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -84,8 +88,8 @@
             this.dataGridViewEquipment.AllowUserToAddRows = false;
             this.dataGridViewEquipment.AllowUserToDeleteRows = false;
             this.dataGridViewEquipment.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(213)))), ((int)(((byte)(180)))));
-            this.dataGridViewEquipment.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(213)))), ((int)(((byte)(180)))));
+            this.dataGridViewEquipment.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewEquipment.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -107,11 +111,11 @@
             this.dataGridViewEquipment.MultiSelect = false;
             this.dataGridViewEquipment.Name = "dataGridViewEquipment";
             this.dataGridViewEquipment.RowHeadersVisible = false;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(210)))), ((int)(((byte)(228)))));
-            this.dataGridViewEquipment.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(210)))), ((int)(((byte)(228)))));
+            this.dataGridViewEquipment.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridViewEquipment.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewEquipment.ShowEditingIcon = false;
-            this.dataGridViewEquipment.Size = new System.Drawing.Size(723, 473);
+            this.dataGridViewEquipment.Size = new System.Drawing.Size(748, 446);
             this.dataGridViewEquipment.TabIndex = 0;
             // 
             // dgcItem
@@ -223,7 +227,7 @@
             this.groupBox3.Controls.Add(this.dataGridViewBuddies);
             this.groupBox3.Location = new System.Drawing.Point(3, 3);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(428, 568);
+            this.groupBox3.Size = new System.Drawing.Size(396, 606);
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Available characters";
@@ -246,7 +250,7 @@
             this.dataGridViewBuddies.Name = "dataGridViewBuddies";
             this.dataGridViewBuddies.RowHeadersVisible = false;
             this.dataGridViewBuddies.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewBuddies.Size = new System.Drawing.Size(422, 549);
+            this.dataGridViewBuddies.Size = new System.Drawing.Size(390, 587);
             this.dataGridViewBuddies.TabIndex = 0;
             this.dataGridViewBuddies.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewBuddies_CellValueChanged);
             // 
@@ -301,6 +305,9 @@
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.linkLabelAlgo);
+            this.groupBox4.Controls.Add(this.label7);
+            this.groupBox4.Controls.Add(this.linkLabelMissing);
             this.groupBox4.Controls.Add(this.comboBoxScoreSelection);
             this.groupBox4.Controls.Add(this.label5);
             this.groupBox4.Controls.Add(this.label4);
@@ -311,12 +318,47 @@
             this.groupBox4.Controls.Add(this.label3);
             this.groupBox4.Controls.Add(this.comboBoxUpgradeMode);
             this.groupBox4.Controls.Add(this.dataGridViewEquipment);
-            this.groupBox4.Location = new System.Drawing.Point(437, 3);
+            this.groupBox4.Location = new System.Drawing.Point(405, 3);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(742, 568);
+            this.groupBox4.Size = new System.Drawing.Size(767, 606);
             this.groupBox4.TabIndex = 7;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Equipment";
+            // 
+            // linkLabelAlgo
+            // 
+            this.linkLabelAlgo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.linkLabelAlgo.AutoSize = true;
+            this.linkLabelAlgo.Location = new System.Drawing.Point(22, 586);
+            this.linkLabelAlgo.Name = "linkLabelAlgo";
+            this.linkLabelAlgo.Size = new System.Drawing.Size(277, 13);
+            this.linkLabelAlgo.TabIndex = 12;
+            this.linkLabelAlgo.TabStop = true;
+            this.linkLabelAlgo.Text = "Click here to read about how the scoring algorithm works ";
+            this.linkLabelAlgo.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelAlgo_LinkClicked_1);
+            // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(22, 558);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(697, 28);
+            this.label7.TabIndex = 11;
+            this.label7.Text = resources.GetString("label7.Text");
+            // 
+            // linkLabelMissing
+            // 
+            this.linkLabelMissing.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.linkLabelMissing.AutoSize = true;
+            this.linkLabelMissing.Location = new System.Drawing.Point(22, 543);
+            this.linkLabelMissing.Name = "linkLabelMissing";
+            this.linkLabelMissing.Size = new System.Drawing.Size(495, 13);
+            this.linkLabelMissing.TabIndex = 9;
+            this.linkLabelMissing.TabStop = true;
+            this.linkLabelMissing.Text = "Item\'s whose score shows N/A may be missing stat information in the database.  Cl" +
+    "ick here to add them.";
+            this.linkLabelMissing.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelMissing_LinkClicked);
             // 
             // comboBoxScoreSelection
             // 
@@ -384,8 +426,7 @@
             this.comboBoxViewMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxViewMode.FormattingEnabled = true;
             this.comboBoxViewMode.Items.AddRange(new object[] {
-            "Available equipment and their stats",
-            "Characters\' best items"});
+            "Available equipment and their stats"});
             this.comboBoxViewMode.Location = new System.Drawing.Point(46, 40);
             this.comboBoxViewMode.Name = "comboBoxViewMode";
             this.comboBoxViewMode.Size = new System.Drawing.Size(208, 21);
@@ -492,7 +533,7 @@
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Name = "FFRKViewInventory";
-            this.Size = new System.Drawing.Size(1191, 593);
+            this.Size = new System.Drawing.Size(1172, 631);
             this.Load += new System.EventHandler(this.FFRKViewInventory_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEquipment)).EndInit();
             this.groupBox3.ResumeLayout(false);
@@ -548,5 +589,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dgcScore;
         private System.Windows.Forms.ComboBox comboBoxScoreSelection;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.LinkLabel linkLabelAlgo;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.LinkLabel linkLabelMissing;
     }
 }
