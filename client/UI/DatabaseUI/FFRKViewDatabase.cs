@@ -115,10 +115,10 @@ namespace FFRKInspector.UI.DatabaseUI
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UserControl selectedPanel = (comboBox1.SelectedIndex < mPanels.Count) ? mPanels[comboBox1.SelectedIndex] : null;
+            mSelectedPanel = (comboBox1.SelectedIndex < mPanels.Count) ? mPanels[comboBox1.SelectedIndex] : null;
             foreach (UserControl panel in mPanels)
             {
-                panel.Visible = (panel == selectedPanel);
+                panel.Visible = (panel == mSelectedPanel);
             }
         }
 
