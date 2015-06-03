@@ -45,10 +45,17 @@
             this.labelActiveBattleNotice = new System.Windows.Forms.Label();
             this.labelNoDrops = new System.Windows.Forms.Label();
             this.groupBoxAllItems = new System.Windows.Forms.GroupBox();
-            this.listViewAllDrops = new FFRKInspector.UI.ListViewEx();
+            this.checkBoxRepeatable = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.checkBoxFilterSamples = new System.Windows.Forms.CheckBox();
             this.groupBoxCurrentBattle = new System.Windows.Forms.GroupBox();
+            this.listViewAllDrops = new FFRKInspector.UI.ListViewEx();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBoxNameFilter = new System.Windows.Forms.TextBox();
             this.groupBoxDungeon.SuspendLayout();
             this.groupBoxAllItems.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.groupBoxCurrentBattle.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -167,6 +174,12 @@
             this.groupBoxAllItems.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxAllItems.Controls.Add(this.textBoxNameFilter);
+            this.groupBoxAllItems.Controls.Add(this.label2);
+            this.groupBoxAllItems.Controls.Add(this.checkBoxRepeatable);
+            this.groupBoxAllItems.Controls.Add(this.label1);
+            this.groupBoxAllItems.Controls.Add(this.numericUpDown1);
+            this.groupBoxAllItems.Controls.Add(this.checkBoxFilterSamples);
             this.groupBoxAllItems.Controls.Add(this.listViewAllDrops);
             this.groupBoxAllItems.Location = new System.Drawing.Point(0, 225);
             this.groupBoxAllItems.Name = "groupBoxAllItems";
@@ -175,21 +188,46 @@
             this.groupBoxAllItems.TabStop = false;
             this.groupBoxAllItems.Text = "All items dropped in this dungeon";
             // 
-            // listViewAllDrops
+            // checkBoxRepeatable
             // 
-            this.listViewAllDrops.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listViewAllDrops.DataBinding = null;
-            this.listViewAllDrops.FullRowSelect = true;
-            this.listViewAllDrops.Location = new System.Drawing.Point(14, 19);
-            this.listViewAllDrops.Name = "listViewAllDrops";
-            this.listViewAllDrops.SettingsKey = "FFRKViewActiveDungeon_AllDropsList";
-            this.listViewAllDrops.Size = new System.Drawing.Size(1004, 176);
-            this.listViewAllDrops.TabIndex = 3;
-            this.listViewAllDrops.UseCompatibleStateImageBehavior = false;
-            this.listViewAllDrops.View = System.Windows.Forms.View.Details;
-            this.listViewAllDrops.VirtualMode = true;
+            this.checkBoxRepeatable.AutoSize = true;
+            this.checkBoxRepeatable.Location = new System.Drawing.Point(307, 22);
+            this.checkBoxRepeatable.Name = "checkBoxRepeatable";
+            this.checkBoxRepeatable.Size = new System.Drawing.Size(154, 17);
+            this.checkBoxRepeatable.TabIndex = 7;
+            this.checkBoxRepeatable.Text = "Show only repeatable runs.";
+            this.checkBoxRepeatable.UseVisualStyleBackColor = true;
+            this.checkBoxRepeatable.CheckedChanged += new System.EventHandler(this.checkBoxRepeatable_CheckedChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(262, 23);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(30, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "runs.";
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Enabled = false;
+            this.numericUpDown1.Location = new System.Drawing.Point(199, 21);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(57, 20);
+            this.numericUpDown1.TabIndex = 5;
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            // 
+            // checkBoxFilterSamples
+            // 
+            this.checkBoxFilterSamples.AutoSize = true;
+            this.checkBoxFilterSamples.Location = new System.Drawing.Point(20, 22);
+            this.checkBoxFilterSamples.Margin = new System.Windows.Forms.Padding(0);
+            this.checkBoxFilterSamples.Name = "checkBoxFilterSamples";
+            this.checkBoxFilterSamples.Size = new System.Drawing.Size(171, 17);
+            this.checkBoxFilterSamples.TabIndex = 4;
+            this.checkBoxFilterSamples.Text = "Show only battles with at least ";
+            this.checkBoxFilterSamples.UseVisualStyleBackColor = true;
+            this.checkBoxFilterSamples.CheckedChanged += new System.EventHandler(this.checkBoxFilterSamples_CheckedChanged);
             // 
             // groupBoxCurrentBattle
             // 
@@ -205,6 +243,39 @@
             this.groupBoxCurrentBattle.TabStop = false;
             this.groupBoxCurrentBattle.Text = "Current battle drop anticipation";
             // 
+            // listViewAllDrops
+            // 
+            this.listViewAllDrops.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewAllDrops.DataBinding = null;
+            this.listViewAllDrops.FullRowSelect = true;
+            this.listViewAllDrops.Location = new System.Drawing.Point(14, 55);
+            this.listViewAllDrops.Name = "listViewAllDrops";
+            this.listViewAllDrops.SettingsKey = "FFRKViewActiveDungeon_AllDropsList";
+            this.listViewAllDrops.Size = new System.Drawing.Size(1004, 140);
+            this.listViewAllDrops.TabIndex = 3;
+            this.listViewAllDrops.UseCompatibleStateImageBehavior = false;
+            this.listViewAllDrops.View = System.Windows.Forms.View.Details;
+            this.listViewAllDrops.VirtualMode = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(480, 24);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(213, 13);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Show only items with a name that contains: ";
+            // 
+            // textBoxNameFilter
+            // 
+            this.textBoxNameFilter.Location = new System.Drawing.Point(699, 21);
+            this.textBoxNameFilter.Name = "textBoxNameFilter";
+            this.textBoxNameFilter.Size = new System.Drawing.Size(182, 20);
+            this.textBoxNameFilter.TabIndex = 9;
+            this.textBoxNameFilter.TextChanged += new System.EventHandler(this.textBoxNameFilter_TextChanged);
+            // 
             // FFRKViewActiveDungeon
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -218,6 +289,8 @@
             this.SizeChanged += new System.EventHandler(this.FFRKViewCurrentBattle_SizeChanged);
             this.groupBoxDungeon.ResumeLayout(false);
             this.groupBoxAllItems.ResumeLayout(false);
+            this.groupBoxAllItems.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.groupBoxCurrentBattle.ResumeLayout(false);
             this.groupBoxCurrentBattle.PerformLayout();
             this.ResumeLayout(false);
@@ -244,5 +317,11 @@
         private System.Windows.Forms.Label labelNoDrops;
         private System.Windows.Forms.GroupBox groupBoxAllItems;
         private System.Windows.Forms.GroupBox groupBoxCurrentBattle;
+        private System.Windows.Forms.CheckBox checkBoxRepeatable;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.CheckBox checkBoxFilterSamples;
+        private System.Windows.Forms.TextBox textBoxNameFilter;
+        private System.Windows.Forms.Label label2;
     }
 }

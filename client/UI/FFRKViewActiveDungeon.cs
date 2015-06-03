@@ -12,17 +12,20 @@ using FFRKInspector.Proxy;
 using FFRKInspector.Database;
 using FFRKInspector.DataCache;
 using FFRKInspector.UI.ListViewFields;
+using System.Globalization;
 
 namespace FFRKInspector.UI
 {
     internal partial class FFRKViewActiveDungeon : UserControl
     {
-        private ListListViewBinding<BasicItemDropStats> mBinding;
+        private List<BasicItemDropStats> mAllItems;
+        private ListListViewBinding<BasicItemDropStats> mFilteredItems;
 
         public FFRKViewActiveDungeon()
         {
             InitializeComponent();
-            mBinding = new ListListViewBinding<BasicItemDropStats>();
+            mAllItems = new List<BasicItemDropStats>();
+            mFilteredItems = new ListListViewBinding<BasicItemDropStats>();
 
             listViewAllDrops.LoadSettings();
 
@@ -35,7 +38,7 @@ namespace FFRKInspector.UI
             listViewAllDrops.AddField(new ItemStaminaToReachField("Stamina to Reach"));
             listViewAllDrops.AddField(new ItemRepeatableField("Is Repeatable"));
 
-            listViewAllDrops.DataBinding = mBinding;
+            listViewAllDrops.DataBinding = mFilteredItems;
         }
 
         private void FFRKViewCurrentBattle_Load(object sender, EventArgs e)
@@ -92,9 +95,8 @@ namespace FFRKInspector.UI
         {
             this.BeginInvoke((Action)(() =>
             {
-                mBinding.Collection = items;
-                listViewAllDrops.VirtualListSize = mBinding.Collection.Count;
-                listViewAllDrops.Invalidate();
+                mAllItems = items;
+                RebuildFilteredDropListAndInvalidate();
             }));
         }
 
@@ -103,11 +105,12 @@ namespace FFRKInspector.UI
             if (battle == null)
             {
                 listViewAllDrops.VirtualListSize = 0;
-                mBinding.Collection.Clear();
+                mAllItems.Clear();
+                mFilteredItems.Collection.Clear();
                 return;
             }
 
-            foreach (BasicItemDropStats stats in mBinding.Collection.Where(x => x.BattleId == battle.Battle.BattleId))
+            foreach (BasicItemDropStats stats in mAllItems.Where(x => x.BattleId == battle.Battle.BattleId))
             {
                 // Update the times_run field of every item that matches the last battle.  If we don't do
                 // this here in a separate loop, it will only happen for items that actually dropped in
@@ -123,8 +126,8 @@ namespace FFRKInspector.UI
                     if (drop.ItemType == DataEnemyDropItem.DropItemType.Gold)
                         continue;
 
-                    BasicItemDropStats match = mBinding.Collection.Find(x => (x.BattleId == battle.Battle.BattleId)
-                                                                        && (x.ItemId == drop.ItemId));
+                    BasicItemDropStats match = mAllItems.Find(x => (x.BattleId == battle.Battle.BattleId)
+                                                                && (x.ItemId == drop.ItemId));
                     if (match != null)
                     {
                         ++match.TotalDrops;
@@ -154,7 +157,7 @@ namespace FFRKInspector.UI
                         histo_times_run = battle_data.HistoSamples;
                     }
 
-                    mBinding.Collection.Add(
+                    mAllItems.Add(
                         new BasicItemDropStats
                         {
                             BattleId = battle.Battle.BattleId,
@@ -165,10 +168,9 @@ namespace FFRKInspector.UI
                             TimesRun = times_run,
                             TotalDrops = 1,
                         });
-                    listViewAllDrops.VirtualListSize = mBinding.Collection.Count;
                 }
-                listViewAllDrops.Invalidate();
             }
+            RebuildFilteredDropListAndInvalidate();
         }
 
         void FFRKProxy_OnCompleteBattle(EventBattleInitiated battle)
@@ -297,6 +299,47 @@ namespace FFRKInspector.UI
         {
             CenterControl(listViewActiveBattle, labelActiveBattleNotice);
             CenterControl(listViewActiveBattle, labelNoDrops);
+        }
+
+        private void checkBoxRepeatable_CheckedChanged(object sender, EventArgs e)
+        {
+            RebuildFilteredDropListAndInvalidate();
+        }
+
+        private void checkBoxFilterSamples_CheckedChanged(object sender, EventArgs e)
+        {
+            numericUpDown1.Enabled = checkBoxFilterSamples.Checked;
+            RebuildFilteredDropListAndInvalidate();
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            RebuildFilteredDropListAndInvalidate();
+        }
+
+        private void textBoxNameFilter_TextChanged(object sender, EventArgs e)
+        {
+            RebuildFilteredDropListAndInvalidate();
+        }
+
+        private void RebuildFilteredDropListAndInvalidate()
+        {
+            mFilteredItems.Collection = mAllItems.Where(x =>
+            {
+                if (checkBoxFilterSamples.Checked && x.TimesRun < numericUpDown1.Value)
+                    return false;
+                if (checkBoxRepeatable.Checked && !x.IsBattleRepeatable)
+                    return false;
+                if (textBoxNameFilter.Text.Length > 0)
+                {
+                    int match_index = CultureInfo.CurrentCulture.CompareInfo.IndexOf(x.ItemName, textBoxNameFilter.Text, CompareOptions.IgnoreCase);
+                    if (match_index == -1)
+                        return false;
+                }
+                return true;
+            }).ToList();
+            listViewAllDrops.VirtualListSize = mFilteredItems.Collection.Count;
+            listViewAllDrops.Invalidate();
         }
     }
 }
