@@ -39,7 +39,6 @@ namespace FFRKInspector.Database
 
         BackgroundWorker mDatabaseThread = null;
         CancellationTokenSource mCancellationTokenSource = null;
-        CancellationToken mCancellationToken = CancellationToken.None;
         BlockingCollection<IDbRequest> mDatabaseQueue = null;
         string mConnStr = null;
         MySqlConnection mConnection = null;
@@ -110,7 +109,6 @@ namespace FFRKInspector.Database
             mDatabaseThread.DoWork += mDatabaseThread_DoWork;
             mDatabaseThread.RunWorkerAsync();
             mDatabaseQueue = new BlockingCollection<IDbRequest>();
-            mCancellationToken = new CancellationToken();
             mCancellationTokenSource = new CancellationTokenSource();
             mConnectionState = ConnectionState.Disconnected;
         }
@@ -235,6 +233,7 @@ namespace FFRKInspector.Database
 
             if (new_state != mConnectionState)
             {
+                Utility.Log.LogFormat("Database connection state changed.  Old = {0}, new = {1}", mConnectionState, new_state);
                 mConnectionState = new_state;
                 if (OnConnectionStateChanged != null)
                     OnConnectionStateChanged(new_state);
@@ -280,35 +279,42 @@ namespace FFRKInspector.Database
 
         void mDatabaseThread_DoWork(object sender, DoWorkEventArgs e)
         {
-            while (!mCancellationToken.IsCancellationRequested)
+            while (!mCancellationTokenSource.IsCancellationRequested)
             {
                 IDbRequest request = null;
                 try
                 {
                     Utility.Log.LogString("Database thread waiting for request");
-                    request = mDatabaseQueue.Take(mCancellationToken);
+                    request = mDatabaseQueue.Take(mCancellationTokenSource.Token);
 
+                    Utility.Log.LogFormat("Database thread dequeued request of type {0}", request.GetType().Name);
                     DbOpVerifySchema schema_request = new DbOpVerifySchema(FFRKProxy.Instance.MinimumRequiredSchema);
-                    schema_request.Execute(mConnection, null);
+                    ProcessDbRequestOnThisThread(schema_request);
 
                     if (schema_request.Result != DbOpVerifySchema.VerificationResult.OK)
                     {
+                        Utility.Log.LogString("Schema verification failed.  Disabling database connectivity.");
                         mConnectionState = ConnectionState.Disabled;
                         if (OnSchemaError != null)
                             OnSchemaError(TranslateSchemaVerificationResult(schema_request.Result));
 
                         if (OnConnectionStateChanged != null)
                             OnConnectionStateChanged(mConnectionState);
-                        return;
+                        Shutdown();
                     }
-
-                    ProcessDbRequestOnThisThread(request);
+                    else
+                        ProcessDbRequestOnThisThread(request);
                 }
                 catch (OperationCanceledException)
                 {
-
+                    Utility.Log.LogString("Database worker thread shutting down because cancellation was requested.");
+                }
+                catch(Exception ex)
+                {
+                    Utility.Log.LogFormat("Database worker thread encountered an unknown exception.  {0}\n{1}", ex.Message, ex.StackTrace);
                 }
             }
+            Utility.Log.LogString("Database worker thread exiting.");
         }
 
         void EnsureConnected()
@@ -334,11 +340,14 @@ namespace FFRKInspector.Database
         public void BeginExecuteRequest(IDbRequest Request)
         {
             if (mDatabaseDisabled)
+            {
+                Utility.Log.LogFormat("Ignoring request {0} because database connectivity is disabled.", Request.GetType().Name);
                 return;
+            }
 
             try
             {
-                mDatabaseQueue.Add(Request, mCancellationToken);
+                mDatabaseQueue.Add(Request, mCancellationTokenSource.Token);
             }
             catch (Exception ex)
             {
