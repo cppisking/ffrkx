@@ -42,9 +42,18 @@ namespace FFRKInspector.UI
             return FormatValue((T)value);
         }
 
+        public string AltFormat(object value)
+        {
+            return AltFormatValue((T)value);
+        }
+
         protected abstract int CompareValues(T x, T y);
         protected abstract string FormatValue(T value);
 
+        protected virtual string AltFormatValue(T value)
+        {
+            return FormatValue(value);
+        }
 
         public int InitialWidth
         {

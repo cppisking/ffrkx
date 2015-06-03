@@ -1,9 +1,11 @@
 ﻿using FFRKInspector.Config;
 using FFRKInspector.Proxy;
+using FFRKInspector.UI.ListViewFields;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -52,6 +54,10 @@ namespace FFRKInspector.UI
         private ColumnHeader mCurrentSortColumn;
         private IListViewBinding mBinding;
         private Config.ListViewSettings mSettings;
+        private ContextMenuStrip contextMenuStrip1;
+        private IContainer components;
+        private ToolStripMenuItem toolStripMenuItemExportAll;
+        private ToolStripMenuItem toolStripMenuItemExportSelected;
         private string mSettingsKey;
 
         public ListViewEx()
@@ -59,6 +65,8 @@ namespace FFRKInspector.UI
             this.mCurrentSortOrder = SortOrder.None;
             this.mCurrentSortColumn = null;
             this.mFields = new List<ListViewFieldAdapter>();
+
+            InitializeComponent();
 
             this.HandleCreated += ListViewEx_HandleCreated;
             this.RetrieveVirtualItem += ListViewEx_RetrieveVirtualItem;
@@ -185,7 +193,6 @@ namespace FFRKInspector.UI
 
         void ListViewEx_HandleCreated(object sender, EventArgs e)
         {
-            this.ContextMenuStripChanged += ListViewEx_ContextMenuStripChanged;
             mHeaderContextMenuStrip = new ContextMenuStrip();
 
             foreach (ColumnHeader header in mFields.Select(x => x.Column))
@@ -207,11 +214,6 @@ namespace FFRKInspector.UI
                 item.CheckStateChanged += item_CheckStateChanged;
                 mHeaderContextMenuStrip.Items.Add(item);
             }
-            mHeaderContextMenuStrip.Opening += mHeaderContextMenuStrip_Opening;
-
-            // If the user has not yet set a context menu strip, set ours.
-            if (ContextMenuStrip == null)
-                ContextMenuStrip = mHeaderContextMenuStrip;
         }
 
         void ListViewEx_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
@@ -266,44 +268,6 @@ namespace FFRKInspector.UI
                           .Count(x => x.Column.DisplayIndex != -1);
         }
 
-        void ListViewEx_ContextMenuStripChanged(object sender, EventArgs e)
-        {
-            if (ContextMenuStrip == mHeaderContextMenuStrip)
-                return;
-
-            if (ContextMenuStrip != null)
-                ContextMenuStrip.Opening += CustomContextMenuStrip_Opening;
-            else
-                ContextMenuStrip = mHeaderContextMenuStrip;
-        }
-
-        void mHeaderContextMenuStrip_Opening(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            // Our context menu was shown.  If there was no user defined context menu, then this may
-            // have occurred outside the header rect.  So cancel if that's the case.
-            EnumChildWindows(Handle, new EnumWinCallback(EnumWindowCallback), IntPtr.Zero);
-
-            // Don't display the header context menu strip if the click didn't occur in the header area.
-            if (!mHeaderRect.Contains(MousePosition))
-                e.Cancel = true;
-        }
-
-        void CustomContextMenuStrip_Opening(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            // Right click occurred while a user-defined context menu is set.  If it's inside the
-            // header rect, show our context menu instead.  Otherwise show the user's.
-            EnumChildWindows(Handle, new EnumWinCallback(EnumWindowCallback), IntPtr.Zero);
-
-            if (!mHeaderRect.Contains(MousePosition))
-            {
-                // Display the regular context menu strip.
-                return;
-            }
-
-            e.Cancel = true;
-            mHeaderContextMenuStrip.Show(MousePosition);
-        }
-
         private bool EnumWindowCallback(IntPtr Hwnd, IntPtr LParam)
         {
             RECT rect;
@@ -314,6 +278,125 @@ namespace FFRKInspector.UI
                 mHeaderRect = new Rectangle(rect.Left, rect.Top, rect.Right - rect.Left + 1, rect.Bottom - rect.Top + 1);
             }
             return false;
+        }
+
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItemExportAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemExportSelected = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip1.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemExportAll,
+            this.toolStripMenuItemExportSelected});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(186, 48);
+            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
+            this.contextMenuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStrip1_ItemClicked);
+            // 
+            // toolStripMenuItemExportAll
+            // 
+            this.toolStripMenuItemExportAll.Name = "toolStripMenuItemExportAll";
+            this.toolStripMenuItemExportAll.Size = new System.Drawing.Size(185, 22);
+            this.toolStripMenuItemExportAll.Text = "Export All Rows";
+            // 
+            // toolStripMenuItemExportSelected
+            // 
+            this.toolStripMenuItemExportSelected.Name = "toolStripMenuItemExportSelected";
+            this.toolStripMenuItemExportSelected.Size = new System.Drawing.Size(185, 22);
+            this.toolStripMenuItemExportSelected.Text = "Export Selected Rows";
+            // 
+            // ListViewEx
+            // 
+            this.ContextMenuStrip = this.contextMenuStrip1;
+            this.contextMenuStrip1.ResumeLayout(false);
+            this.ResumeLayout(false);
+
+        }
+
+        private void contextMenuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            if (e.ClickedItem == toolStripMenuItemExportAll)
+            {
+                ExportRows(Enumerable.Range(0, Items.Count).ToArray());
+            }
+            else if (e.ClickedItem == toolStripMenuItemExportSelected)
+            {
+                int[] selected_indices = new int[SelectedIndices.Count];
+                SelectedIndices.CopyTo(selected_indices, 0);
+                ExportRows(selected_indices);
+            }
+        }
+
+        private void ExportRows(int[] Rows)
+        {
+            try
+            {
+                SaveFileDialog dialog = new SaveFileDialog();
+                dialog.Filter = "CSV files (*.csv)|*.csv";
+                dialog.FilterIndex = 0;
+                dialog.RestoreDirectory = false;
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    using (Stream s = dialog.OpenFile())
+                    using (StreamWriter w = new StreamWriter(s))
+                    {
+                        List<ListViewFieldAdapter> visible_fields = mFields.Where(x => x.Column.DisplayIndex != -1).ToList();
+                        for (int i = 0; i < visible_fields.Count; ++i)
+                        {
+                            w.Write(visible_fields[i].Field.DisplayName);
+                            if (i < visible_fields.Count - 1)
+                                w.Write(",");
+                        }
+                        w.Write("\n");
+                        foreach (int row_index in Rows)
+                        {
+                            object item = mBinding.RetrieveItem(row_index);
+                            List<string> fields = new List<string>();
+                            for (int i = 0; i < visible_fields.Count; ++i)
+                            {
+                                ListViewFieldAdapter field = visible_fields[i];
+                                string value = null;
+                                // This is a bit of a hack, but Excel can't display the star character.
+                                if (field.Field is ItemRarityField)
+                                    value = field.Field.AltFormat(item);
+                                else
+                                    value = field.Field.Format(item);
+                                // Make sure that individual fields don't contain commas.
+                                w.Write(value.Replace(',', ' '));
+                                if (i < visible_fields.Count - 1)
+                                    w.Write(",");
+                            }
+                            w.Write("\n");
+                        }
+                    }
+                }
+                MessageBox.Show(String.Format("{0} rows successfully exported.", Rows.Length));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("FFRK Inspector encountered an error while exporting the data.  " + ex.Message);
+            }
+        }
+
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        {
+            EnumChildWindows(Handle, new EnumWinCallback(EnumWindowCallback), IntPtr.Zero);
+
+            if (mHeaderRect.Contains(MousePosition))
+            {
+                e.Cancel = true;
+                mHeaderContextMenuStrip.Show(MousePosition);
+                return;
+            }
+
+            toolStripMenuItemExportAll.Enabled = Items.Count > 0;
+            toolStripMenuItemExportSelected.Enabled = SelectedIndices.Count > 0;
         }
     }
 }

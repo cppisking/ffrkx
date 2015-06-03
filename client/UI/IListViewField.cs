@@ -20,6 +20,7 @@ namespace FFRKInspector.UI
         string DisplayName { get; }
         int Compare(object x, object y);
         string Format(object value);
+        string AltFormat(object value);
 
         int InitialWidth { get; }
         FieldWidthStyle InitialWidthStyle { get; }

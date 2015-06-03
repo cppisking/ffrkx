@@ -293,6 +293,9 @@
     <EmbeddedResource Include="UI\DatabaseUI\MissingItemsPanel.resx">
       <DependentUpon>MissingItemsPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\ListViewEx.resx">
+      <DependentUpon>ListViewEx.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="EquipmentStatsDataSet.xsc">
       <DependentUpon>EquipmentStatsDataSet.xsd</DependentUpon>
