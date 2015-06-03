@@ -28,6 +28,11 @@ namespace FFRKInspector.UI.DatabaseUI
         {
             public static Dictionary<uint, string> mCharacterLookup = new Dictionary<uint,string>();
             public static Dictionary<string, uint> mCharacterReverseLookup = new Dictionary<string,uint>(StringComparer.CurrentCultureIgnoreCase);
+            public static void Clear()
+            {
+                mCharacterLookup.Clear();
+                mCharacterReverseLookup.Clear();
+            }
         }
 
         public class CharacterNameCellTemplate : DataGridViewTextBoxCell, IDataGridViewAutoCompleteSource
@@ -102,6 +107,7 @@ namespace FFRKInspector.UI.DatabaseUI
         {
             this.equip_usageTableAdapter.Fill(this.equipUsageDataSet.equip_usage);
             this.charactersTableAdapter1.Fill(this.equipUsageDataSet.characters);
+            CharacterLookupCache.Clear();
             foreach (var x in equipUsageDataSet.characters)
             {
                 CharacterLookupCache.mCharacterLookup.Add(x.id, x.name);

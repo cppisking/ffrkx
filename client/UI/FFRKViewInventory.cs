@@ -302,6 +302,7 @@ namespace FFRKInspector.UI
                 int row_index = dataGridViewEquipment.Rows.Add();
                 DataGridViewRow row = dataGridViewEquipment.Rows[row_index];
                 row.Tag = equip;
+                row.Cells[dgcItemID.Name].Value = equip.EquipmentId;
                 row.Cells[dgcItem.Name].Value = equip.Name;
                 row.Cells[dgcCategory.Name].Value = equip.Category;
                 row.Cells[dgcType.Name].Value = equip.Type;
