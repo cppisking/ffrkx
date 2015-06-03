@@ -189,7 +189,7 @@ namespace FFRKInspector.UI
             listBoxBattle.Enabled = false;
         }
 
-        private void buttonSearch_Click(object sender, EventArgs e)
+        private void DoSearch()
         {
             DbOpFilterDrops request = new DbOpFilterDrops(FFRKProxy.Instance.Database);
             request.Name.Value = textBoxNameFilter.Text;
@@ -208,8 +208,18 @@ namespace FFRKInspector.UI
             foreach (SchemaConstants.Rarity rarity in listBoxRarity.SelectedItems)
                 request.Rarities.AddValue(rarity);
 
+            if (checkBoxFilterSamples.Checked)
+                request.MinimumRuns.Value = Convert.ToUInt32(numericUpDown1.Value);
+            if (checkBoxRepeatable.Checked)
+                request.OnlyRepeatable = true;
+
             request.OnRequestComplete += DbOpFilterDrops_OnRequestComplete;
             FFRKProxy.Instance.Database.BeginExecuteRequest(request);
+        }
+
+        private void buttonSearch_Click(object sender, EventArgs e)
+        {
+            DoSearch();
         }
 
         void DbOpFilterDrops_OnRequestComplete(List<BasicItemDropStats> items)
@@ -231,9 +241,25 @@ namespace FFRKInspector.UI
             listBoxDungeon.SelectedItems.Clear();
             listBoxBattle.SelectedItems.Clear();
             listBoxRarity.SelectedItems.Clear();
+            textBoxNameFilter.Clear();
+            checkBoxFilterSamples.Checked = false;
+            checkBoxRepeatable.Checked = false;
 
             mBinding.Collection.Clear();
             listViewResults.VirtualListSize = 0;
+        }
+
+        private void checkBoxFilterSamples_CheckedChanged(object sender, EventArgs e)
+        {
+            numericUpDown1.Enabled = checkBoxFilterSamples.Checked;
+        }
+
+        private void FFRKViewItemSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                DoSearch();
+            }
         }
     }
 }

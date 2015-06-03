@@ -30,6 +30,12 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBoxParameters = new System.Windows.Forms.GroupBox();
+            this.textBoxNameFilter = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.checkBoxRepeatable = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.checkBoxFilterSamples = new System.Windows.Forms.CheckBox();
             this.buttonResetAll = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.listBoxWorld = new FFRKInspector.UI.DeselectableListBox();
@@ -38,8 +44,6 @@
             this.listBoxBattle = new FFRKInspector.UI.DeselectableListBox();
             this.labelDungeon = new System.Windows.Forms.Label();
             this.listBoxDungeon = new FFRKInspector.UI.DeselectableListBox();
-            this.textBoxNameFilter = new System.Windows.Forms.TextBox();
-            this.labelName = new System.Windows.Forms.Label();
             this.labelEquippableBy = new System.Windows.Forms.Label();
             this.listBoxEquippable = new FFRKInspector.UI.DeselectableListBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -51,12 +55,19 @@
             this.buttonSearch = new System.Windows.Forms.Button();
             this.listViewResults = new FFRKInspector.UI.ListViewEx();
             this.groupBoxParameters.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxParameters
             // 
             this.groupBoxParameters.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxParameters.Controls.Add(this.textBoxNameFilter);
+            this.groupBoxParameters.Controls.Add(this.label3);
+            this.groupBoxParameters.Controls.Add(this.checkBoxRepeatable);
+            this.groupBoxParameters.Controls.Add(this.label4);
+            this.groupBoxParameters.Controls.Add(this.numericUpDown1);
+            this.groupBoxParameters.Controls.Add(this.checkBoxFilterSamples);
             this.groupBoxParameters.Controls.Add(this.buttonResetAll);
             this.groupBoxParameters.Controls.Add(this.label2);
             this.groupBoxParameters.Controls.Add(this.listBoxWorld);
@@ -65,8 +76,6 @@
             this.groupBoxParameters.Controls.Add(this.listBoxBattle);
             this.groupBoxParameters.Controls.Add(this.labelDungeon);
             this.groupBoxParameters.Controls.Add(this.listBoxDungeon);
-            this.groupBoxParameters.Controls.Add(this.textBoxNameFilter);
-            this.groupBoxParameters.Controls.Add(this.labelName);
             this.groupBoxParameters.Controls.Add(this.labelEquippableBy);
             this.groupBoxParameters.Controls.Add(this.listBoxEquippable);
             this.groupBoxParameters.Controls.Add(this.label1);
@@ -82,12 +91,67 @@
             this.groupBoxParameters.TabStop = false;
             this.groupBoxParameters.Text = "Search Parameters";
             // 
+            // textBoxNameFilter
+            // 
+            this.textBoxNameFilter.Location = new System.Drawing.Point(227, 200);
+            this.textBoxNameFilter.Name = "textBoxNameFilter";
+            this.textBoxNameFilter.Size = new System.Drawing.Size(217, 20);
+            this.textBoxNameFilter.TabIndex = 23;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(2, 203);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(213, 13);
+            this.label3.TabIndex = 22;
+            this.label3.Text = "Show only items with a name that contains: ";
+            // 
+            // checkBoxRepeatable
+            // 
+            this.checkBoxRepeatable.AutoSize = true;
+            this.checkBoxRepeatable.Location = new System.Drawing.Point(743, 202);
+            this.checkBoxRepeatable.Name = "checkBoxRepeatable";
+            this.checkBoxRepeatable.Size = new System.Drawing.Size(154, 17);
+            this.checkBoxRepeatable.TabIndex = 21;
+            this.checkBoxRepeatable.Text = "Show only repeatable runs.";
+            this.checkBoxRepeatable.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(700, 202);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(30, 13);
+            this.label4.TabIndex = 20;
+            this.label4.Text = "runs.";
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Enabled = false;
+            this.numericUpDown1.Location = new System.Drawing.Point(637, 200);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(57, 20);
+            this.numericUpDown1.TabIndex = 19;
+            // 
+            // checkBoxFilterSamples
+            // 
+            this.checkBoxFilterSamples.AutoSize = true;
+            this.checkBoxFilterSamples.Location = new System.Drawing.Point(458, 202);
+            this.checkBoxFilterSamples.Margin = new System.Windows.Forms.Padding(0);
+            this.checkBoxFilterSamples.Name = "checkBoxFilterSamples";
+            this.checkBoxFilterSamples.Size = new System.Drawing.Size(171, 17);
+            this.checkBoxFilterSamples.TabIndex = 18;
+            this.checkBoxFilterSamples.Text = "Show only battles with at least ";
+            this.checkBoxFilterSamples.UseVisualStyleBackColor = true;
+            this.checkBoxFilterSamples.CheckedChanged += new System.EventHandler(this.checkBoxFilterSamples_CheckedChanged);
+            // 
             // buttonResetAll
             // 
             this.buttonResetAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonResetAll.Location = new System.Drawing.Point(872, 195);
+            this.buttonResetAll.Location = new System.Drawing.Point(902, 195);
             this.buttonResetAll.Name = "buttonResetAll";
-            this.buttonResetAll.Size = new System.Drawing.Size(139, 27);
+            this.buttonResetAll.Size = new System.Drawing.Size(120, 27);
             this.buttonResetAll.TabIndex = 17;
             this.buttonResetAll.Text = "Reset all selections";
             this.buttonResetAll.UseVisualStyleBackColor = true;
@@ -169,24 +233,6 @@
             this.listBoxDungeon.TabIndex = 10;
             this.listBoxDungeon.SelectionCleared += new System.EventHandler(this.listBoxDungeon_SelectionCleared);
             this.listBoxDungeon.SelectedIndexChanged += new System.EventHandler(this.listBoxDungeon_SelectedIndexChanged);
-            // 
-            // textBoxNameFilter
-            // 
-            this.textBoxNameFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxNameFilter.Location = new System.Drawing.Point(38, 199);
-            this.textBoxNameFilter.Name = "textBoxNameFilter";
-            this.textBoxNameFilter.Size = new System.Drawing.Size(819, 20);
-            this.textBoxNameFilter.TabIndex = 9;
-            // 
-            // labelName
-            // 
-            this.labelName.AutoSize = true;
-            this.labelName.Location = new System.Drawing.Point(6, 202);
-            this.labelName.Name = "labelName";
-            this.labelName.Size = new System.Drawing.Size(41, 13);
-            this.labelName.TabIndex = 8;
-            this.labelName.Text = "Name: ";
             // 
             // labelEquippableBy
             // 
@@ -330,11 +376,14 @@
             this.Controls.Add(this.buttonSearch);
             this.Controls.Add(this.listViewResults);
             this.Controls.Add(this.groupBoxParameters);
+            this.DoubleBuffered = true;
             this.Name = "FFRKViewItemSearch";
             this.Size = new System.Drawing.Size(1059, 455);
             this.Load += new System.EventHandler(this.FFRKViewItemSearch_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FFRKViewItemSearch_KeyDown);
             this.groupBoxParameters.ResumeLayout(false);
             this.groupBoxParameters.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -350,8 +399,6 @@
         private DeselectableListBox listBoxEquippable;
         private System.Windows.Forms.Label label1;
         private DeselectableListBox listBoxRealmSynergy;
-        private System.Windows.Forms.TextBox textBoxNameFilter;
-        private System.Windows.Forms.Label labelName;
         private ListViewEx listViewResults;
         private System.Windows.Forms.Label Battle;
         private DeselectableListBox listBoxBattle;
@@ -362,5 +409,11 @@
         private System.Windows.Forms.Label label2;
         private DeselectableListBox listBoxWorld;
         private System.Windows.Forms.Button buttonResetAll;
+        private System.Windows.Forms.TextBox textBoxNameFilter;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.CheckBox checkBoxRepeatable;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.CheckBox checkBoxFilterSamples;
     }
 }

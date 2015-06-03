@@ -10,17 +10,6 @@ namespace FFRKInspector.Database
 {
     class DbOpFilterDrops : IDbRequest
     {
-        private class SearchParameters
-        {
-            public SchemaConstants.ItemType[] ItemTypes;
-            public SchemaConstants.Rarity[] Rarity;
-            public RealmSynergy.SynergyValue[] Synergies;
-            public uint[] Worlds;
-            public uint[] Dungeons;
-            public uint[] Battles;
-            public string Name;
-        }
-
         private FFRKMySqlInstance mDatabase;
         private List<BasicItemDropStats> mDropList;
 
@@ -30,6 +19,9 @@ namespace FFRKInspector.Database
         private SelectMultiParam<uint, uint> mDungeons;
         private SelectMultiParam<uint, uint> mBattles;
         private SelectSingleParam<string> mName;
+        private SelectSingleParam<uint> mMinimumRuns;
+
+        private bool mOnlyRepeatable;
 
         public delegate void DataReadyCallback(List<BasicItemDropStats> items);
         public event DataReadyCallback OnRequestComplete;
@@ -44,6 +36,9 @@ namespace FFRKInspector.Database
             mDungeons = new SelectMultiParam<uint, uint>("dungeon_id");
             mBattles = new SelectMultiParam<uint, uint>("battleid");
             mName = new SelectSingleParam<string>("item_name", SelectSingleParam<string>.ParamOperator.Like);
+            mMinimumRuns = new SelectSingleParam<uint>("times_run", SelectSingleParam<uint>.ParamOperator.Greater);
+
+            mOnlyRepeatable = false;
 
             mDropList = new List<BasicItemDropStats>();
         }
@@ -59,6 +54,12 @@ namespace FFRKInspector.Database
         public SelectMultiParam<uint, uint> Dungeons { get { return mDungeons; } }
         public SelectMultiParam<uint, uint> Battles { get { return mBattles; } }
         public SelectSingleParam<string> Name { get { return mName; } }
+        public SelectSingleParam<uint> MinimumRuns { get { return mMinimumRuns; } }
+        public bool OnlyRepeatable
+        { 
+            get { return mOnlyRepeatable; }
+            set { mOnlyRepeatable = value; }
+        }
 
         public void Execute(MySqlConnection connection, MySqlTransaction transaction)
         {
@@ -71,6 +72,7 @@ namespace FFRKInspector.Database
             builder.Parameters.Add(mDungeons);
             builder.Parameters.Add(mBattles);
             builder.Parameters.Add(mName);
+            builder.Parameters.Add(mMinimumRuns);
 
             // Since histogram bars will come in on different rows we need a way to look up the item
             // so we can modify its histogram on the fly.
@@ -142,7 +144,11 @@ namespace FFRKInspector.Database
                 }
             }
 
-            mDropList = keyed_lookup.Values.ToList();
+            if (mOnlyRepeatable)
+                mDropList = keyed_lookup.Values.Where(x => x.IsBattleRepeatable).ToList();
+            else
+                mDropList = keyed_lookup.Values.ToList();
+
             foreach (BasicItemDropStats stats in mDropList)
             {
                 // Post process the list.  None of the items will have a value set for Histogram[0] because that

@@ -13,6 +13,7 @@ namespace FFRKInspector.Database
         {
             Equals,
             Like,
+            Greater
         }
 
         private string mColumn;
@@ -70,9 +71,21 @@ namespace FFRKInspector.Database
                 if (!HasValue)
                     return null;
 
-                string op = (mOperator == ParamOperator.Equals) ? "=" : "LIKE";
+                string opstr = "=";
+                switch (mOperator)
+                {
+                    case ParamOperator.Equals:
+                        opstr = "=";
+                        break;
+                    case ParamOperator.Like:
+                        opstr = "LIKE";
+                        break;
+                    case ParamOperator.Greater:
+                        opstr = ">";
+                        break;
+                }
 
-                return String.Format("{0} {1} {2}", mColumn, op, ParamName);
+                return String.Format("{0} {1} {2}", mColumn, opstr, ParamName);
             }
         }
     }
