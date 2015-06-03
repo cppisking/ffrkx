@@ -13,7 +13,6 @@ namespace FFRKInspector.DataCache
         private FFRKDataCacheTable<Worlds.Key, Worlds.Data> mWorlds;
         private FFRKDataCacheTable<Battles.Key, Battles.Data> mBattles;
         private FFRKDataCacheTable<Items.Key, Items.Data> mItems;
-        private FFRKDataCacheTable<Characters.Key, Characters.Data> mCharacters;
         private object mSyncRoot;
 
         public FFRKDataCache()
@@ -22,7 +21,6 @@ namespace FFRKInspector.DataCache
             mWorlds = new FFRKDataCacheTable<Worlds.Key, Worlds.Data>();
             mBattles = new FFRKDataCacheTable<Battles.Key, Battles.Data>();
             mItems = new FFRKDataCacheTable<Items.Key, Items.Data>();
-            mCharacters = new FFRKDataCacheTable<Characters.Key, Characters.Data>();
 
             mSyncRoot = new object();
         }
@@ -31,7 +29,6 @@ namespace FFRKInspector.DataCache
         public FFRKDataCacheTable<Worlds.Key, Worlds.Data> Worlds { get { return mWorlds; } set { mWorlds = value; } }
         public FFRKDataCacheTable<Battles.Key, Battles.Data> Battles { get { return mBattles; } set { mBattles = value; } }
         public FFRKDataCacheTable<Items.Key, Items.Data> Items { get { return mItems; } set { mItems = value; } }
-        public FFRKDataCacheTable<Characters.Key, Characters.Data> Characters { get { return mCharacters; } set { mCharacters = value; } }
 
         public object SyncRoot { get { return mSyncRoot; } }
     }

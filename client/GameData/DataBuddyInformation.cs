@@ -51,5 +51,14 @@ namespace FFRKInspector.GameData
 
         [JsonProperty("series_id")]
         public uint SeriesId;
+
+        [JsonProperty("equipment_category")]
+        [JsonConverter(typeof(EquipUsageListConverter))]
+        public List<DataBuddyEquipUsage> EquipUsage;
+
+        public IEnumerable<SchemaConstants.EquipmentCategory> UsableEquipCategories
+        {
+            get {  return EquipUsage.Select(x => x.Category); }
+        }
     }
 }

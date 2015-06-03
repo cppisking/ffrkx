@@ -21,7 +21,6 @@ namespace FFRKInspector.UI.DatabaseUI
         public enum DatabaseModeEnum
         {
             EquipmentAndStats,
-            EquipUsage,
             MissingItems
         }
 
@@ -36,13 +35,6 @@ namespace FFRKInspector.UI.DatabaseUI
             this.groupBox1.Controls.Add(edit_panel);
             mPanels.Add(edit_panel);
             this.comboBox1.Items.Add("View equipment and stats");
-
-            EquipUsagePanel equip_panel = new EquipUsagePanel();
-            equip_panel.Dock = DockStyle.Fill;
-            equip_panel.Location = new Point(0, 0);
-            this.groupBox1.Controls.Add(equip_panel);
-            mPanels.Add(equip_panel);
-            this.comboBox1.Items.Add("View characters and the items they can equip");
 
             MissingItemsPanel missing_panel = new MissingItemsPanel();
             missing_panel.Dock = DockStyle.Fill;

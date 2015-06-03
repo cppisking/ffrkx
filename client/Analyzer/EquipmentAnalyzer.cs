@@ -151,7 +151,7 @@ namespace FFRKInspector.Analyzer
                 {
                     AnalysisBuddy instance = new AnalysisBuddy();
                     instance.Buddy = buddy;
-                    instance.Settings = mSettings[buddy.BuddyId];
+                    instance.Settings = mSettings[buddy.Name];
                     mBuddies.Add(instance);
                 }
                 UpdateWhoCanUse();
@@ -169,16 +169,10 @@ namespace FFRKInspector.Analyzer
                 return;
 
             // For each item, build the list of potential users and vice versa.
-            foreach (AnalysisBuddy buddy in mBuddies)
+            foreach (AnalysisItem item in mItems)
             {
-                DataCache.Characters.Key buddy_key = new DataCache.Characters.Key { Id = buddy.Buddy.BuddyId };
-                DataCache.Characters.Data buddy_data = null;
-                if (!FFRKProxy.Instance.Cache.Characters.TryGetValue(buddy_key, out buddy_data))
-                    continue;
-                foreach (AnalysisItem item in mItems)
+                foreach (AnalysisBuddy buddy in mBuddies.Where(x => x.Buddy.UsableEquipCategories.Contains(item.Item.Category)))
                 {
-                    if (!buddy_data.UsableEquips.Contains(item.Item.Category))
-                        continue;
                     item.Users.Add(buddy);
                     buddy.UsableItems.Add(item);
                 }
@@ -304,7 +298,7 @@ namespace FFRKInspector.Analyzer
                     int denormalized_score = 0;
                     foreach (AnalysisBuddy buddy in mBuddies.Where(b => b.Settings.Score))
                     {
-                        AnalyzerSettings.PartyMemberSettings buddy_settings = mSettings[buddy.Buddy.BuddyId];
+                        AnalyzerSettings.PartyMemberSettings buddy_settings = mSettings[buddy.Buddy.Name];
                         List<AnalysisItem>[,] rank_array = is_weapon ? buddy.TopNOffense : buddy.TopNDefense;
                         int stat_index = is_weapon ? (int)buddy_settings.OffensiveStat : (int)buddy_settings.DefensiveStat;
 

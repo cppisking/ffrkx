@@ -286,7 +286,7 @@ namespace FFRKInspector.UI
                 row.Cells[dgcCharacterLevel.Name].Value = info.Level;
                 row.Cells[dgcCharacterMaxLevel.Name].Value = info.LevelMax;
 
-                AnalyzerSettings.PartyMemberSettings member_settings = mAnalyzerSettings[info.BuddyId];
+                AnalyzerSettings.PartyMemberSettings member_settings = mAnalyzerSettings[info.Name];
                 row.Cells[dgcCharacterOffensiveStat.Name].Value = member_settings.OffensiveStat;
                 row.Cells[dgcCharacterDefensiveStat.Name].Value = member_settings.DefensiveStat;
                 row.Cells[dgcCharacterOptimize.Name].Value = member_settings.Score;
@@ -483,7 +483,7 @@ namespace FFRKInspector.UI
             DataGridViewColumn col = dataGridViewBuddies.Columns[e.ColumnIndex];
             DataGridViewRow row = dataGridViewBuddies.Rows[e.RowIndex];
             DataBuddyInformation buddy = (DataBuddyInformation)row.Tag;
-            AnalyzerSettings.PartyMemberSettings member_settings = mAnalyzerSettings[buddy.BuddyId];
+            AnalyzerSettings.PartyMemberSettings member_settings = mAnalyzerSettings[buddy.Name];
             if (member_settings == null)
                 return;
             if (dataGridViewBuddies.CurrentCell == null)

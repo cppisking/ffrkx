@@ -42,14 +42,14 @@ namespace FFRKInspector.Analyzer
         }
 
         private ItemLevelConsideration mLevelConsideration;
-        private Dictionary<uint, PartyMemberSettings> mConfiguration;
+        private Dictionary<string, PartyMemberSettings> mConfiguration;
         private static AnalyzerSettings mDefaultSettings;
         private static PartyMemberSettings mDefaultMemberSettings;
 
         private AnalyzerSettings Clone()
         {
             AnalyzerSettings result = (AnalyzerSettings)MemberwiseClone();
-            result.mConfiguration = new Dictionary<uint, PartyMemberSettings>(result.mConfiguration);
+            result.mConfiguration = new Dictionary<string, PartyMemberSettings>(result.mConfiguration);
             return result;
         }
 
@@ -82,8 +82,7 @@ namespace FFRKInspector.Analyzer
             AddDefault("Gordon",        true, OffensiveStat.ATK, DefensiveStat.DEF);
             AddDefault("Josef",         true, OffensiveStat.ATK, DefensiveStat.DEF);
             AddDefault("Luneth",        true, OffensiveStat.ATK, DefensiveStat.DEF);
-            AddDefault("Cecil (DRK)",   true, OffensiveStat.ATK, DefensiveStat.DEF);
-            AddDefault("Cecil (PLD)",   true, OffensiveStat.ATK, DefensiveStat.DEF);
+            AddDefault("Cecil",         true, OffensiveStat.ATK, DefensiveStat.DEF);
             AddDefault("Kain",          true, OffensiveStat.ATK, DefensiveStat.DEF);
             AddDefault("Rydia",         true, OffensiveStat.MAG, DefensiveStat.RES);
             AddDefault("Lenna",         true, OffensiveStat.MND, DefensiveStat.RES);
@@ -103,10 +102,8 @@ namespace FFRKInspector.Analyzer
 
         private static void AddDefault(string Name, bool Score, OffensiveStat Off, DefensiveStat Def)
         {
-            DataCache.Characters.Key key = FFRKProxy.Instance.Cache.Characters.First(
-                x => x.Value.Name.ToString().Equals(Name, StringComparison.CurrentCultureIgnoreCase)).Key;
             mDefaultSettings.mConfiguration.Add(
-                key.Id,
+                Name,
                 new PartyMemberSettings
                 {
                     Score = Score,
@@ -117,16 +114,16 @@ namespace FFRKInspector.Analyzer
 
         public AnalyzerSettings()
         {
-            mConfiguration = new Dictionary<uint, PartyMemberSettings>();
+            mConfiguration = new Dictionary<string, PartyMemberSettings>();
         }
 
-        public PartyMemberSettings this[uint Id]
+        public PartyMemberSettings this[string Name]
         {
             get
             {
                 // If we have a local configuration, try to get the name from there first.
                 PartyMemberSettings result = null;
-                if (mConfiguration.TryGetValue(Id, out result))
+                if (mConfiguration.TryGetValue(Name, out result))
                     return result;
 
                 // If we couldn't find it and this is already the default configuration, don't ask
@@ -136,7 +133,7 @@ namespace FFRKInspector.Analyzer
                     return mDefaultMemberSettings.Clone();
 
                 // Otherwise ask the default configuration.
-                return mDefaultSettings[Id];
+                return mDefaultSettings[Name];
             }
         }
 

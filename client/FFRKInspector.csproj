@@ -56,7 +56,6 @@
     <Compile Include="Config\SerializableDictionary.cs" />
     <Compile Include="Database\DataRecordExtensions.cs" />
     <Compile Include="Database\DbOpFilterDrops.cs" />
-    <Compile Include="Database\DbOpLoadAllCharacters.cs" />
     <Compile Include="Database\DbOpVerifySchema.cs" />
     <Compile Include="Database\DbOpInsertItems.cs" />
     <Compile Include="Database\DbOpLoadAllBattles.cs" />
@@ -73,7 +72,6 @@
     <Compile Include="Database\SelectSingleParam.cs" />
     <Compile Include="Database\SelectMultiParam.cs" />
     <Compile Include="DataCache\Battles.cs" />
-    <Compile Include="DataCache\Characters.cs" />
     <Compile Include="DataCache\Dungeons.cs" />
     <Compile Include="DataCache\FFRKDataCache.cs" />
     <Compile Include="DataCache\FFRKDataCacheTable.cs" />
@@ -93,6 +91,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EquipUsageDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="GameData\Converters\EquipUsageListConverter.cs" />
+    <Compile Include="GameData\DataBuddyEquipUsage.cs" />
     <Compile Include="GameData\EquipmentUsage.cs" />
     <Compile Include="GameData\EquipStats.cs" />
     <Compile Include="GameData\StatCalculator.cs" />
@@ -143,12 +143,6 @@
     </Compile>
     <Compile Include="UI\DatabaseUI\ItemStatsPanel.Designer.cs">
       <DependentUpon>ItemStatsPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\DatabaseUI\EquipUsagePanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\DatabaseUI\EquipUsagePanel.Designer.cs">
-      <DependentUpon>EquipUsagePanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\DatabaseUI\FFRKViewDatabase.cs">
       <SubType>UserControl</SubType>
@@ -264,9 +258,6 @@
   <ItemGroup>
     <EmbeddedResource Include="UI\DatabaseUI\ItemStatsPanel.resx">
       <DependentUpon>ItemStatsPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\DatabaseUI\EquipUsagePanel.resx">
-      <DependentUpon>EquipUsagePanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FFRKViewAbout.resx">
       <DependentUpon>FFRKViewAbout.cs</DependentUpon>
