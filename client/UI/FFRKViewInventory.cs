@@ -40,7 +40,15 @@ namespace FFRKInspector.UI
             BestItems = 1
         }
 
-        private enum UpgradeModeComboIndex
+        private enum ViewUpgradeModeComboIndex
+        {
+            CurrentUpgradeCurrentLevel,
+            CurrentUpgradeMaxLevel,
+            MaxLevelThroughExistingCombine,
+            MaxUpgradeMaxLevel
+        }
+
+        private enum ScoreUpgradeModeComboIndex
         {
             CurrentUpgradeCurrentLevel,
             CurrentUpgradeMaxLevel,
@@ -73,9 +81,9 @@ namespace FFRKInspector.UI
             foreach (RealmSynergy.SynergyValue synergy in RealmSynergy.Values)
                 comboBoxSynergy.Items.Add(new SynergyFormatter(synergy));
             comboBoxViewMode.SelectedIndex = 0;
-            comboBoxUpgradeMode.SelectedIndex = (int)UpgradeModeComboIndex.CurrentUpgradeCurrentLevel;
+            comboBoxUpgradeMode.SelectedIndex = (int)ViewUpgradeModeComboIndex.CurrentUpgradeCurrentLevel;
             comboBoxSynergy.SelectedIndex = 0;
-            comboBoxScoreSelection.SelectedIndex = (int)UpgradeModeComboIndex.MaxUpgradeMaxLevel;
+            comboBoxScoreSelection.SelectedIndex = (int)ScoreUpgradeModeComboIndex.MaxUpgradeMaxLevel;
             dgcCharacterDefensiveStat.CellTemplate = new EnumDataViewGridComboBoxCell<AnalyzerSettings.DefensiveStat>();
             dgcCharacterOffensiveStat.CellTemplate = new EnumDataViewGridComboBoxCell<AnalyzerSettings.OffensiveStat>();
         }
@@ -88,7 +96,7 @@ namespace FFRKInspector.UI
             if (FFRKProxy.Instance != null)
             {
                 mAnalyzerSettings = AnalyzerSettings.DefaultSettings;
-                mAnalyzerSettings.LevelConsideration = TranslateLevelConsideration((UpgradeModeComboIndex)comboBoxScoreSelection.SelectedIndex);
+                mAnalyzerSettings.LevelConsideration = TranslateLevelConsideration((ScoreUpgradeModeComboIndex)comboBoxScoreSelection.SelectedIndex);
                 mAnalyzer = new EquipmentAnalyzer(mAnalyzerSettings);
 
                 FFRKProxy.Instance.OnPartyList += FFRKProxy_OnPartyList;
@@ -296,6 +304,7 @@ namespace FFRKInspector.UI
 
         void UpdateEquipmentGrid(DataEquipmentInformation[] EquipList)
         {
+            mEquipments = EquipList;
             dataGridViewEquipment.Rows.Clear();
             foreach (DataEquipmentInformation equip in EquipList)
             {
@@ -354,14 +363,14 @@ namespace FFRKInspector.UI
 
         private GridEquipStats ComputeDisplayStats(DataEquipmentInformation equip)
         {
-            UpgradeModeComboIndex upgrade_type = (UpgradeModeComboIndex)comboBoxUpgradeMode.SelectedIndex;
+            ViewUpgradeModeComboIndex upgrade_type = (ViewUpgradeModeComboIndex)comboBoxUpgradeMode.SelectedIndex;
             RealmSynergy.SynergyValue synergy = RealmSynergy.Values.ElementAt(comboBoxSynergy.SelectedIndex);
             DataCache.Items.Key cache_key = new DataCache.Items.Key { ItemId = equip.EquipmentId };
             DataCache.Items.Data cache_value;
             bool in_cache = FFRKProxy.Instance.Cache.Items.TryGetValue(cache_key, out cache_value);
 
             GridEquipStats result = new GridEquipStats();
-            if (upgrade_type == UpgradeModeComboIndex.CurrentUpgradeCurrentLevel || !in_cache)
+            if (upgrade_type == ViewUpgradeModeComboIndex.CurrentUpgradeCurrentLevel || !in_cache)
             {
                 result.Stats.Atk = (equip.SeriesId == synergy.GameSeries) ? equip.SeriesAtk : equip.Atk;
                 result.Stats.Mag = (equip.SeriesId == synergy.GameSeries) ? equip.SeriesMag : equip.Mag;
@@ -377,9 +386,16 @@ namespace FFRKInspector.UI
             }
             else
             {
-                
-                if (upgrade_type == UpgradeModeComboIndex.CurrentUpgradeMaxLevel)
+
+                if (upgrade_type == ViewUpgradeModeComboIndex.CurrentUpgradeMaxLevel)
                     result.MaxLevel = StatCalculator.MaxLevel(equip.Rarity);
+                else if (upgrade_type == ViewUpgradeModeComboIndex.MaxLevelThroughExistingCombine)
+                {
+                    // Valid candidates for combining items into this are only those items with matching
+                    // equipment id and rarity LESS THAN OR EQUAL TO current item's rarity
+                    int candidates = mEquipments.Count(x => x.EquipmentId == equip.EquipmentId && x.InstanceId != equip.InstanceId && x.Rarity <= equip.Rarity);
+                    result.MaxLevel = StatCalculator.MaxLevel(StatCalculator.EvolveAsMuchAsPossible(equip.BaseRarity, equip.Rarity, candidates));
+                }
                 else
                     result.MaxLevel = StatCalculator.MaxLevel(StatCalculator.Evolve(equip.BaseRarity, SchemaConstants.EvolutionLevel.PlusPlus));
                 result.Level = result.MaxLevel;
@@ -403,7 +419,7 @@ namespace FFRKInspector.UI
             if (mAnalyzer == null)
                 return;
 
-            mAnalyzerSettings.LevelConsideration = TranslateLevelConsideration((UpgradeModeComboIndex)comboBoxScoreSelection.SelectedIndex);
+            mAnalyzerSettings.LevelConsideration = TranslateLevelConsideration((ScoreUpgradeModeComboIndex)comboBoxScoreSelection.SelectedIndex);
             mAnalyzer.Run();
             foreach (DataGridViewRow row in dataGridViewEquipment.Rows)
             {
@@ -462,13 +478,13 @@ namespace FFRKInspector.UI
             return is_dirty;
         }
 
-        private AnalyzerSettings.ItemLevelConsideration TranslateLevelConsideration(UpgradeModeComboIndex mode)
+        private AnalyzerSettings.ItemLevelConsideration TranslateLevelConsideration(ScoreUpgradeModeComboIndex mode)
         {
             switch (mode)
             {
-                case UpgradeModeComboIndex.CurrentUpgradeCurrentLevel:
+                case ScoreUpgradeModeComboIndex.CurrentUpgradeCurrentLevel:
                     return AnalyzerSettings.ItemLevelConsideration.Current;
-                case UpgradeModeComboIndex.CurrentUpgradeMaxLevel:
+                case ScoreUpgradeModeComboIndex.CurrentUpgradeMaxLevel:
                     return AnalyzerSettings.ItemLevelConsideration.CurrentRankMaxLevel;
                 default:
                     return AnalyzerSettings.ItemLevelConsideration.FullyMaxed;

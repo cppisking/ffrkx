@@ -15,9 +15,23 @@ namespace FFRKInspector.GameData
             return (byte)(5 * ((int)rarity - 1));
         }
 
+        public static SchemaConstants.Rarity Evolve(SchemaConstants.Rarity rarity, int num_times)
+        {
+            System.Diagnostics.Debug.Assert(num_times <= 2);
+            int new_rarity = (int)rarity + num_times;
+            return (SchemaConstants.Rarity)new_rarity;
+        }
+
         public static SchemaConstants.Rarity Evolve(SchemaConstants.Rarity rarity, SchemaConstants.EvolutionLevel evo)
         {
-            return (SchemaConstants.Rarity)((int)rarity + (int)evo);
+            return Evolve(rarity, (int)evo);
+        }
+
+        public static SchemaConstants.Rarity EvolveAsMuchAsPossible(SchemaConstants.Rarity base_rarity, SchemaConstants.Rarity cur_rarity, int max_times)
+        {
+            int times_already_upgraded = (int)cur_rarity - (int)base_rarity;
+            int new_total_upgrades = Math.Min(times_already_upgraded + max_times, 2);
+            return Evolve(base_rarity, new_total_upgrades);
         }
 
         public static short ComputeStatForLevel(SchemaConstants.Rarity base_rarity, short? base_stat, short? max_stat, byte target_level)
