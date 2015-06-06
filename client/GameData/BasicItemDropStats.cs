@@ -17,10 +17,12 @@ namespace FFRKInspector.GameData
         public uint ItemId;
         public uint BattleId;
         public uint DungeonId;
+        public uint WorldId;
 
         public string ItemName;
         public string BattleName;
         public string DungeonName;
+        public string WorldName;
 
         public SchemaConstants.DungeonType DungeonType;
         public SchemaConstants.ItemType Type;

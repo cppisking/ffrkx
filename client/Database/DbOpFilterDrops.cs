@@ -19,7 +19,6 @@ namespace FFRKInspector.Database
         private SelectMultiParam<uint, uint> mDungeons;
         private SelectMultiParam<uint, uint> mBattles;
         private SelectSingleParam<string> mName;
-        private SelectSingleParam<uint> mMinimumRuns;
 
         private bool mOnlyRepeatable;
 
@@ -36,7 +35,6 @@ namespace FFRKInspector.Database
             mDungeons = new SelectMultiParam<uint, uint>("dungeon_id");
             mBattles = new SelectMultiParam<uint, uint>("battleid");
             mName = new SelectSingleParam<string>("item_name", SelectSingleParam<string>.ParamOperator.Like);
-            mMinimumRuns = new SelectSingleParam<uint>("times_run", SelectSingleParam<uint>.ParamOperator.Greater);
 
             mOnlyRepeatable = false;
 
@@ -54,7 +52,6 @@ namespace FFRKInspector.Database
         public SelectMultiParam<uint, uint> Dungeons { get { return mDungeons; } }
         public SelectMultiParam<uint, uint> Battles { get { return mBattles; } }
         public SelectSingleParam<string> Name { get { return mName; } }
-        public SelectSingleParam<uint> MinimumRuns { get { return mMinimumRuns; } }
         public bool OnlyRepeatable
         { 
             get { return mOnlyRepeatable; }
@@ -72,7 +69,6 @@ namespace FFRKInspector.Database
             builder.Parameters.Add(mDungeons);
             builder.Parameters.Add(mBattles);
             builder.Parameters.Add(mName);
-            builder.Parameters.Add(mMinimumRuns);
 
             // Since histogram bars will come in on different rows we need a way to look up the item
             // so we can modify its histogram on the fly.
@@ -108,6 +104,8 @@ namespace FFRKInspector.Database
                                 BattleId = battle_id,
                                 ItemId = item_id,
                                 DungeonId = (uint)reader["dungeon_id"],
+                                WorldId = (uint)reader["world_id"],
+                                WorldName = (string)reader["world_name"],
                                 DungeonName = (string)reader["dungeon_name"],
                                 DungeonType = (SchemaConstants.DungeonType)reader["dungeon_type"],
                                 Rarity = (SchemaConstants.Rarity)reader["item_rarity"],

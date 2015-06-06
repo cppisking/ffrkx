@@ -31,6 +31,14 @@ namespace FFRKInspector.UI.ListViewFields
         }
     }
 
+    class ItemWorldField : TrivialField<BasicItemDropStats, string>
+    {
+        public ItemWorldField(string DisplayName, FieldWidthStyle WidthStyle, int Width)
+            : base(DisplayName, x => x.WorldName, WidthStyle, Width)
+        {
+        }
+    }
+
     class ItemTotalDropsField : TrivialField<BasicItemDropStats, uint>
     {
         public ItemTotalDropsField(string DisplayName) : base(DisplayName, x => x.TotalDrops) { }

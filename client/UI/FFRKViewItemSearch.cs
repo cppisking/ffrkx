@@ -76,11 +76,15 @@ namespace FFRKInspector.UI
         private delegate string GetListViewField(BasicItemDropStats item);
 
         private ListListViewBinding<BasicItemDropStats> mBinding;
+        private List<BasicItemDropStats> mUnfilteredResults;
+        private bool mParametersShowing;
 
         public FFRKViewItemSearch()
         {
             InitializeComponent();
             mBinding = new ListListViewBinding<BasicItemDropStats>();
+            mUnfilteredResults = new List<BasicItemDropStats>();
+            mParametersShowing = true;
 
             listViewResults.LoadSettings();
 
@@ -105,18 +109,11 @@ namespace FFRKInspector.UI
             if (DesignMode)
                 return;
 
-            listBoxItemType.Items.Clear();
             listBoxRealmSynergy.Items.Clear();
-            listBoxEquippable.Items.Clear();
             listBoxWorld.Items.Clear();
             listBoxDungeon.Items.Clear();
             listBoxBattle.Items.Clear();
             listBoxRarity.Items.Clear();
-
-            listBoxItemType.Items.AddRange(
-                Enum.GetValues(typeof(SchemaConstants.EquipmentCategory))
-                    .Cast<object>()
-                    .ToArray());
 
             listBoxRarity.Items.AddRange(
                 Enum.GetValues(typeof(SchemaConstants.Rarity))
@@ -124,7 +121,6 @@ namespace FFRKInspector.UI
                     .ToArray());
 
             listBoxRealmSynergy.Items.AddRange(RealmSynergy.Values.ToArray());
-            listBoxEquippable.Items.Add("Not implemented");
 
             var worlds = FFRKProxy.Instance.Cache.Worlds.ToList();
             worlds.Sort((x, y) => { return x.Value.Name.CompareTo(y.Value.Name); });
@@ -208,11 +204,6 @@ namespace FFRKInspector.UI
             foreach (SchemaConstants.Rarity rarity in listBoxRarity.SelectedItems)
                 request.Rarities.AddValue(rarity);
 
-            if (checkBoxFilterSamples.Checked)
-                request.MinimumRuns.Value = Convert.ToUInt32(numericUpDown1.Value);
-            if (checkBoxRepeatable.Checked)
-                request.OnlyRepeatable = true;
-
             request.OnRequestComplete += DbOpFilterDrops_OnRequestComplete;
             FFRKProxy.Instance.Database.BeginExecuteRequest(request);
         }
@@ -226,40 +217,108 @@ namespace FFRKInspector.UI
         {
             BeginInvoke((Action)(() =>
             {
-                mBinding.Collection = items;
-                listViewResults.VirtualListSize = mBinding.Collection.Count;
-                listViewResults.Invalidate();
+                mUnfilteredResults = items;
+
+                InplaceFilterDrops();
             }));
         }
 
         private void buttonResetAll_Click(object sender, EventArgs e)
         {
-            listBoxItemType.SelectedItems.Clear();
             listBoxRealmSynergy.SelectedItems.Clear();
-            listBoxEquippable.SelectedItems.Clear();
             listBoxWorld.SelectedItems.Clear();
             listBoxDungeon.SelectedItems.Clear();
             listBoxBattle.SelectedItems.Clear();
             listBoxRarity.SelectedItems.Clear();
             textBoxNameFilter.Clear();
-            checkBoxFilterSamples.Checked = false;
+            radioButtonMinSamples.Checked = false;
             checkBoxRepeatable.Checked = false;
 
             mBinding.Collection.Clear();
             listViewResults.VirtualListSize = 0;
         }
 
-        private void checkBoxFilterSamples_CheckedChanged(object sender, EventArgs e)
+        private void buttonHideParameters_Click(object sender, EventArgs e)
         {
-            numericUpDown1.Enabled = checkBoxFilterSamples.Checked;
+            int offset = groupBoxItemAndLocation.Height + 6;
+
+            if (mParametersShowing)
+            {
+                buttonHideParameters.Text = "Show Parameters ↓";
+                mParametersShowing = false;
+                offset = -offset;
+            }
+            else
+            {
+                buttonHideParameters.Text = "Hide Parameters ↑";
+                mParametersShowing = true;
+            }
+            groupBoxItemAndLocation.Visible = mParametersShowing;
+
+            buttonHideParameters.Top += offset;
+            groupBoxSampleSize.Top += offset;
+            groupBoxAdditional.Top += offset;
+
+            int lv_top = listViewResults.Top + offset;
+            int lv_bottom = listViewResults.Bottom;
+            int lv_height = lv_bottom - lv_top;
+            listViewResults.SetBounds(0, lv_top, 0, lv_height, BoundsSpecified.Y | BoundsSpecified.Height);
         }
 
-        private void FFRKViewItemSearch_KeyDown(object sender, KeyEventArgs e)
+        private void InplaceFilterDrops()
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                DoSearch();
-            }
+            IEnumerable<BasicItemDropStats> filtered_items = mUnfilteredResults;
+
+            if (radioButtonMinSamples.Checked && numericUpDownMinBattles.Value > 0)
+                filtered_items = filtered_items.Where(x => x.TimesRun >= numericUpDownMinBattles.Value);
+            else if (radioButtonHelp.Checked && numericUpDownLowSampleThreshold.Value > 0)
+                filtered_items = filtered_items.Where(x => x.TimesRun <= numericUpDownLowSampleThreshold.Value);
+
+            if (checkBoxRepeatable.Checked)
+                filtered_items = filtered_items.Where(x => x.IsBattleRepeatable);
+
+            mBinding.Collection = filtered_items.ToList();
+            listViewResults.VirtualListSize = mBinding.Collection.Count;
+            listViewResults.Invalidate();
+        }
+
+        private void radioButtonMinSamples_CheckedChanged(object sender, EventArgs e)
+        {
+            numericUpDownLowSampleThreshold.Enabled = radioButtonHelp.Checked;
+            numericUpDownMinBattles.Enabled = radioButtonMinSamples.Checked;
+
+            InplaceFilterDrops();
+        }
+
+        private void radioButtonHelp_CheckedChanged(object sender, EventArgs e)
+        {
+            numericUpDownLowSampleThreshold.Enabled = radioButtonHelp.Checked;
+            numericUpDownMinBattles.Enabled = radioButtonMinSamples.Checked;
+
+            InplaceFilterDrops();
+        }
+
+        private void radioButtonAllSamples_CheckedChanged(object sender, EventArgs e)
+        {
+            numericUpDownLowSampleThreshold.Enabled = radioButtonHelp.Checked;
+            numericUpDownMinBattles.Enabled = radioButtonMinSamples.Checked;
+
+            InplaceFilterDrops();
+        }
+
+        private void numericUpDownLowSampleThreshold_ValueChanged(object sender, EventArgs e)
+        {
+            InplaceFilterDrops();
+        }
+
+        private void numericUpDownMinBattles_ValueChanged(object sender, EventArgs e)
+        {
+            InplaceFilterDrops();
+        }
+
+        private void checkBoxRepeatable_CheckedChanged(object sender, EventArgs e)
+        {
+            InplaceFilterDrops();
         }
     }
 }
