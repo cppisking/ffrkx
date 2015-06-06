@@ -137,7 +137,9 @@ namespace FFRKInspector.Proxy
         void mDatabaseInstance_OnSchemaError(FFRKMySqlInstance.ConnectResult ConnectResult)
         {
             mTabPage.BeginInvoke((Action)(() =>
-                MessageBox.Show("This client is too old to connect against this database.  Please update FFRK Inspector")));
+                MessageBox.Show("FFRK Inspector has been updated.  Please download the latest release " +
+                                "from https://github.com/cppisking/ffrk-inspector/releases.  Database " +
+                                "connectivity will be unavailable for the remainder of this session.")));
         }
 
         void mDatabaseInstance_OnConnectionInitialized(FFRKMySqlInstance.ConnectResult Result)
