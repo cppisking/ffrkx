@@ -88,9 +88,10 @@ namespace FFRKInspector.UI
 
             listViewResults.LoadSettings();
 
-            listViewResults.AddField(new ItemNameField("Item", FieldWidthStyle.Percent, 16));
-            listViewResults.AddField(new ItemDungeonField("Dungeon", FieldWidthStyle.Percent, 16));
-            listViewResults.AddField(new ItemBattleField("Battle", FieldWidthStyle.Percent, 16));
+            listViewResults.AddField(new ItemNameField("Item", FieldWidthStyle.Percent, 15));
+            listViewResults.AddField(new ItemWorldField("World", FieldWidthStyle.Percent, 10));
+            listViewResults.AddField(new ItemDungeonField("Dungeon", FieldWidthStyle.Percent, 15));
+            listViewResults.AddField(new ItemBattleField("Battle", FieldWidthStyle.Percent, 15));
             listViewResults.AddField(new ItemRarityField("Rarity"));
             listViewResults.AddField(new ItemSynergyField("Synergy"));
             listViewResults.AddField(new ItemDropsPerRunField("Drops/Run"));
