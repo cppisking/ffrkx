@@ -66,9 +66,9 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(264, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(155, 24);
+            this.label1.Size = new System.Drawing.Size(329, 24);
             this.label1.TabIndex = 0;
-            this.label1.Text = "FFRK Inspector";
+            this.label1.Text = "FFRK Inspector (Build 2, 6/5/2015)";
             // 
             // label2
             // 
