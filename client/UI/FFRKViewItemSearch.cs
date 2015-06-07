@@ -291,6 +291,10 @@ namespace FFRKInspector.UI
                         return data.Worlds.Exists(y => y.Id == x.WorldId);
                     });
                 }
+
+                // Hack to remove the old daily dungeons, I don't know how else to figure this out.
+                // The AppInitData still lists this world as being active.
+                filtered_items = filtered_items.Where(x => x.WorldId != 800001);
             }
 
             mBinding.Collection = filtered_items.ToList();

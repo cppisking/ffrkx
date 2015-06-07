@@ -32,7 +32,8 @@ namespace FFRKInspector.GameData
             Armor = 2,
             Accessory = 3,
             UpgradeMaterial = 4,
-            Orb = 5
+            Orb = 5,
+            GrowthEgg = 6
         }
 
         public enum EquipmentCategory : byte

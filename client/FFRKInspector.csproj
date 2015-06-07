@@ -97,6 +97,7 @@
       <DependentUpon>EquipUsageDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="GameData\AppInit\AppInitData.cs" />
+    <Compile Include="GameData\AppInit\DataUser.cs" />
     <Compile Include="GameData\AppInit\EventData.cs" />
     <Compile Include="GameData\Converters\EquipUsageListConverter.cs" />
     <Compile Include="GameData\DataBuddyEquipUsage.cs" />

@@ -14,5 +14,8 @@ namespace FFRKInspector.GameData.AppInit
 
         [JsonProperty("worlds")]
         public List<DataWorld> Worlds;
+
+        [JsonProperty("user")]
+        public DataUser User;
     }
 }
