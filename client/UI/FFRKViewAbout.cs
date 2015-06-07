@@ -12,6 +12,7 @@ using FFRKInspector.Database;
 using Fiddler;
 using System.Web;
 using System.Net;
+using MySql.Data.MySqlClient;
 
 namespace FFRKInspector.UI
 {
@@ -24,7 +25,7 @@ namespace FFRKInspector.UI
         static readonly string mDatabaseTooNewMsg =
             "The database is for a newer version of FFRK Inspector.  You will need to update to a later version to connect to this database.";
         static readonly string mInvalidConnectionMsg =
-            "Unable to establish a connection with the specified parameters.  Check that they are correct and try again.";
+            "Unable to establish a connection with the specified parameters.  Check that they are correct and try again.  Message = {0}";
 
         public FFRKViewAbout()
         {
@@ -39,23 +40,30 @@ namespace FFRKInspector.UI
         private void buttonTestSettings_Click(object sender, EventArgs e)
         {
             FFRKMySqlInstance.ConnectResult result = FFRKMySqlInstance.ConnectResult.InvalidConnection;
-            result = FFRKProxy.Instance.Database.TestConnect(
-                textBoxHost.Text, textBoxUser.Text, textBoxPassword.Text, textBoxSchema.Text,
-                FFRKProxy.Instance.MinimumRequiredSchema);
-            switch (result)
+            try
             {
-                case FFRKMySqlInstance.ConnectResult.Success:
-                    MessageBox.Show(mConnectionSuccessMsg, "Success");
-                    break;
-                case FFRKMySqlInstance.ConnectResult.InvalidConnection:
-                    MessageBox.Show(mInvalidConnectionMsg, "Invalid connection parameters");
-                    break;
-                case FFRKMySqlInstance.ConnectResult.SchemaTooNew:
-                    MessageBox.Show(mDatabaseTooNewMsg, "Database too new");
-                    break;
-                case FFRKMySqlInstance.ConnectResult.SchemaTooOld:
-                    MessageBox.Show(mDatabaseTooOldMsg, "Database too old");
-                    break;
+                result = FFRKProxy.Instance.Database.TestConnect(
+                    textBoxHost.Text, textBoxUser.Text, textBoxPassword.Text, textBoxSchema.Text,
+                    FFRKProxy.Instance.MinimumRequiredSchema);
+                switch (result)
+                {
+                    case FFRKMySqlInstance.ConnectResult.Success:
+                        MessageBox.Show(mConnectionSuccessMsg, "Success");
+                        break;
+                    case FFRKMySqlInstance.ConnectResult.InvalidConnection:
+                        MessageBox.Show(mInvalidConnectionMsg, "Invalid connection parameters");
+                        break;
+                    case FFRKMySqlInstance.ConnectResult.SchemaTooNew:
+                        MessageBox.Show(mDatabaseTooNewMsg, "Database too new");
+                        break;
+                    case FFRKMySqlInstance.ConnectResult.SchemaTooOld:
+                        MessageBox.Show(mDatabaseTooOldMsg, "Database too old");
+                        break;
+                }
+            }
+            catch(MySqlException ex)
+            {
+                MessageBox.Show(String.Format(mInvalidConnectionMsg, ex.Message));
             }
         }
 

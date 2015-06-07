@@ -141,10 +141,6 @@ namespace FFRKInspector.Database
                 DbOpVerifySchema.VerificationResult result = schema_request.Result;
                 return TranslateSchemaVerificationResult(result);
             }
-            catch (MySqlException)
-            {
-                return ConnectResult.InvalidConnection;
-            }
             finally
             {
                 if (connection != null)
