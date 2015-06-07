@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using FFRKInspector.GameData.Converters;
 
 namespace FFRKInspector.GameData
 {
@@ -24,7 +25,8 @@ namespace FFRKInspector.GameData
         public ushort Type;
 
         [JsonProperty("kept_out_at")]
-        public ulong KeptOutAt;
+        [JsonConverter(typeof(EpochToDateTime))]
+        public DateTime KeptOutAt;
 
         [JsonExtensionData]
         public Dictionary<string, JToken> UnknownValues;

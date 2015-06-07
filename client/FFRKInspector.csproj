@@ -99,6 +99,7 @@
     <Compile Include="GameData\AppInit\AppInitData.cs" />
     <Compile Include="GameData\AppInit\DataUser.cs" />
     <Compile Include="GameData\AppInit\EventData.cs" />
+    <Compile Include="GameData\Converters\EpochToDateTime.cs" />
     <Compile Include="GameData\Converters\EquipUsageListConverter.cs" />
     <Compile Include="GameData\DataBuddyEquipUsage.cs" />
     <Compile Include="GameData\EquipmentUsage.cs" />

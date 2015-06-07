@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using FFRKInspector.GameData.Converters;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace FFRKInspector.GameData.AppInit
         public ulong LastLoginTime;
 
         [JsonProperty("start_time_of_today")]
-        public ulong StartTimeOfToday;
+        [JsonConverter(typeof(EpochToDateTime))]
+        public DateTime StartTimeOfToday;
     }
 }
