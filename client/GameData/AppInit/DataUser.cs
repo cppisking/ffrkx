@@ -11,5 +11,8 @@ namespace FFRKInspector.GameData.AppInit
     {
         [JsonProperty("last_logined_at")]
         public ulong LastLoginTime;
+
+        [JsonProperty("start_time_of_today")]
+        public ulong StartTimeOfToday;
     }
 }

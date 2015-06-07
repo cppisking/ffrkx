@@ -77,6 +77,11 @@ namespace FFRKInspector.UI.ListViewFields
         {
             return new String('★', (int)value.Rarity);
         }
+
+        protected override string AltFormatValue(BasicItemDropStats value)
+        {
+            return ((int)value.Rarity).ToString();
+        }
     }
 
     class ItemSynergyField : ListViewField<BasicItemDropStats>

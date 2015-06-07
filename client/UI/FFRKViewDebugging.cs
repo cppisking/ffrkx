@@ -91,6 +91,9 @@ namespace FFRKInspector.UI
 
             if (hi.JsonObject == null)
             {
+                if (hi.Handler == null)
+                    return;
+
                 // This is expensive, so we do it only once
                 hi.JsonObject = hi.Handler.CreateJsonObject(hi.Session);
             }
@@ -98,7 +101,6 @@ namespace FFRKInspector.UI
             string JsonText = JsonConvert.SerializeObject(hi.JsonObject, Formatting.Indented);
             textBoxJson.Text = JsonText;
 
-            treeViewJson.Nodes.Clear();
             TreeNode root = new TreeNode("ROOT");
             treeViewJson.Nodes.Add(root);
             Json2Tree(root, hi.JsonObject);

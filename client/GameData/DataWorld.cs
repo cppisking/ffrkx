@@ -23,6 +23,9 @@ namespace FFRKInspector.GameData
         [JsonProperty("type")]
         public ushort Type;
 
+        [JsonProperty("kept_out_at")]
+        public ulong KeptOutAt;
+
         [JsonExtensionData]
         public Dictionary<string, JToken> UnknownValues;
     }

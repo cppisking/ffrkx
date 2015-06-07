@@ -288,13 +288,11 @@ namespace FFRKInspector.UI
                 {
                     filtered_items = filtered_items.Where(x =>
                     {
-                        return data.Worlds.Exists(y => y.Id == x.WorldId);
+                        // This item should remain in the list if there is an entry in the app init data for this item's
+                        // world, AND that world entry has not yet reached the 'kept out at' threshold by start of today.
+                        return data.Worlds.Exists(y => y.Id == x.WorldId && y.KeptOutAt > data.User.StartTimeOfToday);
                     });
                 }
-
-                // Hack to remove the old daily dungeons, I don't know how else to figure this out.
-                // The AppInitData still lists this world as being active.
-                filtered_items = filtered_items.Where(x => x.WorldId != 800001);
             }
 
             mBinding.Collection = filtered_items.ToList();
