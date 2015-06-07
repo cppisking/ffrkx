@@ -15,6 +15,14 @@ namespace FFRKInspector.GameData
             PlusPlus = 2
         }
 
+        public enum EventType : byte
+        {
+            DailyDungeon = 1,
+            Challenge = 2,
+            Survival = 3,
+            Coliseum = 4
+        }
+
         // These correspond to values the game sends us.  We can just cast an
         // equipment category directly from the game to this type and it will
         // match.

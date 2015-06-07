@@ -64,6 +64,7 @@ namespace FFRKInspector.Proxy
 
             mInstance = this;
             mResponseHandlers = new List<IResponseHandler>();
+            mResponseHandlers.Add(new HandleAppInitData());
             mResponseHandlers.Add(new HandlePartyList());
             mResponseHandlers.Add(new HandleListBattles());
             mResponseHandlers.Add(new HandleListDungeons());
@@ -230,22 +231,17 @@ namespace FFRKInspector.Proxy
 
             string RequestPath = oSession.oRequest.headers.RequestPath;
             Utility.Log.LogFormat(RequestPath);
-            if (!oSession.oResponse.MIMEType.Contains("json"))
-                return;
 
-            mHistory.AddResponse(oSession);
+            IResponseHandler handler = mResponseHandlers.FirstOrDefault(x => x.CanHandle(oSession));
+            mHistory.AddItem(oSession, handler);
             if (OnFFRKResponse != null)
                 OnFFRKResponse(RequestPath);
 
-            foreach (IResponseHandler handler in mResponseHandlers)
+            if (handler != null)
             {
-                if (!handler.CanHandle(RequestPath))
-                    continue;
-
                 try
                 {
-                    string ResponseJson = oSession.GetResponseBodyAsString();
-                    handler.Handle(RequestPath, ResponseJson);
+                    handler.Handle(oSession);
                 }
                 catch (Exception ex)
                 {

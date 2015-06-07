@@ -1,5 +1,6 @@
 ﻿using FFRKInspector.Database;
 using FFRKInspector.GameData;
+using Fiddler;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +9,11 @@ using System.Threading.Tasks;
 
 namespace FFRKInspector.Proxy
 {
-    class HandleCompleteBattle : IResponseHandler
+    class HandleCompleteBattle : SimpleResponseHandler
     {
-        public bool CanHandle(string RequestPath)
+        public override bool CanHandle(Session Session)
         {
+            string RequestPath = Session.oRequest.headers.RequestPath;
             return RequestPath.Equals("/dff/battle/win")        // Win a world battle
                 || RequestPath.EndsWith("/win_battle")          // Win an event battle.
                 || RequestPath.Equals("/dff/battle/lose")       // Lose from a world map battle
@@ -22,7 +24,7 @@ namespace FFRKInspector.Proxy
 
         }
 
-        public void Handle(string RequestPath, string ResponseJson)
+        public override void Handle(Session Session)
         {
             GameState state = FFRKProxy.Instance.GameState;
             // Win or lose, finishing a battle means it's safe to record that encounter and its drops

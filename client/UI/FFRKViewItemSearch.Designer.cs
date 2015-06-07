@@ -54,6 +54,8 @@
             this.radioButtonHelp = new System.Windows.Forms.RadioButton();
             this.radioButtonAllSamples = new System.Windows.Forms.RadioButton();
             this.groupBoxAdditional = new System.Windows.Forms.GroupBox();
+            this.checkBoxNoInactive = new System.Windows.Forms.CheckBox();
+            this.checkBoxUseStamToReach = new System.Windows.Forms.CheckBox();
             this.buttonHideParameters = new System.Windows.Forms.Button();
             this.listViewResults = new FFRKInspector.UI.ListViewEx();
             this.groupBoxItemAndLocation.SuspendLayout();
@@ -82,7 +84,7 @@
             this.groupBoxItemAndLocation.Controls.Add(this.listBoxRarity);
             this.groupBoxItemAndLocation.Location = new System.Drawing.Point(16, 8);
             this.groupBoxItemAndLocation.Name = "groupBoxItemAndLocation";
-            this.groupBoxItemAndLocation.Size = new System.Drawing.Size(852, 233);
+            this.groupBoxItemAndLocation.Size = new System.Drawing.Size(963, 233);
             this.groupBoxItemAndLocation.TabIndex = 0;
             this.groupBoxItemAndLocation.TabStop = false;
             this.groupBoxItemAndLocation.Text = "Item and Location";
@@ -274,7 +276,7 @@
             // buttonResetAll
             // 
             this.buttonResetAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonResetAll.Location = new System.Drawing.Point(650, 579);
+            this.buttonResetAll.Location = new System.Drawing.Point(761, 579);
             this.buttonResetAll.Name = "buttonResetAll";
             this.buttonResetAll.Size = new System.Drawing.Size(120, 27);
             this.buttonResetAll.TabIndex = 17;
@@ -285,7 +287,7 @@
             // buttonSearch
             // 
             this.buttonSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSearch.Location = new System.Drawing.Point(776, 579);
+            this.buttonSearch.Location = new System.Drawing.Point(887, 579);
             this.buttonSearch.Name = "buttonSearch";
             this.buttonSearch.Size = new System.Drawing.Size(92, 27);
             this.buttonSearch.TabIndex = 2;
@@ -361,13 +363,42 @@
             // 
             this.groupBoxAdditional.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxAdditional.Controls.Add(this.checkBoxNoInactive);
+            this.groupBoxAdditional.Controls.Add(this.checkBoxUseStamToReach);
             this.groupBoxAdditional.Controls.Add(this.checkBoxRepeatable);
             this.groupBoxAdditional.Location = new System.Drawing.Point(537, 280);
             this.groupBoxAdditional.Name = "groupBoxAdditional";
-            this.groupBoxAdditional.Size = new System.Drawing.Size(331, 101);
+            this.groupBoxAdditional.Size = new System.Drawing.Size(442, 101);
             this.groupBoxAdditional.TabIndex = 19;
             this.groupBoxAdditional.TabStop = false;
             this.groupBoxAdditional.Text = "Additional Options";
+            // 
+            // checkBoxNoInactive
+            // 
+            this.checkBoxNoInactive.AutoSize = true;
+            this.checkBoxNoInactive.Location = new System.Drawing.Point(10, 65);
+            this.checkBoxNoInactive.Name = "checkBoxNoInactive";
+            this.checkBoxNoInactive.Size = new System.Drawing.Size(195, 17);
+            this.checkBoxNoInactive.TabIndex = 23;
+            this.checkBoxNoInactive.Text = "Don\'t show runs for inactive events.";
+            this.checkBoxNoInactive.UseVisualStyleBackColor = true;
+            this.checkBoxNoInactive.CheckedChanged += new System.EventHandler(this.checkBoxNoInactive_CheckedChanged);
+            // 
+            // checkBoxUseStamToReach
+            // 
+            this.checkBoxUseStamToReach.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxUseStamToReach.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.checkBoxUseStamToReach.Checked = true;
+            this.checkBoxUseStamToReach.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxUseStamToReach.Location = new System.Drawing.Point(10, 41);
+            this.checkBoxUseStamToReach.Name = "checkBoxUseStamToReach";
+            this.checkBoxUseStamToReach.Size = new System.Drawing.Size(421, 33);
+            this.checkBoxUseStamToReach.TabIndex = 22;
+            this.checkBoxUseStamToReach.Text = "For non-repeatable runs, factor in Stamina to Reach when computing Stamina/Drop";
+            this.checkBoxUseStamToReach.TextAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.checkBoxUseStamToReach.UseVisualStyleBackColor = true;
+            this.checkBoxUseStamToReach.CheckedChanged += new System.EventHandler(this.checkBoxUseStamToReach_CheckedChanged);
             // 
             // buttonHideParameters
             // 
@@ -390,7 +421,7 @@
             this.listViewResults.Location = new System.Drawing.Point(16, 387);
             this.listViewResults.Name = "listViewResults";
             this.listViewResults.SettingsKey = "FFRKViewItemSearch_ListViewResults";
-            this.listViewResults.Size = new System.Drawing.Size(852, 186);
+            this.listViewResults.Size = new System.Drawing.Size(963, 186);
             this.listViewResults.TabIndex = 1;
             this.listViewResults.UseCompatibleStateImageBehavior = false;
             this.listViewResults.View = System.Windows.Forms.View.Details;
@@ -409,7 +440,7 @@
             this.Controls.Add(this.buttonResetAll);
             this.DoubleBuffered = true;
             this.Name = "FFRKViewItemSearch";
-            this.Size = new System.Drawing.Size(886, 622);
+            this.Size = new System.Drawing.Size(997, 622);
             this.Load += new System.EventHandler(this.FFRKViewItemSearch_Load);
             this.groupBoxItemAndLocation.ResumeLayout(false);
             this.groupBoxItemAndLocation.PerformLayout();
@@ -452,5 +483,7 @@
         private System.Windows.Forms.RadioButton radioButtonAllSamples;
         private System.Windows.Forms.Button buttonHideParameters;
         private System.Windows.Forms.NumericUpDown numericUpDownLowSampleThreshold;
+        private System.Windows.Forms.CheckBox checkBoxUseStamToReach;
+        private System.Windows.Forms.CheckBox checkBoxNoInactive;
     }
 }

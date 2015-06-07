@@ -13,12 +13,14 @@ namespace FFRKInspector.GameData
         private EventListBattles mActiveDungeon;
         private DataGachaSeriesList mGachas;
         private DataPartyDetails mParty;
+        private AppInit.AppInitData mAppInitData;
 
         public GameState()
         {
             mActiveBattle = null;
             mActiveDungeon = null;
             mGachas = null;
+            mAppInitData = null;
         }
 
         public EventBattleInitiated ActiveBattle
@@ -43,6 +45,12 @@ namespace FFRKInspector.GameData
         {
             get { return mParty; }
             set { mParty = value; }
+        }
+
+        public AppInit.AppInitData AppInitData
+        {
+            get { return mAppInitData; }
+            set { mAppInitData = value; }
         }
     }
 }

@@ -11,6 +11,7 @@ using FFRKInspector.GameData;
 using FFRKInspector.Proxy;
 using FFRKInspector.Database;
 using FFRKInspector.UI.ListViewFields;
+using FFRKInspector.GameData.AppInit;
 
 namespace FFRKInspector.UI
 {
@@ -77,6 +78,7 @@ namespace FFRKInspector.UI
 
         private ListListViewBinding<BasicItemDropStats> mBinding;
         private List<BasicItemDropStats> mUnfilteredResults;
+        private ItemStaminaPerDropField mStaminaPerDropField;
         private bool mParametersShowing;
 
         public FFRKViewItemSearch()
@@ -88,6 +90,7 @@ namespace FFRKInspector.UI
 
             listViewResults.LoadSettings();
 
+            mStaminaPerDropField = new ItemStaminaPerDropField("Stamina/Drop", checkBoxUseStamToReach.Checked);
             listViewResults.AddField(new ItemNameField("Item", FieldWidthStyle.Percent, 15));
             listViewResults.AddField(new ItemWorldField("World", FieldWidthStyle.Percent, 10));
             listViewResults.AddField(new ItemDungeonField("Dungeon", FieldWidthStyle.Percent, 15));
@@ -95,7 +98,7 @@ namespace FFRKInspector.UI
             listViewResults.AddField(new ItemRarityField("Rarity"));
             listViewResults.AddField(new ItemSynergyField("Synergy"));
             listViewResults.AddField(new ItemDropsPerRunField("Drops/Run"));
-            listViewResults.AddField(new ItemStaminaPerDropField("Stamina/Drop"));
+            listViewResults.AddField(mStaminaPerDropField);
             listViewResults.AddField(new ItemTotalDropsField("Total Drops"));
             listViewResults.AddField(new ItemTimesRunField("Times Run"));
             listViewResults.AddField(new ItemBattleStaminaField("Stamina"));
@@ -278,6 +281,18 @@ namespace FFRKInspector.UI
             if (checkBoxRepeatable.Checked)
                 filtered_items = filtered_items.Where(x => x.IsBattleRepeatable);
 
+            if (checkBoxNoInactive.Checked)
+            {
+                AppInitData data = FFRKProxy.Instance.GameState.AppInitData;
+                if (data != null)
+                {
+                    filtered_items = filtered_items.Where(x =>
+                    {
+                        return data.Worlds.Exists(y => y.Id == x.WorldId);
+                    });
+                }
+            }
+
             mBinding.Collection = filtered_items.ToList();
             listViewResults.VirtualListSize = mBinding.Collection.Count;
             listViewResults.Invalidate();
@@ -314,11 +329,33 @@ namespace FFRKInspector.UI
 
         private void numericUpDownMinBattles_ValueChanged(object sender, EventArgs e)
         {
-            InplaceFilterDrops();
+             InplaceFilterDrops();
         }
 
         private void checkBoxRepeatable_CheckedChanged(object sender, EventArgs e)
         {
+            InplaceFilterDrops();
+        }
+
+        private void checkBoxUseStamToReach_CheckedChanged(object sender, EventArgs e)
+        {
+            mStaminaPerDropField.UseStaminaToReachForNonRepeatable = checkBoxUseStamToReach.Checked;
+            listViewResults.Invalidate();
+        }
+
+        private void checkBoxNoInactive_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxNoInactive.Checked)
+            {
+                AppInitData data = FFRKProxy.Instance.GameState.AppInitData;
+                if (data == null)
+                {
+                    MessageBox.Show("This feature requires FFRK Inspector to have been running when you " +
+                                    "first launched FFRK.  Please close and restart FFRK and try again.");
+                    checkBoxNoInactive.Checked = false;
+                    return;
+                }
+            }
             InplaceFilterDrops();
         }
     }

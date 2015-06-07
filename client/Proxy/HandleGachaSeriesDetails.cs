@@ -11,15 +11,19 @@ using System.Threading.Tasks;
 
 namespace FFRKInspector.Proxy
 {
-    class HandleGachaSeriesDetails : IResponseHandler
+    class HandleGachaSeriesDetails : SimpleResponseHandler
     {
-        public bool CanHandle(string RequestPath)
+        public override bool CanHandle(Session Session)
         {
+            string RequestPath = Session.oRequest.headers.RequestPath;
             return RequestPath.StartsWith("/dff/gacha/probability");
         }
 
-        public void Handle(string RequestPath, string ResponseJson)
+        public override void Handle(Session Session)
         {
+            string ResponseJson = Session.GetResponseBodyAsString();
+            string RequestPath = Session.oRequest.headers.RequestPath;
+
             JObject parsed_object = JsonConvert.DeserializeObject<JObject>(ResponseJson);
             int parameter_start_index = RequestPath.IndexOf('?');
             if (parameter_start_index == -1)

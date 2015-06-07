@@ -17,6 +17,7 @@ namespace FFRKInspector.Proxy
             public DateTime Timestamp;
             public Session Session;
             public JObject JsonObject;
+            public IResponseHandler Handler;
         }
 
         List<HistoryItem> mResponseHistory;
@@ -26,11 +27,12 @@ namespace FFRKInspector.Proxy
             mResponseHistory = new List<HistoryItem>();
         }
 
-        public void AddResponse(Session session)
+        public void AddItem(Session Session, IResponseHandler Handler)
         {
             HistoryItem data = new HistoryItem();
             data.Timestamp = DateTime.Now;
-            data.Session = session;
+            data.Session = Session;
+            data.Handler = Handler;
 
             mResponseHistory.Add(data);
         }

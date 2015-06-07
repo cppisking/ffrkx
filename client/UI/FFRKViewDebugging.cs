@@ -88,15 +88,14 @@ namespace FFRKInspector.UI
 
             int index = listViewHistory.SelectedIndices[0];
             ResponseHistory.HistoryItem hi = FFRKProxy.Instance.ResponseHistory[index];
-            string JsonText = hi.Session.GetResponseBodyAsString();
 
             if (hi.JsonObject == null)
             {
                 // This is expensive, so we do it only once
-                hi.JsonObject = JsonConvert.DeserializeObject<JObject>(JsonText);
+                hi.JsonObject = hi.Handler.CreateJsonObject(hi.Session);
             }
 
-            JsonText = JsonConvert.SerializeObject(hi.JsonObject, Formatting.Indented);
+            string JsonText = JsonConvert.SerializeObject(hi.JsonObject, Formatting.Indented);
             textBoxJson.Text = JsonText;
 
             treeViewJson.Nodes.Clear();

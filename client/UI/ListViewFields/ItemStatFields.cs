@@ -77,11 +77,6 @@ namespace FFRKInspector.UI.ListViewFields
         {
             return new String('★', (int)value.Rarity);
         }
-
-        protected override string AltFormatValue(BasicItemDropStats value)
-        {
-            return ((int)value.Rarity).ToString();
-        }
     }
 
     class ItemSynergyField : ListViewField<BasicItemDropStats>
@@ -120,16 +115,40 @@ namespace FFRKInspector.UI.ListViewFields
 
     class ItemStaminaPerDropField : ListViewField<BasicItemDropStats>
     {
-        public ItemStaminaPerDropField(string DisplayName) : base(DisplayName) { }
+        public ItemStaminaPerDropField(string DisplayName, bool useStaminaToReachForNonRep) : base(DisplayName)
+        {
+            this.mUseStaminaToReachForNonRepetable = useStaminaToReachForNonRep;
+        }
+
+        private bool mUseStaminaToReachForNonRepetable;
 
         protected override int CompareValues(BasicItemDropStats x, BasicItemDropStats y)
         {
-            return x.StaminaPerDrop.CompareTo(y.StaminaPerDrop);
+            return GetValue(x).CompareTo(GetValue(y));
         }
 
         protected override string FormatValue(BasicItemDropStats value)
         {
-            return value.StaminaPerDrop.ToString("F");
+            return GetValue(value).ToString("F");
+        }
+
+        public float GetValue(BasicItemDropStats stats)
+        {
+            if (!mUseStaminaToReachForNonRepetable)
+                return stats.StaminaPerDrop;
+            return (float)stats.StaminaToReachBattle + stats.StaminaPerDrop;
+        }
+
+        public bool UseStaminaToReachForNonRepeatable
+        {
+            get
+            {
+                return mUseStaminaToReachForNonRepetable;
+            }
+            set
+            {
+                mUseStaminaToReachForNonRepetable = value;
+            }
         }
     }
 }

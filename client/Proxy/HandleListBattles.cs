@@ -10,15 +10,18 @@ using System.Threading.Tasks;
 
 namespace FFRKInspector.Proxy
 {
-    class HandleListBattles : IResponseHandler
+    class HandleListBattles : SimpleResponseHandler
     {
-        public bool CanHandle(string RequestPath)
+        public override bool CanHandle(Session Session)
         {
+            string RequestPath = Session.oRequest.headers.RequestPath;
             return RequestPath.Equals("/dff/world/battles");
         }
 
-        public void Handle(string RequestPath, string ResponseJson)
+        public override void Handle(Session Session)
         {
+            string ResponseJson = Session.GetResponseBodyAsString();
+
             EventListBattles result = JsonConvert.DeserializeObject<EventListBattles>(ResponseJson);
             FFRKProxy.Instance.GameState.ActiveDungeon = result;
 

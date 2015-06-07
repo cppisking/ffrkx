@@ -1,4 +1,5 @@
 ﻿using FFRKInspector.GameData;
+using Fiddler;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -8,15 +9,17 @@ using System.Threading.Tasks;
 
 namespace FFRKInspector.Proxy
 {
-    class HandleGachaSeriesList : IResponseHandler
+    class HandleGachaSeriesList : SimpleResponseHandler
     {
-        public bool CanHandle(string RequestPath)
+        public override bool CanHandle(Session Session)
         {
+            string RequestPath = Session.oRequest.headers.RequestPath;
             return RequestPath.StartsWith("/dff/gacha/show");
         }
 
-        public void Handle(string RequestPath, string ResponseJson)
+        public override void Handle(Session Session)
         {
+            string ResponseJson = Session.GetResponseBodyAsString();
             DataGachaSeriesList result = JsonConvert.DeserializeObject<DataGachaSeriesList>(ResponseJson);
             FFRKProxy.Instance.GameState.GachaSeries = result;
         }

@@ -1,6 +1,7 @@
 ﻿using FFRKInspector.Database;
 using FFRKInspector.GameData;
 using FFRKInspector.GameData.Party;
+using Fiddler;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,16 +11,17 @@ using System.Threading.Tasks;
 
 namespace FFRKInspector.Proxy
 {
-    class HandlePartyList : IResponseHandler
+    class HandlePartyList : SimpleResponseHandler
     {
-        public bool CanHandle(string RequestPath)
+        public override bool CanHandle(Session Session)
         {
+            string RequestPath = Session.oRequest.headers.RequestPath;
             return RequestPath.Equals("/dff/party/list", StringComparison.CurrentCultureIgnoreCase);
         }
 
-        public void Handle(string RequestPath, string ResponseJson)
+        public override void Handle(Session Session)
         {
-            DataPartyDetails party = JsonConvert.DeserializeObject<DataPartyDetails>(ResponseJson);
+            DataPartyDetails party = JsonConvert.DeserializeObject<DataPartyDetails>(GetResponseBody(Session));
             DbOpInsertItems insert_request = new DbOpInsertItems();
             foreach (DataEquipmentInformation equip in party.Equipments)
             {

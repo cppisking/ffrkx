@@ -34,7 +34,7 @@ namespace FFRKInspector.UI
             listViewAllDrops.AddField(new ItemTimesRunField("Times Run"));
             listViewAllDrops.AddField(new ItemTotalDropsField("Total Drops"));
             listViewAllDrops.AddField(new ItemDropsPerRunField("Drops/Run"));
-            listViewAllDrops.AddField(new ItemStaminaPerDropField("Stamina/Drop"));
+            listViewAllDrops.AddField(new ItemStaminaPerDropField("Stamina/Drop", false));
             listViewAllDrops.AddField(new ItemStaminaToReachField("Stamina to Reach"));
             listViewAllDrops.AddField(new ItemRepeatableField("Is Repeatable"));
 
