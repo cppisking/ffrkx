@@ -39,9 +39,14 @@ namespace FFRKInspector.GameData
             short bv = base_stat.GetValueOrDefault(0);
             short mv = max_stat.GetValueOrDefault(0);
 
-            ushort fully_upgraded_max_level = MaxLevel(Evolve(base_rarity, SchemaConstants.EvolutionLevel.PlusPlus));
-            double level_up_factor = ((double)mv - (double)bv) / (double)(fully_upgraded_max_level - 1);
-            return (short)Math.Ceiling((double)bv + (double)(target_level - 1) * level_up_factor);
+            byte fully_upgraded_max_level = MaxLevel(Evolve(base_rarity, SchemaConstants.EvolutionLevel.PlusPlus));
+            return ComputeStatForLevel2(bv, 1, mv, fully_upgraded_max_level, target_level);
+        }
+
+        public static short ComputeStatForLevel2(short vstat1, byte vlevel1, short vstat2, byte vlevel2, byte target_level)
+        {
+            double level_up_factor = ((double)vstat2 - (double)vstat1) / (double)(vlevel2 - vlevel1);
+            return (short)Math.Ceiling((double)vstat1 + (double)(target_level - 1) * level_up_factor);
         }
 
         public static byte EffectiveLevelWithSynergy(byte current_level)

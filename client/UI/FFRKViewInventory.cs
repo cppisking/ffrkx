@@ -370,7 +370,7 @@ namespace FFRKInspector.UI
             bool in_cache = FFRKProxy.Instance.Cache.Items.TryGetValue(cache_key, out cache_value);
 
             GridEquipStats result = new GridEquipStats();
-            if (upgrade_type == ViewUpgradeModeComboIndex.CurrentUpgradeCurrentLevel || !in_cache)
+            if (upgrade_type == ViewUpgradeModeComboIndex.CurrentUpgradeCurrentLevel)
             {
                 result.Stats.Atk = (equip.SeriesId == synergy.GameSeries) ? equip.SeriesAtk : equip.Atk;
                 result.Stats.Mag = (equip.SeriesId == synergy.GameSeries) ? equip.SeriesMag : equip.Mag;
@@ -402,13 +402,31 @@ namespace FFRKInspector.UI
                 if (equip.SeriesId == synergy.GameSeries)
                     result.Level = StatCalculator.EffectiveLevelWithSynergy(result.Level);
 
-                result.Stats.Atk = StatCalculator.ComputeStatForLevel(equip.BaseRarity, cache_value.BaseStats.Atk, cache_value.MaxStats.Atk, result.Level);
-                result.Stats.Mag = StatCalculator.ComputeStatForLevel(equip.BaseRarity, cache_value.BaseStats.Mag, cache_value.MaxStats.Mag, result.Level);
-                result.Stats.Acc = StatCalculator.ComputeStatForLevel(equip.BaseRarity, cache_value.BaseStats.Acc, cache_value.MaxStats.Acc, result.Level);
-                result.Stats.Def = StatCalculator.ComputeStatForLevel(equip.BaseRarity, cache_value.BaseStats.Def, cache_value.MaxStats.Def, result.Level);
-                result.Stats.Res = StatCalculator.ComputeStatForLevel(equip.BaseRarity, cache_value.BaseStats.Res, cache_value.MaxStats.Res, result.Level);
-                result.Stats.Eva = StatCalculator.ComputeStatForLevel(equip.BaseRarity, cache_value.BaseStats.Eva, cache_value.MaxStats.Eva, result.Level);
-                result.Stats.Mnd = StatCalculator.ComputeStatForLevel(equip.BaseRarity, cache_value.BaseStats.Mnd, cache_value.MaxStats.Mnd, result.Level);
+                if (in_cache && cache_value.MaxStats != null && cache_value.BaseStats != null)
+                {
+                    // Try to get the equipment stats from the database
+                    result.Stats.Atk = StatCalculator.ComputeStatForLevel(equip.BaseRarity, cache_value.BaseStats.Atk, cache_value.MaxStats.Atk, result.Level);
+                    result.Stats.Mag = StatCalculator.ComputeStatForLevel(equip.BaseRarity, cache_value.BaseStats.Mag, cache_value.MaxStats.Mag, result.Level);
+                    result.Stats.Acc = StatCalculator.ComputeStatForLevel(equip.BaseRarity, cache_value.BaseStats.Acc, cache_value.MaxStats.Acc, result.Level);
+                    result.Stats.Def = StatCalculator.ComputeStatForLevel(equip.BaseRarity, cache_value.BaseStats.Def, cache_value.MaxStats.Def, result.Level);
+                    result.Stats.Res = StatCalculator.ComputeStatForLevel(equip.BaseRarity, cache_value.BaseStats.Res, cache_value.MaxStats.Res, result.Level);
+                    result.Stats.Eva = StatCalculator.ComputeStatForLevel(equip.BaseRarity, cache_value.BaseStats.Eva, cache_value.MaxStats.Eva, result.Level);
+                    result.Stats.Mnd = StatCalculator.ComputeStatForLevel(equip.BaseRarity, cache_value.BaseStats.Mnd, cache_value.MaxStats.Mnd, result.Level);
+                }
+                else
+                {
+                    // If they aren't there, fall back to trying to compute effective stats from the ifnormation in the JSON.  This will lead to some
+                    // rounding error due to the fact that the values for Atk and SeriesAtk etc are all rounded, so the division will be less precise
+                    // than doing it over the entire range of Max stats and base stats, but it's the best we can do in this case.
+                    byte series_effective_level = StatCalculator.EffectiveLevelWithSynergy(equip.Level);
+                    result.Stats.Atk = StatCalculator.ComputeStatForLevel2(equip.Atk, equip.Level, equip.SeriesAtk, series_effective_level, result.Level);
+                    result.Stats.Mag = StatCalculator.ComputeStatForLevel2(equip.Mag, equip.Level, equip.SeriesMag, series_effective_level, result.Level);
+                    result.Stats.Acc = StatCalculator.ComputeStatForLevel2(equip.Acc, equip.Level, equip.SeriesAcc, series_effective_level, result.Level);
+                    result.Stats.Def = StatCalculator.ComputeStatForLevel2(equip.Def, equip.Level, equip.SeriesDef, series_effective_level, result.Level);
+                    result.Stats.Res = StatCalculator.ComputeStatForLevel2(equip.Res, equip.Level, equip.SeriesRes, series_effective_level, result.Level);
+                    result.Stats.Eva = StatCalculator.ComputeStatForLevel2(equip.Eva, equip.Level, equip.SeriesEva, series_effective_level, result.Level);
+                    result.Stats.Mnd = StatCalculator.ComputeStatForLevel2(equip.Mnd, equip.Level, equip.SeriesMnd, series_effective_level, result.Level);
+                }
             }
 
             return result;
