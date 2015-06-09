@@ -68,7 +68,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(329, 24);
             this.label1.TabIndex = 0;
-            this.label1.Text = "FFRK Inspector (Build 2, 6/5/2015)";
+            this.label1.Text = "FFRK Inspector (Build 3, 6/8/2015)";
             // 
             // label2
             // 
