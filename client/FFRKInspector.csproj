@@ -35,8 +35,8 @@
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Fiddler2\Fiddler.exe</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.4.9.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\HtmlAgilityPack.1.4.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="MySql.Data, Version=6.9.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -84,7 +84,6 @@
     <Compile Include="DataCache\Worlds.cs" />
     <Compile Include="EquipmentStatsDataSet.cs">
       <DependentUpon>EquipmentStatsDataSet.xsd</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="EquipmentStatsDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -99,6 +98,8 @@
     <Compile Include="GameData\AppInit\AppInitData.cs" />
     <Compile Include="GameData\AppInit\DataUser.cs" />
     <Compile Include="GameData\AppInit\EventData.cs" />
+    <Compile Include="GameData\DataPotion.cs" />
+    <Compile Include="GameData\DataMateria.cs" />
     <Compile Include="GameData\Converters\EpochToDateTime.cs" />
     <Compile Include="GameData\Converters\EquipUsageListConverter.cs" />
     <Compile Include="GameData\DataBuddyEquipUsage.cs" />

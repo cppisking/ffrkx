@@ -1,0 +1,55 @@
+Changed DataBattleRound to add DataMateria class and to add Materia drops to "Drops".
+[JsonProperty("drop_materias")]
+public List<DataMateria> Materias;
+foreach (DataMateria materia in Materias)
+{
+    DropEvent dropMateria = new DropEvent();
+    dropMateria.MateriaName = materia.Name;
+    dropMateria.Round = Index;
+    dropMateria.EnemyName = "";
+    dropMateria.ItemType = DataEnemyDropItem.DropItemType.Materia;
+    yield return dropMateria;
+}
+
+Added "public string MateriaName;" to DropEvent.cs.
+
+Added DataMateria.cs class file.
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace FFRKInspector.GameData
+{
+    class DataMateria
+    {
+        [JsonProperty("name")]
+        public string Name;
+
+        [JsonExtensionData]
+        public Dictionary<string, JToken> UnknownValues;
+
+    }
+}
+
+
+Added 'Materia=99' in DataEnemyDropItem.
+public enum DropItemType
+{
+    Gold = 11,
+    Equipment = 41,
+    Orb = 51,
+    Magicite = 61,
+    Materia = 99
+};
+
+Added the following below Line 127 or FFRKViewActiveDungeon.cs:
+if (drop.ItemType == DataEnemyDropItem.DropItemType.Materia)
+    continue;
+
+Added to function PopulateActiveBattleListView:
+else if (drop.ItemType == DataEnemyDropItem.DropItemType.Materia)
+    Item = drop.MateriaName;
