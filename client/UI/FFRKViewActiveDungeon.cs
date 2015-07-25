@@ -126,6 +126,12 @@ namespace FFRKInspector.UI
                     if (drop.ItemType == DataEnemyDropItem.DropItemType.Gold)
                         continue;
 
+                    if (drop.ItemType == DataEnemyDropItem.DropItemType.Materia)
+                        continue;
+
+                    if (drop.ItemType == DataEnemyDropItem.DropItemType.Potion)
+                        continue;
+
                     BasicItemDropStats match = mAllItems.Find(x => (x.BattleId == battle.Battle.BattleId)
                                                                 && (x.ItemId == drop.ItemId));
                     if (match != null)
@@ -264,6 +270,10 @@ namespace FFRKInspector.UI
                     DataCache.Items.Data ItemData = null;
                     if (drop.ItemType == DataEnemyDropItem.DropItemType.Gold)
                         Item = String.Format("{0} gold", drop.GoldAmount);
+                    else if (drop.ItemType == DataEnemyDropItem.DropItemType.Materia)
+                        Item = drop.MateriaName;
+                    else if (drop.ItemType == DataEnemyDropItem.DropItemType.Potion)
+                        Item = drop.PotionName;
                     else if (FFRKProxy.Instance.Cache.Items.TryGetValue(ItemKey, out ItemData))
                         Item = ItemData.Name;
                     else

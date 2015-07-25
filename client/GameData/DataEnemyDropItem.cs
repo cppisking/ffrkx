@@ -15,7 +15,9 @@ namespace FFRKInspector.GameData
             Gold = 11,
             Equipment = 41,
             Orb = 51,
-            Magicite = 61
+            Magicite = 61,
+            Materia = 99,
+            Potion = 98
         };
 
         [JsonProperty("rarity")]
