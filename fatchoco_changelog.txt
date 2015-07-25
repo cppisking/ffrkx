@@ -53,3 +53,5 @@ if (drop.ItemType == DataEnemyDropItem.DropItemType.Materia)
 Added to function PopulateActiveBattleListView:
 else if (drop.ItemType == DataEnemyDropItem.DropItemType.Materia)
     Item = drop.MateriaName;
+
+Repeated the same as the above process for potion drops, with some very slight changes.
