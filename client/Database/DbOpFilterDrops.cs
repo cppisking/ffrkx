@@ -16,6 +16,7 @@ namespace FFRKInspector.Database
         private SelectMultiParam<SchemaConstants.ItemType, uint> mItemTypes;
         private SelectMultiParam<SchemaConstants.Rarity, uint> mRarities;
         private SelectMultiParam<RealmSynergy.SynergyValue, uint> mSynergies;
+        private SelectMultiParam<uint, uint> mWorlds;
         private SelectMultiParam<uint, uint> mDungeons;
         private SelectMultiParam<uint, uint> mBattles;
         private SelectSingleParam<string> mName;
@@ -32,6 +33,7 @@ namespace FFRKInspector.Database
             mItemTypes = new SelectMultiParam<SchemaConstants.ItemType, uint>("item_type");
             mRarities = new SelectMultiParam<SchemaConstants.Rarity, uint>("item_rarity");
             mSynergies = new SelectMultiParam<RealmSynergy.SynergyValue, uint>("item_series", (x) => x.GameSeries);
+            mWorlds = new SelectMultiParam<uint, uint>("world_id");
             mDungeons = new SelectMultiParam<uint, uint>("dungeon_id");
             mBattles = new SelectMultiParam<uint, uint>("battleid");
             mName = new SelectSingleParam<string>("item_name", SelectSingleParam<string>.ParamOperator.Like);
@@ -49,6 +51,7 @@ namespace FFRKInspector.Database
         public SelectMultiParam<SchemaConstants.ItemType, uint> ItemTypes { get { return mItemTypes; } }
         public SelectMultiParam<SchemaConstants.Rarity, uint> Rarities { get { return mRarities; } }
         public SelectMultiParam<RealmSynergy.SynergyValue, uint> Synergies { get { return mSynergies; } }
+        public SelectMultiParam<uint, uint> Worlds { get { return mWorlds; } }
         public SelectMultiParam<uint, uint> Dungeons { get { return mDungeons; } }
         public SelectMultiParam<uint, uint> Battles { get { return mBattles; } }
         public SelectSingleParam<string> Name { get { return mName; } }
@@ -66,6 +69,7 @@ namespace FFRKInspector.Database
             builder.Parameters.Add(mItemTypes);
             builder.Parameters.Add(mRarities);
             builder.Parameters.Add(mSynergies);
+            builder.Parameters.Add(mWorlds);
             builder.Parameters.Add(mDungeons);
             builder.Parameters.Add(mBattles);
             builder.Parameters.Add(mName);
