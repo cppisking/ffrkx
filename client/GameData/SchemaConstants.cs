@@ -54,6 +54,7 @@ namespace FFRKInspector.GameData
             Book = 14,
             Gun = 15,
             Ball = 30,
+            Hairpin = 31,
             Shield = 50,
             Hat = 51,
             Helm = 52,
