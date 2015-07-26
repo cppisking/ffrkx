@@ -14,6 +14,7 @@ using FFRKInspector.GameData;
 using FFRKInspector.DataCache;
 using FFRKInspector.Analyzer;
 using System.Diagnostics;
+using System.IO;
 
 namespace FFRKInspector.UI
 {
@@ -83,12 +84,41 @@ namespace FFRKInspector.UI
             comboBoxViewMode.SelectedIndex = 0;
             comboBoxUpgradeMode.SelectedIndex = (int)ViewUpgradeModeComboIndex.CurrentUpgradeCurrentLevel;
             comboBoxSynergy.SelectedIndex = 0;
+            comboBoxFilterType.SelectedIndex = 0;
             comboBoxScoreSelection.SelectedIndex = (int)ScoreUpgradeModeComboIndex.MaxUpgradeMaxLevel;
             dgcCharacterDefensiveStat.CellTemplate = new EnumDataViewGridComboBoxCell<AnalyzerSettings.DefensiveStat>();
             dgcCharacterOffensiveStat.CellTemplate = new EnumDataViewGridComboBoxCell<AnalyzerSettings.OffensiveStat>();
         }
 
         private void FFRKViewInventory_Load(object sender, EventArgs e)
+        {
+            if (DesignMode)
+                return;
+
+            if (FFRKProxy.Instance != null)
+            {
+                mAnalyzerSettings = AnalyzerSettings.DefaultSettings;
+                mAnalyzerSettings.LevelConsideration = TranslateLevelConsideration((ScoreUpgradeModeComboIndex)comboBoxScoreSelection.SelectedIndex);
+                mAnalyzer = new EquipmentAnalyzer(mAnalyzerSettings);
+
+                FFRKProxy.Instance.OnPartyList += FFRKProxy_OnPartyList;
+
+                DataPartyDetails party = FFRKProxy.Instance.GameState.PartyDetails;
+                if (party != null)
+                {
+                    // Run the initial analysis before updating the grids, so we can pass the
+                    // scores straight through.  We'll run the analysis again every time they
+                    // change one of the settings, so that the scores update on the fly.
+                    mAnalyzer.Items = party.Equipments;
+                    mAnalyzer.Buddies = party.Buddies;
+                    mAnalyzer.Run();
+                    UpdatePartyGrid(party.Buddies.ToList());
+                    UpdateEquipmentGrid(party.Equipments);
+                }
+            }
+        }
+
+        private void FFRKViewInventory_Recalc()
         {
             if (DesignMode)
                 return;
@@ -304,24 +334,52 @@ namespace FFRKInspector.UI
 
         void UpdateEquipmentGrid(DataEquipmentInformation[] EquipList)
         {
+            bool needFilter = true;
+            if (comboBoxFilterType.SelectedIndex.Equals(0)) { needFilter = false; }
             mEquipments = EquipList;
             dataGridViewEquipment.Rows.Clear();
-            foreach (DataEquipmentInformation equip in EquipList)
+            if (needFilter)
             {
-                int row_index = dataGridViewEquipment.Rows.Add();
-                DataGridViewRow row = dataGridViewEquipment.Rows[row_index];
-                row.Tag = equip;
-                row.Cells[dgcItemID.Name].Value = equip.EquipmentId;
-                row.Cells[dgcItem.Name].Value = equip.Name;
-                row.Cells[dgcCategory.Name].Value = equip.Category;
-                row.Cells[dgcType.Name].Value = equip.Type;
-                row.Cells[dgcRarity.Name].Value = new RarityColumnValue((int)equip.BaseRarity, (int)equip.EvolutionNumber);
-                row.Cells[dgcSynergy.Name].Value = new SynergyColumnValue(RealmSynergy.FromSeries(equip.SeriesId));
-                row.Cells[dgcLevel.Name].Value = new LevelColumnValue(equip.Level, equip.LevelMax);
-                row.Cells[dgcScore.Name].Value = new ScoreColumnValue(mAnalyzer.GetScore(equip.InstanceId));
+                foreach (DataEquipmentInformation equip in EquipList)
+                {
+                    if ( (equip.Type.Equals((SchemaConstants.ItemType) comboBoxFilterType.SelectedIndex)) && ((int)equip.Category<98) ) //The <98 condition excludes upgrade mats (98 and 99).
+                    {
+                        int row_index = dataGridViewEquipment.Rows.Add();
+                        DataGridViewRow row = dataGridViewEquipment.Rows[row_index];
+                        row.Tag = equip;
+                        row.Cells[dgcItemID.Name].Value = equip.EquipmentId;
+                        row.Cells[dgcItem.Name].Value = equip.Name;
+                        row.Cells[dgcCategory.Name].Value = equip.Category;
+                        row.Cells[dgcType.Name].Value = equip.Type;
+                        row.Cells[dgcRarity.Name].Value = new RarityColumnValue((int)equip.BaseRarity, (int)equip.EvolutionNumber);
+                        row.Cells[dgcSynergy.Name].Value = new SynergyColumnValue(RealmSynergy.FromSeries(equip.SeriesId));
+                        row.Cells[dgcLevel.Name].Value = new LevelColumnValue(equip.Level, equip.LevelMax);
+                        row.Cells[dgcScore.Name].Value = new ScoreColumnValue(mAnalyzer.GetScore(equip.InstanceId));
 
-                GridEquipStats stats = ComputeDisplayStats(equip);
-                SetStatsForRow(row, equip, stats);
+                        GridEquipStats stats = ComputeDisplayStats(equip);
+                        SetStatsForRow(row, equip, stats);
+                    }
+                }
+            }
+            else
+            {
+                foreach (DataEquipmentInformation equip in EquipList)
+                {
+                        int row_index = dataGridViewEquipment.Rows.Add();
+                        DataGridViewRow row = dataGridViewEquipment.Rows[row_index];
+                        row.Tag = equip;
+                        row.Cells[dgcItemID.Name].Value = equip.EquipmentId;
+                        row.Cells[dgcItem.Name].Value = equip.Name;
+                        row.Cells[dgcCategory.Name].Value = equip.Category;
+                        row.Cells[dgcType.Name].Value = equip.Type;
+                        row.Cells[dgcRarity.Name].Value = new RarityColumnValue((int)equip.BaseRarity, (int)equip.EvolutionNumber);
+                        row.Cells[dgcSynergy.Name].Value = new SynergyColumnValue(RealmSynergy.FromSeries(equip.SeriesId));
+                        row.Cells[dgcLevel.Name].Value = new LevelColumnValue(equip.Level, equip.LevelMax);
+                        row.Cells[dgcScore.Name].Value = new ScoreColumnValue(mAnalyzer.GetScore(equip.InstanceId));
+
+                        GridEquipStats stats = ComputeDisplayStats(equip);
+                        SetStatsForRow(row, equip, stats);
+                }
             }
         }
 
@@ -487,6 +545,11 @@ namespace FFRKInspector.UI
             RecomputeAllItemStats();
         }
 
+        private void comboBoxFilterType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FFRKViewInventory_Recalc();
+        }
+
         private bool SetValueIfDirty<T>(object source, ref T dest)
         {
             T new_value = (T)source;
@@ -558,6 +621,75 @@ namespace FFRKInspector.UI
         private void linkLabelAlgo_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start("https://ffrki.wordpress.com/2015/05/30/about-the-inventory-analysis-algorithm/");
+        }
+
+        private void exportInventoryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SaveFileDialog dialog = new SaveFileDialog();
+                dialog.Filter = "CSV files (*.csv)|*.csv";
+                dialog.FilterIndex = 0;
+                dialog.RestoreDirectory = false;
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    using (Stream s = dialog.OpenFile())
+                    using (StreamWriter w = new StreamWriter(s))
+                    {
+                        string value = "";
+                        DataGridViewRow dr = new DataGridViewRow();
+                        //write header rows to csv
+                        for (int i = 0; i <= dataGridViewEquipment.Columns.Count - 1; i++)
+                        {
+                            if (i > 0)
+                            {
+                                w.Write(",");
+                            }
+                            w.Write('"' + dataGridViewEquipment.Columns[i].HeaderText + '"');
+                        }
+
+                        w.WriteLine();
+
+                        //write DataGridView rows to csv
+                        for (int j = 0; j <= dataGridViewEquipment.Rows.Count - 1; j++)
+                        {
+                            if (j > 0)
+                            {
+                                w.WriteLine();
+                            }
+
+                            dr = dataGridViewEquipment.Rows[j];
+
+                            for (int i = 0; i <= dataGridViewEquipment.Columns.Count - 1; i++)
+                            {
+                                if (i > 0)
+                                {
+                                    w.Write(",");
+                                }
+
+                                value = dr.Cells[i].Value.ToString();
+                                //replace comma's with spaces
+                                value = value.Replace(',', ' ');
+                                value = value.Replace('＋', '+');
+                                //replace embedded newlines with spaces
+                                //value = value.Replace(Environment.NewLine, " ");
+
+                                w.Write(value);
+                            }
+                        }
+                    }
+                }
+                MessageBox.Show(String.Format("Inventory successfully exported."));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("FFRK Inspector encountered an error while exporting the data.  " + ex.Message);
+            }
+        }
+
+        private void dataGridViewEquipment_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

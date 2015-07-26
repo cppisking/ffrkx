@@ -52,6 +52,7 @@ namespace FFRKInspector.GameData
             Whip = 12,
             Thrown = 13,
             Book = 14,
+            Gun = 15,
             Ball = 30,
             Shield = 50,
             Hat = 51,
