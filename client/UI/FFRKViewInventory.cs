@@ -35,6 +35,14 @@ namespace FFRKInspector.UI
             public byte MaxLevel;
         }
 
+        private enum ViewFilterTypeComboIndex
+        {
+            All = 0,
+            Weapon = 1,
+            Armor = 2,
+            Accessory = 3
+        }
+
         private enum ViewModeComboIndex
         {
             AvailableItems = 0,
@@ -84,7 +92,7 @@ namespace FFRKInspector.UI
             comboBoxViewMode.SelectedIndex = 0;
             comboBoxUpgradeMode.SelectedIndex = (int)ViewUpgradeModeComboIndex.CurrentUpgradeCurrentLevel;
             comboBoxSynergy.SelectedIndex = 0;
-            comboBoxFilterType.SelectedIndex = 0;
+            comboBoxFilterType.SelectedIndex = (int)ViewFilterTypeComboIndex.All;
             comboBoxScoreSelection.SelectedIndex = (int)ScoreUpgradeModeComboIndex.MaxUpgradeMaxLevel;
             dgcCharacterDefensiveStat.CellTemplate = new EnumDataViewGridComboBoxCell<AnalyzerSettings.DefensiveStat>();
             dgcCharacterOffensiveStat.CellTemplate = new EnumDataViewGridComboBoxCell<AnalyzerSettings.OffensiveStat>();
@@ -118,32 +126,10 @@ namespace FFRKInspector.UI
             }
         }
 
-        private void FFRKViewInventory_Recalc()
+        private void RecalculateInventory()
         {
-            if (DesignMode)
-                return;
-
-            if (FFRKProxy.Instance != null)
-            {
-                mAnalyzerSettings = AnalyzerSettings.DefaultSettings;
-                mAnalyzerSettings.LevelConsideration = TranslateLevelConsideration((ScoreUpgradeModeComboIndex)comboBoxScoreSelection.SelectedIndex);
-                mAnalyzer = new EquipmentAnalyzer(mAnalyzerSettings);
-
-                FFRKProxy.Instance.OnPartyList += FFRKProxy_OnPartyList;
-
-                DataPartyDetails party = FFRKProxy.Instance.GameState.PartyDetails;
-                if (party != null)
-                {
-                    // Run the initial analysis before updating the grids, so we can pass the
-                    // scores straight through.  We'll run the analysis again every time they
-                    // change one of the settings, so that the scores update on the fly.
-                    mAnalyzer.Items = party.Equipments;
-                    mAnalyzer.Buddies = party.Buddies;
-                    mAnalyzer.Run();
-                    UpdatePartyGrid(party.Buddies.ToList());
-                    UpdateEquipmentGrid(party.Equipments);
-                }
-            }
+            DataPartyDetails party = FFRKProxy.Instance.GameState.PartyDetails;
+            if (party != null) { UpdateEquipmentGrid(party.Equipments); }
         }
 
         private class SynergyColumnValue : IComparable
@@ -153,7 +139,7 @@ namespace FFRKInspector.UI
             {
                 mValue = Value;
             }
-        
+
             public int CompareTo(object obj)
             {
                 return mValue.GameSeries.CompareTo(((SynergyColumnValue)obj).mValue.GameSeries);
@@ -189,7 +175,7 @@ namespace FFRKInspector.UI
                 mCurrentLevel = Current;
                 mMaxLevel = Max;
             }
-        
+
             public int CompareTo(object obj)
             {
                 LevelColumnValue other = (LevelColumnValue)obj;
@@ -229,7 +215,7 @@ namespace FFRKInspector.UI
                 mBaseRarity = BaseRarity;
                 mUpgrades = Upgrades;
             }
-        
+
             public int CompareTo(object obj)
             {
                 RarityColumnValue other = (RarityColumnValue)obj;
@@ -267,7 +253,7 @@ namespace FFRKInspector.UI
             {
                 mScore = Score;
             }
-        
+
             public int CompareTo(object obj)
             {
                 ScoreColumnValue other = (ScoreColumnValue)obj;
@@ -334,51 +320,39 @@ namespace FFRKInspector.UI
 
         void UpdateEquipmentGrid(DataEquipmentInformation[] EquipList)
         {
-            bool needFilter = true;
-            if (comboBoxFilterType.SelectedIndex.Equals(0)) { needFilter = false; }
+            int filterTypeLowerBound;
+            int filterTypeUpperBound;
+            if (comboBoxFilterType.SelectedIndex.Equals((int)ViewFilterTypeComboIndex.All)) {
+                filterTypeLowerBound = 0; //If "All" filter selected, select all item types (specifically those within index range 0-99).
+                filterTypeUpperBound = 99;
+            }
+            else { //If any other filter selected, set upper and lower bound of item types to that specific type.
+                filterTypeLowerBound = comboBoxFilterType.SelectedIndex;
+                filterTypeUpperBound = comboBoxFilterType.SelectedIndex;
+            }
             mEquipments = EquipList;
             dataGridViewEquipment.Rows.Clear();
-            if (needFilter)
+            foreach (DataEquipmentInformation equip in EquipList)
             {
-                foreach (DataEquipmentInformation equip in EquipList)
+                //If "All" selected, chooses all item types from 0-99, if "Weapon" is selected, chooses item types in range 1-1 (i.e. =1).
+                if ( ((int)equip.Type>=filterTypeLowerBound) && ((int)equip.Type<=filterTypeUpperBound)
+                        && (equip.Category != SchemaConstants.EquipmentCategory.ArmorUpgrade) //Exclude Armour upgrade mats from "Armour" filter.
+                        && (equip.Category != SchemaConstants.EquipmentCategory.WeaponUpgrade)) //Exclude Weapon upgrade mats from "Weapon" filter.
                 {
-                    if ( (equip.Type.Equals((SchemaConstants.ItemType) comboBoxFilterType.SelectedIndex)) && ((int)equip.Category<98) ) //The <98 condition excludes upgrade mats (98 and 99).
-                    {
-                        int row_index = dataGridViewEquipment.Rows.Add();
-                        DataGridViewRow row = dataGridViewEquipment.Rows[row_index];
-                        row.Tag = equip;
-                        row.Cells[dgcItemID.Name].Value = equip.EquipmentId;
-                        row.Cells[dgcItem.Name].Value = equip.Name;
-                        row.Cells[dgcCategory.Name].Value = equip.Category;
-                        row.Cells[dgcType.Name].Value = equip.Type;
-                        row.Cells[dgcRarity.Name].Value = new RarityColumnValue((int)equip.BaseRarity, (int)equip.EvolutionNumber);
-                        row.Cells[dgcSynergy.Name].Value = new SynergyColumnValue(RealmSynergy.FromSeries(equip.SeriesId));
-                        row.Cells[dgcLevel.Name].Value = new LevelColumnValue(equip.Level, equip.LevelMax);
-                        row.Cells[dgcScore.Name].Value = new ScoreColumnValue(mAnalyzer.GetScore(equip.InstanceId));
+                    int row_index = dataGridViewEquipment.Rows.Add();
+                    DataGridViewRow row = dataGridViewEquipment.Rows[row_index];
+                    row.Tag = equip;
+                    row.Cells[dgcItemID.Name].Value = equip.EquipmentId;
+                    row.Cells[dgcItem.Name].Value = equip.Name;
+                    row.Cells[dgcCategory.Name].Value = equip.Category;
+                    row.Cells[dgcType.Name].Value = equip.Type;
+                    row.Cells[dgcRarity.Name].Value = new RarityColumnValue((int)equip.BaseRarity, (int)equip.EvolutionNumber);
+                    row.Cells[dgcSynergy.Name].Value = new SynergyColumnValue(RealmSynergy.FromSeries(equip.SeriesId));
+                    row.Cells[dgcLevel.Name].Value = new LevelColumnValue(equip.Level, equip.LevelMax);
+                    row.Cells[dgcScore.Name].Value = new ScoreColumnValue(mAnalyzer.GetScore(equip.InstanceId));
 
-                        GridEquipStats stats = ComputeDisplayStats(equip);
-                        SetStatsForRow(row, equip, stats);
-                    }
-                }
-            }
-            else
-            {
-                foreach (DataEquipmentInformation equip in EquipList)
-                {
-                        int row_index = dataGridViewEquipment.Rows.Add();
-                        DataGridViewRow row = dataGridViewEquipment.Rows[row_index];
-                        row.Tag = equip;
-                        row.Cells[dgcItemID.Name].Value = equip.EquipmentId;
-                        row.Cells[dgcItem.Name].Value = equip.Name;
-                        row.Cells[dgcCategory.Name].Value = equip.Category;
-                        row.Cells[dgcType.Name].Value = equip.Type;
-                        row.Cells[dgcRarity.Name].Value = new RarityColumnValue((int)equip.BaseRarity, (int)equip.EvolutionNumber);
-                        row.Cells[dgcSynergy.Name].Value = new SynergyColumnValue(RealmSynergy.FromSeries(equip.SeriesId));
-                        row.Cells[dgcLevel.Name].Value = new LevelColumnValue(equip.Level, equip.LevelMax);
-                        row.Cells[dgcScore.Name].Value = new ScoreColumnValue(mAnalyzer.GetScore(equip.InstanceId));
-
-                        GridEquipStats stats = ComputeDisplayStats(equip);
-                        SetStatsForRow(row, equip, stats);
+                    GridEquipStats stats = ComputeDisplayStats(equip);
+                    SetStatsForRow(row, equip, stats);
                 }
             }
         }
@@ -547,7 +521,7 @@ namespace FFRKInspector.UI
 
         private void comboBoxFilterType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            FFRKViewInventory_Recalc();
+            RecalculateInventory();
         }
 
         private bool SetValueIfDirty<T>(object source, ref T dest)
