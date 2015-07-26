@@ -16,5 +16,7 @@ namespace FFRKInspector.GameData
         public uint GoldAmount;
         public uint NumberOfItems;
         public DataEnemyDropItem.DropItemType ItemType;
+        public string MateriaName;
+        public string PotionName;
     }
 }
