@@ -10,6 +10,13 @@ namespace FFRKInspector.GameData
     {
         public uint EnemyId;
         public string EnemyName;
+        public uint EnemyMaxHp;
+        //public string EnemyElemWeakness;
+        public List<string> EnemyElemWeakness;
+        public List<string> EnemyElemResist;
+        public List<string> EnemyElemAbsorb;
+        public List<string> EnemyElemNull;
+        public List<string> EnemyStatusImmunity;
 
         public override bool Equals(object obj)
         {

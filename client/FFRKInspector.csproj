@@ -98,11 +98,15 @@
     <Compile Include="GameData\AppInit\AppInitData.cs" />
     <Compile Include="GameData\AppInit\DataUser.cs" />
     <Compile Include="GameData\AppInit\EventData.cs" />
+    <Compile Include="GameData\DataDefAttributes.cs" />
+    <Compile Include="GameData\DataDungeonCaptures.cs" />
+    <Compile Include="GameData\DataDungeonSpScore.cs" />
     <Compile Include="GameData\DataPotion.cs" />
     <Compile Include="GameData\DataMateria.cs" />
     <Compile Include="GameData\Converters\EpochToDateTime.cs" />
     <Compile Include="GameData\Converters\EquipUsageListConverter.cs" />
     <Compile Include="GameData\DataBuddyEquipUsage.cs" />
+    <Compile Include="GameData\DataUserDungeon.cs" />
     <Compile Include="GameData\EquipmentUsage.cs" />
     <Compile Include="GameData\EquipStats.cs" />
     <Compile Include="GameData\StatCalculator.cs" />
@@ -167,6 +171,12 @@
     </Compile>
     <Compile Include="UI\FFRKViewAbout.Designer.cs">
       <DependentUpon>FFRKViewAbout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FFRKViewActiveBattle.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\FFRKViewActiveBattle.Designer.cs">
+      <DependentUpon>FFRKViewActiveBattle.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\FFRKViewBrowse.cs">
       <SubType>UserControl</SubType>
@@ -273,6 +283,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FFRKViewAbout.resx">
       <DependentUpon>FFRKViewAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FFRKViewActiveBattle.resx">
+      <DependentUpon>FFRKViewActiveBattle.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FFRKViewBrowse.resx">
       <DependentUpon>FFRKViewBrowse.cs</DependentUpon>

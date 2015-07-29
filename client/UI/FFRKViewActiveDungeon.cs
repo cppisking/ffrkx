@@ -46,8 +46,8 @@ namespace FFRKInspector.UI
             if (DesignMode)
                 return;
 
-            CenterControl(listViewActiveBattle, labelActiveBattleNotice);
-            CenterControl(listViewActiveBattle, labelNoDrops);
+            //CenterControl(listViewActiveBattle, labelActiveBattleNotice);
+            //CenterControl(listViewActiveBattle, labelNoDrops);
 
 
             if (FFRKProxy.Instance != null)
@@ -60,15 +60,17 @@ namespace FFRKInspector.UI
                 FFRKProxy.Instance.OnItemCacheRefreshed += FFRKProxy_OnItemCacheRefreshed;
 
                 PopulateActiveDungeonListView(FFRKProxy.Instance.GameState.ActiveDungeon);
-                PopulateActiveBattleListView(FFRKProxy.Instance.GameState.ActiveBattle);
+                PopulateMasteryConditionListView(FFRKProxy.Instance.GameState.ActiveDungeon);
+                //PopulateActiveBattleListView(FFRKProxy.Instance.GameState.ActiveBattle);
                 listViewAllDrops.VirtualListSize = 0;
 
                 BeginPopulateAllDropsListView(FFRKProxy.Instance.GameState.ActiveDungeon);
             }
             else
             {
-                PopulateActiveBattleListView(null);
+                //PopulateActiveBattleListView(null);
                 PopulateActiveDungeonListView(null);
+                PopulateMasteryConditionListView(null);
                 listViewAllDrops.VirtualListSize = 0;
             }
         }
@@ -119,7 +121,7 @@ namespace FFRKInspector.UI
                 stats.TimesRunWithHistogram++;
             }
 
-            lock(FFRKProxy.Instance.Cache.SyncRoot)
+            lock (FFRKProxy.Instance.Cache.SyncRoot)
             {
                 foreach (DropEvent drop in battle.Battle.Drops)
                 {
@@ -181,18 +183,19 @@ namespace FFRKInspector.UI
 
         void FFRKProxy_OnCompleteBattle(EventBattleInitiated battle)
         {
-            this.BeginInvoke((Action)(() => 
-            { 
-                PopulateActiveBattleListView(null);
+            this.BeginInvoke((Action)(() =>
+            {
+                //PopulateActiveBattleListView(null);
                 UpdateAllDropsForLastBattle(battle);
             }));
         }
 
         void FFRKProxy_OnLeaveDungeon()
         {
-            this.BeginInvoke((Action)(() => 
+            this.BeginInvoke((Action)(() =>
             {
                 PopulateActiveDungeonListView(null);
+                PopulateMasteryConditionListView(null);
                 UpdateAllDropsForLastBattle(null);
             }));
         }
@@ -200,27 +203,28 @@ namespace FFRKInspector.UI
         void FFRKProxy_OnListBattles(EventListBattles battles)
         {
             BeginPopulateAllDropsListView(battles);
-            this.BeginInvoke((Action)(() => 
-                { 
+            this.BeginInvoke((Action)(() =>
+                {
                     PopulateActiveDungeonListView(battles);
+                    PopulateMasteryConditionListView(battles);
                     BeginPopulateAllDropsListView(battles);
                 }));
         }
 
         void FFRKProxy_OnListDungeons(EventListDungeons dungeons)
         {
-            this.BeginInvoke((Action)(() => { PopulateActiveBattleListView(null); }));
+            //this.BeginInvoke((Action)(() => { PopulateActiveBattleListView(null); }));
         }
 
         void FFRKProxy_OnBattleEngaged(EventBattleInitiated battle)
         {
-            this.BeginInvoke((Action)(() => { PopulateActiveBattleListView(battle); }));
+            //this.BeginInvoke((Action)(() => { PopulateActiveBattleListView(battle); }));
         }
 
         private void PopulateActiveDungeonListView(EventListBattles dungeon)
         {
             listViewActiveDungeon.Items.Clear();
-            PopulateActiveBattleListView(null);
+            //PopulateActiveBattleListView(null);
             if (dungeon == null)
                 groupBoxDungeon.Text = "(No Active Dungeon)";
             else
@@ -239,59 +243,45 @@ namespace FFRKInspector.UI
 
                     listViewActiveDungeon.Items.Add(new ListViewItem(row));
                 }
+                foreach (ColumnHeader column in listViewActiveDungeon.Columns) { column.Width = -2; }
             }
         }
 
-        private void PopulateActiveBattleListView(EventBattleInitiated battle)
+        private void PopulateMasteryConditionListView(EventListBattles dungeon)
         {
-            listViewActiveBattle.Items.Clear();
-            if (battle == null)
+            listViewMasteryCondition.Items.Clear();
+            //PopulateActiveBattleListView(null);
+            if (dungeon == null)
             {
-                labelActiveBattleNotice.Visible = true;
-                labelNoDrops.Visible = false;
+                //groupBoxDungeon.Text = "(No Active Dungeon)";
                 return;
             }
-
-            listViewActiveBattle.View = View.Details;
-            List<DropEvent> drops = battle.Battle.Drops.ToList();
-            labelActiveBattleNotice.Visible = false;
-            if (drops.Count == 0)
+            else
             {
-                labelNoDrops.Visible = true;
-                return;
-            }
-
-            lock(FFRKProxy.Instance.Cache.SyncRoot)
-            {
-                foreach (DropEvent drop in battle.Battle.Drops)
+                //groupBoxDungeon.Text = dungeon.DungeonSession.Name;
+                foreach (DataDungeonCaptures capture in dungeon.UserDungeon.Captures)
                 {
-                    string Item;
-                    DataCache.Items.Key ItemKey = new DataCache.Items.Key { ItemId = drop.ItemId };
-                    DataCache.Items.Data ItemData = null;
-                    if (drop.ItemType == DataEnemyDropItem.DropItemType.Gold)
-                        Item = String.Format("{0} gold", drop.GoldAmount);
-                    else if (drop.ItemType == DataEnemyDropItem.DropItemType.Materia)
-                        Item = drop.MateriaName;
-                    else if (drop.ItemType == DataEnemyDropItem.DropItemType.Potion)
-                        Item = drop.PotionName;
-                    else if (FFRKProxy.Instance.Cache.Items.TryGetValue(ItemKey, out ItemData))
-                        Item = ItemData.Name;
-                    else
-                        Item = drop.ItemId.ToString();
-
-                    if (drop.NumberOfItems > 1)
-                        Item += String.Format(" x{0}", drop.NumberOfItems);
-                    string[] row = 
+                    foreach (DataDungeonSpScore spscore in capture.SpScore)
                     {
-                        Item,
-                        drop.Rarity.ToString(),
-                        drop.Round.ToString(),
-                        drop.EnemyName,
-                        "",
-                        ""
-                    };
-                    listViewActiveBattle.Items.Add(new ListViewItem(row));
+                        string battlename = null;
+                        foreach (DataBattle battle in dungeon.Battles)
+                        {
+                            if (battle.Id == spscore.BattleID)
+                            {
+                                battlename = battle.Name;
+                                break;
+                            }
+                        }
+                        string[] row =
+                            {
+                            battlename,
+                            spscore.Title
+                        };
+                        listViewMasteryCondition.Items.Add(new ListViewItem(row));
+                    }
                 }
+
+                foreach (ColumnHeader column in listViewMasteryCondition.Columns) { column.Width = -2; }
             }
         }
 
@@ -303,12 +293,6 @@ namespace FFRKInspector.UI
             int outerh = parent.Height;
             child.Left = parent.Location.X + (outerw - innerw) / 2;
             child.Top = parent.Location.Y + (outerh - innerh) / 2;
-        }
-
-        private void FFRKViewCurrentBattle_SizeChanged(object sender, EventArgs e)
-        {
-            CenterControl(listViewActiveBattle, labelActiveBattleNotice);
-            CenterControl(listViewActiveBattle, labelNoDrops);
         }
 
         private void checkBoxRepeatable_CheckedChanged(object sender, EventArgs e)
@@ -350,6 +334,7 @@ namespace FFRKInspector.UI
             }).ToList();
             listViewAllDrops.VirtualListSize = mFilteredItems.Collection.Count;
             listViewAllDrops.Invalidate();
+            foreach (ColumnHeader column in listViewAllDrops.Columns) { column.Width = -2; }
         }
     }
 }

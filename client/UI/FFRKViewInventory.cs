@@ -128,8 +128,11 @@ namespace FFRKInspector.UI
 
         private void RecalculateInventory()
         {
-            DataPartyDetails party = FFRKProxy.Instance.GameState.PartyDetails;
-            if (party != null) { UpdateEquipmentGrid(party.Equipments); }
+            if (FFRKProxy.Instance != null)
+            {
+                DataPartyDetails party = FFRKProxy.Instance.GameState.PartyDetails;
+                if (party != null) { UpdateEquipmentGrid(party.Equipments); }
+            }
         }
 
         private class SynergyColumnValue : IComparable

@@ -19,7 +19,7 @@ namespace FFRKInspector.UI
 
         public enum InspectorPage
         {
-            None,
+            CurrentDungeon,
             CurrentBattle,
             ItemSearch,
             Inventory,
@@ -33,7 +33,7 @@ namespace FFRKInspector.UI
         {
             InitializeComponent();
             tabPageAbout.Tag = InspectorPage.About;
-            tabPageBattle.Tag = InspectorPage.CurrentBattle;
+            tabPageDungeon.Tag = InspectorPage.CurrentBattle;
             tabPageDebug.Tag = InspectorPage.Debugging;
             tabPageEditEquipment.Tag = InspectorPage.Database;
             tabPageGacha.Tag = InspectorPage.Gacha;
@@ -69,7 +69,7 @@ namespace FFRKInspector.UI
             get
             {
                 if (tabControlFFRKInspector.SelectedTab == null)
-                    return InspectorPage.None;
+                    return InspectorPage.CurrentDungeon;
                 return (InspectorPage)tabControlFFRKInspector.SelectedTab.Tag;
             }
             set
@@ -85,6 +85,11 @@ namespace FFRKInspector.UI
             {
                 return (FFRKViewDatabase)tabPageEditEquipment.Controls[0];
             }
+        }
+
+        private void tabPageInventory_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
