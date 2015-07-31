@@ -28,23 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupBoxEnemyInfo = new System.Windows.Forms.GroupBox();
             this.listViewEnemyInfo = new System.Windows.Forms.ListView();
             this.columnEnemy = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnMaxHP = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnStatusWeakness = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnElemWeak = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnElemResist = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnElemNull = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnElemAbsorb = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.listViewDropInfo = new System.Windows.Forms.ListView();
             this.columnDropItem = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnDropRarity = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnDropRound = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnDropEnemy = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnElemWeak = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnElemResist = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnStatusImmune = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnElemNull = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnElemAbsorb = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.listViewPrevDrops = new FFRKInspector.UI.ListViewEx();
             this.groupBoxEnemyInfo.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxEnemyInfo
@@ -64,7 +68,7 @@
             this.listViewEnemyInfo.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnEnemy,
             this.columnMaxHP,
-            this.columnStatusImmune,
+            this.columnStatusWeakness,
             this.columnElemWeak,
             this.columnElemResist,
             this.columnElemNull,
@@ -86,14 +90,39 @@
             // 
             this.columnMaxHP.Text = "Max HP";
             // 
+            // columnStatusWeakness
+            // 
+            this.columnStatusWeakness.Text = "Status Weaknesses";
+            this.columnStatusWeakness.Width = 112;
+            // 
+            // columnElemWeak
+            // 
+            this.columnElemWeak.Text = "Elemental Weakness";
+            this.columnElemWeak.Width = 137;
+            // 
+            // columnElemResist
+            // 
+            this.columnElemResist.Text = "Resist";
+            this.columnElemResist.Width = 121;
+            // 
+            // columnElemNull
+            // 
+            this.columnElemNull.Text = "Null";
+            this.columnElemNull.Width = 104;
+            // 
+            // columnElemAbsorb
+            // 
+            this.columnElemAbsorb.Text = "Absorb";
+            this.columnElemAbsorb.Width = 104;
+            // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.listViewDropInfo);
-            this.groupBox1.Location = new System.Drawing.Point(6, 216);
+            this.groupBox1.Location = new System.Drawing.Point(6, 219);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(499, 225);
+            this.groupBox1.Size = new System.Drawing.Size(464, 221);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Drop Info";
@@ -109,7 +138,7 @@
             this.listViewDropInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewDropInfo.Location = new System.Drawing.Point(3, 16);
             this.listViewDropInfo.Name = "listViewDropInfo";
-            this.listViewDropInfo.Size = new System.Drawing.Size(493, 206);
+            this.listViewDropInfo.Size = new System.Drawing.Size(458, 202);
             this.listViewDropInfo.TabIndex = 0;
             this.listViewDropInfo.UseCompatibleStateImageBehavior = false;
             this.listViewDropInfo.View = System.Windows.Forms.View.Details;
@@ -132,42 +161,41 @@
             this.columnDropEnemy.Text = "Enemy";
             this.columnDropEnemy.Width = 120;
             // 
-            // columnElemWeak
+            // groupBox2
             // 
-            this.columnElemWeak.Text = "Elemental Weakness";
-            this.columnElemWeak.Width = 137;
+            this.groupBox2.Controls.Add(this.listViewPrevDrops);
+            this.groupBox2.Location = new System.Drawing.Point(476, 219);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(443, 221);
+            this.groupBox2.TabIndex = 2;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Previously Recorded Drops";
             // 
-            // columnElemResist
+            // listViewPrevDrops
             // 
-            this.columnElemResist.Text = "Resist";
-            this.columnElemResist.Width = 121;
-            // 
-            // columnStatusImmune
-            // 
-            this.columnStatusImmune.Text = "Status Immunities";
-            this.columnStatusImmune.Width = 112;
-            // 
-            // columnElemNull
-            // 
-            this.columnElemNull.Text = "Null";
-            this.columnElemNull.Width = 104;
-            // 
-            // columnElemAbsorb
-            // 
-            this.columnElemAbsorb.Text = "Absorb";
-            this.columnElemAbsorb.Width = 104;
+            this.listViewPrevDrops.DataBinding = null;
+            this.listViewPrevDrops.Location = new System.Drawing.Point(3, 17);
+            this.listViewPrevDrops.Name = "listViewPrevDrops";
+            this.listViewPrevDrops.SettingsKey = "FFRKViewActiveDungeon_AllDropsList";
+            this.listViewPrevDrops.Size = new System.Drawing.Size(434, 203);
+            this.listViewPrevDrops.TabIndex = 0;
+            this.listViewPrevDrops.UseCompatibleStateImageBehavior = false;
+            this.listViewPrevDrops.View = System.Windows.Forms.View.Details;
+            this.listViewPrevDrops.VirtualMode = true;
             // 
             // FFRKViewActiveBattle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBoxEnemyInfo);
             this.Name = "FFRKViewActiveBattle";
-            this.Size = new System.Drawing.Size(1038, 441);
+            this.Size = new System.Drawing.Size(1038, 671);
             this.Load += new System.EventHandler(this.FFRKViewCurrentBattle_Load);
             this.groupBoxEnemyInfo.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -185,9 +213,11 @@
         private System.Windows.Forms.ColumnHeader columnDropRound;
         private System.Windows.Forms.ColumnHeader columnDropEnemy;
         private System.Windows.Forms.ColumnHeader columnElemWeak;
-        private System.Windows.Forms.ColumnHeader columnStatusImmune;
+        private System.Windows.Forms.ColumnHeader columnStatusWeakness;
         private System.Windows.Forms.ColumnHeader columnElemResist;
         private System.Windows.Forms.ColumnHeader columnElemNull;
         private System.Windows.Forms.ColumnHeader columnElemAbsorb;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private ListViewEx listViewPrevDrops;
     }
 }

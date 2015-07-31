@@ -91,6 +91,12 @@ namespace FFRKInspector.UI
                 op.OnRequestComplete += RequestDungeonDrops_OnRequestComplete;
                 FFRKProxy.Instance.Database.BeginExecuteRequest(op);
             }
+            else
+            {
+                listViewAllDrops.VirtualListSize = 0;
+                mAllItems.Clear();
+                mFilteredItems.Collection.Clear();
+            }
         }
 
         void RequestDungeonDrops_OnRequestComplete(List<BasicItemDropStats> items)
@@ -213,7 +219,11 @@ namespace FFRKInspector.UI
 
         void FFRKProxy_OnListDungeons(EventListDungeons dungeons)
         {
-            //this.BeginInvoke((Action)(() => { PopulateActiveBattleListView(null); }));
+            this.BeginInvoke((Action)(() => {
+                PopulateActiveDungeonListView(null);
+                PopulateMasteryConditionListView(null);
+                BeginPopulateAllDropsListView(null);
+            }));
         }
 
         void FFRKProxy_OnBattleEngaged(EventBattleInitiated battle)
