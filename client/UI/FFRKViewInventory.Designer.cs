@@ -34,7 +34,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FFRKViewInventory));
             this.dataGridViewEquipment = new System.Windows.Forms.DataGridView();
             this.exportContext = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.exportInventoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportCSVInventoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportJSONInventoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.comboBoxUpgradeMode = new System.Windows.Forms.ComboBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -133,16 +134,23 @@
             // 
             this.exportContext.AccessibleName = "";
             this.exportContext.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exportInventoryToolStripMenuItem});
+            this.exportCSVInventoryToolStripMenuItem, this.exportJSONInventoryToolStripMenuItem});
             this.exportContext.Name = "exportContext";
             this.exportContext.Size = new System.Drawing.Size(161, 26);
             // 
-            // exportInventoryToolStripMenuItem
+            // exportCSVInventoryToolStripMenuItem
             // 
-            this.exportInventoryToolStripMenuItem.Name = "exportInventoryToolStripMenuItem";
-            this.exportInventoryToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.exportInventoryToolStripMenuItem.Text = "Export Inventory";
-            this.exportInventoryToolStripMenuItem.Click += new System.EventHandler(this.exportInventoryToolStripMenuItem_Click);
+            this.exportCSVInventoryToolStripMenuItem.Name = "exportCSVInventoryToolStripMenuItem";
+            this.exportCSVInventoryToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.exportCSVInventoryToolStripMenuItem.Text = "Export Inventory";
+            this.exportCSVInventoryToolStripMenuItem.Click += new System.EventHandler(this.exportCSVInventoryToolStripMenuItem_Click);
+            // 
+            // exportJSONInventoryToolStripMenuItem
+            // 
+            this.exportJSONInventoryToolStripMenuItem.Name = "exportJSONInventoryToolStripMenuItem";
+            this.exportJSONInventoryToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.exportJSONInventoryToolStripMenuItem.Text = "Export names and levels to JSON";
+            this.exportJSONInventoryToolStripMenuItem.Click += new System.EventHandler(this.exportJSONInventoryToolStripMenuItem_Click);
             // 
             // comboBoxUpgradeMode
             // 
@@ -665,7 +673,8 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox comboBoxFilterType;
         private System.Windows.Forms.ContextMenuStrip exportContext;
-        private System.Windows.Forms.ToolStripMenuItem exportInventoryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportCSVInventoryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportJSONInventoryToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgcItemID;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgcItem;

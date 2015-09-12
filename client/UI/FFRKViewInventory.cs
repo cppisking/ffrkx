@@ -600,7 +600,7 @@ namespace FFRKInspector.UI
             Process.Start("https://ffrki.wordpress.com/2015/05/30/about-the-inventory-analysis-algorithm/");
         }
 
-        private void exportInventoryToolStripMenuItem_Click(object sender, EventArgs e)
+        private void exportCSVInventoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
@@ -657,6 +657,56 @@ namespace FFRKInspector.UI
                     }
                 }
                 MessageBox.Show(String.Format("Inventory successfully exported."));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("FFRK Inspector encountered an error while exporting the data.  " + ex.Message);
+            }
+        }
+
+        private void exportJSONInventoryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SaveFileDialog dialog = new SaveFileDialog();
+                dialog.Filter = "Text files (*.txt)|*.txt";
+                dialog.FilterIndex = 0;
+                dialog.RestoreDirectory = false;
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    using (Stream s = dialog.OpenFile())
+                    using (StreamWriter w = new StreamWriter(s))
+                    {
+                        string name = "";
+                        string level = "";
+                        string format = "{{\"n\":\"{0}\",\"l\":{1}}}";
+                        DataGridViewRow dr = new DataGridViewRow();
+                        //open brace
+                        w.Write("[");
+
+                        for (int j = 0; j <= dataGridViewEquipment.Rows.Count - 1; j++)
+                        {
+                            if (j > 0)
+                            {
+                                w.WriteLine(',');
+                            }
+
+                            //clean up the item name
+                            name = dataGridViewEquipment.Rows[j].Cells["dgcItem"].Value.ToString()
+                                .Replace('"', '\"').Replace('＋', ' ').Replace('+', ' ').Trim();
+                            //take the first set of digits from the level value (leaving out the level cap segment /##)
+                            level = new string(dataGridViewEquipment.Rows[j].Cells["dgcLevel"].Value.ToString()
+                                .TakeWhile(val => char.IsNumber(val)).ToArray());
+
+                            w.Write(string.Format(format, name, level));
+                        }
+
+                        //close brace
+                        w.Write("]");
+
+                    }
+                }
+                MessageBox.Show(String.Format("Names and levels successfully exported to JSON."));
             }
             catch (Exception ex)
             {
