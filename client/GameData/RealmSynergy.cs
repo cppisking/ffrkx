@@ -25,6 +25,7 @@ namespace FFRKInspector.GameData
             FF11 = 11,
             FF12 = 12,
             FF13 = 13,
+            FF14 = 14,
         }
 
         public class SynergyValue
@@ -79,6 +80,7 @@ namespace FFRKInspector.GameData
                 new SynergyValue("XI", 111001, Value.FF11),
                 new SynergyValue("XII", 112001, Value.FF12),
                 new SynergyValue("XIII", 113001, Value.FF13),
+                new SynergyValue("XIV", 114001, Value.FF14),
             };
 
             foreach (SynergyValue value in values)
