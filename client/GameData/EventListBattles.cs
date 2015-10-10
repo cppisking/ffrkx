@@ -20,6 +20,9 @@ namespace FFRKInspector.GameData
         [JsonProperty("user")]
         public DataUser User;
 
+        [JsonProperty("user_dungeon")]
+        public DataUserDungeon UserDungeon;
+
         [JsonExtensionData]
         public Dictionary<string, JToken> UnknownValues;
     }

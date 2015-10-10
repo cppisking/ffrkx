@@ -195,6 +195,11 @@ namespace FFRKInspector.UI
             request.Name.Value = textBoxNameFilter.Text;
             foreach (RealmSynergy.SynergyValue value in listBoxRealmSynergy.SelectedItems)
                 request.Synergies.AddValue(value);
+            if (listBoxWorld.Enabled)
+            {
+                foreach (WorldListItem world in listBoxWorld.SelectedItems)
+                    request.Worlds.AddValue(world.WorldId);
+            }
             if (listBoxBattle.Enabled)
             {
                 foreach (BattleListItem battle in listBoxBattle.SelectedItems)

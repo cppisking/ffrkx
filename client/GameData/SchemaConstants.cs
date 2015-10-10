@@ -52,7 +52,9 @@ namespace FFRKInspector.GameData
             Whip = 12,
             Thrown = 13,
             Book = 14,
+            Gun = 15,
             Ball = 30,
+            Hairpin = 31,
             Shield = 50,
             Hat = 51,
             Helm = 52,
@@ -112,5 +114,62 @@ namespace FFRKInspector.GameData
             Normal = 1,
             Elite = 2
         }
+
+        public enum ElementID : ushort
+        {
+            Fire = 100,
+            Ice = 101,
+            Lightning = 102,
+            Earth = 103,
+            Wind = 104,
+            Water = 105,
+            Holy = 106,
+            Dark = 107,
+            Poison = 108
+        }
+
+        public enum ElementVulnerability : ushort
+        {
+            Vulnerable = 1,
+            Resist = 6,
+            Null = 11,
+            Absorb = 21
+        }
+
+        public enum StatusID : ushort
+        {
+            Poison = 200,
+            Silence = 201,
+            Paralyze = 202,
+            Confuse = 203,
+            Haste = 204,
+            Slow = 205,
+            Stop = 206,
+            Protect = 207,
+            Shell = 208,
+            Reflect = 209,
+            Blind = 210,
+            Sleep = 211,
+            Petrify = 212,
+            Doom = 213,
+            Instant_KO = 214,
+            Beserk = 215,
+            Regen = 216,
+            Reraise = 217,
+            Float = 218,
+            Weak = 219,
+            Zombie = 220,
+            Mini = 221,
+            Toad = 222,
+            Curse = 223,
+            Slownumb = 224,
+            Blink = 225
+        }
+
+        public enum StatusVulnerability : ushort
+        {
+            Immune = 1
+        }
+
     }
 }

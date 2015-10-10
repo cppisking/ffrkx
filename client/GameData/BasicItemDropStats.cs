@@ -35,6 +35,8 @@ namespace FFRKInspector.GameData
         public uint TimesRunWithHistogram;
         public ushort BattleStamina;
 
+        public float DropsPerRunF; //This is only used in the filter to select the drops/run column.
+
         public Utility.Histogram Histogram;
 
         public double DropsAverage
